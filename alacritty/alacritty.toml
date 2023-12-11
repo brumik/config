@@ -1,0 +1,9 @@
+font.normal.family = 'UbuntuMono Nerd Font'
+font.normal.style = 'Regular'
+font.bold.family = 'UbuntuMono Nerd Font'
+font.bold.style = 'Bold'
+font.italic.family = 'UbuntuMono Nerd Font'
+font.italic.style = 'Italic'
+font.bold_italic.family = 'UbuntuMono Nerd Font'
+font.bold_italic.style = 'Bold Italic'
+font.size = 15.0
