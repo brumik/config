@@ -16,7 +16,8 @@ README of that specific folder.
 
 ## Neovim setup
 
-For neovim I am using currently an undedited NvChad setup.
+Currently I have saved 2 neovim setups: the main one which is hand built and 
+the NvChad version which is a small configuration upon the NvChad settigs.
 The install instructions are here: https://nvchad.com/docs/quickstart/install
 
 If using terminal `alacritty` then the nerd font should be installed there (see `alacritty/README`).
