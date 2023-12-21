@@ -7,4 +7,4 @@ vim.cmd("set relativenumber")
 vim.cmd("set scrolloff=10")
 vim.cmd("set colorcolumn=120")
 vim.g.mapleader = " "
-
+vim.keymap.set('n', "<CR>", ":noh<CR><CR>")
