@@ -17,6 +17,14 @@ size = 15
   family = "UbuntuMono Nerd Font"
   style = "Bold Italic"
 
+[window]
+startup_mode = "Fullscreen"
+decorations = "None"
+  
+  [window.padding]
+  x = 5
+  y = 5
+
 [colors.primary]
 background = "#2e3440"
 foreground = "#d8dee9"

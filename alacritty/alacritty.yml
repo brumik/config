@@ -112,7 +112,13 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: true
 
-      
+window:
+  startup_mode: "Fullscreen"
+  decorations: "None"
+  padding:
+    x: 5
+    y: 5
+
 colors:
   primary:
     background: "#2e3440"
