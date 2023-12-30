@@ -6,10 +6,17 @@ local highlights = require "custom.highlights"
 
 M.ui = {
   theme = "onenord",
-  theme_toggle = { "onenord", "onenordnlight" },
+  theme_toggle = { "onenord", "onenord_light" },
 
   hl_override = highlights.override,
   hl_add = highlights.add,
+
+  tabufline = {
+    enabled = false,
+  },
+  statusline = {
+    theme = "minimal",
+  },
 }
 
 M.plugins = "custom.plugins"
