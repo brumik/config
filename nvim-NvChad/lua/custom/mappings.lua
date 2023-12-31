@@ -4,6 +4,10 @@ local M = {}
 M.general = {
   n = {
     ["Q"] = { "@q", "Replay @q" },
+    ["<C-h>"] = { ":TmuxNavigateLeft<CR>", "Tmux jump window left" },
+    ["<C-j>"] = { ":TmuxNavigateUp<CR>", "Tmux jump window up" },
+    ["<C-k>"] = { ":TmuxNavigateDown<CR>", "Tmux jump window down" },
+    ["<C-l>"] = { ":TmuxNavigateRight<CR>", "Tmux jump window right" },
   },
 }
 
