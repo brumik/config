@@ -26,6 +26,7 @@ M.disabled = {
     ["<leader>x"] = "",
     ["<S-tab>"] = "",
     ["<tab>"] = "",
+    ["<leader>pt"] = "",
   },
   x = {
     ["j"] = "",
