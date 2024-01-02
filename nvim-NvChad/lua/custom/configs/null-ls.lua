@@ -11,8 +11,8 @@ local sources = {
   -- Lua
   b.formatting.stylua,
 
-  -- cpp
-  b.formatting.clang_format,
+  b.formatting.black,
+  b.diagnostics.flake8,
 }
 
 null_ls.setup {
