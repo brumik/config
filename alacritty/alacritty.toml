@@ -1,5 +1,5 @@
 [env]
-TERM = xterm-256color
+TERM = "xterm-256color"
 
 [font]
 size = 15
@@ -21,7 +21,6 @@ size = 15
   style = "Bold Italic"
 
 [window]
-startup_mode = "Fullscreen"
 decorations = "None"
   
   [window.padding]
