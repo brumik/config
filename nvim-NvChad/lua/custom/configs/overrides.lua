@@ -48,6 +48,7 @@ M.mason = {
 		"typescript-language-server",
 		"deno",
 		"prettier",
+    "eslint_d",
 
     "black",
     "flake8",
