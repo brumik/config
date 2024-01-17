@@ -2,22 +2,31 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, outputs, ... }:
+{ pkgs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./nvidia.nix
+      ./smb/default.nix
     ];
 
-  nixpkgs.overlays = [
-    outputs.overlays.unstable-packages
-  ];
 
   # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/vda";
-  boot.loader.grub.useOSProber = true;
+  boot.loader = {
+    # Disable default system efi loader	and enable grub and allof it to scan with os prober the whole disk to discover other installations
+    #systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+    grub = {
+      enable = true;
+      devices = [ "nodev" ];
+      efiSupport = true;
+      useOSProber = true;
+    };
+  };
+  # Set time so windows works correctly
+  time.hardwareClockInLocalTime = true;
 
   networking.hostName = "nixos-levente"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -90,14 +99,6 @@
     extraGroups = [ "networkmanager" "wheel" "docker" ];
   };
 
-  # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "levente";
-
-  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -106,29 +107,14 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     curl
-    alacritty
     git
-    # For nvim chad (mason needs unzip and npm)
-    ripgrep
-    unzip
-    nodejs
-    gnumake
-    # end
+    vim
 
-    # virtualisation
-    distrobox
+    # needs virtualisation.docker.enable from config
     docker-compose
-    # end
-    firefox
-    microsoft-edge
-    spotify
-    discord
-    slack
-    todoist
-    signal-desktop
-    unstable.obsidian
- ];
-
+    # distrobox
+  ];
+  
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "UbuntuMono" ]; })
   ];
@@ -144,7 +130,8 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
- 
+  programs.hyprland.enable = true;
+   
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.

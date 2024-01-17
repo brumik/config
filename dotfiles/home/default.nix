@@ -3,6 +3,23 @@
   home.homeDirectory = "/home/levente";
   home.stateVersion = "22.11";
   programs.home-manager.enable = true;
+  home.packages = with pkgs; [
+    firefox
+    microsoft-edge
+    spotify
+    discord
+    slack
+    todoist
+    signal-desktop
+    unstable.obsidian
+    bitwarden
+  ];
+
+  imports = [
+    ./nvim/default.nix
+    ./hyprland/default.nix
+    ./alacritty/default.nix
+  ];
 
   # for setting up terminal
   programs.zsh = {
@@ -14,11 +31,6 @@
     };
   };
  
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-  };
-
   programs.tmux = {
     enable = true;
     plugins = with pkgs; [
@@ -32,6 +44,5 @@
     '';
   };
   
-  home.file.".gitconfig".source = ./.gitconfig;
-  home.file.".config/alacritty/alacritty.yml".source = ./alacritty/alacritty.yml;
+  home.file.".gitconfig".source = ./git/.gitconfig;
 }

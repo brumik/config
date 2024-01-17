@@ -13,6 +13,12 @@
       url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, ... } @ inputs:
@@ -21,20 +27,25 @@
     system = "x86_64-linux";
   in {
   # Your custom packages and modifications, exported as overlays
-  overlays = import ./overlays {inherit inputs;};
+  overlays = import ./utils/overlays {inherit inputs;};
 
   nixosConfigurations = {
       nixos-levente = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = {inherit inputs outputs;};
+        # specialArgs = {inherit inputs outputs;};
         modules = [
-          ./configuration.nix
+          ./system/configuration.nix
           home-manager.nixosModules.home-manager
           {
+            nixpkgs.overlays = [
+              outputs.overlays.unstable-packages
+              outputs.overlays.additions
+            ];
+
             # home-manager.extraSpecialArgs = {inherit inputs outputs;};
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.levente = import ./home.nix;
+            home-manager.users.levente = import ./home;
           }
         ];
       };

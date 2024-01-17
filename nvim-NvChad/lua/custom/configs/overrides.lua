@@ -27,6 +27,7 @@ M.treesitter = {
 		"c",
 		"markdown",
 		"markdown_inline",
+    "nix",
 	},
 	indent = {
 		enable = true,
@@ -52,6 +53,9 @@ M.mason = {
 
     "black",
     "flake8",
+
+    -- for nix files
+    "nil",
 	},
 }
 
