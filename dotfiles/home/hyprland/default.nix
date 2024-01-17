@@ -8,6 +8,8 @@
     pkgs.hyprpaper
     pkgs.rofi
     pkgs.find-app
+    pkgs.pipewire
+    pkgs.wireplumber
   ];
 
   home.file.".config/hypr/hyprpaper.conf".source = ./hyprpaper.conf;
