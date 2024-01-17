@@ -1,7 +1,7 @@
 [user]
 	name = Levente Berky
 	email = levente.berky@gmail.com
-  signingkey = /home/levente/.ssh/id_ed25519.pub
+  signingkey = ~/.ssh/id_ed25519.pub
 [core]
 	editor = vi
 [push]
@@ -20,5 +20,7 @@
 
 [gpg]
   format = ssh
+  [ssh]
+    allowedSignersFile = "~/.ssh/allowed_signers"
 [commit]
   gpgsign = true
