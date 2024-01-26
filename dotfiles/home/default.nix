@@ -41,6 +41,7 @@
     extraConfig = ''
       set -g default-terminal "$TERM"
       set -ag terminal-overrides ",$TERM:Tc"
+      set -g mouse on
     '';
   };
   

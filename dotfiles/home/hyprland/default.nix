@@ -156,7 +156,7 @@ $mainMod = CTRL_ALT
 
 # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
 bind = $mainMod, F, exec, find-app firefox
-bind = $mainMod, Q, exec, find-app alacritty
+bind = $mainMod, T, exec, find-app alacritty
 bind = $mainMod, M, exec, find-app spotify
 bind = $mainMod, C, killactive, 
 bind = $mainMod, M, exit, 

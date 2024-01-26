@@ -94,6 +94,7 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.levente = {
+    uid = 1000;
     isNormalUser = true;
     description = "Levente";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
