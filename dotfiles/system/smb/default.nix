@@ -4,7 +4,7 @@
   # For mount.cifs, required unless domain name resolution is not needed.
   environment.systemPackages = [ pkgs.cifs-utils ];
   fileSystems."/home/levente/brumspace" = {
-      device = "//BrumsDisks/video";
+      device = "//brumspace/video";
       fsType = "cifs";
       options = let
         # this line prevents hanging on network split

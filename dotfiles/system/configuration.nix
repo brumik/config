@@ -9,14 +9,14 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./nvidia.nix
-      ./smb/default.nix
+      # ./smb/default.nix
     ];
 
 
   # Bootloader.
   boot.loader = {
     # Disable default system efi loader	and enable grub and allof it to scan with os prober the whole disk to discover other installations
-    #systemd-boot.enable = true;
+    systemd-boot.enable = false;
     efi.canTouchEfiVariables = true;
     grub = {
       enable = true;
@@ -62,6 +62,7 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
+  programs.dconf.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -100,6 +101,16 @@
     extraGroups = [ "networkmanager" "wheel" "docker" ];
   };
 
+  security.sudo.extraRules= [
+    {  users = [ "levente" ];
+      commands = [
+         { command = "ALL" ;
+           options= [ "NOPASSWD" ]; # "SETENV" # Adding the following could be a good idea
+        }
+      ];
+    }
+  ];
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -131,9 +142,15 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-  programs.hyprland.enable = true;
-  services.gnome.gnome-keyring.enable = true;
-  security.pam.services.sddm.enableGnomeKeyring = true;
+  # programs.hyprland.enable = true;
+
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "client";
+  };
+
+  # services.gnome.gnome-keyring.enable = true;
+  # security.pam.services.sddm.enableGnomeKeyring = true;
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
@@ -154,5 +171,4 @@
   system.stateVersion = "23.11"; # Did you read the comment?
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
 }
