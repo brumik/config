@@ -11,6 +11,9 @@
     signal-desktop
     unstable.obsidian
     bitwarden
+
+    # for random scripts
+    python3
   ];
 
   imports = [

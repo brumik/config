@@ -4,8 +4,8 @@
   home.packages = [
     pkgs.gnomeExtensions.user-themes
     pkgs.gnomeExtensions.paperwm
-    pkgs.papirus-icon-theme
     pkgs.unstable.nordic
+    pkgs.papirus-icon-theme
   ];
 
   gtk = {
@@ -17,10 +17,14 @@
     };
 
     iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
+      name = "Nordic-green";
+      package = pkgs.unstable.nordic;
     };
-
+    
+    cursorTheme = {
+      name = "Nordic-cursors";
+      package = pkgs.unstable.nordic;
+    };
 
     gtk3.extraConfig = {
       Settings = ''
