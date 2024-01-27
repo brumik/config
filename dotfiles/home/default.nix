@@ -22,4 +22,5 @@
     ./klara.nix
     ./zsh.nix
   ];
-}
+
+ }
