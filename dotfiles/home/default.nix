@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   home.username = "levente";
   home.homeDirectory = "/home/levente";
-  home.stateVersion = "22.11";
+  home.stateVersion = "23.11";
   programs.home-manager.enable = true;
   home.packages = with pkgs; [
     firefox
@@ -25,5 +25,4 @@
     ./klara.nix
     ./zsh.nix
   ];
-
  }
