@@ -53,7 +53,7 @@
             # home-manager.extraSpecialArgs = {inherit inputs outputs;};
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.levente = import ./home/users/katerina.nix;
+            home-manager.users.katerina = import ./home/users/katerina.nix;
           }
         ];
       };

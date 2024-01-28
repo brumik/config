@@ -1,6 +1,6 @@
 { ... }:
 {
-  imoprts = [
+  imports = [
     ./hardware/anteater.nix
     ./modules/base-configuration.nix
     ./modules/steam.nix
