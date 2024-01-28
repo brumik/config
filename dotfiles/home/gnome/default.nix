@@ -45,8 +45,8 @@
   #   QT_STYLE_OVERRIDE = "Nordic";
   # };
 
-  home.file."/home/levente/.local/share/backgrounds/wallpaper.jpg".source = ./wallpaper.jpg;
-  home.file."/home/levente/.local/share/backgrounds/wallpaper-nordic.jpg".source = ./wallpaper-nordic.jpg;
+  home.file.".local/share/backgrounds/wallpaper.jpg".source = ./wallpaper.jpg;
+  home.file.".local/share/backgrounds/wallpaper-nordic.jpg".source = ./wallpaper-nordic.jpg;
 
   dconf.settings = {
     "org/gnome/settings-daemon/plugins/power" = {
@@ -55,8 +55,8 @@
     "org/gnome/desktop/background" = {
       color-shading-type = "solid";
       picture-options = "zoom";
-      picture-uri = "file:///home/levente/.local/share/backgrounds/wallpaper-nordic.jpg";
-      picture-uri-dark = "file:///home/levente/.local/share/backgrounds/wallpaper-nordic.jpg";
+      # picture-uri = "file:///home/levente/.local/share/backgrounds/wallpaper-nordic.jpg";
+      # picture-uri-dark = "file:///home/levente/.local/share/backgrounds/wallpaper-nordic.jpg";
       primary-color = "#000000000000";
       secondary-color = "#000000000000";
     };
@@ -64,7 +64,7 @@
     "org/gnome/desktop/screensaver" = {
       color-shading-type = "solid";
       picture-options = "zoom";
-      picture-uri = "file:///home/levente/.local/share/backgrounds/wallpaper-nordic.jpg";
+      # picture-uri = "file:///home/levente/.local/share/backgrounds/wallpaper-nordic.jpg";
       primary-color = "#000000000000";
       secondary-color = "#000000000000";
     };
@@ -136,7 +136,7 @@
     };
 
     "org/gnome/shell/extensions/paperwm/workspaces/workspace-main" = {
-      background = "/home/levente/.local/share/backgrounds/wallpaper-nordic.jpg";
+      background = ".local/share/backgrounds/wallpaper-nordic.jpg";
       index = 0;
       name = "Main";
       show-top-bar = true;
@@ -144,14 +144,14 @@
 
 
     "org/gnome/shell/extensions/paperwm/workspaces/workspace-code" = {
-      background = "/home/levente/.local/share/backgrounds/wallpaper.jpg";
+      background = ".local/share/backgrounds/wallpaper.jpg";
       color = "rgb(198,70,0)";
       index = 1;
       name = "Code";
     };
 
     "org/gnome/shell/extensions/paperwm/workspaces/workspace-other" = {
-      background = "/home/levente/.local/share/backgrounds/wallpaper-nordic.jpg";
+      background = ".local/share/backgrounds/wallpaper-nordic.jpg";
       color = "rgb(97,53,131)";
       index = 2;
       name = "Other";
