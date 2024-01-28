@@ -11,10 +11,10 @@
   gtk = {
     enable = true;
 
-    theme = {
-      name = "Nordic";
-      package = pkgs.unstable.nordic;
-    };
+    # theme = {
+    #   name = "Nordic";
+    #   package = pkgs.unstable.nordic;
+    # };
 
     iconTheme = {
       name = "Nordic-green";
@@ -39,10 +39,24 @@
     };
   };
 
-  home.sessionVariables = {
-    GTK_THEME = "Nordic";
-    QT_STYLE_OVERRIDE = "Nordic";
+  # home.sessionVariables = {
+  #   GTK_THEME = "Nordic";
+  #   QT_STYLE_OVERRIDE = "Nordic";
+  # };
+
+  # Temporary fix for Nordic theme until it comes to stable branch
+  home.file."/home/levente/.config/gtk-4.0/gtk.css".source = ./Nordic-v40/gtk-4.0/gtk.css;
+  home.file."/home/levente/.config/gtk-4.0/gtk-dark.css".source = ./Nordic-v40/gtk-4.0/gtk-dark.css;
+
+  home.file."/home/levente/.config/gtk-3.0/gtk.css".source = ./Nordic-v40/gtk-3.0/gtk.css;
+  home.file."/home/levente/.config/gtk-3.0/gtk-dark.css".source = ./Nordic-v40/gtk-3.0/gtk-dark.css;
+
+  home.file."/home/levente/.config/assets" = {
+    source = ./Nordic-v40/assets;
+    recursive = true;
   };
+
+  # End Temporary fix
 
   home.file."/home/levente/.local/share/backgrounds/wallpaper.jpg".source = ./wallpaper.jpg;
   home.file."/home/levente/.local/share/backgrounds/wallpaper-nordic.jpg".source = ./wallpaper-nordic.jpg;
