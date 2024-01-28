@@ -49,6 +49,9 @@
   home.file."/home/levente/.local/share/backgrounds/wallpaper-nordic.jpg".source = ./wallpaper-nordic.jpg;
 
   dconf.settings = {
+    "org/gnome/settings-daemon/plugins/power" = {
+      sleep-inactive-ac-type = "nothing";
+    };
     "org/gnome/desktop/background" = {
       color-shading-type = "solid";
       picture-options = "zoom";
