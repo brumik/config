@@ -4,6 +4,7 @@
   home.packages = [
     pkgs.gnomeExtensions.user-themes
     pkgs.gnomeExtensions.paperwm
+    pkgs.gnomeExtensions.switcher
     pkgs.unstable.nordic
     pkgs.papirus-icon-theme
   ];
@@ -44,20 +45,6 @@
   #   QT_STYLE_OVERRIDE = "Nordic";
   # };
 
-  # Temporary fix for Nordic theme until it comes to stable branch
-  home.file."/home/levente/.config/gtk-4.0/gtk.css".source = ./Nordic-v40/gtk-4.0/gtk.css;
-  home.file."/home/levente/.config/gtk-4.0/gtk-dark.css".source = ./Nordic-v40/gtk-4.0/gtk-dark.css;
-
-  home.file."/home/levente/.config/gtk-3.0/gtk.css".source = ./Nordic-v40/gtk-3.0/gtk.css;
-  home.file."/home/levente/.config/gtk-3.0/gtk-dark.css".source = ./Nordic-v40/gtk-3.0/gtk-dark.css;
-
-  home.file."/home/levente/.config/assets" = {
-    source = ./Nordic-v40/assets;
-    recursive = true;
-  };
-
-  # End Temporary fix
-
   home.file."/home/levente/.local/share/backgrounds/wallpaper.jpg".source = ./wallpaper.jpg;
   home.file."/home/levente/.local/share/backgrounds/wallpaper-nordic.jpg".source = ./wallpaper-nordic.jpg;
 
@@ -84,8 +71,10 @@
       enable-hot-corners = true;
     };
 
-    "org.gnome.desktop.wm.preferences" = {
+    "org/gnome/desktop/wm/preferences" = {
       theme = "Nordic";
+      num-workspaces = 3;
+      workspace-names = [ "Main" "Code" "Other" ];
     };
 
     "org/gnome/desktop/notifications" = {
@@ -98,21 +87,87 @@
 
     "org/gnome/mutter" = {
       attach-modal-dialogs = false;
-      dynamic-workspaces = true;
+      dynamic-workspaces = false;
       edge-tiling = false;
       workspaces-only-on-primary = false;
     };
 
     "org/gnome/shell" = {
-      disable-user-extension = false;
+      disable-user-extensions = false;
       enabled-extensions = [
         "paperwm@paperwm.github.com"
         "user-theme@gnome-shell-extensions.gcampax.github.com" 
+        "switcher@landau.fi"
       ];
+    };
+
+    "org/gnome/shell/extensions/paperwm" = {
+      default-focus-mode = 1;
+      disable-scratch-in-overview = true;
+      disable-topbar-styling = false;
+      gesture-horizontal-fingers = 4;
+      only-scratch-in-overview = false;
+      open-window-position = 0;
+      overview-ensure-viewport-animation = 1;
+      restore-attach-modal-dialogs = "false";
+      restore-edge-tiling = "false";
+      show-focus-mode-icon = true;
+      show-window-position-bar = false;
+      use-default-background = false;
+      winprops = [ ''
+        {"wm_class":"firefox","preferredWidth":"49%","scratch_layer":false}
+      '' ''
+        {"wm_class":"Alacritty","preferredWidth":"49%"}
+      '' ''
+        {"wm_class":"Slack","preferredWidth":"24%"}
+      '' ''
+        {"wm_class":"Spotify","preferredWidth":"24%"}
+      '' ];
+    };
+    "org/gnome/shell/extensions/paperwm/workspaces" = {
+      list = [
+        "workspace-main"
+        "workspace-code"
+        "workspace-other"
+      ];
+    };
+
+    "org/gnome/shell/extensions/paperwm/workspaces/workspace-main" = {
+      background = "/home/levente/.local/share/backgrounds/wallpaper-nordic.jpg";
+      index = 0;
+      name = "Main";
+      show-top-bar = true;
+    };
+
+
+    "org/gnome/shell/extensions/paperwm/workspaces/workspace-code" = {
+      background = "/home/levente/.local/share/backgrounds/wallpaper.jpg";
+      color = "rgb(198,70,0)";
+      index = 1;
+      name = "Code";
+    };
+
+    "org/gnome/shell/extensions/paperwm/workspaces/workspace-other" = {
+      background = "/home/levente/.local/share/backgrounds/wallpaper-nordic.jpg";
+      color = "rgb(97,53,131)";
+      index = 2;
+      name = "Other";
     };
 
     "org/gnome/shell/extensions/user-theme" = {
       name = "Nordic";
+    };
+
+    "org/gnome/shell/extensions/switcher" = {
+      activate-after-ms = mkUint32 200;
+      activate-by-key = mkUint32 2;
+      activate-immediately = true;
+      fade-enable = true;
+      font-size = mkUint32 24;
+      icon-size = mkUint32 24;
+      matching = mkUint32 1;
+      max-width-percentage = mkUint32 25;
+      show-executables = true;
     };
   };
 }
