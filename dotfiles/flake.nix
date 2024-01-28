@@ -23,7 +23,7 @@
         inherit system;
         # specialArgs = {inherit inputs outputs;};
         modules = [
-          ./system/configuration.nix
+          ./system/brumstellar-config.nix
           home-manager.nixosModules.home-manager
           {
             nixpkgs.overlays = [
@@ -34,7 +34,26 @@
             # home-manager.extraSpecialArgs = {inherit inputs outputs;};
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.levente = import ./home;
+            home-manager.users.levente = import ./home/users/levente.nix;
+          }
+        ];
+      };
+      nixos-katerina = nixpkgs.lib.nixosSystem {
+        inherit system;
+        # specialArgs = {inherit inputs outputs;};
+        modules = [
+          ./system/anteater.config.nix
+          home-manager.nixosModules.home-manager
+          {
+            nixpkgs.overlays = [
+              outputs.overlays.unstable-packages
+              outputs.overlays.additions
+            ];
+
+            # home-manager.extraSpecialArgs = {inherit inputs outputs;};
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.levente = import ./home/users/katerina.nix;
           }
         ];
       };
