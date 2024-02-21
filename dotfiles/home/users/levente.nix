@@ -21,7 +21,7 @@
   imports = [
     ../nvim.nix
     ../alacritty/default.nix
-    ../gnome/default.nix
+    ../gnome/levente.nix
     ../tmux.nix
     ../git/default.nix
     ../klara.nix
