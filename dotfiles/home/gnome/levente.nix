@@ -4,7 +4,7 @@
   home.packages = [
     pkgs.gnomeExtensions.user-themes
     pkgs.gnomeExtensions.paperwm
-    pkgs.gnomeExtensions.switcher
+    # pkgs.gnomeExtensions.switcher
     pkgs.unstable.nordic
     pkgs.papirus-icon-theme
   ];
@@ -100,7 +100,7 @@
       enabled-extensions = [
         "paperwm@paperwm.github.com"
         "user-theme@gnome-shell-extensions.gcampax.github.com" 
-        "switcher@landau.fi"
+        # "switcher@landau.fi"
       ];
     };
 
@@ -161,17 +161,17 @@
       name = "Nordic";
     };
 
-    "org/gnome/shell/extensions/switcher" = {
-      activate-after-ms = mkUint32 200;
-      activate-by-key = mkUint32 2;
-      activate-immediately = true;
-      fade-enable = true;
-      font-size = mkUint32 24;
-      icon-size = mkUint32 24;
-      matching = mkUint32 1;
-      max-width-percentage = mkUint32 25;
-      show-executables = true;
-    };
+    # "org/gnome/shell/extensions/switcher" = {
+    #   activate-after-ms = mkUint32 200;
+    #   activate-by-key = mkUint32 2;
+    #   activate-immediately = true;
+    #   fade-enable = true;
+    #   font-size = mkUint32 24;
+    #   icon-size = mkUint32 24;
+    #   matching = mkUint32 1;
+    #   max-width-percentage = mkUint32 25;
+    #   show-executables = true;
+    # };
   };
 }
 

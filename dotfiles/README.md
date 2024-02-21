@@ -18,4 +18,4 @@ Make sure you start you ssh agent from the terminal (one time?):
 * `ssh-add -l`
 
 Then make sure that the key is added both as signing key and auth key to github.
-Check if the name is the same in `.gitconfig` where specifies the `user.signingkey`
+Make sure that the name of the default key is `id` and `id.pub`. This is what is set for signing in `.gitconfig` and as a default key in `config` for ssh.

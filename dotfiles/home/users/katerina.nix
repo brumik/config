@@ -13,6 +13,7 @@
     onlyoffice-bin
     google-chrome
     synology-drive-client
+    anki-bin
   ];
 
   imports = [
