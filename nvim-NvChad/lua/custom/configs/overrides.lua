@@ -51,11 +51,15 @@ M.mason = {
 		"prettier",
     "eslint_d",
 
+    -- python
     "black",
     "flake8",
 
     -- for nix files
     "nil",
+
+    -- ruby
+    "rubocop"
 	},
 }
 

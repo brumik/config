@@ -12,8 +12,13 @@ local sources = {
   -- Lua
   b.formatting.stylua,
 
+  -- python
   b.formatting.black,
   b.diagnostics.flake8,
+
+  -- ruby
+  b.diagnostics.rubocop,
+  b.formatting.rubocop,
 }
 
 null_ls.setup {
