@@ -3,8 +3,7 @@
 {
   home.packages = [
     pkgs.gnomeExtensions.user-themes
-    pkgs.gnomeExtensions.paperwm
-    # pkgs.gnomeExtensions.switcher
+    pkgs.gnomeExtensions.tiling-assistant
     pkgs.unstable.nordic
     pkgs.papirus-icon-theme
   ];
@@ -55,8 +54,8 @@
     "org/gnome/desktop/background" = {
       color-shading-type = "solid";
       picture-options = "zoom";
-      # picture-uri = "file:///home/levente/.local/share/backgrounds/wallpaper-nordic.jpg";
-      # picture-uri-dark = "file:///home/levente/.local/share/backgrounds/wallpaper-nordic.jpg";
+      picture-uri = ".local/share/backgrounds/wallpaper.jpg";
+      picture-uri-dark = ".local/share/backgrounds/wallpaper.jpg";
       primary-color = "#000000000000";
       secondary-color = "#000000000000";
     };
@@ -64,7 +63,7 @@
     "org/gnome/desktop/screensaver" = {
       color-shading-type = "solid";
       picture-options = "zoom";
-      # picture-uri = "file:///home/levente/.local/share/backgrounds/wallpaper-nordic.jpg";
+      picture-uri = "file:///home/levente/.local/share/backgrounds/wallpaper.jpg";
       primary-color = "#000000000000";
       secondary-color = "#000000000000";
     };
@@ -98,80 +97,73 @@
     "org/gnome/shell" = {
       disable-user-extensions = false;
       enabled-extensions = [
-        "paperwm@paperwm.github.com"
         "user-theme@gnome-shell-extensions.gcampax.github.com" 
-        # "switcher@landau.fi"
+        "tiling-assistant@leleat-on-github"
       ];
-    };
-
-    "org/gnome/shell/extensions/paperwm" = {
-      default-focus-mode = 1;
-      disable-scratch-in-overview = true;
-      disable-topbar-styling = false;
-      gesture-horizontal-fingers = 4;
-      only-scratch-in-overview = false;
-      open-window-position = 0;
-      overview-ensure-viewport-animation = 1;
-      restore-attach-modal-dialogs = "false";
-      restore-edge-tiling = "false";
-      show-focus-mode-icon = true;
-      show-window-position-bar = false;
-      use-default-background = false;
-      winprops = [ ''
-        {"wm_class":"firefox","preferredWidth":"49%","scratch_layer":false}
-      '' ''
-        {"wm_class":"Alacritty","preferredWidth":"49%"}
-      '' ''
-        {"wm_class":"Slack","preferredWidth":"24%"}
-      '' ''
-        {"wm_class":"Spotify","preferredWidth":"24%"}
-      '' ];
-    };
-    "org/gnome/shell/extensions/paperwm/workspaces" = {
-      list = [
-        "workspace-main"
-        "workspace-code"
-        "workspace-other"
-      ];
-    };
-
-    "org/gnome/shell/extensions/paperwm/workspaces/workspace-main" = {
-      background = ".local/share/backgrounds/wallpaper-nordic.jpg";
-      index = 0;
-      name = "Main";
-      show-top-bar = true;
-    };
-
-
-    "org/gnome/shell/extensions/paperwm/workspaces/workspace-code" = {
-      background = ".local/share/backgrounds/wallpaper.jpg";
-      color = "rgb(198,70,0)";
-      index = 1;
-      name = "Code";
-    };
-
-    "org/gnome/shell/extensions/paperwm/workspaces/workspace-other" = {
-      background = ".local/share/backgrounds/wallpaper-nordic.jpg";
-      color = "rgb(97,53,131)";
-      index = 2;
-      name = "Other";
     };
 
     "org/gnome/shell/extensions/user-theme" = {
       name = "Nordic";
     };
 
-    # "org/gnome/shell/extensions/switcher" = {
-    #   activate-after-ms = mkUint32 200;
-    #   activate-by-key = mkUint32 2;
-    #   activate-immediately = true;
-    #   fade-enable = true;
-    #   font-size = mkUint32 24;
-    #   icon-size = mkUint32 24;
-    #   matching = mkUint32 1;
-    #   max-width-percentage = mkUint32 25;
-    #   show-executables = true;
-    # };
+    "org/gnome/shell/extensions/tiling-assistant" = {
+      activate-layout0 = [];
+      activate-layout1 = [];
+      activate-layout2 = [];
+      activate-layout3 = [];
+      activate-layout4 = [];
+      active-window-hint = 2;
+      active-window-hint-border-size = 3;
+      active-window-hint-color = "rgb(143,188,187)";
+      active-window-hint-inner-border-size = 3;
+      adapt-edge-tiling-to-favorite-layout = true;
+      auto-tile = [];
+      center-window = [];
+      debugging-free-rects = [];
+      debugging-show-tiled-rects = [];
+      default-move-mode = 2;
+      dynamic-keybinding-behavior = 4;
+      enable-advanced-experimental-features = true;
+      enable-raise-tile-group = false;
+      enable-tile-animations = false;
+      enable-tiling-popup = false;
+      enable-untile-animations = false;
+      estore-window = [];
+      favorite-layouts = [ "4" ];
+      import-layout-examples = false;
+      last-version-installed = 44;
+      maximize-with-gap = false;
+      screen-bottom-gap = 4;
+      screen-left-gap = 12;
+      screen-right-gap = 12;
+      screen-top-gap = 4;
+      search-popup-layout = [];
+      show-layout-panel-indicator = false;
+      tile-bottom-half = [];
+      tile-bottom-half-ignore-ta = [];
+      tile-bottomleft-quarter = [];
+      tile-bottomleft-quarter-ignore-ta = [];
+      tile-bottomright-quarter = [];
+      tile-bottomright-quarter-ignore-ta = [];
+      tile-edit-mode = [];
+      tile-left-half = [ "<Super>Left" ];
+      tile-left-half-ignore-ta = [];
+      tile-maximize = [];
+      tile-maximize-horizontally = [];
+      tile-maximize-vertically = [];
+      tile-right-half = [ "<Super>Right" ];
+      tile-right-half-ignore-ta = [];
+      tile-top-half = [];
+      tile-top-half-ignore-ta = [];
+      tile-topleft-quarter = [];
+      tile-topleft-quarter-ignore-ta = [];
+      tile-topright-quarter = [];
+      tile-topright-quarter-ignore-ta = [];
+      toggle-always-on-top = [];
+      toggle-tiling-popup = [];
+      vertical-preview-area = 15;
+      window-gap = 12;
+    };
   };
 }
 
