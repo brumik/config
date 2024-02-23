@@ -13,9 +13,6 @@
     bitwarden
     onlyoffice-bin
     synology-drive-client
-
-    # for random scripts
-    python3
   ];
 
   imports = [

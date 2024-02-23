@@ -7,6 +7,7 @@
     ./modules/dualboot.nix
     ./modules/tailscale.nix
     ./modules/docker.nix
+    ./modules/ollama.nix
 
     ./users/levente.nix
   ];
