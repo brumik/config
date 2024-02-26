@@ -28,6 +28,7 @@
           {
             nixpkgs.overlays = [
               outputs.overlays.unstable-packages
+              outputs.overlays.modifications
               outputs.overlays.additions
             ];
 
@@ -47,6 +48,7 @@
           {
             nixpkgs.overlays = [
               outputs.overlays.unstable-packages
+              outputs.overlays.modifications
               outputs.overlays.additions
             ];
 
