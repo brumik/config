@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    microsoft-edge
+    chromium
     slack
     docker-compose
   ];
