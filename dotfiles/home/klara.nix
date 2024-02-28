@@ -1,9 +1,9 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    vscode
-    insomnia
+    unstable.vscode
+    unstable.insomnia
     chromium
-    slack
+    unstable.slack
     docker-compose
   ];
 }

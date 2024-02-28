@@ -9,7 +9,7 @@
     discord
     todoist
     signal-desktop
-    unstable.obsidian
+    obsidian
     bitwarden
 
     # for random scripts

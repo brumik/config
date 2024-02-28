@@ -6,8 +6,6 @@
   home.packages = with pkgs; [
     firefox
     spotify
-    discord
-    todoist
     signal-desktop
     unstable.obsidian
     bitwarden

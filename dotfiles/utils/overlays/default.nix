@@ -23,7 +23,7 @@
       system = final.system;
       config.allowUnfree = true;
       # For obsidian
-      config.permittedInsecurePackages = [ "electron-25.9.0" ];
+      # config.permittedInsecurePackages = [ "electron-25.9.0" ];
     };
   };
 }
