@@ -15,7 +15,7 @@
   ];
 
   imports = [
-    ../nvim.nix
+    ../nvim/default.nix
     ../alacritty/default.nix
     ../gnome/levente.nix
     ../tmux.nix
