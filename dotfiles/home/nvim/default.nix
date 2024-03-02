@@ -41,12 +41,6 @@
         mode = [ "n" ];
         options.desc = "Clear search highlight in buffer";
       }
-      {
-        action = "vim.lsp.buf.format";
-        key = "<leader>fm";
-        lua = true;
-        mode = [ "n" ];
-      }
     ];
 
     plugins = { 
@@ -63,15 +57,6 @@
       };
       which-key = {
         enable = true;
-      };
-      none-ls = {
-        enable = true;
-        sources = {
-          formatting = {
-            prettier.enable = true;
-            stylua.enable = true;
-          };
-        };
       };
     };
   };

@@ -2,6 +2,15 @@
 
 {
   programs.nixvim = {
+    keymaps = [
+      {
+        action = "vim.lsp.buf.format";
+        key = "<leader>fm";
+        lua = true;
+        mode = [ "n" ];
+        options.desc = "Format file";
+      }
+    ];
     plugins = { 
       lsp = {
         enable = true;
@@ -9,6 +18,19 @@
           nil_ls.enable = true; 
           gopls.enable = true;
           tsserver.enable = true;
+        };
+      };
+      none-ls = {
+        enable = true;
+        sources = {
+          formatting = {
+            prettier.enable = true;
+            stylua.enable = true;
+            gofmt.enable = true;
+          };
+          diagnostics = {
+            eslint_d.enable = true;
+          };
         };
       };
       cmp-nvim-lsp.enable = true;
