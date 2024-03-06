@@ -23,6 +23,13 @@
 [commit]
   gpgsign = true
 
+# Remembers last resolution of a conflict and applies it when sees it again
+[rerere]
+  enabled = true
+
+[column]
+  ui = auto
+
 # Make sure that when programs want to pull from git they do with my ssh
 [url "git@github.com:"]
   insteadOf = https://github.com/

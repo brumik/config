@@ -12,7 +12,7 @@
     onlyoffice-bin
     synology-drive-client
     qmk
-  ];
+ ];
 
   imports = [
     ../nvim/default.nix
