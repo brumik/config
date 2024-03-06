@@ -8,7 +8,6 @@
 
   programs.nixvim = {
     keymaps = [ 
-     # Telescope
       {
         action = "<cmd>Telescope find_files hidden=true no_ignore=true<CR>";
         key = "<leader>fa";
@@ -16,10 +15,10 @@
         options.desc = "Find in hidden files";
       }
       {
-        action = "<cmd>Telescope find_files hidden=true no_ignore=true<CR>";
-        key = "<leader>fa";
+        action = "<cmd>Telescope buffers<CR>";
+        key = "<leader>fb";
         mode = [ "n" ];
-        options.desc = "Find in hidden files";
+        options.desc = "Find in open buffers";
       }
       {
         action = "<cmd>Telescope live_grep<CR>";
