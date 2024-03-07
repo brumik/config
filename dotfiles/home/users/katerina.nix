@@ -14,10 +14,11 @@
     google-chrome
     synology-drive-client
     anki-bin
+    protonvpn-ui
   ];
 
   imports = [
-    ../nvim.nix
+    ../nvim/default.nix
     ../alacritty/default.nix
     ../gnome/katerina.nix
     ../tmux.nix

@@ -12,6 +12,7 @@
     onlyoffice-bin
     synology-drive-client
     qmk
+    unstable.protonvpn-gui
  ];
 
   imports = [
