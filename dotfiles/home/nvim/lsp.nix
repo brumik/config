@@ -1,6 +1,9 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
+  home.packages = with pkgs; [
+    lua54Packages.jsregexp
+  ];
   programs.nixvim = {
     keymaps = [
       {
@@ -98,6 +101,9 @@
         };
       };
       cmp-nvim-lsp.enable = true;
+      # we need a snipet engine to avoid crashing vim when language server sends snippets
+      luasnip.enable = true;
+      cmp_luasnip.enable = true;
       nvim-cmp = {
         enable = true;
         autoEnableSources = true;
