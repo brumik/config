@@ -23,5 +23,6 @@
     ../git/default.nix
     ../klara.nix
     ../zsh.nix
+    ../spotdl/default.nix
   ];
 }

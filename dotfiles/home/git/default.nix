@@ -1,4 +1,6 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+
+{
   home.packages = [
     pkgs.git
     pkgs.lazygit
