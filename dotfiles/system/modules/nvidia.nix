@@ -41,5 +41,12 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  #environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  # With this enabled some apps have problebs with top bar and app indicator.
+  # This is fixing flickering though if needed.
+  # environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+  # Alternative is to use Xorg Gnome session until electron apps are adopting
+
+  # Global screen flickering is fixed by:
+  # monitor on 120hz and Gnome on 60hz seem to fix the partial flickering issue
 }

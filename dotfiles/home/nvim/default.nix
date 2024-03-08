@@ -11,7 +11,10 @@
 
 
   home.packages = with pkgs; [
+    # clipboard provider for wayland
     wl-clipboard
+    # clipboard providre for xorg
+    xclip
   ];
 
   programs.nixvim = {
