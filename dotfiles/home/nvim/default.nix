@@ -7,6 +7,7 @@
     ./lsp.nix
     ./neotree.nix
     ./telescope.nix
+    ./comment.nix
   ];
 
 
