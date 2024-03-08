@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
-    ollama 
+    unstable.ollama 
   ];
   systemd.user.services.ollama = {
     enable = true;

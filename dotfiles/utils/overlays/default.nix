@@ -14,6 +14,9 @@
       commandLineArgs =
         "--disable-web-security --user-data-dir=/tmp/chromiumuser";
     };
+    ollama = prev.ollama.override {
+      acceleration = "cuda";
+    };
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
@@ -22,8 +25,6 @@
     unstable = import inputs.nixpkgs-unstable {
       system = final.system;
       config.allowUnfree = true;
-      # For obsidian
-      # config.permittedInsecurePackages = [ "electron-25.9.0" ];
     };
   };
 }
