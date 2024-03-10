@@ -8,7 +8,10 @@
     };
 
     shellAliases = {
+      # fuzzy find with preview and open in nvim
       fzn = "nvim $(fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}')";
+      # fuzzy find with preview
+      fzp = "fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'";
       cat = "bat";
     };
   };
@@ -17,5 +20,6 @@
     fzf
     zoxide
     bat
+    jq
   ];
 }

@@ -12,6 +12,7 @@
     onlyoffice-bin
     synology-drive-client
     unstable.protonvpn-gui
+    bitwarden-cli
  ];
 
   imports = [

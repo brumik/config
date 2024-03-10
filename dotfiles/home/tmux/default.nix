@@ -17,6 +17,7 @@
       set -g mouse on
 
       bind C-o display-popup -E "tms"
+      bind C-q display-popup -E "ollama run dolphin-mixtral"
     '';
   };
 }
