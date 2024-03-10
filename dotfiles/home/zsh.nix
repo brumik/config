@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ ... }: {
   programs.zsh = {
     enable = true;
     oh-my-zsh = {
@@ -6,6 +6,8 @@
       plugins = [ "git" "zoxide" ];
       theme = "robbyrussell";
     };
+    enableCompletion = true;
+    enableAutosuggestions = true;
 
     shellAliases = {
       # fuzzy find with preview and open in nvim
@@ -14,12 +16,28 @@
       fzp = "fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'";
       cat = "bat";
     };
+
+    # This extra config loads the secrets file that you can generate on your own.
+    # With this you can load env variables with API keys that are sensitive
+    # Yes this is circumventing the nix mindset but secrets are hardly specific
+    # to your system config, but rather to somebody's elese system's.
+    initExtra = ''
+      if [ -f ~/.zshsecrets ]; then
+          source ~/.zshsecrets
+      else
+        print "404: ~/.zshsecrets not found."
+      fi
+    '';
   };
 
-  home.packages = with pkgs; [
-    fzf
-    zoxide
-    bat
-    jq
-  ];
+  programs.bat = {
+    enable = true;
+    config = {
+      theme = "Nord";
+    };
+  };
+
+  programs.zoxide.enable = true;
+  programs.fzf.enable = true;
+  programs.jq.enable = true;
 }
