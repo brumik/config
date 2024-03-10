@@ -12,7 +12,7 @@
     onlyoffice-bin
     synology-drive-client
     unstable.protonvpn-gui
-    bitwarden-cli
+    bw-setup-secrets
  ];
 
   imports = [
