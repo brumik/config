@@ -11,18 +11,18 @@
     bitwarden
     onlyoffice-bin
     synology-drive-client
-    qmk
     unstable.protonvpn-gui
  ];
 
   imports = [
-    ../nvim/default.nix
-    ../alacritty/default.nix
+    ../nvim
+    ../alacritty
     ../gnome/levente.nix
-    ../tmux.nix
-    ../git/default.nix
+    ../tmux
+    ../git
     ../klara.nix
     ../zsh.nix
-    ../spotdl/default.nix
+    ../spotdl
+    ../qmk
   ];
 }
