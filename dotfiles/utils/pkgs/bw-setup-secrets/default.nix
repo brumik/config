@@ -39,13 +39,13 @@ writeShellApplication {
       else
           touch "$path"
           bw get attachment "$file" --itemid "$noteid" --output "$path"
-          echo "File $path completed"
       fi
     }
 
     file1="id_ed25519"
     path1="$HOME/.ssh/id_ed25519"
     copy_file "$path1" "$file1"
+    chmod 600 "$path1"
 
     file1="id_ed25519.pub"
     path1="$HOME/.ssh/id_ed25519.pub"
