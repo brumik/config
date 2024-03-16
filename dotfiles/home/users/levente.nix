@@ -13,6 +13,10 @@
     synology-drive-client
     unstable.protonvpn-gui
     bw-setup-secrets
+    vlc
+
+    handbrake
+    jellyfin-media-player
  ];
 
   imports = [

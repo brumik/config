@@ -19,6 +19,8 @@ writeShellApplication {
     # Unlock first the vault
     # shellcheck disable=SC2155
     export BW_SESSION="$(bw unlock --raw)"
+    
+    bw sync
 
     # Copy the note to secretsFile if not exist, otherwise skip
     if [ -f "$secretsFile" ]; then
@@ -54,6 +56,11 @@ writeShellApplication {
     file1="allowed_signers"
     path1="$HOME/.ssh/allowed_signers"
     copy_file "$path1" "$file1"
+
+    file1="smb-secrets"
+    path1="$HOME/smb-secrets"
+    copy_file "$path1" "$file1"
+
 
     export BW_SESSION=""
   '';
