@@ -5,6 +5,8 @@
   # https://github.com/NVIDIA/nvidia-docker/issues/1447
   systemd.enableUnifiedCgroupHierarchy = false;
 
+  # needs to add user group when used
+  # users.users.levente.extraGroups = ["docker"];
   environment.systemPackages = with pkgs; [
     docker-compose
     # distrobox
