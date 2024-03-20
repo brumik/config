@@ -5,7 +5,7 @@
   users.users.levente = {
     isNormalUser = true;
     description = "Levente";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker"];
   };
 
   security.sudo.extraRules= [

@@ -61,6 +61,10 @@ writeShellApplication {
     path1="$HOME/smb-secrets"
     copy_file "$path1" "$file1"
 
+    file1="config"
+    path1="$HOME/.ssh/config"
+    copy_file "$path1" "$file1"
+    chmod 600 "$path1"
 
     export BW_SESSION=""
   '';

@@ -15,6 +15,7 @@
       # fuzzy find with preview
       fzp = "fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'";
       cat = "bat";
+      cd = "z";
     };
 
     # This extra config loads the secrets file that you can generate on your own.

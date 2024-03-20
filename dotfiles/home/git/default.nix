@@ -7,5 +7,4 @@
   ];
 
   home.file.".gitconfig".source = ./.gitconfig;
-  home.file.".ssh/config".source = ./config;
 }
