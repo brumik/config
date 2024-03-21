@@ -2,7 +2,7 @@
 TERM = "xterm-256color"
 
 [font]
-size = 15
+size = 18
 
   [font.normal]
   family = "UbuntuMono Nerd Font"
@@ -21,8 +21,6 @@ size = 15
   style = "Bold Italic"
 
 [window]
-decorations = "None"
-  
   [window.padding]
   x = 5
   y = 5
