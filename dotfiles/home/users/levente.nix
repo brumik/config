@@ -14,6 +14,7 @@
     unstable.protonvpn-gui
     bw-setup-secrets
     vlc
+    transmission_4-qt
     jellyfin-media-player
  ];
 
