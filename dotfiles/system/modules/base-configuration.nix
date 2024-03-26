@@ -99,7 +99,7 @@
   ];
   
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "UbuntuMono" ]; })
+    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
  
   environment.shells = with pkgs; [ zsh ];

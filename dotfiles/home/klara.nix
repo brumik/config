@@ -5,5 +5,6 @@
     chromium
     unstable.slack
     docker-compose
+    # unstable.android-studio
   ];
 }

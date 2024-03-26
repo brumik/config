@@ -7,7 +7,7 @@
       theme = "robbyrussell";
     };
     enableCompletion = true;
-    enableAutosuggestions = true;
+    enableAutosuggestions = false;
 
     shellAliases = {
       # fuzzy find with preview and open in nvim
