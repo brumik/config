@@ -7,7 +7,7 @@
   programs.tmux = {
     enable = true;
     plugins = with pkgs; [
-      unstable.tmuxPlugins.nord
+      tmuxPlugins.nord
       tmuxPlugins.sensible
       tmuxPlugins.vim-tmux-navigator
     ];
@@ -24,6 +24,9 @@
       # custom commands
       bind C-o display-popup -E "tms"
       bind C-q display-popup -E "ollama run dolphin-mixtral"
+
+      # styling
+      set-option -g status-position top
     '';
   };
 }
