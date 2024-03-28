@@ -128,7 +128,7 @@
             '';
             modes = ["i" "s"];
           };
-          "<C-p>" = {
+          "<M-C-n>" = {
             action = ''
               function(fallback)
                 if cmp.visible() then

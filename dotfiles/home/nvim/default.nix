@@ -8,6 +8,7 @@
     ./neotree.nix
     ./telescope.nix
     ./comment.nix
+    ./harpoon.nix
   ];
 
 
