@@ -34,6 +34,10 @@
       }
     ];
 
+    plugins.which-key.registrations = {
+      "<leader>f" = "> Find in (telescope)";
+    };
+
     plugins = {
       telescope = {
         enable = true;

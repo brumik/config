@@ -32,6 +32,7 @@
       scrolloff = 10;
       termguicolors = true;
       smartindent = true;
+      cursorline = true;
     };
 
     clipboard.register = "unnamedplus";
