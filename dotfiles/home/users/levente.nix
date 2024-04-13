@@ -11,7 +11,6 @@
     bitwarden
     onlyoffice-bin
     synology-drive-client
-    unstable.protonvpn-gui
     bw-setup-secrets
     vlc
     transmission_4-qt
