@@ -66,11 +66,6 @@ writeShellApplication {
     copy_file "$path1" "$file1"
     chmod 600 "$path1"
 
-    file1="wireguard-protonvpn-de-privatekey"
-    path1="$HOME/wireguard-protonvpn-de-privatekey"
-    copy_file "$path1" "$file1"
-    chmod 400 "$path1"
-
     export BW_SESSION=""
   '';
 }

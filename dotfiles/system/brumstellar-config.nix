@@ -9,7 +9,6 @@
     ./modules/docker-nvidia.nix
     ./modules/ollama.nix
     ./modules/smb.nix
-    ./modules/protonvpn.nix
 
     ./users/levente.nix
   ];
