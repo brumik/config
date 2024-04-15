@@ -32,6 +32,9 @@ window:
     y: 0
   dynamic_padding: true
 
+shell:
+  program: tmux
+
 # nord color palette
 colors:
   primary:

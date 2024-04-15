@@ -15,6 +15,7 @@
       set -g default-terminal "$TERM"
       set -ag terminal-overrides ",$TERM:Tc"
       set -g mouse on
+      set -g window-size largest
       
       # remap prefix from 'C-b' to 'C-a'
       unbind C-b
