@@ -12,16 +12,16 @@
     telegram-desktop
     onlyoffice-bin
     google-chrome
-    synology-drive-client
+    unstable.synology-drive-client
     anki-bin
-    protonvpn-ui
+    unstable.protonvpn-gui
   ];
 
   imports = [
     ../nvim/default.nix
     ../alacritty/default.nix
     ../gnome/katerina.nix
-    ../tmux.nix
+    ../tmux/default.nix
     ../zsh.nix
   ];
 }
