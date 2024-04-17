@@ -15,8 +15,7 @@
       set -g default-terminal "$TERM"
       set -ag terminal-overrides ",$TERM:Tc"
       set -g mouse on
-      set -g window-size largest
-      
+
       # remap prefix from 'C-b' to 'C-a'
       unbind C-b
       set-option -g prefix C-a
@@ -24,7 +23,7 @@
 
       # custom commands
       bind C-o display-popup -E "tms"
-      bind C-q display-popup -E "ollama run dolphin-mixtral"
+      bind C-q display-popup -h 90% -w 75% -E "ollama run mistral" 
 
       # styling
       set-option -g status-position top
