@@ -8,4 +8,8 @@
 
     ./users/katerina.nix
   ];
+
+  services.ollama = {
+    enable = true;
+  };
 }
