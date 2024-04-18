@@ -82,18 +82,20 @@
       lsp = {
         enable = true;
         servers = {
-          nil_ls.enable = true; 
-          gopls.enable = true;
-          tsserver.enable = true;
+          nil_ls.enable = true; # nix
+          gopls.enable = true; # go
+          tsserver.enable = true; # ts
+          pyright.enable = true; # python
         };
       };
       none-ls = {
         enable = true;
         sources = {
           formatting = {
-            prettier.enable = true;
-            stylua.enable = true;
-            gofmt.enable = true;
+            black.enable = true; # python
+            prettier.enable = true; # js
+            stylua.enable = true; # lua
+            gofmt.enable = true; # go
           };
           diagnostics = {
             eslint_d.enable = true;

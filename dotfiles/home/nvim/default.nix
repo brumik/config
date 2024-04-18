@@ -50,9 +50,8 @@
     ];
 
     plugins = { 
-      lualine = {
-        enable = true;
-      };
+      # nix.enable = true;
+      lualine.enable = true;
       treesitter = {
         enable = true;
         indent = true;
@@ -61,9 +60,7 @@
         enable = true;
         tmuxNavigatorSaveOnSwitch = 1;
       };
-      which-key = {
-        enable = true;
-      };
+      which-key.enable = true;
     };
   };
 }

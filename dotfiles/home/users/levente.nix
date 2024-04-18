@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, inputs, ... }: {
   home.username = "levente";
   home.homeDirectory = "/home/levente";
   home.stateVersion = "23.11";
@@ -15,6 +15,7 @@
     vlc
     transmission_4-qt
     jellyfin-media-player
+    ytsum
  ];
 
   imports = [
