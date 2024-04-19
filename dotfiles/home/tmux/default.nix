@@ -26,7 +26,8 @@
       bind C-q display-popup -h 90% -w 75% -E "ollama run mistral" 
 
       # styling
-      set-option -g status-position top
+      set -g status-position top
+      set -g status-left-length 20
     '';
   };
 }
