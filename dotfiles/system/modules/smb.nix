@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 
 ## README 
 # This config depends on: server ip address for smb, uid of user and gid and user home path

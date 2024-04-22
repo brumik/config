@@ -29,6 +29,7 @@
         specialArgs = {inherit inputs outputs username;};
         modules = [
           ./system/brumstellar-config.nix
+          ./system/users/levente.nix
           home-manager.nixosModules.home-manager
           {
             nixpkgs.overlays = [
@@ -44,11 +45,12 @@
           }
         ];
       });
-      nixos-katerina = nixpkgs.lib.nixosSystem {
+      nixos-katerina = (let username = "katerina"; in nixpkgs.lib.nixosSystem {
         inherit system;
-        # specialArgs = {inherit inputs outputs;};
+        specialArgs = {inherit inputs outputs username;};
         modules = [
           ./system/anteater.config.nix
+          ./system/users/katerina.nix
           home-manager.nixosModules.home-manager
           {
             nixpkgs.overlays = [
@@ -63,7 +65,7 @@
             home-manager.users.katerina = import ./home/users/katerina.nix;
           }
         ];
-      };
+      });
     };
   };
 }

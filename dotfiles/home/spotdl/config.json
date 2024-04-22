@@ -4,7 +4,7 @@
     "auth_token": null,
     "user_auth": false,
     "headless": false,
-    "cache_path": "/home/levente/.spotdl/.spotipy",
+    "cache_path": "~/.spotdl/.spotipy",
     "no_cache": false,
     "max_retries": 3,
     "use_cache_file": false,

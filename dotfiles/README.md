@@ -18,5 +18,9 @@ Make sure you start you ssh agent from the terminal (one time?):
 * `ssh-add -l`
 
 Then make sure that the key is added both as signing key and auth key to github.
+
+**NOTE: Following steps should be taken care of with bitwarden script**
+
+
 Make sure that the name of the default key is `id_ed25519` and `id_ed25519.pub`. This is what is set for signing in `.gitconfig` and as a default key in `config` for ssh.
 To set up completely the ssh signing you need to add to the `~/.ssh/allowed_signers` file `* PUBLIC_KEY_CONTENTS`.

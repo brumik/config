@@ -1,5 +1,7 @@
 { config, ... }:
 {
+  # If using docker, enable docker containers
+  virtualisation.docker.enableNvidia = true;
 
   # Enable OpenGL
   hardware.opengl = {
@@ -13,6 +15,7 @@
     enable = true;
     videoDrivers = ["nvidia"];
   };
+
 
   hardware.nvidia = {
     # Modesetting is required.

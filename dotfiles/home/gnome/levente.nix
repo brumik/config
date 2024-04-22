@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, username, ... }:
   with lib.hm.gvariant;
 {
   home.packages = [
@@ -63,7 +63,7 @@
     "org/gnome/desktop/screensaver" = {
       color-shading-type = "solid";
       picture-options = "zoom";
-      picture-uri = "file:///home/levente/.local/share/backgrounds/wallpaper.jpg";
+      picture-uri = "file:///home/${username}/.local/share/backgrounds/wallpaper.jpg";
       primary-color = "#000000000000";
       secondary-color = "#000000000000";
     };
