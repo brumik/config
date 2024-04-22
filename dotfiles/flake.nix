@@ -24,9 +24,9 @@
   overlays = import ./utils/overlays {inherit inputs;};
 
   nixosConfigurations = {
-      nixos-levente = nixpkgs.lib.nixosSystem {
+      nixos-levente = (let username = "levente"; in nixpkgs.lib.nixosSystem {
         inherit system;
-        # specialArgs = {inherit inputs outputs;};
+        specialArgs = {inherit inputs outputs username;};
         modules = [
           ./system/brumstellar-config.nix
           home-manager.nixosModules.home-manager
@@ -37,13 +37,13 @@
               outputs.overlays.additions
             ];
 
-            home-manager.extraSpecialArgs = {inherit inputs outputs;};
+            home-manager.extraSpecialArgs = {inherit inputs outputs username;};
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.levente = import ./home/users/levente.nix;
           }
         ];
-      };
+      });
       nixos-katerina = nixpkgs.lib.nixosSystem {
         inherit system;
         # specialArgs = {inherit inputs outputs;};

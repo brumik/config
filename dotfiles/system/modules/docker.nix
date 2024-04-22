@@ -1,8 +1,8 @@
-{ pkgs, ... }: {
+{ pkgs, username, ... }: {
   virtualisation.docker.enable = true;
   
   # needs to add user group when used
-  # users.users.levente.extraGroups = ["docker"];
+  users.users.${username}.extraGroups = ["docker"];
   environment.systemPackages = with pkgs; [
     docker-compose
     # distrobox

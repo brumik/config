@@ -12,7 +12,7 @@
   services.xserver = {
     enable = true;
     videoDrivers = ["nvidia"];
- };
+  };
 
   hardware.nvidia = {
     # Modesetting is required.
