@@ -22,8 +22,8 @@
       bind-key C-a send-prefix
 
       # custom commands
-      bind C-o display-popup -E "tms switch"
-      bind C-i display-popup -E "tms"
+      bind C-a display-popup -E "tms switch"
+      bind C-o display-popup -E "tms"
       bind C-q display-popup -h 91% -w 75% -E "ollama run mistral" 
 
       # styling

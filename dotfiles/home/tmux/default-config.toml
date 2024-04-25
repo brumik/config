@@ -1,5 +1,6 @@
 search_submodules = false
 recursive_submodules = false
+default_session = "home"
 
 [[search_dirs]]
 path = "/home/levente/Documents"
