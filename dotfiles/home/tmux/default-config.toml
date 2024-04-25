@@ -1,4 +1,15 @@
-search_paths = [
-    '/home/levente/Documents',
-    '/home/levente/config',
-]
+search_submodules = false
+recursive_submodules = false
+
+[[search_dirs]]
+path = "/home/levente/Documents"
+depth = 1
+
+[[search_dirs]]
+path = "/home/levente/config"
+depth = 1
+
+[[search_dirs]]
+path = "/home/levente/Documents/Klara"
+depth = 1
+

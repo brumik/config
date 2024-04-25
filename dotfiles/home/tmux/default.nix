@@ -1,8 +1,8 @@
 { pkgs, ... }: {
   home.packages = [
-    pkgs.tmux-sessionizer
+    pkgs.unstable.tmux-sessionizer
   ];
-  home.file.".config/tms/default-config.toml".source = ./default-config.toml;
+  home.file.".config/tms/config.toml".source = ./default-config.toml;
 
   programs.tmux = {
     enable = true;
@@ -22,8 +22,9 @@
       bind-key C-a send-prefix
 
       # custom commands
-      bind C-o display-popup -E "tms"
-      bind C-q display-popup -h 90% -w 75% -E "ollama run mistral" 
+      bind C-o display-popup -E "tms switch"
+      bind C-i display-popup -E "tms"
+      bind C-q display-popup -h 91% -w 75% -E "ollama run mistral" 
 
       # styling
       set -g status-position top
