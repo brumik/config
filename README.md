@@ -1,26 +1,26 @@
-# Config file
+# README
 
-This config files hosts all the configuration files I can use on an Unix based system.
+## Usage
+Set your hostname on your nixos on the first run to whichever profile you are installing then run:
 
-The goal is to keep unix based systems the same with the use of external non platform specific applications.
+`sudo nixos-rebuild switch --flake .`
 
-## How to use it
+or without setting the hostname first:
 
-- Clone the repository
-- Symlink the folders to the `.config` folder (full path)
-    - Example: `ln -s ~/Documents/config/alacritty ~/.config` (to link alacritty)
+`sudo nixos-rebuild switch --flake .#nixos-levente`
 
+To update flakes: `nix flake update`
 
-Some programs needs extra setup (like alacritty needs fonts). These extra setup guides should be included in the 
-README of that specific folder. 
+## Github ssh
 
-## Neovim setup
+Make sure you start you ssh agent from the terminal (one time?):
+* `eval "$(ssh-agent -s)"`
+* `ssh-add -l`
 
-Currently I have saved 2 neovim setups: the main one which is hand built and 
-the NvChad version which is a small configuration upon the NvChad settigs.
-The install instructions are here: https://nvchad.com/docs/quickstart/install
+Then make sure that the key is added both as signing key and auth key to github.
 
-If using terminal `alacritty` then the nerd font should be installed there (see `alacritty/README`).
-`ripgrep` is a rust application, installable on most systems.
+**NOTE: Following steps should be taken care of with bitwarden script**
 
 
+Make sure that the name of the default key is `id_ed25519` and `id_ed25519.pub`. This is what is set for signing in `.gitconfig` and as a default key in `config` for ssh.
+To set up completely the ssh signing you need to add to the `~/.ssh/allowed_signers` file `* PUBLIC_KEY_CONTENTS`.
