@@ -59,7 +59,7 @@
               outputs.overlays.additions
             ];
 
-            home-manager.extraSpecialArgs = {inherit inputs outputs;};
+            home-manager.extraSpecialArgs = {inherit inputs outputs username;};
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.katerina = import ./home/users/katerina.nix;

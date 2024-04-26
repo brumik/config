@@ -16,6 +16,7 @@
     transmission_4-qt
     jellyfin-media-player
     ytsum
+    element-desktop
  ];
 
   imports = [

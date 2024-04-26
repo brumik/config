@@ -7,6 +7,7 @@
     ./modules/dualboot.nix
     ./modules/docker.nix
     ./modules/smb.nix
+    ./modules/tailscale.nix
   ];
 
   services.ollama = {

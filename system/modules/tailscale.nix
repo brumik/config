@@ -1,6 +1,15 @@
-{ ... }: {
+{ username, ... }: {
   services.tailscale = {
     enable = true;
-    useRoutingFeatures = "client";
+    openFirewall = true;
+    useRoutingFeatures = "both";
+    authKeyFile = "/home/${username}/tailscale.key";
+    extraUpFlags = [
+      "--reset"
+      "--ssh"
+    ];
+  };
+  services.openssh = {
+    enable = true;
   };
 }
