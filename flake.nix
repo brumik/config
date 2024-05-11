@@ -25,9 +25,13 @@
   overlays = import ./utils/overlays {inherit inputs;};
 
   nixosConfigurations = {
-      nixos-levente = (let username = "levente"; in nixpkgs.lib.nixosSystem {
+      nixos-levente = (
+      let
+        username = "levente";
+        brumspaceHome = "Brum";
+       in nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = {inherit inputs outputs username;};
+        specialArgs = {inherit inputs outputs username brumspaceHome;};
         modules = [
           ./system/brumstellar-config.nix
           ./system/users/levente.nix
@@ -46,9 +50,13 @@
           }
         ];
       });
-      nixos-katerina = (let username = "katerina"; in nixpkgs.lib.nixosSystem {
+      nixos-katerina = (
+      let
+        username = "katerina";
+        brumspaceHome = "Katerina";
+      in nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = {inherit inputs outputs username;};
+        specialArgs = {inherit inputs outputs username brumspaceHome;};
         modules = [
           ./system/anteater.config.nix
           ./system/users/katerina.nix
