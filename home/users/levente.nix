@@ -10,7 +10,6 @@
     unstable.obsidian
     bitwarden
     onlyoffice-bin
-    synology-drive-client
     vlc
     transmission_4-qt
     jellyfin-media-player
