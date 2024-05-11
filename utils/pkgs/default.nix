@@ -3,6 +3,7 @@
 { pkgs, inputs, ... }: {
   # find-app = pkgs.callPackage ./find-app-xdotool { };
   # find-app-hyprland = pkgs.callPackage ./find-app-hyprland { };
-  bw-setup-secrets = pkgs.callPackage ./bw-setup-secrets { };
+  # bw-setup-secrets = pkgs.callPackage ./bw-setup-secrets { };
   ytsum = inputs.ytsum.packages."${pkgs.system}".default;
+  bw-setup-secrets = inputs.bw-setup-secrets.packages."${pkgs.system}".default;
 }

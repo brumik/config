@@ -11,7 +11,6 @@
     bitwarden
     onlyoffice-bin
     synology-drive-client
-    bw-setup-secrets
     vlc
     transmission_4-qt
     jellyfin-media-player
@@ -29,5 +28,6 @@
     ../zsh.nix
     ../spotdl
     ../qmk
+    ../bw-setup-secrets
   ];
 }

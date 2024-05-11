@@ -13,6 +13,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ytsum.url = "github:brumik/ytsum";
+    bw-setup-secrets.url = "github:brumik/bw-setup-secrets";
   };
 
   outputs = { self, nixpkgs, home-manager, nixvim, ... } @ inputs:

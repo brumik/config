@@ -36,6 +36,7 @@ writeShellApplication {
       local path=$1
       local file=$2
 
+
       if [ -f "$path" ]; then
           echo "300: Not allowed: $path exist, skipping"
       else
