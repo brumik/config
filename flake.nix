@@ -28,10 +28,9 @@
       nixos-levente = (
       let
         username = "levente";
-        brumspaceHome = "Brum";
        in nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = {inherit inputs outputs username brumspaceHome;};
+        specialArgs = {inherit inputs outputs username;};
         modules = [
           ./system/brumstellar-config.nix
           ./system/users/levente.nix
@@ -53,10 +52,9 @@
       nixos-katerina = (
       let
         username = "katerina";
-        brumspaceHome = "Katerina";
       in nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = {inherit inputs outputs username brumspaceHome;};
+        specialArgs = {inherit inputs outputs username;};
         modules = [
           ./system/anteater.config.nix
           ./system/users/katerina.nix
