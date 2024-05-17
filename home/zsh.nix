@@ -1,17 +1,18 @@
-{ ... }: {
+{ pkgs, ... }: {
   imports = [
     ./yazi
   ];
-
+  
   programs.zsh = {
     enable = true;
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "zoxide" ];
+      plugins = [ "git" "zoxide" "npm" "sudo" "golang" ];
       theme = "robbyrussell";
     };
     enableCompletion = true;
-    enableAutosuggestions = false;
+    enableAutosuggestions = true;
+    syntaxHighlighting.enable = true;
 
     shellAliases = {
       # fuzzy find with preview and open in nvim
@@ -32,7 +33,22 @@
       else
         print "404: ~/.zshsecrets not found."
       fi
+
+      source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
+      zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+      zstyle ':completion:*:git-checkout:*' sort false
+      zstyle ':completion:*:descriptions' format '[%d]'
+      zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}
+      zstyle ':completion:*' menu no
+      zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+      zstyle ':fzf-tab:*' switch-group '<' '>'
     '';
+
+    history = {
+      ignoreAllDups = true;
+      ignoreDups = true;
+      share = true;
+    };
   };
 
   programs.bat = {
@@ -43,7 +59,13 @@
   };
 
   programs.zoxide.enable = true;
-  programs.fzf.enable = true;
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+    tmux = {
+      enableShellIntegration = true;
+    };
+  };
   programs.jq.enable = true;
   programs.direnv = {
     enable = true;
