@@ -12,8 +12,11 @@
       url = "github:nix-community/nixvim/nixos-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Personal packages
     ytsum.url = "github:brumik/ytsum";
     bw-setup-secrets.url = "github:brumik/bw-setup-secrets";
+    ollama-obsidian-indexer.url = "github:brumik/ollama-obsidian-indexer";
   };
 
   outputs = { self, nixpkgs, home-manager, nixvim, ... } @ inputs:
