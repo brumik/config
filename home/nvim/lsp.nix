@@ -86,6 +86,12 @@
           gopls.enable = true; # go
           tsserver.enable = true; # ts
           pyright.enable = true; # python
+          rust-analyzer = { # rust
+            enable = true;
+            ## expect rust installed in projects where I need it (:
+            installCargo = false;
+            installRustc = false;
+          };
         };
       };
       none-ls = {

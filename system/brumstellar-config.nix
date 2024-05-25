@@ -14,6 +14,9 @@
     enable = true;
     acceleration = "cuda";
     listenAddress = "0.0.0.0:11434";
+    environmentVariables = {
+        OLLAMA_ORIGINS = "*";  
+    };
   };
 
   systemd.services.ollama-obsidian-indexer = {
