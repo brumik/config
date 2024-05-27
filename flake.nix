@@ -17,6 +17,7 @@
     ytsum.url = "github:brumik/ytsum";
     bw-setup-secrets.url = "github:brumik/bw-setup-secrets";
     ollama-obsidian-indexer.url = "github:brumik/ollama-obsidian-indexer";
+    amber.url = "github:brumik/amber/add-flake";
   };
 
   outputs = { self, nixpkgs, home-manager, nixvim, ... } @ inputs:

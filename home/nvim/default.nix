@@ -33,6 +33,8 @@
       termguicolors = true;
       smartindent = true;
       cursorline = true;
+      # disables fold on file open (zc enables it again)
+      foldenable = false;
     };
 
     clipboard.register = "unnamedplus";
@@ -50,7 +52,7 @@
     ];
 
     plugins = { 
-      # nix.enable = true;
+      nix.enable = true;
       lualine.enable = true;
       treesitter = {
         enable = true;
