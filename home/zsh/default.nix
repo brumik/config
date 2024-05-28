@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   imports = [
-    ./yazi
+    ../yazi
   ];
   
   programs.zsh = {
@@ -21,6 +21,12 @@
       fzp = "fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'";
       cat = "bat";
       cd = "z";
+      # git fuzzy branch selector
+      gfb = "fzf-git-checkout";
+      # github pr find - This needs GITHUB_TOKEN in env with `repo` access for private repos
+      ghpr = "(set -e gh pr checkout $(gh pr list | fzf | cut -f1))";
+      # github fzf and clone repo
+      ghrepo = "gh-fzf-find-repo";
     };
 
     # This extra config loads the secrets file that you can generate on your own.
@@ -30,8 +36,9 @@
     initExtra = ''
       if [ -f ~/.zshsecrets ]; then
           source ~/.zshsecrets
-      else
-        print "404: ~/.zshsecrets not found."
+      fi
+      if [ -f ~/.zshautoload ]; then
+          source ~/.zshautoload
       fi
 
       source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
@@ -48,6 +55,18 @@
       ignoreAllDups = true;
       ignoreDups = true;
       share = true;
+    };
+  };
+
+  # Add functions to the ~/.zsh/functions folder for autoload
+  home.file.".zsh/functions/fzf-git-checkout".source = ./fzf-git-checkout.sh;
+  home.file.".zsh/functions/gh-fzf-find-repo".source = ./gh-fzf-find-repo.sh;
+  home.file.".zshautoload".source = ./autoload.sh;
+
+  programs.gh = {
+    enable = true; 
+    settings = {
+      git_protocol = "ssh";
     };
   };
 

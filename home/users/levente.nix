@@ -25,7 +25,7 @@
     ../tmux
     ../git
     ../klara.nix
-    ../zsh.nix
+    ../zsh
     ../spotdl
     ../qmk
     ../bw-setup-secrets

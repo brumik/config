@@ -18,10 +18,10 @@
   ];
 
   imports = [
-    ../nvim/default.nix
-    ../alacritty/default.nix
+    ../nvim
+    ../alacritty
     ../gnome/katerina.nix
-    ../tmux/default.nix
-    ../zsh.nix
+    ../tmux
+    ../zsh
   ];
 }
