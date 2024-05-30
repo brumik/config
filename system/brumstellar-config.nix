@@ -36,4 +36,10 @@
   };
 
   networking.firewall.allowedTCPPorts = [ 11434 11435 ];
+
+  # WOL
+  networking.interfaces.enp7s0.wakeOnLan = {
+    enable = true;
+    policy = [ "magic" ];
+  };
 }

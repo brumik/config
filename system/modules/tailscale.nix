@@ -1,12 +1,11 @@
 { username, ... }: {
   services.tailscale = {
-    enable = true;
+    enable = false;
     openFirewall = true;
     useRoutingFeatures = "both";
     authKeyFile = "/home/${username}/tailscale.key";
     extraUpFlags = [
       "--reset"
-      "--ssh"
     ];
   };
   services.openssh = {
