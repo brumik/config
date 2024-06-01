@@ -8,18 +8,15 @@
     enable = true;
     plugins = with pkgs; [
       tmuxPlugins.nord
-      tmuxPlugins.sensible
       tmuxPlugins.vim-tmux-navigator
     ];
+    baseIndex = 1;
+    keyMode = "vi";
+    mouse = true;
+    prefix = "C-a";
     extraConfig = ''
       set -g default-terminal "$TERM"
       set -ag terminal-overrides ",$TERM:Tc"
-      set -g mouse on
-
-      # remap prefix from 'C-b' to 'C-a'
-      unbind C-b
-      set-option -g prefix C-a
-      bind-key C-a send-prefix
 
       # custom commands
       bind C-a display-popup -E "tms switch"

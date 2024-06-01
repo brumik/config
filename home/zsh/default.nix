@@ -7,7 +7,20 @@
     enable = true;
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "zoxide" "npm" "sudo" "golang" ];
+      plugins = [ 
+        # handy gcan! gco and other shortcuts
+        "git"
+        # initialize zoxide (later we override cd with z)
+        "zoxide"
+        # completions for npm and aliases lke npmS
+        "npm"
+        # press 2x esc to repeat the prev command with sudo
+        "sudo"
+        # completions for golang and aliases like goi
+        "golang"
+        # add aliases and set up tmux in general
+        "tmux"
+      ];
       theme = "robbyrussell";
     };
     enableCompletion = true;
@@ -49,6 +62,12 @@
       zstyle ':completion:*' menu no
       zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
       zstyle ':fzf-tab:*' switch-group '<' '>'
+    '';
+
+    envExtra = ''
+      ZSH_TMUX_AUTOSTART=true
+      ZSH_TMUX_DEFAULT_SESSION_NAME=home
+      ZSH_TMUX_CONFIG=$HOME/.config/tmux/tmux.conf
     '';
 
     history = {

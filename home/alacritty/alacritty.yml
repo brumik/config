@@ -32,14 +32,6 @@ window:
     y: 0
   dynamic_padding: true
 
-shell:
-  program: tmux
-  args: 
-    - new-session
-    - -A
-    - -s
-    - home
-
 # nord color palette
 colors:
   primary:
