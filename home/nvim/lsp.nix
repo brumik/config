@@ -88,6 +88,7 @@
           pyright.enable = true; # python
           rust-analyzer = { # rust
             enable = true;
+            package = pkgs.unstable.rust-analyzer;
             ## expect rust installed in projects where I need it (:
             installCargo = false;
             installRustc = false;

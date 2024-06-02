@@ -7,11 +7,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1716663106,
-        "narHash": "sha256-0ez9nnMv5HlvXPGrXUrGFvW8ESuCnRTgFM2Evpr2uS4=",
+        "lastModified": 1717070991,
+        "narHash": "sha256-Dap53GNcPYvZhqjunOWFZLjV1BWbDSKMlPgjIg2Ybd8=",
         "owner": "brumik",
         "repo": "amber",
-        "rev": "863621d7be6b9d6cade97c067708590195da3f95",
+        "rev": "6cf6b80ec72ed67e944f491e203507807fec9838",
         "type": "github"
       },
       "original": {
@@ -242,11 +242,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1715381426,
-        "narHash": "sha256-wPuqrAQGdv3ISs74nJfGb+Yprm23U/rFpcHFFNWgM94=",
+        "lastModified": 1716729592,
+        "narHash": "sha256-Y3bOjoh2cFBqZN0Jw1zUdyr7tjygyxl2bD/QY73GZP0=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "ab5542e9dbd13d0100f8baae2bc2d68af901f4b4",
+        "rev": "2c78a57c544dd19b07442350727ced097e1aa6e6",
         "type": "github"
       },
       "original": {
@@ -351,11 +351,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1715961556,
-        "narHash": "sha256-+NpbZRCRisUHKQJZF3CT+xn14ZZQO+KjxIIanH3Pvn4=",
+        "lastModified": 1716948383,
+        "narHash": "sha256-SzDKxseEcHR5KzPXLwsemyTR/kaM9whxeiJohbL04rs=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "4a6b83b05df1a8bd7d99095ec4b4d271f2956b64",
+        "rev": "ad57eef4ef0659193044870c731987a6df5cf56b",
         "type": "github"
       },
       "original": {
@@ -399,11 +399,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1716061101,
-        "narHash": "sha256-H0eCta7ahEgloGIwE/ihkyGstOGu+kQwAiHvwVoXaA0=",
+        "lastModified": 1716991068,
+        "narHash": "sha256-Av0UWCCiIGJxsZ6TFc+OiKCJNqwoxMNVYDBChmhjNpo=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "e7cc61784ddf51c81487637b3031a6dd2d6673a2",
+        "rev": "25cf937a30bf0801447f6bf544fc7486c6309234",
         "type": "github"
       },
       "original": {
@@ -492,11 +492,11 @@
         "poetry2nix": "poetry2nix_2"
       },
       "locked": {
-        "lastModified": 1716194674,
-        "narHash": "sha256-PBPSEWV/lnjcMMNsXHiakor9DbWhSD0nK7ov4aThNYQ=",
+        "lastModified": 1717071390,
+        "narHash": "sha256-ngmEOThzKMhqRcLqyzD2TeN+p6jjAvapJYT9++D4r5s=",
         "owner": "brumik",
         "repo": "ollama-obsidian-indexer",
-        "rev": "c0566b154b31984e1c008b81d79e7dbe055b3eff",
+        "rev": "cbf184422bf67915c19913152b79a5fe68ac56ff",
         "type": "github"
       },
       "original": {
