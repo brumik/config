@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
+    unstable.devbox
     unstable.vscode
     unstable.insomnia
     chromium

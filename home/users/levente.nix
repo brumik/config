@@ -15,7 +15,6 @@
     jellyfin-media-player
     ytsum
     element-desktop
-    amber
  ];
 
   imports = [
