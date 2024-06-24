@@ -15,7 +15,7 @@
     # Visual mode
     # `gc` - Toggles the region using linewise comment
     # `gb` - Toggles the region using blockwise comment
-    plugins.comment-nvim = {
+    plugins.comment = {
       enable = true;
     };
   };

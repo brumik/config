@@ -24,7 +24,7 @@
     viAlias = true;
     vimAlias = true;
 
-    options = {
+    opts = {
       expandtab = true;
       tabstop = 2;
       shiftwidth = 2;
@@ -61,7 +61,7 @@
       };
       tmux-navigator = {
         enable = true;
-        tmuxNavigatorSaveOnSwitch = 1;
+        settings.save_on_switch = 1;
       };
       which-key.enable = true;
     };

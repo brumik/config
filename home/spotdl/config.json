@@ -6,7 +6,7 @@
     "headless": false,
     "cache_path": "~/.spotdl/.spotipy",
     "no_cache": true,
-    "max_retries": 3,
+    "max_retries": 4,
     "audio_providers": [
         "youtube-music"
     ],
@@ -28,7 +28,7 @@
     "save_file": null,
     "filter_results": true,
     "album_type": null,
-    "threads": 8,
+    "threads": 2,
     "cookie_file": null,
     "restrict": null,
     "print_errors": false,

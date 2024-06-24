@@ -2,7 +2,7 @@
 
 {
   home.packages = [ 
-    pkgs.spotdl
+    pkgs.unstable.spotdl
   ];
 
   home.file.".spotdl/config.json".source = ./config.json;
