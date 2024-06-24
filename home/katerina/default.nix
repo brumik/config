@@ -15,6 +15,7 @@
     unstable.synology-drive-client
     anki-bin
     unstable.protonvpn-gui
+    ytsum
   ];
 
   imports = [

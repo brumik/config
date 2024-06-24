@@ -3,6 +3,8 @@
   imports = [
     ./hardware/anteater.nix
     ./modules/base-configuration.nix
+    ./modules/amdRX570.nix
+    ./modules/smb.nix
   ];
 
   programs.steam = {
