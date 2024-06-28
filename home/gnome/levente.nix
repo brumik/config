@@ -11,10 +11,10 @@
   gtk = {
     enable = true;
 
-    # theme = {
-    #   name = "Nordic";
-    #   package = pkgs.unstable.nordic;
-    # };
+    theme = {
+      name = "Nordic";
+      package = pkgs.unstable.nordic;
+    };
 
     iconTheme = {
       name = "Nordic-green";
@@ -39,10 +39,10 @@
     };
   };
 
-  # home.sessionVariables = {
-  #   GTK_THEME = "Nordic";
-  #   QT_STYLE_OVERRIDE = "Nordic";
-  # };
+  home.sessionVariables = {
+    GTK_THEME = "Nordic";
+    QT_STYLE_OVERRIDE = "Nordic";
+  };
 
   home.file.".local/share/backgrounds/wallpaper.jpg".source = ./wallpaper.jpg;
   home.file.".local/share/backgrounds/wallpaper-nordic.jpg".source = ./wallpaper-nordic.jpg;
