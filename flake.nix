@@ -93,6 +93,7 @@
         inherit system;
         specialArgs = {inherit inputs outputs username;};
         modules = [
+          stylix.nixosModules.stylix
           ./system/anteater.config.nix
           ./system/users/katerina.nix
           home-manager.nixosModules.home-manager

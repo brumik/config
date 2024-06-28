@@ -11,7 +11,7 @@
     bitwarden
     telegram-desktop
     onlyoffice-bin
-    google-chrome
+    chromium
     unstable.synology-drive-client
     anki-bin
     unstable.protonvpn-gui
