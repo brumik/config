@@ -7,7 +7,10 @@
   programs.tmux = {
     enable = true;
     plugins = with pkgs; [
-      tmuxPlugins.nord
+      {
+        plugin = tmuxPlugins.catppuccin;
+        extraConfig = "set -g @catppuccin_flavour 'frappe'"; 
+      }
       tmuxPlugins.vim-tmux-navigator
     ];
     baseIndex = 1;

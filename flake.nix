@@ -12,6 +12,7 @@
       url = "github:nix-community/nixvim/nixos-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix.url = "github:danth/stylix";
 
     # Personal packages
     ytsum.url = "github:brumik/ytsum";
@@ -19,7 +20,7 @@
     ollama-obsidian-indexer.url = "github:brumik/ollama-obsidian-indexer";
   };
 
-  outputs = { self, nixpkgs, home-manager, nixvim, ... } @ inputs:
+  outputs = { self, nixpkgs, home-manager, stylix, nixvim, ... } @ inputs:
   let
     inherit (self) outputs;
     system = "x86_64-linux";
@@ -35,6 +36,7 @@
         inherit system;
         specialArgs = {inherit inputs outputs username;};
         modules = [
+          stylix.nixosModules.stylix
           ./system/brumstellar-config.nix
           ./system/users/levente.nix
           home-manager.nixosModules.home-manager

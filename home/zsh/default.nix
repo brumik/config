@@ -33,6 +33,7 @@
       # fuzzy find with preview
       fzp = "fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'";
       cat = "bat";
+      man = "batman";
       cd = "z";
       # git fuzzy branch selector
       gfb = "fzf-git-checkout";
@@ -91,9 +92,7 @@
 
   programs.bat = {
     enable = true;
-    config = {
-      theme = "Nord";
-    };
+    extraPackages = [ pkgs.bat-extras.batman ];
   };
 
   programs.zoxide.enable = true;

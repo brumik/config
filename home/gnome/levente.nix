@@ -1,80 +1,23 @@
-{ lib, pkgs, username, ... }:
+{ lib, pkgs, ... }:
   with lib.hm.gvariant;
 {
   home.packages = [
-    pkgs.gnomeExtensions.user-themes
     pkgs.gnomeExtensions.tiling-assistant
-    pkgs.unstable.nordic
-    pkgs.papirus-icon-theme
   ];
 
   gtk = {
     enable = true;
-
-    theme = {
-      name = "Nordic";
-      package = pkgs.unstable.nordic;
-    };
-
-    iconTheme = {
-      name = "Nordic-green";
-      package = pkgs.unstable.nordic;
-    };
-    
-    cursorTheme = {
-      name = "Nordic-cursors";
-      package = pkgs.unstable.nordic;
-    };
-
-    gtk3.extraConfig = {
-      Settings = ''
-        gtk-application-prefer-dark-theme=1
-      '';
-    };
-
-    gtk4.extraConfig = {
-      Settings = ''
-        gtk-application-prefer-dark-theme=1
-      '';
-    };
   };
-
-  home.sessionVariables = {
-    GTK_THEME = "Nordic";
-    QT_STYLE_OVERRIDE = "Nordic";
-  };
-
-  home.file.".local/share/backgrounds/wallpaper.jpg".source = ./wallpaper.jpg;
-  home.file.".local/share/backgrounds/wallpaper-nordic.jpg".source = ./wallpaper-nordic.jpg;
 
   dconf.settings = {
     "org/gnome/settings-daemon/plugins/power" = {
       sleep-inactive-ac-type = "nothing";
     };
-    "org/gnome/desktop/background" = {
-      color-shading-type = "solid";
-      picture-options = "zoom";
-      picture-uri = ".local/share/backgrounds/wallpaper.jpg";
-      picture-uri-dark = ".local/share/backgrounds/wallpaper.jpg";
-      primary-color = "#000000000000";
-      secondary-color = "#000000000000";
-    };
-
-    "org/gnome/desktop/screensaver" = {
-      color-shading-type = "solid";
-      picture-options = "zoom";
-      picture-uri = "file:///home/${username}/.local/share/backgrounds/wallpaper.jpg";
-      primary-color = "#000000000000";
-      secondary-color = "#000000000000";
-    };
-
     "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
       enable-hot-corners = true;
     };
 
     "org/gnome/desktop/wm/preferences" = {
-      theme = "Nordic";
       num-workspaces = 3;
       workspace-names = [ "Main" "Code" "Other" ];
     };
@@ -97,13 +40,8 @@
     "org/gnome/shell" = {
       disable-user-extensions = false;
       enabled-extensions = [
-        "user-theme@gnome-shell-extensions.gcampax.github.com" 
         "tiling-assistant@leleat-on-github"
       ];
-    };
-
-    "org/gnome/shell/extensions/user-theme" = {
-      name = "Nordic";
     };
 
     "org/gnome/shell/extensions/tiling-assistant" = {

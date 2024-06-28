@@ -98,9 +98,9 @@
     vim
   ];
 
-  fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-  ];
+  # fonts.packages = with pkgs; [
+  #   (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+  # ];
  
   environment.shells = with pkgs; [ zsh ];
   users.defaultUserShell = pkgs.zsh;

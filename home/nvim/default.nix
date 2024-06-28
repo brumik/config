@@ -3,7 +3,6 @@
 {
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
-    ./theme.nix
     ./lsp.nix
     ./neotree.nix
     ./telescope.nix
