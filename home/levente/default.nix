@@ -25,5 +25,6 @@
     ./gnome.nix
     ./bw-setup-secrets
     ./klara.nix
+    ./styling.nix
   ];
 }

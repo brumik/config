@@ -76,6 +76,9 @@
     };
   };
 
+  programs.starship.enable = true;
+  programs.starship.enableZshIntegration = true;
+
   # Add functions to the ~/.zsh/functions folder for autoload
   home.file.".zsh/functions/fzf-git-checkout".source = ./fzf-git-checkout.sh;
   home.file.".zsh/functions/gh-fzf-find-repo".source = ./gh-fzf-find-repo.sh;

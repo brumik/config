@@ -5,6 +5,8 @@
     pkgs.gnomeExtensions.tiling-assistant
   ];
 
+  home.file.".config/tiling-assistant/layouts.json".source = ./tiling-assistant-layouts.json;
+
   gtk = {
     enable = true;
   };
@@ -67,7 +69,7 @@
       enable-tiling-popup = false;
       enable-untile-animations = false;
       estore-window = [];
-      favorite-layouts = [ "4" ];
+      favorite-layouts = [ "1" ];
       import-layout-examples = false;
       last-version-installed = 44;
       maximize-with-gap = false;
@@ -104,4 +106,3 @@
     };
   };
 }
-
