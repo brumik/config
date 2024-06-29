@@ -9,6 +9,7 @@
     ./telescope.nix
     ./comment.nix
     ./harpoon.nix
+    ./flash.nix
   ];
 
 
@@ -62,6 +63,13 @@
       tmux-navigator = {
         enable = true;
         settings.save_on_switch = 1;
+      };
+      gitsigns = {
+        enable = true;
+        settings = {
+          current_line_blame_opts.delay = 0;
+          current_line_blame = true;
+        };
       };
       which-key.enable = true;
     };
