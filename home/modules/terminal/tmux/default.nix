@@ -7,13 +7,6 @@
   programs.tmux = {
     enable = true;
     plugins = with pkgs; [
-      {
-        plugin = tmuxPlugins.catppuccin;
-        extraConfig = '' 
-          set -g @catppuccin_flavour 'frappe'
-          set -g @catppuccin_window_default_text "#W" 
-        ''; 
-      }
       tmuxPlugins.vim-tmux-navigator
     ];
     baseIndex = 1;
