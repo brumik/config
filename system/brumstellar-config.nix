@@ -44,7 +44,7 @@
     enable = true;
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-frappe.yaml";
-    image = ../home/gnome/wallpaper.jpg;
+    image = ../wallpapers/forest-5120x1440.jpg;
 
     fonts = { 
       monospace = {

@@ -4,7 +4,8 @@
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
     ./lsp.nix
-    ./neotree.nix
+    # ./neotree.nix
+    ./oil.nix
     ./telescope.nix
     ./comment.nix
     ./harpoon.nix

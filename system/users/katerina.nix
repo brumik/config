@@ -1,14 +1,14 @@
-{ ... }: {
+{ username,... }: {
   networking.hostName = "nixos-katerina"; # Define your hostname.
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.katerina = {
+  users.users."${username}" = {
     isNormalUser = true;
-    description = "Katerina";
+    description = username;
     extraGroups = [ "networkmanager" "wheel" ];
   };
   
   security.sudo.extraRules= [
-    {  users = [ "katerina" ];
+    {  users = [ username ];
       commands = [
          { command = "ALL" ;
            options= [ "NOPASSWD" ]; # "SETENV" # Adding the following could be a good idea

@@ -18,10 +18,9 @@
   ];
 
   imports = [
-    ../nvim
-    ../alacritty
-    ../gnome/katerina.nix
-    ../tmux
-    ../zsh
+    ../modules/terminal
+    ../modules/spotdl
+    # Local
+    ./gnome.nix
   ];
 }

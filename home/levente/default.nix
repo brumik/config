@@ -1,7 +1,7 @@
 { pkgs, username, ... }: {
   home.username = username;
   home.homeDirectory = "/home/" + username;
-  home.stateVersion = "23.11";
+  home.stateVersion = "24.05";
   programs.home-manager.enable = true;
   home.packages = with pkgs; [
     firefox
@@ -18,15 +18,12 @@
  ];
 
   imports = [
-    ../nvim
-    ../alacritty
-    ../gnome/levente.nix
-    ../tmux
-    ../git
-    ../klara.nix
-    ../zsh
-    ../spotdl
-    ../qmk
-    ../bw-setup-secrets
+    ../modules/terminal
+    ../modules/spotdl
+    ../modules/qmk
+    # Local
+    ./gnome.nix
+    ./bw-setup-secrets
+    ./klara.nix
   ];
 }

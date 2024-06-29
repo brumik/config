@@ -3,14 +3,14 @@ recursive_submodules = false
 default_session = "home"
 
 [[search_dirs]]
-path = "/home/levente/Documents"
+path = "~/Documents"
 depth = 1
 
 [[search_dirs]]
-path = "/home/levente/config"
+path = "~/config"
 depth = 1
 
 [[search_dirs]]
-path = "/home/levente/Documents/Klara"
+path = "~/Documents/Klara"
 depth = 1
 

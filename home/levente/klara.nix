@@ -3,7 +3,7 @@
     unstable.devbox
     unstable.vscode
     unstable.insomnia
-    chromium
+    chromium-dev
     unstable.slack
     docker-compose
     # unstable.android-studio

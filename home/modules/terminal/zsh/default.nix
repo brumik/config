@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   imports = [
-    ../yazi
+    ./yazi
   ];
   
   programs.zsh = {
@@ -16,8 +16,6 @@
         "npm"
         # press 2x esc to repeat the prev command with sudo
         "sudo"
-        # completions for golang and aliases like goi
-        "golang"
         # add aliases and set up tmux in general
         "tmux"
       ];
