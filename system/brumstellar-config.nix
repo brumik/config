@@ -8,7 +8,15 @@
     ./modules/docker.nix
     ./modules/smb.nix
     ./modules/tailscale.nix
+
+
+    ./coder-test.nix
   ];
+
+  # With this enabled some apps have problebs with top bar and app indicator.
+  # This is fixing flickering though if needed.
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  # Alternative is to use Xorg Gnome session until electron apps are adopting
 
   # Enable LLM stuff
   services.ollama = {
@@ -44,7 +52,7 @@
     enable = true;
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-frappe.yaml";
-    image = ../wallpapers/forest-5120x1440.jpg;
+    image = ../wallpapers/catppuccin-sports-5120x1440.png;
 
     fonts = { 
       monospace = {

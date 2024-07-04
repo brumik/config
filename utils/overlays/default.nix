@@ -10,7 +10,7 @@
     # example = prev.example.overrideAttrs (oldAttrs: rec {
     # ...
     # });
-    chromium-dev = prev.chromium.override {
+    chromium = prev.chromium.override {
       commandLineArgs =
         "--disable-web-security --user-data-dir=/tmp/chromiumuser";
     };
