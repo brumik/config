@@ -6,5 +6,6 @@
     ./nvim
     ./tmux
     ./alacritty
+    ./pet.nix
   ];
 }

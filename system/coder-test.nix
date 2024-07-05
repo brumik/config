@@ -9,7 +9,7 @@
   users.users.coder.extraGroups = ["docker"];
   services.coder = {
     enable = true;
-    listenAddress = "0.0.0.0:3000";
+    listenAddress = "0.0.0.0:11000";
     user = "coder";
     package = pkgs.unstable.coder;
   };
