@@ -83,6 +83,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.levente = import ./home/levente;
+            home-manager.backupFileExtension = "backup";
           }
         ];
       });
