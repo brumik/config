@@ -10,8 +10,10 @@
     settings = {
       General = {
         editor = "nvim";
-        selectcmd = "fzf";
+        selectcmd = "fzf --ansi";
         sortby = "command";
+        color = true;
+        format = "$command | $description | $tags |";
       };
     };
     snippets = [

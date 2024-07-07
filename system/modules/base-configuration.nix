@@ -102,11 +102,15 @@
   users.defaultUserShell = pkgs.zsh;
   programs.zsh.enable = true;
   
-  # Enable automatic garbage collection
+  nix.optimise = {
+    automatic = true;
+    dates = ["10:00"];
+  };
+
   nix.gc = {
     automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
+    dates = "10:00";
+    options = "--delete-older-than 7d";
   };
 
   # This value determines the NixOS release from which the default
