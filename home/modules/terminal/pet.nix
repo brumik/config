@@ -2,7 +2,7 @@
 
 {
   programs.tmux.extraConfig = ''
-    bind C-c display-popup -E "pet search"
+    bind C-c display-popup -E "pet search --color"
   '';
 
   programs.pet = {
@@ -88,11 +88,6 @@
         tag = ["shortcut" "vim"];
       }
       {
-        command = "";
-        description = "";
-        tag = ["shortcut" "vim"];
-      }
-      {
         command = "=";
         description = "Fix indent for line/selection";
         tag = ["shortcut" "vim"];
@@ -121,6 +116,11 @@
         command = ":%s/[search]/[replace]/g";
         description = "Replace [search] with [replace] in [%] (file)";
         tag = ["shortcut" "vim"];
+      }
+      {
+        command = "<C-a>,";
+        description = "Tmux reanme window";
+        tag = ["shortcut" "tmux"];
       }
     ];
   };
