@@ -12,6 +12,9 @@
     # ./coder-test.nix
   ];
 
+  # Enable xbox controllers with "xbox wireless adapter for windows"
+  hardware.xone.enable = true;
+
   # With this enabled some apps have problebs with top bar and app indicator.
   # This is fixing flickering though if needed.
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
