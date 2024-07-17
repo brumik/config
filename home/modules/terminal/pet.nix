@@ -122,6 +122,11 @@
         description = "Tmux reanme window";
         tag = ["shortcut" "tmux"];
       }
+      {
+        command = "sudo netstat -tunlp | grep [port number]";
+        description = "Find what is listening on a port";
+        tag = ["cmd"];
+      }
     ];
   };
 
