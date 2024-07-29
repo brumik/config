@@ -15,21 +15,35 @@
   # Enable xbox controllers with "xbox wireless adapter for windows"
   hardware.xone.enable = true;
 
+  # Gaming
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall = true; 
+  };
+  
+  environment.systemPackages = with pkgs; [
+    lutris
+  ];
+
   # With this enabled some apps have problebs with top bar and app indicator.
   # This is fixing flickering though if needed.
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   # Alternative is to use Xorg Gnome session until electron apps are adopting
 
   # Enable LLM stuff
-  # services.ollama = {
-  #   enable = true;
-  #   acceleration = "cuda";
-  #   listenAddress = "0.0.0.0:11434";
-  #   environmentVariables = {
-  #       OLLAMA_ORIGINS = "*";  
-  #   };
-  # };
-  #
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+    listenAddress = "0.0.0.0:11434";
+    environmentVariables = {
+        OLLAMA_ORIGINS = "*";  
+    };
+  };
+
+  networking.firewall.allowedTCPPorts = [ 11434 ];
+
   # systemd.services.ollama-obsidian-indexer = {
   #   description = "Server to index and query LLM for obsidian notes";
   #   wantedBy = [ "multi-user.target" ];
@@ -46,7 +60,7 @@
   #   };
   # };
   #
-  # networking.firewall.allowedTCPPorts = [ 11434 11435 ];
+  # networking.firewall.allowedTCPPorts = [ 11435 ];
   # End Enable LLM stuff
 
   # Styling

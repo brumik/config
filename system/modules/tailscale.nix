@@ -2,7 +2,7 @@
   services.tailscale = {
     enable = true;
     openFirewall = true;
-    useRoutingFeatures = "both";
+    useRoutingFeatures = "server";
     authKeyFile = "/home/${username}/tailscale.key";
     extraUpFlags = [
       "--reset"
