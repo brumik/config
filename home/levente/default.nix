@@ -15,7 +15,8 @@
     jellyfin-media-player
     ytsum
     element-desktop
- ];
+    brave
+  ];
 
   imports = [
     ../modules/terminal
