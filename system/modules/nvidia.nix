@@ -1,7 +1,7 @@
 { config, ... }:
 {
   # If using docker, enable docker containers
-  virtualisation.docker.enableNvidia = true;
+  hardware.nvidia-container-toolkit.enable = true;
 
   # Enable OpenGL
   hardware.opengl = {
