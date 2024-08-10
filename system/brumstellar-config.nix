@@ -9,7 +9,7 @@
     ./modules/smb.nix
     ./modules/tailscale.nix
 
-    # ./coder-test.nix
+    # ./coder.nix
   ];
 
   # Enable xbox controllers with "xbox wireless adapter for windows"
@@ -22,10 +22,6 @@
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     localNetworkGameTransfers.openFirewall = true; 
   };
-  
-  environment.systemPackages = with pkgs; [
-    lutris
-  ];
 
   # With this enabled some apps have problebs with top bar and app indicator.
   # This is fixing flickering though if needed.
