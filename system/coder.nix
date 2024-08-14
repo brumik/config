@@ -10,7 +10,9 @@
   services.coder = {
     enable = true;
     listenAddress = "0.0.0.0:11000";
+    accessUrl = "https://coder.brumspace.duckdns.org";
     user = "coder";
     package = pkgs.unstable.coder;
   };
+  networking.firewall.allowedTCPPorts = [ 11000 ];
 }

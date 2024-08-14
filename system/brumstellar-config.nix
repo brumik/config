@@ -9,7 +9,7 @@
     ./modules/smb.nix
     ./modules/tailscale.nix
 
-    # ./coder.nix
+    ./coder.nix
   ];
 
   # Enable xbox controllers with "xbox wireless adapter for windows"
