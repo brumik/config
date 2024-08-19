@@ -47,7 +47,7 @@
     seahorse    # password manager
 
     # these should be self explanatory
-    gnome-calculator
+    # gnome-calculator
     gnome-calendar
     gnome-characters
     gnome-clocks
