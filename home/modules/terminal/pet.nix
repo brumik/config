@@ -18,7 +18,7 @@
     };
     snippets = [
       {
-        command = "docker system prune";
+        command = "docker system prune --volumes -af";
         description = "Clear all docker system resourses not in use";
         tag = ["cmd" "docker"];
       }

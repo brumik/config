@@ -16,6 +16,9 @@
     ytsum
     element-desktop
     brave
+
+    # proxmox connection
+    virt-viewer
   ];
 
   imports = [
