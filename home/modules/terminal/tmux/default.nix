@@ -17,6 +17,11 @@
       set -g default-terminal "$TERM"
       set -ag terminal-overrides ",$TERM:Tc"
 
+      # When there is other session running 
+      # on exiting the last window in the session open the other one
+      # instead of closing the terminal window
+      set -g detach-on-destroy off
+
       # custom commands
       bind C-a display-popup -E "tms switch"
       bind C-o display-popup -E "tms"
