@@ -3,6 +3,7 @@
 {
   home.packages = [
     pkgs.gnomeExtensions.tiling-assistant
+    pkgs.gnomeExtensions.steal-my-focus-window
   ];
 
   home.file.".config/tiling-assistant/layouts.json".source = ./tiling-assistant-layouts.json;
@@ -43,6 +44,7 @@
       disable-user-extensions = false;
       enabled-extensions = [
         "tiling-assistant@leleat-on-github"
+        "steal-my-focus-window@steal-my-focus-window"
       ];
     };
 
