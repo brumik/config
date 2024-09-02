@@ -87,6 +87,32 @@
           }
         ];
       });
+      nixos-n100 = (
+      let
+        username = "levente";
+       in nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {inherit inputs outputs username;};
+        modules = [
+          stylix.nixosModules.stylix
+          ./system/n100-config.nix
+          ./system/users/levente.nix
+          home-manager.nixosModules.home-manager
+          {
+            nixpkgs.overlays = [
+              outputs.overlays.unstable-packages
+              outputs.overlays.modifications
+              outputs.overlays.additions
+            ];
+
+            home-manager.extraSpecialArgs = {inherit inputs outputs username;};
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.levente = import ./home/levente;
+            home-manager.backupFileExtension = "backup";
+          }
+        ];
+      });
       nixos-katerina = (
       let
         username = "katerina";

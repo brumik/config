@@ -4,13 +4,8 @@ default_session = "home"
 
 [[search_dirs]]
 path = "~/Documents"
-depth = 1
+depth = 2
 
 [[search_dirs]]
 path = "~/config"
 depth = 1
-
-[[search_dirs]]
-path = "~/Documents/Klara"
-depth = 1
-

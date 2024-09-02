@@ -11,6 +11,8 @@
 
     ./coder.nix
   ];
+  
+  networking.hostName = "nixos-levente"; # Define your hostname.
 
   # Enable xbox controllers with "xbox wireless adapter for windows"
   hardware.xone.enable = true;

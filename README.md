@@ -15,7 +15,7 @@ To update flakes: `nix flake update`
 
 Make sure you start you ssh agent from the terminal (one time?):
 * `eval "$(ssh-agent -s)"`
-* `ssh-add -l`
+* `ssh-add`
 
 Then make sure that the key is added both as signing key and auth key to github.
 
