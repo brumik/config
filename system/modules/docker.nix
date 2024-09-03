@@ -1,4 +1,4 @@
-{ pkgs, username, ... }: {
+{ username }: { pkgs, ... }: {
   virtualisation.docker.enable = true;
   
   # needs to add user group when used

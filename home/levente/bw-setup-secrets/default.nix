@@ -1,4 +1,4 @@
-{ pkgs, username, ... }:
+{ username }: { pkgs, ... }:
 
 {
   home.packages = [ pkgs.bw-setup-secrets ];

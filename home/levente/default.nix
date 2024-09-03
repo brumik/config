@@ -1,4 +1,4 @@
-{ pkgs, username, ... }: {
+{ username }: { pkgs, ... }: {
   home.username = username;
   home.homeDirectory = "/home/" + username;
   home.stateVersion = "24.05";
@@ -16,9 +16,6 @@
     ytsum
     element-desktop
     brave
-
-    # proxmox connection
-    virt-viewer
   ];
 
   imports = [
@@ -27,7 +24,7 @@
     ../modules/qmk
     # Local
     ./gnome.nix
-    ./bw-setup-secrets
+    (import ./bw-setup-secrets { inherit username; })
     ./klara.nix
     ./styling.nix
   ];

@@ -24,7 +24,7 @@
     ollama-obsidian-indexer.url = "github:brumik/ollama-obsidian-indexer";
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, nixvim, nix-darwin, ... } @ inputs:
+  outputs = { self, nixpkgs, home-manager, stylix, nix-darwin, ... } @ inputs:
   let
     inherit (self) outputs;
     system = "x86_64-linux";
@@ -49,11 +49,11 @@
               outputs.overlays.modifications
               outputs.overlays.additions
             ];
-            home-manager.extraSpecialArgs = {inherit inputs outputs username;};
+            home-manager.extraSpecialArgs = {inherit inputs outputs;};
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.verbose = true;
-            home-manager.users."levente.berky" = import ./home/levente-mac;
+            home-manager.users."levente.berky" = import ./home/levente-mac { username = "levente"; };
             home-manager.backupFileExtension = "backup";
           }
         ];
@@ -62,81 +62,78 @@
 
   nixosConfigurations = {
       nixos-levente = (
-      let
-        username = "levente";
-       in nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {inherit inputs outputs username;};
-        modules = [
-          stylix.nixosModules.stylix
-          ./system/brumstellar-config.nix
-          ./system/users/levente.nix
-          home-manager.nixosModules.home-manager
-          {
-            nixpkgs.overlays = [
-              outputs.overlays.unstable-packages
-              outputs.overlays.modifications
-              outputs.overlays.additions
-            ];
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {inherit inputs outputs;};
+          modules = [
+            stylix.nixosModules.stylix
+            ./system/brumstellar-config.nix
+            (import ./system/users/levente.nix { username = "levente"; })
+            home-manager.nixosModules.home-manager
+            {
+              nixpkgs.overlays = [
+                outputs.overlays.unstable-packages
+                outputs.overlays.modifications
+                outputs.overlays.additions
+              ];
 
-            home-manager.extraSpecialArgs = {inherit inputs outputs username;};
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.levente = import ./home/levente;
-            home-manager.backupFileExtension = "backup";
-          }
-        ];
-      });
+              home-manager.extraSpecialArgs = {inherit inputs outputs;};
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.levente = import ./home/levente { username = "levente"; };
+              home-manager.backupFileExtension = "backup";
+            }
+          ];
+        }
+      );
       nixos-n100 = (
-      let
-        username = "levente";
-       in nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {inherit inputs outputs username;};
-        modules = [
-          stylix.nixosModules.stylix
-          ./system/n100-config.nix
-          ./system/users/levente.nix
-          home-manager.nixosModules.home-manager
-          {
-            nixpkgs.overlays = [
-              outputs.overlays.unstable-packages
-              outputs.overlays.modifications
-              outputs.overlays.additions
-            ];
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {inherit inputs outputs;};
+          modules = [
+            stylix.nixosModules.stylix
+            ./system/n100-config.nix
+            (import ./system/users/levente.nix { username = "levente"; })
+            home-manager.nixosModules.home-manager
+            {
+              nixpkgs.overlays = [
+                outputs.overlays.unstable-packages
+                outputs.overlays.modifications
+                outputs.overlays.additions
+              ];
 
-            home-manager.extraSpecialArgs = {inherit inputs outputs username;};
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.levente = import ./home/levente;
-            home-manager.backupFileExtension = "backup";
-          }
-        ];
-      });
+              home-manager.extraSpecialArgs = {inherit inputs outputs; };
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.levente = import ./home/levente { username = "levente"; };
+              home-manager.backupFileExtension = "backup";
+            }
+          ];
+        }
+      );
       nixos-katerina = (
-      let
-        username = "katerina";
-      in nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {inherit inputs outputs username;};
-        modules = [
-          ./system/anteater.config.nix
-          ./system/users/katerina.nix
-          home-manager.nixosModules.home-manager
-          {
-            nixpkgs.overlays = [
-              outputs.overlays.unstable-packages
-              outputs.overlays.modifications
-              outputs.overlays.additions
-            ];
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {inherit inputs outputs;};
+          modules = [
+            ./system/anteater.config.nix
+            (import ./system/users/katerina.nix { username = "katerina"; })
+            home-manager.nixosModules.home-manager
+            {
+              nixpkgs.overlays = [
+                outputs.overlays.unstable-packages
+                outputs.overlays.modifications
+                outputs.overlays.additions
+              ];
 
-            home-manager.extraSpecialArgs = {inherit inputs outputs username;};
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.katerina = import ./home/katerina;
-          }
-        ];
-      });
+              home-manager.extraSpecialArgs = {inherit inputs outputs;};
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.katerina = import ./home/katerina { username = "katerina"; };
+            }
+          ];
+        }
+      );
     };
   };
 }
