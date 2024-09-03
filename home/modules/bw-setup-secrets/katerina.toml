@@ -1,0 +1,19 @@
+noteId = "fc3ead1e-6d00-4d22-9b9d-c9a4271e5f01"
+server = "https://bitwarden.brumspace.synology.me"
+email = "kathrinviolin99@gmail.com"
+secretsFile = ".zshsecrets"
+
+[[files]]
+srcFile = "id_ed25519"
+destFile = ".ssh/id_ed25519"
+chmod = "0600"
+
+[[files]]
+srcFile = "id_ed25519.pub"
+destFile = ".ssh/id_ed25519.pub"
+chmod = "0644"
+
+[[files]]
+srcFile = "smb-secrets"
+destFile = "smb-secrets"
+chmod = "0600"

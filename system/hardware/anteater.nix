@@ -8,19 +8,19 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "sd_mod" ];
+  boot.initrd.kernelModules = [];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/409dc025-2e3c-443f-a4d7-775566e6fda1";
+    { device = "/dev/disk/by-uuid/d11c2ab3-59f2-4b41-ac4f-ffbae37cfba1";
       fsType = "ext4";
     };
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/EB6B-4EBB";
-      fsType = "vfat";
+  
+  fileSystems."/home/katerina/storage" =
+    { device = "/dev/disk/by-uuid/0a9929d2-3f33-4612-ae61-d16fb2928f5c";
+      fsType = "ext4";
     };
 
   swapDevices = [ ];

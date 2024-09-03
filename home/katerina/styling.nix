@@ -6,7 +6,7 @@
     enable = true;
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
-    image = ../../wallpapers/catppuccin-sports-5120x1440.png;
+    image = ../../wallpapers/anteater-3360x2240.jpg;
 
     fonts = { 
       monospace = {

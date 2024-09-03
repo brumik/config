@@ -108,9 +108,9 @@
           specialArgs = {inherit inputs outputs;};
           modules = [
             stylix.nixosModules.stylix
-            ./system/anteater.config.nix
             home-manager.nixosModules.home-manager
             commonHomeManagerConfig
+            ./system/anteater-config.nix
             (import ./system/users/katerina.nix { username = "katerina"; })
           ];
         }
