@@ -1,5 +1,5 @@
 noteId = "fc3ead1e-6d00-4d22-9b9d-c9a4271e5f01"
-server = "https://bitwarden.brumspace.synology.me"
+server = "https://bitwarden.brumspace.duckdns.org"
 email = "kathrinviolin99@gmail.com"
 secretsFile = ".zshsecrets"
 
