@@ -13,7 +13,7 @@
   ];
 
   imports = [
-    ../modules/terminal
+    (import ../modules/terminal { inherit username; })
     ../modules/spotdl
     (import ../modules/bw-setup-secrets { inherit username; })
     # Local

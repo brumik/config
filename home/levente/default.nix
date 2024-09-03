@@ -18,7 +18,7 @@
   ];
 
   imports = [
-    ../modules/terminal
+    (import ../modules/terminal { inherit username; })
     ../modules/spotdl
     ../modules/qmk
     (import ../modules/bw-setup-secrets { inherit username; })

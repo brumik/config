@@ -1,0 +1,36 @@
+[user]
+	name = Katerina Glazova
+	email = kathrinviolin99@gmail.com
+  signingkey = ~/.ssh/id_ed25519.pub
+[core]
+	editor = vi
+[push]
+	default = simple
+[alias]
+  fap = fetch --prune
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	pr = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
+	pr-clean = "!git for-each-ref refs/heads/pr/* --format=\"%(refname)\" | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
+	fixup = "!sh -c '(git diff-files --quiet || (echo Unstaged changes, please commit or stash with --keep-index; exit 1)) && COMMIT=$(git rev-parse $1) && git commit --fixup=$COMMIT && git rebase -i --autosquash $COMMIT~1' -"
+	clean-branches = !git branch | grep -v rc | xargs git branch -D
+
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true
+
+[gpg]
+  format = ssh
+[commit]
+  gpgsign = true
+
+# Remembers last resolution of a conflict and applies it when sees it again
+[rerere]
+  enabled = true
+
+[column]
+  ui = auto
+
+# Make sure that when programs want to pull from git they do with my ssh
+[url "git@github.com:"]
+  insteadOf = https://github.com/

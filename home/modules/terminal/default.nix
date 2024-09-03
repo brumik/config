@@ -1,7 +1,7 @@
-{ ... }:
+{ username }: { ... }:
 {
   imports = [
-    ./git
+    (import ./git { inherit username; })
     ./zsh
     ./nvim
     ./tmux
