@@ -13,9 +13,6 @@
   };
 
   dconf.settings = {
-    "org/gnome/settings-daemon/plugins/power" = {
-      sleep-inactive-ac-type = "nothing";
-    };
     "org/gnome/desktop/interface" = {
       enable-hot-corners = true;
     };
@@ -30,7 +27,12 @@
     };
 
     "org/gnome/desktop/session" = {
-      idle-delay = mkUint32 0;
+      idle-delay = mkUint32 300;
+    };
+
+    "org/gnome/settings-daemon/plugins/power" = {
+      sleep-inactive-ac-type = "suspend";
+      sleep-inactive-ac-timeout = 900;
     };
 
     "org/gnome/mutter" = {

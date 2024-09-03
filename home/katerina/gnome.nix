@@ -56,7 +56,7 @@
     };
 
     "org/gnome/desktop/session" = {
-      idle-delay = mkUint32 0;
+      idle-delay = mkUint32 300;
     };
 
     "org/gnome/mutter" = {
