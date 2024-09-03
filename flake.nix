@@ -28,14 +28,27 @@
   let
     inherit (self) outputs;
     system = "x86_64-linux";
+    commonHomeManagerConfig =
+    {
+      nixpkgs.overlays = [
+        outputs.overlays.unstable-packages
+        outputs.overlays.modifications
+        outputs.overlays.additions
+      ];
+
+      home-manager.extraSpecialArgs = { inherit inputs outputs; };
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.backupFileExtension = "backup";
+    };
   in {
+
   # Your custom packages and modifications, exported as overlays
   overlays = import ./utils/overlays {inherit inputs;};
 
   darwinConfigurations = {
     levente-berky-mbp = 
       let
-        username = "levente.berky";
         system = "aarch64-darwin";
       in nix-darwin.lib.darwinSystem {
         inherit system;
@@ -53,12 +66,13 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.verbose = true;
-            home-manager.users."levente.berky" = import ./home/levente-mac { username = "levente"; };
+            home-manager.users."levente.berky" = import ./home/levente-mac { username = "levente.berky"; };
             home-manager.backupFileExtension = "backup";
           }
         ];
       };
   };
+
 
   nixosConfigurations = {
       nixos-levente = (
@@ -67,22 +81,10 @@
           specialArgs = {inherit inputs outputs;};
           modules = [
             stylix.nixosModules.stylix
+            home-manager.nixosModules.home-manager
+            commonHomeManagerConfig
             ./system/brumstellar-config.nix
             (import ./system/users/levente.nix { username = "levente"; })
-            home-manager.nixosModules.home-manager
-            {
-              nixpkgs.overlays = [
-                outputs.overlays.unstable-packages
-                outputs.overlays.modifications
-                outputs.overlays.additions
-              ];
-
-              home-manager.extraSpecialArgs = {inherit inputs outputs;};
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.levente = import ./home/levente { username = "levente"; };
-              home-manager.backupFileExtension = "backup";
-            }
           ];
         }
       );
@@ -95,19 +97,7 @@
             ./system/n100-config.nix
             (import ./system/users/levente.nix { username = "levente"; })
             home-manager.nixosModules.home-manager
-            {
-              nixpkgs.overlays = [
-                outputs.overlays.unstable-packages
-                outputs.overlays.modifications
-                outputs.overlays.additions
-              ];
-
-              home-manager.extraSpecialArgs = {inherit inputs outputs; };
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.levente = import ./home/levente { username = "levente"; };
-              home-manager.backupFileExtension = "backup";
-            }
+            commonHomeManagerConfig
           ];
         }
       );
@@ -119,18 +109,7 @@
             ./system/anteater.config.nix
             (import ./system/users/katerina.nix { username = "katerina"; })
             home-manager.nixosModules.home-manager
-            {
-              nixpkgs.overlays = [
-                outputs.overlays.unstable-packages
-                outputs.overlays.modifications
-                outputs.overlays.additions
-              ];
-
-              home-manager.extraSpecialArgs = {inherit inputs outputs;};
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.katerina = import ./home/katerina { username = "katerina"; };
-            }
+            commonHomeManagerConfig
           ];
         }
       );

@@ -12,6 +12,8 @@
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
+  home-manager.users.${username} = import ../../home/${username} { inherit username; };
+
   security.sudo.extraRules = [
     {
       users = [ username ];
