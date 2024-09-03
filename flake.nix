@@ -85,6 +85,7 @@
             commonHomeManagerConfig
             ./system/brumstellar-config.nix
             (import ./system/users/levente.nix { username = "levente"; })
+            # (import ./system/users/katerina.nix { username = "katerina"; })
           ];
         }
       );
@@ -94,10 +95,10 @@
           specialArgs = {inherit inputs outputs;};
           modules = [
             stylix.nixosModules.stylix
-            ./system/n100-config.nix
-            (import ./system/users/levente.nix { username = "levente"; })
             home-manager.nixosModules.home-manager
             commonHomeManagerConfig
+            ./system/n100-config.nix
+            (import ./system/users/levente.nix { username = "levente"; })
           ];
         }
       );
@@ -106,10 +107,11 @@
           inherit system;
           specialArgs = {inherit inputs outputs;};
           modules = [
+            stylix.nixosModules.stylix
             ./system/anteater.config.nix
-            (import ./system/users/katerina.nix { username = "katerina"; })
             home-manager.nixosModules.home-manager
             commonHomeManagerConfig
+            (import ./system/users/katerina.nix { username = "katerina"; })
           ];
         }
       );
