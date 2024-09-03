@@ -23,29 +23,9 @@
     };
   };
 
-  home.file.".local/share/backgrounds/wallpaper.jpg".source = ./wallpaper-katerina.jpg;
+  home.file.".face".source = ../../wallpapers/sebastian-portrait.png;
 
   dconf.settings = {
-    "org/gnome/settings-daemon/plugins/power" = {
-      sleep-inactive-ac-type = "nothing";
-    };
-    "org/gnome/desktop/background" = {
-      color-shading-type = "solid";
-      picture-options = "zoom";
-      picture-uri = "file:///home/katerina/.local/share/backgrounds/wallpaper.jpg";
-      picture-uri-dark = "file:///home/katerina/.local/share/backgrounds/wallpaper.jpg";
-      primary-color = "#000000000000";
-      secondary-color = "#000000000000";
-    };
-
-    "org/gnome/desktop/screensaver" = {
-      color-shading-type = "solid";
-      picture-options = "zoom";
-      picture-uri = "file:///home/katerina.local/share/rackgrounds/wallpaper.jpg";
-      primary-color = "#000000000000";
-      secondary-color = "#000000000000";
-    };
-
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
       enable-hot-corners = true;
@@ -57,6 +37,11 @@
 
     "org/gnome/desktop/session" = {
       idle-delay = mkUint32 300;
+    };
+
+    "org/gnome/settings-daemon/plugins/power" = {
+      sleep-inactive-ac-type = "suspend";
+      sleep-inactive-ac-timeout = 900;
     };
 
     "org/gnome/mutter" = {

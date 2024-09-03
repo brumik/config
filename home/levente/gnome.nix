@@ -7,6 +7,7 @@
   ];
 
   home.file.".config/tiling-assistant/layouts.json".source = ./tiling-assistant-layouts.json;
+  home.file.".face".source = ../../wallpapers/sebastian-portrait.png;
 
   gtk = {
     enable = true;

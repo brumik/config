@@ -27,6 +27,7 @@
 
   # With this enabled some apps have problebs with top bar and app indicator.
   # This is fixing flickering though if needed.
+  # TODO: this might be not needed anymore as it is working fine without on n100
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   # Alternative is to use Xorg Gnome session until electron apps are adopting
 
@@ -60,42 +61,6 @@
   #
   # networking.firewall.allowedTCPPorts = [ 11435 ];
   # End Enable LLM stuff
-
-  # Styling
-  stylix = {
-    enable = true;
-    polarity = "dark";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
-    image = ../wallpapers/catppuccin-sports-5120x1440.png;
-
-    fonts = { 
-      monospace = {
-        package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
-        name = "JetBrainsMono Nerd Font";
-      };
-      sansSerif = {
-        package = pkgs.dejavu_fonts;
-        name = "DejaVu Sans";
-      };
-      serif = {
-        package = pkgs.dejavu_fonts;
-        name = "DejaVu Serif";
-      };
-    };
-
-    cursor = {
-      package = pkgs.bibata-cursors;
-      name = "Bibata-Modern-Ice";
-      size = 24;
-    };
-
-    fonts.sizes = {
-      terminal = 14;
-      applications = 10;
-      desktop = 10;
-      popups = 10;
-    };
-  };
 
   # WOL
   networking.interfaces.enp7s0.wakeOnLan = {
