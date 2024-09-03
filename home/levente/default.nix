@@ -1,4 +1,4 @@
-{ pkgs, username, ... }: {
+{ pkgs, ... }: let username = "levente"; in {
   home.username = username;
   home.homeDirectory = "/home/" + username;
   home.stateVersion = "24.05";
@@ -23,7 +23,7 @@
     ../modules/qmk
     # Local
     ./gnome.nix
-    ./bw-setup-secrets
+    ( import ./bw-setup-secrets { inherit pkgs username; })
     ./klara.nix
     ./styling.nix
   ];

@@ -83,6 +83,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.levente = import ./home/levente;
+            home-manager.backupFileExtension = "backup";
           }
         ];
       });
@@ -96,6 +97,7 @@
           stylix.nixosModules.stylix
           ./system/anteater.config.nix
           ./system/users/katerina.nix
+          ./system/users/levente.nix
           home-manager.nixosModules.home-manager
           {
             nixpkgs.overlays = [
@@ -104,10 +106,12 @@
               outputs.overlays.additions
             ];
 
-            home-manager.extraSpecialArgs = {inherit inputs outputs username;};
+            home-manager.extraSpecialArgs = {inherit inputs outputs;};
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.katerina = import ./home/katerina;
+            home-manager.backupFileExtension = "backup";
+            home-manager.users.levente = import ./home/levente;
           }
         ];
       });

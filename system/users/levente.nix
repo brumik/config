@@ -1,18 +1,21 @@
-{ username, ... }: {
-  networking.hostName = "nixos-levente"; # Define your hostname.
+{ ... }: {
+  # networking.hostName = "nixos-levente"; # Define your hostname.
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users."${username}" = {
+  users.users.levente = {
     isNormalUser = true;
-    description = username;
+    initialPassword = "brumik123";
+    description = "Levente";
     extraGroups = [ "networkmanager" "wheel" "docker"];
   };
 
   security.sudo.extraRules= [
-    {  users = [ username ];
+    { 
+      users = [ "levente" ];
       commands = [
-         { command = "ALL" ;
-           options= [ "NOPASSWD" ]; # "SETENV" # Adding the following could be a good idea
+        {
+          command = "ALL" ;
+          options= [ "NOPASSWD" ]; # "SETENV" # Adding the following could be a good idea
         }
       ];
     }

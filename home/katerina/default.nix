@@ -1,4 +1,4 @@
-{ pkgs, username, ... }: {
+{ pkgs, ... }: let username = "katerina"; in {
   home.username = username;
   home.homeDirectory = "/home/" + username;
   home.stateVersion = "23.11";
@@ -15,7 +15,7 @@
     unstable.synology-drive-client
     anki-bin
     unstable.protonvpn-gui
-    ytsum
+    virt-viewer
   ];
 
   imports = [
@@ -23,5 +23,6 @@
     ../modules/spotdl
     # Local
     ./gnome.nix
+    ./styling.nix
   ];
 }

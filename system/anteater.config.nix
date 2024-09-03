@@ -24,8 +24,8 @@
   stylix = {
     enable = true;
     polarity = "dark";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
-    image = ../home/gnome/wallpaper-katerina.jpg;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-frappe.yaml";
+    image = ../wallpapers/anteater-3360x2240.jpg;
 
     fonts = { 
       monospace = {
@@ -43,8 +43,9 @@
     };
 
     cursor = {
-      package = pkgs.capitaine-cursors-themed;
-      name = "Capitaine Cursors (Gruvbox)";
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Ice";
+      size = 24; 
     };
 
     fonts.sizes = {
