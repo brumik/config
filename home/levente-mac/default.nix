@@ -5,7 +5,7 @@
   programs.home-manager.enable = true;
 
   imports = [
-    ../modules/terminal/alacritty
+    ../modules/terminal/alacritty.nix
     ../modules/terminal/nvim
     ../modules/terminal/tmux
     ../modules/terminal/zsh

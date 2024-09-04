@@ -5,7 +5,8 @@
     ./zsh
     ./nvim
     ./tmux
-    ./alacritty
+    ./alacritty.nix
+    ./kitty.nix
     ./pet.nix
   ];
 }
