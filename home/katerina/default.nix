@@ -10,6 +10,7 @@
     telegram-desktop
     onlyoffice-bin
     anki-bin
+    google-chrome
   ];
 
   imports = [
