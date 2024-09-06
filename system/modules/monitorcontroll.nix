@@ -1,5 +1,7 @@
 { pkgs, ... }:
 {
+  # This does not work when using kvm
+
   # Enables i2c capabilities and ads the seated users to the group.
   hardware.i2c.enable = true;
 
