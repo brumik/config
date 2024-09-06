@@ -18,7 +18,7 @@
     };
 
     "org/gnome/desktop/session" = {
-      idle-delay = mkUint32 300;
+      idle-delay = mkUint32 840;
     };
 
     "org/gnome/settings-daemon/plugins/power" = {
