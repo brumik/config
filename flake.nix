@@ -16,7 +16,7 @@
       url = "github:nix-community/nixvim/nixos-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    stylix.url = "github:danth/stylix";
+    stylix.url = "github:danth/stylix/release-24.05";
 
     # Personal packages
     ytsum.url = "github:brumik/ytsum";
@@ -75,7 +75,7 @@
 
 
   nixosConfigurations = {
-      nixos-levente = (
+      nixos-brumstellar = (
         nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {inherit inputs outputs;};
@@ -85,7 +85,6 @@
             commonHomeManagerConfig
             ./system/brumstellar-config.nix
             (import ./system/users/levente.nix { username = "levente"; })
-            # (import ./system/users/katerina.nix { username = "katerina"; })
           ];
         }
       );
