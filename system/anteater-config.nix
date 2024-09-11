@@ -14,22 +14,7 @@
     localNetworkGameTransfers.openFirewall = true; 
   };
 
-  # Use grub for syling, als HW config needs to change if removed
-
   # Styling
-  boot.loader = {
-    systemd-boot = {
-      enable = pkgs.lib.mkForce false;
-    };
-    grub = {
-      enable = true;
-      device = "/dev/sda";
-      gfxmodeEfi = "1920x1080,auto";
-      gfxmodeBios = "1920x1080,auto";
-      fontSize = 36;
-    };
-  };
-
   stylix = {
     enable = true;
     polarity = "dark";
