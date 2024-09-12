@@ -32,8 +32,8 @@
     };
 
     "org/gnome/settings-daemon/plugins/power" = {
-      sleep-inactive-ac-type = "none";
-      # sleep-inactive-ac-timeout = 900;
+      sleep-inactive-ac-type = "sleep";
+      sleep-inactive-ac-timeout = 900;
     };
 
     "org/gnome/mutter" = {
