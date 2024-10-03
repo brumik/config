@@ -28,12 +28,12 @@
     };
 
     "org/gnome/desktop/session" = {
-      idle-delay = mkUint32 300;
+      idle-delay = mkUint32 900;
     };
 
     "org/gnome/settings-daemon/plugins/power" = {
       sleep-inactive-ac-type = "suspend";
-      sleep-inactive-ac-timeout = 900;
+      sleep-inactive-ac-timeout = 1200;
     };
 
     "org/gnome/mutter" = {
