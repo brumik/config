@@ -39,6 +39,9 @@
       ghpr = "(set -e gh pr checkout $(gh pr list | fzf | cut -f1))";
       # github fzf and clone repo
       ghrepo = "gh-fzf-find-repo";
+
+      # If exists map docker compose to dc
+      dc = "docker compose";
     };
 
     # This extra config loads the secrets file that you can generate on your own.
