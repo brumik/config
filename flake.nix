@@ -85,6 +85,7 @@
             commonHomeManagerConfig
             ./system/n100-config.nix
             (import ./system/users/levente.nix { username = "levente"; })
+            (import ./system/users/work.nix { username = "work"; })
           ];
         }
       );

@@ -12,7 +12,6 @@
     onlyoffice-bin
     vlc
     transmission_4-qt
-    ytsum
     element-desktop
     brave
   ];
@@ -25,6 +24,6 @@
     # Local
     ./gnome.nix
     ./klara.nix
-    ./styling
+    ./styling.nix
   ];
 }

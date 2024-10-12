@@ -5,7 +5,7 @@
     enable = true;
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest.yaml";
-    image = ../../../wallpapers/everforest-5120x1440.png;
+    image = ../../wallpapers/everforest-5120x1440.png;
 
     fonts = { 
       monospace = {
@@ -36,12 +36,9 @@
     };
   };
 
-  # Style the gnome higlight
-
-
   imports = [
-    ./tmux-everforest.nix
-    ./dconf-window-highlight-everforest.nix
+    ../modules/styling/tmux-everforest.nix
+    ../modules/styling/dconf-window-highlight-everforest.nix
   ];
 
 
