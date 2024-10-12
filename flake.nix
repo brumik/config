@@ -75,19 +75,6 @@
 
 
   nixosConfigurations = {
-      # nixos-brumstellar = (
-      #   nixpkgs.lib.nixosSystem {
-      #     inherit system;
-      #     specialArgs = {inherit inputs outputs;};
-      #     modules = [
-      #       stylix.nixosModules.stylix
-      #       home-manager.nixosModules.home-manager
-      #       commonHomeManagerConfig
-      #       ./system/brumstellar-config.nix
-      #       (import ./system/users/levente.nix { username = "levente"; })
-      #     ];
-      #   }
-      # );
       nixos-n100 = (
         nixpkgs.lib.nixosSystem {
           inherit system;

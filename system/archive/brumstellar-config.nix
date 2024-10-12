@@ -6,7 +6,7 @@
     ./modules/nvidia.nix
     ./modules/dualboot.nix
     ./modules/stylix-default.nix
-    ./coder.nix
+    ./modules/coder.nix
   ];
   
   networking.hostName = "nixos-brumstellar"; # Define your hostname.
