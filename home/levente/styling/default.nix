@@ -5,7 +5,7 @@
     enable = true;
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest.yaml";
-    image = ../../wallpapers/everforest-5120x1440.png;
+    image = ../../../wallpapers/everforest-5120x1440.png;
 
     fonts = { 
       monospace = {
@@ -36,16 +36,13 @@
     };
   };
 
-  # # Stilyx should handle all the styling but some cases it is not perfect yet 
-  # programs.tmux = {
-  #   plugins = with pkgs; [
-  #     {
-  #       plugin = tmuxPlugins.catppuccin;
-  #       extraConfig = '' 
-  #         set -g @catppuccin_flavour 'mocha'
-  #         set -g @catppuccin_window_default_text "#W" 
-  #       ''; 
-  #     }
-  #   ];
-  # };
+  # Style the gnome higlight
+
+
+  imports = [
+    ./tmux-everforest.nix
+    ./dconf-window-highlight-everforest.nix
+  ];
+
+
 }

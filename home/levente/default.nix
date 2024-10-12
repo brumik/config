@@ -25,6 +25,6 @@
     # Local
     ./gnome.nix
     ./klara.nix
-    ./styling.nix
+    ./styling
   ];
 }

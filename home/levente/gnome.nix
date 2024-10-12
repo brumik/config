@@ -59,7 +59,8 @@
       activate-layout4 = [];
       active-window-hint = 2;
       active-window-hint-border-size = 3;
-      active-window-hint-color = "rgb(143,188,187)";
+      # Defined in styles
+      # active-window-hint-color = "rgb(143,188,187)";
       active-window-hint-inner-border-size = 3;
       adapt-edge-tiling-to-favorite-layout = true;
       auto-tile = [];
