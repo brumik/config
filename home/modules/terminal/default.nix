@@ -1,5 +1,9 @@
-{ username }: { ... }:
+{ username }: { pkgs, ... }:
 {
+  home.packages = [
+    pkgs.just
+  ];
+
   imports = [
     (import ./git { inherit username; })
     ./zsh
