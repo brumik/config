@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
     lua54Packages.jsregexp
   ];
@@ -9,67 +7,67 @@
       {
         action.__raw = "vim.lsp.buf.format";
         key = "<leader>fm";
-        mode = [ "n" ];
+        mode = ["n"];
         options.desc = "Format file";
       }
       {
         action.__raw = "vim.diagnostic.open_float";
         key = "<leader>e";
-        mode = [ "n" ];
+        mode = ["n"];
         options.desc = "Open floating errors";
       }
       {
         action.__raw = "vim.diagnostic.goto_prev";
         key = "<leader>k";
-        mode = [ "n" ];
+        mode = ["n"];
         options.desc = "Go to prev error";
       }
       {
         action.__raw = "vim.diagnostic.goto_next";
         key = "<leader>j";
-        mode = [ "n" ];
+        mode = ["n"];
         options.desc = "Go to next error";
       }
       {
         action.__raw = "vim.lsp.buf.hover";
         key = "K";
-        mode = [ "n" ];
+        mode = ["n"];
         options.desc = "Hover";
       }
       {
         action.__raw = "vim.lsp.buf.declaration";
         key = "gD";
-        mode = [ "n" ];
+        mode = ["n"];
         options.desc = "Go to declaration";
       }
       {
         action.__raw = "vim.lsp.buf.definition";
         key = "gd";
-        mode = [ "n" ];
+        mode = ["n"];
         options.desc = "Go to definition";
       }
       {
         action.__raw = "vim.lsp.buf.references";
         key = "gr";
-        mode = [ "n" ];
+        mode = ["n"];
         options.desc = "Search for references";
       }
       {
         action.__raw = "vim.lsp.buf.rename";
         key = "<leader>rn";
-        mode = [ "n" ];
+        mode = ["n"];
         options.desc = "Rename variable in buffer";
       }
       {
         action.__raw = "vim.lsp.buf.code_action";
         key = "<leader>ca";
-        mode = [ "n" "v" ];
+        mode = ["n" "v"];
         options.desc = "Code action";
       }
       {
         action.__raw = "cmp.mapping.confirm({ select = true })";
         key = "<C-y>";
-        mode = [ "i" ];
+        mode = ["i"];
         options.desc = "Accept selection";
       }
       {
@@ -87,7 +85,7 @@
           end
         '';
         key = "<C-n>";
-        mode = [ "i" "s" ];
+        mode = ["i" "s"];
         options.desc = "Select next option";
       }
       {
@@ -103,27 +101,28 @@
           end
         '';
         key = "<M-C-n>";
-        mode = [ "i" "s" ];
+        mode = ["i" "s"];
         options.desc = "Select prev option";
       }
     ];
-    plugins = { 
+    plugins = {
       lsp = {
         enable = true;
         servers = {
           html.enable = true;
-          nil-ls.enable = true; # nix
+          nixd = {
+            enable = true; # nix
+            settings = { 
+              nixpkgs.expr = "import <nixpkgs> { }";
+              options = {
+                nixos.expr = "(builtins.getFlake \"github:brumik/config\").nixosConfigurations.nixos-n100.options";
+              };
+            };
+          };
           gopls.enable = true; # go
           tsserver.enable = true; # ts
           pyright.enable = true; # python
           ruby-lsp.enable = true; # ruby
-          rust-analyzer = { # rust
-            enable = true;
-            package = pkgs.unstable.rust-analyzer;
-            ## expect rust installed in projects where I need it (:
-            installCargo = false;
-            installRustc = false;
-          };
         };
       };
       none-ls = {
@@ -131,10 +130,9 @@
         sources = {
           formatting = {
             black.enable = true; # python
-            # Ts server has a formatter built in
-            # prettier.enable = true; # js
             stylua.enable = true; # lua
             gofmt.enable = true; # go
+            nixfmt.enable = true; # nix
           };
         };
       };

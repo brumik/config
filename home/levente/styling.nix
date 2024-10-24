@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   # Styling
   stylix = {
     enable = true;
@@ -7,7 +6,7 @@
     base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest.yaml";
     image = ../../wallpapers/everforest-5120x1440.png;
 
-    fonts = { 
+    fonts = {
       monospace = {
         package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
         name = "JetBrainsMono Nerd Font";
@@ -40,6 +39,4 @@
     ../modules/styling/tmux-everforest.nix
     ../modules/styling/dconf-window-highlight-everforest.nix
   ];
-
-
 }
