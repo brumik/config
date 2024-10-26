@@ -13,3 +13,7 @@ update-debug:
 # updates the lockfile
 upgrade:
   nix flake update && just update
+
+# clean old generations
+clean:
+  nix-collect-garbage -d
