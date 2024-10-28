@@ -6,11 +6,12 @@
   home.packages = with pkgs; [
     unstable.vscode
     unstable.insomnia
-    chromium
+    unstable.chromium
     unstable.slack
     unstable.firefox
     spotify
     bitwarden
+    unstable.obsidian
   ];
 
   imports = [

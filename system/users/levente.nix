@@ -1,4 +1,4 @@
-{ username }: { pkgs, ... }:
+{ username }: { ... }:
 {
   imports = [
     (import ../modules/docker.nix { inherit username; })
@@ -10,7 +10,7 @@
     isNormalUser = true;
     initialPassword = "passwd";
     description = "Brum";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "smbusers" ];
   };
 
   home-manager.users.${username} = import ../../home/${username} { inherit username; };

@@ -1,6 +1,7 @@
-{ username }: { pkgs, ... }:
+{ username }: { ... }:
 {
   imports = [
+    (import ../modules/smb.nix { inherit username; })
     (import ../modules/docker.nix { inherit username; })
   ];
 
@@ -9,7 +10,7 @@
     isNormalUser = true;
     initialPassword = "passwd";
     description = "Work";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "smbusers" ];
   };
 
   home-manager.users.${username} = import ../../home/${username} { inherit username; };
