@@ -1,0 +1,22 @@
+networks:
+  default:
+    driver: bridge
+  socket_proxy:
+    name: socket_proxy
+    driver: bridge
+    ipam:
+      config:
+        # Should not clash with the LAN subnet
+        - subnet: 192.168.100.0/24
+  t3_proxy:
+    name: t3_proxy
+    driver: bridge
+    ipam:
+      config:
+        # Should not clash with the LAN subnet
+        - subnet: 192.168.101.0/24
+
+include:
+  - ./compose/docker-socket-proxy.yml
+  - ./compose/dozzle.yml
+  - ./compose/traefik.yml
