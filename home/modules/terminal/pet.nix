@@ -18,6 +18,11 @@
     };
     snippets = [
       {
+        command = "sudo lsof -nP -iTCP -sTCP:LISTEN";
+        description = "Show services which listen to any TCP port";
+        tag = ["cmd" "networking" "system"];
+      }
+      {
         command = "docker system prune --volumes -af";
         description = "Clear all docker system resourses not in use";
         tag = ["cmd" "docker"];
