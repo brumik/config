@@ -5,10 +5,11 @@
   ];
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users."${username}" = {
+    uid = 1000;
     isNormalUser = true;
     initialPassword = "passwd";
     description = "Katerina";
-    extraGroups = [ "networkmanager" "wheel" "smbuser" ];
+    extraGroups = [ "networkmanager" "wheel" ];
   };
 
   home-manager.users.${username} = import ../../home/${username} { inherit username; };
