@@ -18,5 +18,5 @@ networks:
 
 include:
   - ./compose/docker-socket-proxy.yml
-  - ./compose/dozzle.yml
+  - ./compose/homepage.yml
   - ./compose/traefik.yml

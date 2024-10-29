@@ -6,8 +6,8 @@ services:
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
-    # networks:
-    #   socket_proxy:
+    networks:
+      socket_proxy:
     #     ipv4_address: 192.168.91.254 # You can specify a static IP
     privileged: true # true for VM. false for unprivileged LXC container on Proxmox.
     ports:
