@@ -18,6 +18,11 @@
     };
     snippets = [
       {
+        command = "nmap -p <port-range> <ip-address>";
+        description = "Check for open ports on the given address";
+        tag = ["cmd" "network" "system"];
+      }
+      {
         command = "docker system prune --volumes -af";
         description = "Clear all docker system resourses not in use";
         tag = ["cmd" "docker"];

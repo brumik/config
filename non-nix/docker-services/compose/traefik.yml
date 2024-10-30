@@ -2,13 +2,12 @@ services:
   # Traefik 3 - Reverse Proxy
   traefik:
     container_name: traefik
-    image: traefik:3.1
+    image: traefik:3.2
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
     networks:
       t3_proxy:
-    #     ipv4_address: 192.168.90.254 # You can specify a static IP
       socket_proxy:
     command: # CLI arguments
       - --global.checkNewVersion=true
@@ -36,13 +35,15 @@ services:
       - --providers.docker.network=t3_proxy 
       # - --entrypoints.websecure.http.tls.options=tls-opts@file
 
-      - --certificatesresolvers.duckdns-letsencryp.acme.dnschallenge=true
-      - --certificatesresolvers.duckdns-letsencryp.acme.dnschallenge.provider=duckdns
-      - --certificatesresolvers.duckdns-letsencryp.acme.dnschallenge.delaybeforecheck=20
-      - --certificatesresolvers.duckdns-letsencryp.acme.storage=/letsencrypt/acme.json
-      - --certificatesresolvers.duckdns-letsencryp.acme.email=levente.berky@gmail.com
+      # Uncomment when production
+      - --certificatesresolvers.duckdnsletsencryp.acme.caServer=https://acme-staging.api.letsencrypt.org/directory
+      - --certificatesresolvers.duckdnsletsencryp.acme.dnschallenge=true
+      - --certificatesresolvers.duckdnsletsencryp.acme.dnschallenge.provider=duckdns
+      - --certificatesresolvers.duckdnsletsencryp.acme.dnschallenge.delaybeforecheck=0
+      - --certificatesresolvers.duckdnsletsencryp.acme.storage=/letsencrypt/acme.json
+      - --certificatesresolvers.duckdnsletsencryp.acme.email=levente.berky@gmail.com
 
-      - --entrypoints.websecure.http.tls.certresolver=duckdns-letsencryp
+      - --entrypoints.websecure.http.tls.certresolver=duckdnsletsencryp
       - --entrypoints.websecure.http.tls.domains[0].main=$DOMAINNAME_1
       - --entrypoints.websecure.http.tls.domains[0].sans=*.$DOMAINNAME_1
       # - --providers.file.directory=/rules # Load dynamic configuration from one or more .toml or .yml files in a directory
@@ -58,7 +59,7 @@ services:
         mode: host
     volumes:
       # - ../appdata/traefik/rules:/rules # Dynamic File Provider directory
-      - letsencrypt:/letsencrypt # Certs File 
+      - ../appdata/traefik/letsencrypt:/letsencrypt # Certs File 
       # - ../logs/traefik:/logs # Traefik logs
     environment:
       - TZ=$TZ
@@ -79,6 +80,6 @@ services:
       # Middlewares
       # - "traefik.http.routers.traefik-rtr.middlewares=middlewares-basic-auth@file" # For Basic HTTP Authentication
 
-volumes:
-  letsencrypt:
+# volumes:
+#   letsencrypt:
 
