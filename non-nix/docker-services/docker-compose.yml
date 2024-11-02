@@ -20,3 +20,4 @@ include:
   - ./compose/docker-socket-proxy.yml
   - ./compose/homepage.yml
   - ./compose/traefik.yml
+  - ./compose/mealie.yml

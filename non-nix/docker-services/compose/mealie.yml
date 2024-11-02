@@ -1,0 +1,54 @@
+services:
+  mealie:
+    container_name: mealie
+    image: ghcr.io/mealie-recipes/mealie:latest
+    restart: always
+    volumes:
+      - ../appdata/mealie:/app/data/
+    networks:
+      - t3_proxy
+    ports:
+      - 11113:9000
+    environment:
+      BASE_URL: "https://mealie.$DOMAINNAME_1"
+      ALLOW_SIGNUP: "false"
+      TZ: $TZ
+      # LOG_LEVEL: "DEBUG"
+
+      DB_ENGINE: sqlite
+      # Optional: 'sqlite', 'postgres'
+      # =====================================
+      # Postgres Config
+      # POSTGRES_USER: mealie
+      # POSTGRES_PASSWORD: mealie
+      # POSTGRES_SERVER: postgres
+      # POSTGRES_PORT: 5432
+      # POSTGRES_DB: mealie
+
+      # =====================================
+      # SSO Configuration
+      OIDC_AUTH_ENABLED: "true"
+      OIDC_CONFIGURATION_URL: "https://sso.brumspace.duckdns.org/realms/home/.well-known/openid-configuration"
+      OIDC_CLIENT_ID: "mealie"
+      OIDC_ADMIN_GROUP: "admin"
+      OIDC_AUTO_REDIRECT: "true"
+      OIDC_PROVIDER_NAME: "keycloak"
+
+      # =====================================
+      # Email Configuration
+      # SMTP_HOST=
+      # SMTP_PORT=587
+      # SMTP_FROM_NAME=Mealie
+      # SMTP_AUTH_STRATEGY=TLS # Options: 'TLS', 'SSL', 'NONE'
+      # SMTP_FROM_EMAIL=
+      # SMTP_USER=
+      # SMTP_PASSWORD=
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mealie-rtr.entrypoints=websecure"
+      - "traefik.http.routers.mealie-rtr.rule=Host(`mealie.$DOMAINNAME_1`)"
+      - "homepage.group=App"
+      - "homepage.name=Mealie"
+      - "homepage.icon=mealie.png"
+      - "homepage.href=https://mealie.$DOMAINNAME_1"
+      - "homepage.description=Recipe collection"

@@ -40,9 +40,9 @@ services:
       # - NETWORKS=1 # Portainer
       - NODES=0
       - PLUGINS=0
-      # - SERVICES=1 # Portainer
+      - SERVICES=1 # Portainer | Homepage
       - SESSION=0
       - SWARM=0
       - SYSTEM=0
-      # - TASKS=1 # Portainer
+      - TASKS=1 # Portainer | Homepage
       # - VOLUMES=1 # Portainer

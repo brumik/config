@@ -1,5 +1,23 @@
+networks:
+  homepage_docker_proxy:
+    name: homepage_docker_proxy
+    driver: bridge
+
 services:
-  # Homepage - Application Dashboard
+  homepage-docker-proxy:
+    container_name: homepage-docker-proxy
+    image: ghcr.io/tecnativa/docker-socket-proxy:latest
+    environment:
+      - CONTAINERS=1 # Allow access to viewing containers
+      - SERVICES=1 # Allow access to viewing services (necessary when using Docker Swarm)
+      - TASKS=1 # Allow access to viewing tasks (necessary when using Docker Swarm)
+      - POST=0 # Disallow any POST operations (effectively read-only)
+    networks:
+      - homepage_docker_proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro # Mounted as read-only
+    restart: unless-stopped
+
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
@@ -8,23 +26,17 @@ services:
     restart: unless-stopped
     networks:
       - t3_proxy
-      - socket_proxy
+      - homepage_docker_proxy
     ports:
-     - "3000:3000"
+     - 11000:3000
     volumes:
       - ../appdata/homepage:/app/config
+      - ../appdata/homepage/icons:/app/public/icons
     environment:
       TZ: $TZ
       # PUID: $PUID
       # PGID: $PGID
     labels:
       - "traefik.enable=true"
-      # HTTP Routers
       - "traefik.http.routers.homepage-rtr.entrypoints=websecure"
-      # - "traefik.http.routers.homepage-rtr.entrypoints=web"
       - "traefik.http.routers.homepage-rtr.rule=Host(`$DOMAINNAME_1`) || Host(`www.$DOMAINNAME_1`)" # Both domain.com and www.domain.com
-      # Middlewares
-      # - "traefik.http.routers.homepage-rtr.middlewares=chain-basic-auth@file"
-      # HTTP Services
-      - "traefik.http.routers.homepage-rtr.service=homepage-svc"
-      - "traefik.http.services.homepage-svc.loadbalancer.server.port=3000"

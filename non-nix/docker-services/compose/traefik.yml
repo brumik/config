@@ -21,7 +21,7 @@ services:
       - --entrypoints.web.http.redirections.entrypoint.permanent=true
       - --api=true
       - --api.dashboard=true
-      - --entrypoints.websecure.forwardedHeaders.trustedIPs=$LOCAL_IPS
+      # - --entrypoints.websecure.forwardedHeaders.trustedIPs=$LOCAL_IPS
       - --log=true
       # - --log.filePath=/logs/traefik.log
       - --log.level=DEBUG # (Default: error) DEBUG, INFO, WARN, ERROR, FATAL, PANIC
@@ -39,7 +39,8 @@ services:
       - --certificatesresolvers.duckdnsletsencryp.acme.caServer=https://acme-staging.api.letsencrypt.org/directory
       - --certificatesresolvers.duckdnsletsencryp.acme.dnschallenge=true
       - --certificatesresolvers.duckdnsletsencryp.acme.dnschallenge.provider=duckdns
-      - --certificatesresolvers.duckdnsletsencryp.acme.dnschallenge.delaybeforecheck=0
+      - --certificatesresolvers.duckdnsletsencryp.acme.dnschallenge.delaybeforecheck=20
+      - --certificatesresolvers.duckdnsletsencryp.acme.dnschallenge.resolvers=1.1.1.1:53
       - --certificatesresolvers.duckdnsletsencryp.acme.storage=/letsencrypt/acme.json
       - --certificatesresolvers.duckdnsletsencryp.acme.email=levente.berky@gmail.com
 
