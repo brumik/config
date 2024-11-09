@@ -18,6 +18,11 @@
     };
     snippets = [
       {
+        command = ":cfdo %s/stringOne/stringTwo/g | update | bd";
+        description = "Regex replace across the whole project";
+        tag = ["cmd" "vim" "replace"];
+      }
+      {
         command = "sudo lsof -nP -iTCP -sTCP:LISTEN";
         description = "Show services which listen to any TCP port";
         tag = ["cmd" "networking" "system"];

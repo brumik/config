@@ -17,3 +17,8 @@ upgrade:
 # clean old generations
 clean:
   nix-collect-garbage -d
+
+# Set up ssh agent and add the keys
+set-up-ssh:
+  eval "$(ssh-agent -s)"
+  ssh-add

@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ ... }: {
   programs.zsh = {
     initExtra = ''
       function yy() {
@@ -14,7 +14,6 @@
 
   programs.yazi = {
     enable = true;
-    package = pkgs.unstable.yazi;
   };
 
   home.file.".config/yazi/yazi.toml".source = ./yazi.toml;
