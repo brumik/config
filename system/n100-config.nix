@@ -78,4 +78,22 @@
     enable = true;
     configFile = "/home/n100/ddclient.conf";
   };
+
+  # Backup task
+  systemd.services.rsyncBackup = {
+    description = "Run rsync to backup the docker setup to SMB share";
+    serviceConfig = {
+      # This is dirty but as a server will do for now
+      ExecStart = "${pkgs.bash}/bin/bash /home/n100/docker/rsync.sh"; # Script to run
+      Environment = "PATH=${pkgs.coreutils}/bin:${pkgs.curl}/bin:${pkgs.rsync}/bin";
+    };
+  };
+
+  systemd.timers.rsyncBackup = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "*-*-* 19:36:00";
+      Persistent = true;
+    };
+  };
 }
