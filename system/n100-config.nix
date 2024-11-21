@@ -67,8 +67,33 @@
   # Server preparation
   # ===========================
 
+  # Get static ip address instead of dhcp
+  networking = {
+    useDHCP = false; # Disable DHCP to allow static IP configuration
+
+    interfaces = {
+      enp1s0 = {
+        ipv4.addresses = [
+          {
+            address = "192.168.1.128"; # Your desired static IP address
+            prefixLength = 32;         # Subnet mask in CIDR notation
+          }
+        ];
+      };
+    };
+
+    defaultGateway = "192.168.1.1";
+    # DNS settings
+    nameservers = [ "127.0.0.1" "1.1.1.1" ]; # Replace with your preferred DNS servers
+  };
+
   # Enable binding on the 80 and 443 port for docker
   boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 0;
+
+  # Open ports for reverse proxy
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  # Open ports for DNS server
+  networking.firewall.allowedUDPPorts = [ 53 ];
 
   # Enable ssh
   services.openssh.enable = true;
