@@ -84,8 +84,9 @@
             home-manager.nixosModules.home-manager
             commonHomeManagerConfig
             ./system/n100-config.nix
-            (import ./system/users/levente.nix { username = "levente"; })
-            (import ./system/users/work.nix { username = "work"; })
+            # (import ./system/users/levente.nix { username = "levente"; })
+            (import ./system/users/n100.nix { username = "n100"; })
+            # (import ./system/users/work.nix { username = "work"; })
           ];
         }
       );

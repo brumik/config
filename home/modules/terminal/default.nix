@@ -9,7 +9,7 @@
     ./zsh
     ./nvim
     ./tmux
-    ./alacritty.nix
+    # ./alacritty.nix
     ./kitty.nix
     ./pet.nix
   ];
