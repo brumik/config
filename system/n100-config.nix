@@ -92,7 +92,7 @@
   systemd.timers.rsyncBackup = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
-      OnCalendar = "*-*-* 19:36:00";
+      OnCalendar = "*-*-* 22:00:00";
       Persistent = true;
     };
   };
