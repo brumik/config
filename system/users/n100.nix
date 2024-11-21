@@ -6,6 +6,7 @@
   ];
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users."${username}" = {
+    # This is server only
     uid = 1000;
     isNormalUser = true;
     initialPassword = "passwd";

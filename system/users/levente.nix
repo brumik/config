@@ -7,7 +7,7 @@
   ];
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users."${username}" = {
-    uid = 1000;
+    uid = 1010;
     isNormalUser = true;
     initialPassword = "passwd";
     description = "Brum";
