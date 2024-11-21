@@ -12,9 +12,6 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  # Enable ssh
-  services.openssh.enable = true;
-
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
@@ -72,4 +69,13 @@
 
   # Enable binding on the 80 and 443 port for docker
   boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 0;
+
+  # Enable ssh
+  services.openssh.enable = true;
+
+  # Set up ddclient for setting the IP for berky.me to the ip of the network
+  services.ddclient = {
+    enable = true;
+    configFile = "/home/n100/ddclient.conf";
+  };
 }

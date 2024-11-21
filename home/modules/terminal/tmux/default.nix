@@ -32,4 +32,13 @@
       set -g status-left-length 20
     '';
   };
+
+  programs.zsh = {
+    oh-my-zsh.plugins = [ "tmux" ];
+    envExtra = ''
+      ZSH_TMUX_AUTOSTART=true
+      ZSH_TMUX_DEFAULT_SESSION_NAME=home
+      ZSH_TMUX_CONFIG=$HOME/.config/tmux/tmux.conf
+    '';
+  };
 }

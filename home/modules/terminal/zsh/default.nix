@@ -16,8 +16,6 @@
         "npm"
         # press 2x esc to repeat the prev command with sudo
         "sudo"
-        # add aliases and set up tmux in general
-        "tmux"
       ];
       theme = "robbyrussell";
     };
@@ -64,12 +62,6 @@
       zstyle ':completion:*' menu no
       zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
       zstyle ':fzf-tab:*' switch-group '<' '>'
-    '';
-
-    envExtra = ''
-      ZSH_TMUX_AUTOSTART=true
-      ZSH_TMUX_DEFAULT_SESSION_NAME=home
-      ZSH_TMUX_CONFIG=$HOME/.config/tmux/tmux.conf
     '';
 
     history = {

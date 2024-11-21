@@ -2,7 +2,7 @@
 {
   imports = [
     (import ../modules/docker.nix { inherit username; })
-    (import ../modules/smb.nix { inherit username; })
+    (import ../modules/smb2.nix { inherit username; })
   ];
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users."${username}" = {
