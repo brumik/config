@@ -13,5 +13,6 @@
     ../modules/terminal/zsh
     ../modules/terminal/nvim
     ../modules/terminal/kitty.nix
+    ../modules/terminal/tmux
   ];
 }

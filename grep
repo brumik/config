@@ -4,7 +4,6 @@
     # ./modules/base-configuration.nix
     # ./modules/stylix-default.nix
     ./modules/stylix-everforest.nix
-    # ./modules/coder.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -85,7 +84,7 @@
 
     defaultGateway = "192.168.1.1";
     # DNS settings
-    nameservers = [ "192.168.1.128" "1.1.1.1" ]; # Replace with your preferred DNS servers
+    nameservers = [ "127.0.0.1" "1.1.1.1" ]; # Replace with your preferred DNS servers
   };
 
   # Enable binding on the 80 and 443 port for docker

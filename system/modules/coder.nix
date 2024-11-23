@@ -10,7 +10,7 @@
   services.coder = {
     enable = true;
     listenAddress = "0.0.0.0:11000";
-    accessUrl = "https://coder.brumspace.duckdns.org";
+    accessUrl = "https://coder.berky.me";
     user = "coder";
     package = pkgs.unstable.coder;
   };
