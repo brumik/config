@@ -25,7 +25,7 @@
       # custom commands
       bind C-a display-popup -E "tms switch"
       bind C-o display-popup -E "tms"
-      bind C-q display-popup -h 91% -w 75% -E "ollama run mistral" 
+      # bind C-q display-popup -h 91% -w 75% -E "ollama run mistral" 
 
       # styling
       set -g status-position top
@@ -36,7 +36,7 @@
   programs.zsh = {
     oh-my-zsh.plugins = [ "tmux" ];
     envExtra = ''
-      ZSH_TMUX_AUTOSTART=true
+      # ZSH_TMUX_AUTOSTART=true
       ZSH_TMUX_DEFAULT_SESSION_NAME=home
       ZSH_TMUX_CONFIG=$HOME/.config/tmux/tmux.conf
     '';
