@@ -7,8 +7,12 @@
     # ./modules/coder.nix
   ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  #boot.loader.systemd-boot.enable = true;
+  #boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub = {
+    enable = true;
+    device = "/dev/sda";
+  };
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -69,24 +73,24 @@
   # ===========================
 
   # Get static ip address instead of dhcp
-  networking = {
-    useDHCP = false; # Disable DHCP to allow static IP configuration
-
-    interfaces = {
-      enp1s0 = {
-        ipv4.addresses = [
-          {
-            address = "192.168.1.128"; # Your desired static IP address
-            prefixLength = 32;         # Subnet mask in CIDR notation
-          }
-        ];
-      };
-    };
-
-    defaultGateway = "192.168.1.1";
-    # DNS settings
-    nameservers = [ "192.168.1.128" "1.1.1.1" ]; # Replace with your preferred DNS servers
-  };
+  # networking = {
+  #   useDHCP = false; # Disable DHCP to allow static IP configuration
+  #
+  #   interfaces = {
+  #     ens18 = {
+  #       ipv4.addresses = [
+  #         {
+  #           address = "192.168.1.127"; # Your desired static IP address
+  #           prefixLength = 32;         # Subnet mask in CIDR notation
+  #         }
+  #       ];
+  #     };
+  #   };
+  #
+  #   defaultGateway = "192.168.1.1";
+  #   # DNS settings
+  #   nameservers = [ "1.1.1.1" ]; # Replace with your preferred DNS servers
+  # };
 
   # Enable binding on the 80 and 443 port for docker
   boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 0;
