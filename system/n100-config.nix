@@ -91,6 +91,8 @@
   #   # DNS settings
   #   nameservers = [ "1.1.1.1" ]; # Replace with your preferred DNS servers
   # };
+  # For not using it's own servers
+  networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
 
   # Enable binding on the 80 and 443 port for docker
   boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 0;
