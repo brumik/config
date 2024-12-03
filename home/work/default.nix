@@ -12,6 +12,7 @@
     spotify
     bitwarden
     unstable.obsidian
+    vlc
   ];
 
   imports = [
