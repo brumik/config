@@ -4,8 +4,8 @@
     "auth_token": null,
     "user_auth": false,
     "headless": false,
-    "cache_path": "~/.spotdl/.spotipy",
-    "no_cache": true,
+    "cache_path": "/home/levente/.spotdl/.spotipy",
+    "no_cache": false,
     "max_retries": 4,
     "audio_providers": [
         "youtube-music"
