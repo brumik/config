@@ -111,8 +111,6 @@
             home-manager.nixosModules.home-manager
             commonHomeManagerConfig
             ./system/anteater-config.nix
-            (import ./system/users/levente.nix { username = "levente"; })
-            (import ./system/users/work.nix { username = "work"; })
             (import ./system/users/katerina.nix { username = "katerina"; })
           ];
         }
