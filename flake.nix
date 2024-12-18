@@ -88,7 +88,7 @@
           ];
         }
       );
-      nixos-carol = (
+      nixos-upgrader = (
         nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {inherit inputs outputs;};
@@ -96,7 +96,7 @@
             stylix.nixosModules.stylix
             home-manager.nixosModules.home-manager
             commonHomeManagerConfig
-            ./system/carol-config.nix
+            ./system/upgrader-config.nix
             (import ./system/users/levente.nix { username = "levente"; })
             (import ./system/users/work.nix { username = "work"; })
           ];

@@ -1,10 +1,10 @@
-{ pkgs, ... }:
+{ lib, ... }:
 {
   imports = [
-    ./hardware/carol.nix
+    ./hardware/upgrader.nix
     ./modules/base-configuration.nix
     ./modules/stylix-everforest.nix
   ];
 
-  networking.hostName = "nixos-carol";
+  networking.hostName = "nixos-upgrader";
 }
