@@ -1,9 +1,9 @@
 { lib, pkgs, ... }:
-  with lib.hm.gvariant;
 {
   home.packages = [
     pkgs.gnomeExtensions.tiling-assistant
     pkgs.gnomeExtensions.steal-my-focus-window
+    pkgs.gnomeExtensions.hide-top-bar
   ];
 
   home.file.".config/tiling-assistant/layouts.json".source = ./tiling-assistant-layouts.json;
@@ -28,7 +28,7 @@
     };
 
     "org/gnome/desktop/session" = {
-      idle-delay = mkUint32 900;
+      idle-delay = lib.hm.gvariant.mkUint32 900;
     };
 
     "org/gnome/settings-daemon/plugins/power" = {
@@ -46,8 +46,9 @@
     "org/gnome/shell" = {
       disable-user-extensions = false;
       enabled-extensions = [
-        "tiling-assistant@leleat-on-github"
+        # "tiling-assistant@leleat-on-github"
         "steal-my-focus-window@steal-my-focus-window"
+        "hidetopbar@mathieu.bidon.ca"
       ];
     };
 
