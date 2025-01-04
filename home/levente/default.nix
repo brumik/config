@@ -13,6 +13,7 @@
     transmission_4-qt
     element-desktop
     brave
+    todoist-electron
   ];
 
   imports = [
