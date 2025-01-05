@@ -43,15 +43,15 @@
     pkgs.gnome.totem       # video player
     pkgs.gnome.yelp        # help viewer
     pkgs.gnome.evince      # document viewer
-    # geary       # email client
+    pkgs.gnome.geary       # email client
     pkgs.gnome.seahorse    # password manager
 
     # these should be self explanatory
-    # gnome-calculator
-    # gnome-calendar
+    # pkgs.gnome.gnome-calculator
+    pkgs.gnome.gnome-calendar
     pkgs.gnome.gnome-characters
     pkgs.gnome.gnome-clocks
-    # gnome-contacts
+    pkgs.gnome.gnome-contacts
     pkgs.gnome.gnome-font-viewer
     pkgs.gnome.gnome-logs
     pkgs.gnome.gnome-maps
