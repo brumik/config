@@ -1,10 +1,7 @@
 { pkgs, ... }: {
   imports = [
     ./hardware/n100.nix
-    # ./modules/base-configuration.nix
-    # ./modules/stylix-default.nix
     ./modules/stylix-everforest.nix
-    # ./modules/coder.nix
   ];
 
   #boot.loader.systemd-boot.enable = true;
