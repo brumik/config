@@ -3,6 +3,7 @@
   services.ollama = {
     enable = true;
     acceleration = "cuda";
-    loadModels = [ "codellama:7b" ];
+    # included only 25.05 release
+    # loadModels = [ "codellama:7b" ];
   };
 }
