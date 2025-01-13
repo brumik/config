@@ -12,6 +12,7 @@
     anki-bin
     google-chrome
     unstable.obsidian
+    ytsum
   ];
 
   imports = [

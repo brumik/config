@@ -14,6 +14,7 @@
     element-desktop
     brave
     todoist-electron
+    ytsum
   ];
 
   imports = [
