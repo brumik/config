@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ ... }:
 {
   imports = [
     ./hardware/gaming-rig-v1.nix
@@ -8,7 +8,7 @@
     ./modules/ollama.nix
   ];
 
-  networking.hostName = "nixos-katerina";
+  networking.hostName = "gaming-rig-v1";
 
   programs.steam = {
     enable = true;
