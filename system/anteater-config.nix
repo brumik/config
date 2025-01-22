@@ -4,8 +4,8 @@
     ./hardware/anteater.nix
     ./modules/base-configuration.nix
     ./modules/stylix-default.nix
-    ./modules/nvidia.nix
-    ./modules/ollama.nix
+    # ./modules/nvidia.nix
+    # ./modules/ollama.nix
   ];
 
   networking.hostName = "nixos-katerina";

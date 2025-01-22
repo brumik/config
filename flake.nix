@@ -97,7 +97,7 @@
             home-manager.nixosModules.home-manager
             commonHomeManagerConfig
             ./system/brumstellar-config.nix
-            # (import ./system/users/levente.nix { username = "levente"; })
+            (import ./system/users/levente.nix { username = "levente"; })
             (import ./system/users/work.nix { username = "work"; })
           ];
         }
