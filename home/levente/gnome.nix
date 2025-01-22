@@ -46,7 +46,7 @@
     "org/gnome/shell" = {
       disable-user-extensions = false;
       enabled-extensions = [
-        # "tiling-assistant@leleat-on-github"
+        "tiling-assistant@leleat-on-github"
         "steal-my-focus-window@steal-my-focus-window"
         "hidetopbar@mathieu.bidon.ca"
       ];

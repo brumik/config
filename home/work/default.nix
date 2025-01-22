@@ -13,6 +13,7 @@
     bitwarden
     unstable.obsidian
     vlc
+    todoist-electron
   ];
 
   imports = [
