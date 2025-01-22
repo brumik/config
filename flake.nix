@@ -102,6 +102,20 @@
           ];
         }
       );
+      nixos-gaming-rig-v1 = (
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {inherit inputs outputs;};
+          modules = [
+            stylix.nixosModules.stylix
+            home-manager.nixosModules.home-manager
+            commonHomeManagerConfig
+            ./system/gaming-rig-v1-config.nix
+            # (import ./system/users/levente.nix { username = "levente"; })
+            (import ./system/users/work.nix { username = "work"; })
+          ];
+        }
+      );
       nixos-katerina = (
         nixpkgs.lib.nixosSystem {
           inherit system;
