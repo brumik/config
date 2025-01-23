@@ -19,4 +19,10 @@
 
   # Enable Xbox accessories
   hardware.xone.enable = true;
+
+  # Autologin the default user
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "gamer";
+  };
 }
