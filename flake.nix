@@ -111,8 +111,8 @@
             home-manager.nixosModules.home-manager
             commonHomeManagerConfig
             ./system/gaming-rig-v1-config.nix
-            (import ./system/users/levente.nix { username = "levente"; })
             (import ./system/users/work.nix { username = "work"; })
+            (import ./system/users/gamer.nix { username = "gamer"; })
           ];
         }
       );
