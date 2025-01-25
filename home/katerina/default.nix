@@ -13,6 +13,7 @@
     google-chrome
     unstable.obsidian
     ytsum
+    spotify
   ];
 
   imports = [
