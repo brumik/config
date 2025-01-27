@@ -1,1 +1,3 @@
-brew install neovim tmux tmux-sessionizer starship
+brew install neovim tmux tmux-sessionizer
+
+# starship (slow)
