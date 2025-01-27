@@ -1,0 +1,11 @@
+search_submodules = false
+recursive_submodules = false
+default_session = "home"
+
+[[search_dirs]]
+path = "~/Documents"
+depth = 2
+
+[[search_dirs]]
+path = "~/"
+depth = 1

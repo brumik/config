@@ -24,3 +24,8 @@ clean:
 set-up-ssh:
   eval "$(ssh-agent -s)"
   ssh-add
+
+# Restore symlinks with stow (and simple script)
+stow-mac:
+  ./non-nix/stow/install.sh
+  stow --dir=$(pwd)/non-nix/stow --target=$HOME .
