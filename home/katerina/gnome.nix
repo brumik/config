@@ -1,5 +1,4 @@
-{ lib, ... }:
-  with lib.hm.gvariant;
+{ ... }:
 {
   gtk = {
     enable = true;
@@ -18,12 +17,12 @@
     };
 
     "org/gnome/desktop/session" = {
-      idle-delay = mkUint32 840;
+      idle-delay = 0;
     };
 
     "org/gnome/settings-daemon/plugins/power" = {
       sleep-inactive-ac-type = "suspend";
-      sleep-inactive-ac-timeout = 900;
+      sleep-inactive-ac-timeout = 3600;
     };
 
     "org/gnome/mutter" = {
