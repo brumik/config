@@ -8,6 +8,8 @@ alias ggpull="git pull"
 alias gc="git commit"
 alias gcan!="git commit --amend -n --no-edit"
 alias gst="git status"
+alias gco="git checkout"
+
 
 # generic
 alias la="ls -la"
