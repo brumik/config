@@ -112,6 +112,12 @@ tell application "Visual Studio Code"
 end tell'
 '''
 
+alt-o = '''exec-and-forget osascript -e '
+tell application "Obsidian"
+    activate
+end tell'
+'''
+
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
 alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
