@@ -15,6 +15,7 @@ upgrade:
   nix flake update && just update
   git add flake.lock
   git commit -m "lockfile update"
+  git push
 
 # clean old generations
 clean:
