@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 {
   home.packages = [
-    pkgs.gnomeExtensions.tiling-assistant
+    # pkgs.gnomeExtensions.tiling-assistant
     pkgs.gnomeExtensions.steal-my-focus-window
     pkgs.gnomeExtensions.hide-top-bar
   ];
@@ -46,7 +46,7 @@
     "org/gnome/shell" = {
       disable-user-extensions = false;
       enabled-extensions = [
-        "tiling-assistant@leleat-on-github"
+        # "tiling-assistant@leleat-on-github"
         "steal-my-focus-window@steal-my-focus-window"
         "hidetopbar@mathieu.bidon.ca"
       ];

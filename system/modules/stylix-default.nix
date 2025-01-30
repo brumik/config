@@ -28,7 +28,7 @@
     };
 
     fonts.sizes = {
-      terminal = 14;
+      terminal = 10;
       applications = 10;
       desktop = 10;
       popups = 10;
