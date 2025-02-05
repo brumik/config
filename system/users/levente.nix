@@ -3,6 +3,7 @@
   imports = [
     (import ../modules/docker.nix { inherit username; })
     (import ../modules/smb.nix { inherit username; })
+    (import ../modules/scanner.nix { inherit username; })
     # ../modules/monitorcontroll.nix
   ];
   # Define a user account. Don't forget to set a password with ‘passwd’.

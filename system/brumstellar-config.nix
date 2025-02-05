@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ ... }:
 {
   imports = [
     ./hardware/brumstellar.nix
@@ -9,4 +9,9 @@
   ];
 
   networking.hostName = "nixos-brumstellar";
+
+  security.pam.services = {
+    login.u2fAuth = false;
+    sudo.u2fAuth = true;
+  };
 }
