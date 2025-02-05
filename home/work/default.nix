@@ -5,15 +5,15 @@
   programs.home-manager.enable = true;
   home.packages = with pkgs; [
     unstable.vscode
-    unstable.insomnia
-    unstable.chromium
+    chromium
+    unstable.google-chrome
     unstable.slack
     unstable.firefox
     spotify
     bitwarden
     unstable.obsidian
     vlc
-    todoist-electron
+    unstable.todoist-electron
   ];
 
   imports = [

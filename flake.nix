@@ -18,6 +18,9 @@
     };
     stylix.url = "github:danth/stylix/release-24.05";
 
+    # Zen browser flake, not so stable:
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+
     # Personal packages
     ytsum.url = "github:brumik/ytsum";
     bw-setup-secrets.url = "github:brumik/bw-setup-secrets";

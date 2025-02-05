@@ -15,6 +15,7 @@
     brave
     todoist-electron
     ytsum
+    zen-browser
   ];
 
   imports = [
