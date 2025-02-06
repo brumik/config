@@ -6,7 +6,6 @@
   home.packages = with pkgs; [
     unstable.vscode
     chromium
-    unstable.google-chrome
     unstable.slack
     unstable.firefox
     spotify
@@ -14,6 +13,7 @@
     unstable.obsidian
     vlc
     unstable.todoist-electron
+    zen-browser
   ];
 
   imports = [
