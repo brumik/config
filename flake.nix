@@ -22,7 +22,7 @@
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
     # Personal packages
-    ytsum.url = "github:brumik/ytsum";
+    # ytsum.url = "github:brumik/ytsum";
     bw-setup-secrets.url = "github:brumik/bw-setup-secrets";
     ollama-obsidian-indexer.url = "github:brumik/ollama-obsidian-indexer";
   };

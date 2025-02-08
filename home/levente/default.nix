@@ -14,7 +14,7 @@
     element-desktop
     brave
     todoist-electron
-    ytsum
+    # ytsum
     zen-browser
   ];
 
