@@ -6,7 +6,7 @@
     ./modules/stylix-everforest.nix
     ./modules/nvidia.nix
     ./modules/ollama.nix
-    # ./modules/hyprland.nix
+    ./modules/hyprland.nix
     ./modules/gaming.nix
   ];
 
