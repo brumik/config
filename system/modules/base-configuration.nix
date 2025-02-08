@@ -67,6 +67,9 @@
     variant = "";
   };
 
+  # Hint electron apps to use wayland:
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
