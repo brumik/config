@@ -39,7 +39,7 @@
     pkgs.gnome.cheese      # photo booth
     pkgs.gnome.eog         # image viewer
     pkgs.gnome.epiphany    # web browser
-    pkgs.gnome.simple-scan # document scanner
+    # pkgs.gnome.simple-scan # document scanner
     pkgs.gnome.totem       # video player
     pkgs.gnome.yelp        # help viewer
     pkgs.gnome.evince      # document viewer
