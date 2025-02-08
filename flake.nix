@@ -2,21 +2,24 @@
   description = "Home system configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-24.05";
+      url = "github:nix-community/nixvim/nixos-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    stylix.url = "github:danth/stylix/release-24.05";
+    stylix = {
+      url = "github:danth/stylix/release-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Zen browser flake, not so stable:
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
@@ -49,7 +52,7 @@
   # Your custom packages and modifications, exported as overlays
   overlays = import ./utils/overlays {inherit inputs;};
 
-  darwinConfigurations = {
+  darwinConfiguration = {
     levente-berky-mbp = 
       let
         system = "aarch64-darwin";

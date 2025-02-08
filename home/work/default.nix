@@ -20,6 +20,6 @@
     (import ../modules/terminal { username = "levente"; })
     (import ../modules/bw-setup-secrets { username = "levente"; })
     ../levente/gnome.nix
-    ../levente/styling.nix
+    # ../levente/styling.nix
   ];
 }

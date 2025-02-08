@@ -4,10 +4,11 @@
     enable = true;
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest.yaml";
-    image = ../../wallpapers/catppuccin-sports-5120x1440.png;
+    image = ../../wallpapers/everforest-5120x1440.png;
 
     fonts = { 
       monospace = {
+        # package = pkgs.nerd-fonts.jetbrains-mono;
         package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
         name = "JetBrainsMono Nerd Font";
       };

@@ -1,5 +1,9 @@
-{ username }: { ... }:
+{ username }: { pkgs, ... }:
 {
+  environment.systemPackages = [
+    pkgs.simple-scan
+  ];
+
   hardware.sane.enable = true;
   hardware.sane.brscan5.enable = true;
   users.users."${username}".extraGroups = [ "scanner" "lp" ];

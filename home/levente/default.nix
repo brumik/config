@@ -25,6 +25,6 @@
     (import ../modules/bw-setup-secrets { inherit username; })
     # Local
     ./gnome.nix
-    ./styling.nix
+    # ./styling.nix
   ];
 }
