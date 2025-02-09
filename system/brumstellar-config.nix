@@ -7,7 +7,6 @@
     ./modules/nvidia.nix
     ./modules/ollama.nix
     # ./modules/hyprland.nix
-    ./modules/gaming.nix
   ];
 
   networking.hostName = "nixos-brumstellar";

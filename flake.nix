@@ -102,6 +102,7 @@
             ./system/brumstellar-config.nix
             (import ./system/users/levente.nix { username = "levente"; })
             (import ./system/users/work.nix { username = "work"; })
+            (import ./system/users/gamer.nix { username = "gamer"; })
           ];
         }
       );

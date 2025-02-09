@@ -7,14 +7,11 @@
     unstable.firefox
     unstable.brave
     spotify
-    bitwarden
     vlc
-    ytsum
+    zen-browser
   ];
 
   imports = [
-    (import ../modules/terminal { username = "levente"; })
-    (import ../modules/bw-setup-secrets { username = "levente"; })
     ../levente/gnome.nix
     ../levente/styling.nix
   ];
