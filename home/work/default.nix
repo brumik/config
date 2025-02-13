@@ -7,13 +7,12 @@
     unstable.vscode
     chromium
     unstable.slack
-    unstable.firefox
     spotify
     bitwarden
     unstable.obsidian
     vlc
     unstable.todoist-electron
-    zen-browser
+    unstable.brave
   ];
 
   imports = [
