@@ -3,7 +3,7 @@
   home.packages = [
     # pkgs.gnomeExtensions.tiling-assistant
     pkgs.gnomeExtensions.steal-my-focus-window
-    # pkgs.gnomeExtensions.hide-top-bar
+    pkgs.gnomeExtensions.hide-top-bar
   ];
 
   home.file.".config/tiling-assistant/layouts.json".source = ./tiling-assistant-layouts.json;
@@ -48,7 +48,7 @@
       enabled-extensions = [
         # "tiling-assistant@leleat-on-github"
         "steal-my-focus-window@steal-my-focus-window"
-        # "hidetopbar@mathieu.bidon.ca"
+        "hidetopbar@mathieu.bidon.ca"
       ];
     };
 
