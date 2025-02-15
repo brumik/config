@@ -1,7 +1,7 @@
 [user]
 	name = Levente Berky
 	email = levente.berky@gmail.com
-  signingkey = ~/.ssh/id_ed25519.pub
+  signingkey = ~/.ssh/id_ed25519_sk.pub
 [core]
 	editor = vi
 [push]
