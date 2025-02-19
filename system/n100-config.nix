@@ -102,12 +102,6 @@
   # Enable ssh
   services.openssh.enable = true;
 
-  # Set up ddclient for setting the IP for berky.me to the ip of the network
-  services.ddclient = {
-    enable = true;
-    configFile = "/home/n100/ddclient.conf";
-  };
-
   # Backup task
   systemd.services.rsyncBackup = {
     description = "Run rsync to backup the docker setup to SMB share";
