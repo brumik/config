@@ -1,4 +1,7 @@
-{ pkgs, ... }: {
+{ pkgs, ... }: let
+  DOMAINNAME = "berky.me";
+  SERVER_ADDR = "192.168.1.127";
+in {
   imports = [
     ./hardware/n100.nix
     ./modules/stylix-everforest.nix
@@ -151,15 +154,25 @@
       filtering = {
         rewrites = [
           {
-            domain = "*.berky.me";
-            answer = "192.168.1.127";
+            domain = "*.${DOMAINNAME}";
+            answer = "${SERVER_ADDR}";
           }
           {
-            domain = "berky.me";
-            answer = "192.168.1.127";
+            domain = "${DOMAINNAME}";
+            answer = "${SERVER_ADDR}";
           }
         ];
       };
     };
   };
+
+  # services.vaultwarden = {
+  #   enable = true;
+  #   config = {
+  #     DOMAIN = "https://bitwarden.${DOMAINNAME}";
+  #     SIGNUPS_ALLOWED = false;
+  #     ROCKET_ADDRESS = "0.0.0.0";
+  #     ROCKET_PORT = 10001;
+  #   };
+  # };
 }
