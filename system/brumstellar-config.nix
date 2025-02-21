@@ -10,7 +10,7 @@
   ];
 
   networking.hostName = "nixos-brumstellar";
-
+  virtualisation.vmware.host.enable = true;
   security.pam.services = {
     login.u2fAuth = false;
     sudo.u2fAuth = true;

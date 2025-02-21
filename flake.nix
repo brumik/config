@@ -4,10 +4,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nix-darwin = {
-      url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -48,34 +44,6 @@
 
   # Your custom packages and modifications, exported as overlays
   overlays = import ./utils/overlays {inherit inputs;};
-
-  darwinConfigurations = {
-    levente-berky-mbp = 
-      let
-        system = "aarch64-darwin";
-      in nix-darwin.lib.darwinSystem {
-        inherit system;
-        modules = [
-          stylix.darwinModules.stylix
-          ./system/darwin-system.nix
-          home-manager.darwinModules.home-manager
-          {
-            nixpkgs.overlays = [
-              outputs.overlays.unstable-packages
-              outputs.overlays.modifications
-              outputs.overlays.additions
-            ];
-            home-manager.extraSpecialArgs = {inherit inputs outputs;};
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.verbose = true;
-            home-manager.users."levente.berky" = import ./home/levente-mac { username = "levente.berky"; };
-            home-manager.backupFileExtension = "backup";
-          }
-        ];
-      };
-  };
-
 
   nixosConfigurations = {
       nixos-n100 = (
