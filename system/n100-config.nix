@@ -148,7 +148,6 @@ in {
           "quic://dns-unfiltered.adguard.com:784"
           "https://dns.cloudflare.com/dns-query"
           "https://dns10.quad9.net/dns-query"
-          "1.1.1.1"
         ];
       };
       filtering = {
@@ -165,6 +164,7 @@ in {
       };
     };
   };
+
 
   # services.vaultwarden = {
   #   enable = true;
