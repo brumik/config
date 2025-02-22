@@ -12,7 +12,6 @@
     anki-bin
     google-chrome
     unstable.obsidian
-    ytsum
     spotify
   ];
 
