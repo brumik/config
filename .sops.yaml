@@ -1,0 +1,12 @@
+keys:
+  - &users:
+    - &brum age18p2gethkwx0ngntgg8y3jrhfe8qjdqw07hrslchqmyutuw2m8ysqthcyr5
+  - &hosts:
+    - &brumstellar age1yf972c6v37du9q67e38nk77ucs89kxg9hxzhv398h2eheq9k0fqqw2cuf9
+creation_rules:
+  # relative path to the secrets form this file
+  - path_regex: secrets.yaml$
+    key_groups:
+    - age:
+      - *brum
+      - *brumstellar

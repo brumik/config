@@ -17,13 +17,25 @@
     # Zen browser flake, not so stable:
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
+    # SOPS
+    sops-nix = {
+      url = "github:mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # Future, stroring sensitive info in different repo
+    # rotate secrets when switching
+    # mySecrets = {
+    #   url = "git+ssh://git@github.com/brumik/nix-secrets.git?shallow=1";
+    #   flake = false;
+    # };
+
     # Personal packages
     # ytsum.url = "github:brumik/ytsum";
     bw-setup-secrets.url = "github:brumik/bw-setup-secrets";
     ollama-obsidian-indexer.url = "github:brumik/ollama-obsidian-indexer";
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, nix-darwin, ... } @ inputs:
+  outputs = { self, sops-nix, nixpkgs, home-manager, stylix, ... } @ inputs:
   let
     inherit (self) outputs;
     system = "x86_64-linux";
@@ -67,6 +79,7 @@
             stylix.nixosModules.stylix
             home-manager.nixosModules.home-manager
             commonHomeManagerConfig
+            sops-nix.nixosModules.sops
             ./system/brumstellar-config.nix
             (import ./system/users/levente.nix { username = "levente"; })
             (import ./system/users/work.nix { username = "work"; })
@@ -74,19 +87,20 @@
           ];
         }
       );
-      nixos-gaming-rig-v1 = (
-        nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {inherit inputs outputs;};
-          modules = [
-            stylix.nixosModules.stylix
-            home-manager.nixosModules.home-manager
-            commonHomeManagerConfig
-            ./system/gaming-rig-v1-config.nix
-            (import ./system/users/gamer.nix { username = "gamer"; })
-          ];
-        }
-      );
+      # Was not working, disabling until fixed
+      # nixos-gaming-rig-v1 = (
+      #   nixpkgs.lib.nixosSystem {
+      #     inherit system;
+      #     specialArgs = {inherit inputs outputs;};
+      #     modules = [
+      #       stylix.nixosModules.stylix
+      #       home-manager.nixosModules.home-manager
+      #       commonHomeManagerConfig
+      #       ./system/gaming-rig-v1-config.nix
+      #       (import ./system/users/gamer.nix { username = "gamer"; })
+      #     ];
+      #   }
+      # );
       nixos-katerina = (
         nixpkgs.lib.nixosSystem {
           inherit system;
