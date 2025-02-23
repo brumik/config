@@ -1,11 +1,11 @@
-{ pkgs, ... }: let
-  DOMAINNAME = "berky.me";
-  SERVER_ADDR = "192.168.1.127";
-in {
+{ inputs, pkgs, ... }: {
   imports = [
     ./hardware/n100.nix
     ./modules/stylix-everforest.nix
+    ./homelab
   ];
+  # test if works with nvim
+  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
   #boot.loader.systemd-boot.enable = true;
   #boot.loader.efi.canTouchEfiVariables = true;
@@ -72,37 +72,6 @@ in {
   # Server preparation
   # ===========================
 
-  # Get static ip address instead of dhcp
-  networking = {
-    useDHCP = false; # Disable DHCP to allow static IP configuration
-
-    interfaces = {
-      ens18 = {
-        ipv4.addresses = [
-          {
-            address = "192.168.1.127"; # Your desired static IP address
-            prefixLength = 32;         # Subnet mask in CIDR notation
-          }
-        ];
-      };
-    };
-
-    defaultGateway = "192.168.1.1";
-    # DNS settings
-    nameservers = [ "1.1.1.1" "8.8.8.8" ]; # Replace with your preferred DNS servers
-  };
-
-  # For not using it's own servers
-  # networking.nameservers = [ "1.1.1.1" ];
-
-  # Enable binding on the 80 and 443 port for docker
-  boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 0;
-
-  # Open ports for reverse proxy
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
-  # Open ports for DNS server
-  networking.firewall.allowedUDPPorts = [ 53 ];
-
   # Enable ssh
   services.openssh.enable = true;
 
@@ -125,54 +94,20 @@ in {
   };
 
   # Services trying
-  services.ddclient = {
+  homelab = {
     enable = true;
-    use = "web, web=ip.websupport.sk/";
-    ssl = true;
-    protocol = "dyndns2";
-    server = "dyndns.websupport.sk";
-    username = "3a2bf436-c280-43f3-97b9-d71c27172191";
-    passwordFile = "/home/n100/ddclient.key";
-    extraConfig = "wildcard=yes";
-    domains = [ "berky.me" ];
-  };
+    domain = "berky.me";
+    serverIP = "192.168.1.127";
+    gateway = "192.168.1.1";
 
-  services.adguardhome = {
-    enable = true;
-    host = "0.0.0.0";
-    port = 10000;
-    openFirewall = true;
-    settings = {
-      dns = {
-        upstream_dns = [
-          "quic://dns-unfiltered.adguard.com:784"
-          "https://dns.cloudflare.com/dns-query"
-          "https://dns10.quad9.net/dns-query"
-        ];
-      };
-      filtering = {
-        rewrites = [
-          {
-            domain = "*.${DOMAINNAME}";
-            answer = "${SERVER_ADDR}";
-          }
-          {
-            domain = "${DOMAINNAME}";
-            answer = "${SERVER_ADDR}";
-          }
-        ];
-      };
+    vaultwarden = {
+      enable = true;
+      address = "0.0.0.0";
+      openFirewall = true;
     };
+
+    adguardhome.enable = true;
+    ddclient.enable = true;
+
   };
-
-
-  # services.vaultwarden = {
-  #   enable = true;
-  #   config = {
-  #     DOMAIN = "https://bitwarden.${DOMAINNAME}";
-  #     SIGNUPS_ALLOWED = false;
-  #     ROCKET_ADDRESS = "0.0.0.0";
-  #     ROCKET_PORT = 10001;
-  #   };
-  # };
 }
