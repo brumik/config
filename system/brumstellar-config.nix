@@ -11,6 +11,13 @@
 
   networking.hostName = "nixos-brumstellar";
   virtualisation.vmware.host.enable = true;
+
+  # fileSystems."/home/levente/test" = {
+  #   device = "192.168.1.2:/volume1/video";
+  #   fsType = "nfs4";
+  #   options = [ "user" ];
+  # };
+
   security.pam.services = {
     login.u2fAuth = false;
     sudo.u2fAuth = true;

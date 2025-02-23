@@ -113,9 +113,9 @@
           nixd = {
             enable = true; # nix
             settings = { 
-              nixpkgs.expr = "import <nixpkgs> { }";
+              nixos.expr = "(builtins.getFlake \"/home/levente/config\").inputs.nixpkgs";
               options = {
-                nixos.expr = "(builtins.getFlake \"github:brumik/config\").nixosConfigurations.nixos-n100.options";
+                nixos.expr = "(builtins.getFlake \"/home/levente/config\").nixosConfigurations.nixos-brumstellar.options";
               };
             };
           };
