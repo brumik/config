@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 {
   home.packages = [
     pkgs.gnomeExtensions.steal-my-focus-window
@@ -25,12 +25,12 @@
     };
 
     "org/gnome/desktop/session" = {
-      idle-delay = lib.hm.gvariant.mkUint32 900;
+      idle-delay = 0;
     };
 
     "org/gnome/settings-daemon/plugins/power" = {
-      sleep-inactive-ac-type = "suspend";
-      sleep-inactive-ac-timeout = 1200;
+      # After suspend either gnome or the OS got broken
+      sleep-inactive-ac-type = "nothing";
     };
 
     "org/gnome/mutter" = {
