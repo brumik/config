@@ -1,11 +1,9 @@
-{ inputs, pkgs, ... }: {
+{ pkgs, ... }: {
   imports = [
     ./hardware/n100.nix
     ./modules/stylix-everforest.nix
     ./homelab
   ];
-  # test if works with nvim
-  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
   #boot.loader.systemd-boot.enable = true;
   #boot.loader.efi.canTouchEfiVariables = true;
