@@ -73,24 +73,6 @@
   # Enable ssh
   services.openssh.enable = true;
 
-  # Backup task
-  systemd.services.rsyncBackup = {
-    description = "Run rsync to backup the docker setup to SMB share";
-    serviceConfig = {
-      # This is dirty but as a server will do for now
-      ExecStart = "${pkgs.bash}/bin/bash /home/n100/docker/rsync.sh"; # Script to run
-      Environment = "PATH=${pkgs.coreutils}/bin:${pkgs.curl}/bin:${pkgs.rsync}/bin";
-    };
-  };
-
-  systemd.timers.rsyncBackup = {
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnCalendar = "*-*-* 22:00:00";
-      Persistent = true;
-    };
-  };
-
   # Services trying
   homelab = {
     enable = true;
@@ -109,5 +91,11 @@
     jellyfin.enable = true;
     # TODO This might be required by other services so need to add there?
     lldap.enable = true;
+    # Enable backup
+    backup.enable = true;
+    # Set up the new backup to back up the docker isntances too
+    backup.stateDirs = [
+      "/home/n100/docker"
+    ];
   };
 }

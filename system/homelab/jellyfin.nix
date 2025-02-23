@@ -14,5 +14,9 @@ in {
       # port is 8096
       openFirewall = true;
     };
+
+    homelab.backup.stateDirs = [
+      "/var/lib/jellyfin"
+    ];
   };
 }

@@ -8,6 +8,7 @@ in {
     ./ddclient.nix
     ./jellyfin.nix
     ./lldap.nix
+    ./backup.nix
   ];
 
   options.homelab = {

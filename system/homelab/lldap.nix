@@ -20,6 +20,10 @@ in {
       };
     };
 
+    homelab.backup.stateDirs = [
+      "/var/lib/lldap"
+    ];
+
     networking.firewall.allowedTCPPorts = [ 17170 ];
   };
 }

@@ -9,4 +9,10 @@ in {
     fsType = "cifs";
     inherit options; 
   };
+  # TODO Move to backup and localize, no reason all apps need to access this
+  fileSystems."/mnt/share" = {
+    device = "//${config.homelab.smbServerIP}/share";
+    fsType = "cifs";
+    inherit options; 
+  };
 }

@@ -29,6 +29,11 @@ in {
       };
     };
 
+    homelab.backup.stateDirs = [
+      "/var/lib/bitwarden_rs/attachements"
+      "/var/lib/bitwarden_rs/db.sqlite3"
+    ];
+
     networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [ cfg.port ];
   };
 }
