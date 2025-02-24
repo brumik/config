@@ -14,6 +14,7 @@
     unstable.todoist-electron
     unstable.brave
     unstable.google-chrome
+    yubioath-flutter
   ];
 
   imports = [

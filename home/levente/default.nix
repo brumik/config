@@ -16,6 +16,7 @@
     todoist-electron
     # ytsum
     zen-browser
+    yubioath-flutter
   ];
 
   imports = [
