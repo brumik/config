@@ -14,7 +14,19 @@
   virtualisation.vmware.host.enable = true;
 
   # Needed for the sops keys
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+      knownHosts = {
+        "github/ed25519" = {
+          publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
+          hostNames = [ "github.com" ];
+        };
+        "berky.me/ed25519" = {
+          publicKey = builtins.readFile ../keys/id-n100.pub;
+          hostNames = [ "berky.me" ];
+        };
+      };
+  };
 
 
   # fileSystems."/mnt/test" = {
