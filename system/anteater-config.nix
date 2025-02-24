@@ -4,11 +4,23 @@
     ./hardware/anteater.nix
     ./modules/base-configuration.nix
     ./modules/stylix-default.nix
+    ./modules/sops.nix
+    ./modules/hosts.nix
     # ./modules/nvidia.nix
     # ./modules/ollama.nix
   ];
 
   networking.hostName = "nixos-katerina";
+
+  # Needed for the sops keys
+  services.openssh = {
+    enable = true;
+  };
+
+  networking.interfaces.wlp5s0.ipv4.addresses = [{
+    address = "192.168.1.101";
+    prefixLength = 32;
+  }];
 
   programs.steam = {
     enable = true;
