@@ -32,7 +32,7 @@
         hostNames = [ "n100.berky.me" ];
       };
       "anteater.berky.me/ed25519" = {
-        publicKey = "";
+        publicKey = builtins.readFile ../keys/id-anteater.pub;
         hostNames = [ "anteater.berky.me" ];
       };
     };

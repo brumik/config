@@ -22,6 +22,13 @@
     prefixLength = 32;
   }];
 
+
+  users.users.root = {
+    openssh.authorizedKeys.keys = [
+      "${builtins.readFile ../../keys/id-brum.pub}"
+    ];
+  };
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
