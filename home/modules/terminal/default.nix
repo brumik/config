@@ -5,7 +5,7 @@
   ];
 
   imports = [
-    (import ./git { inherit username; })
+    # (import ./git { inherit username; })
     ./zsh
     ./nvim
     ./tmux

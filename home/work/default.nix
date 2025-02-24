@@ -19,7 +19,9 @@
   imports = [
     (import ../modules/terminal { username = "levente"; })
     (import ../modules/bw-setup-secrets { username = "levente"; })
+    ../levente/git.nix
     ../levente/gnome.nix
     ../levente/styling.nix
+    ../modules/sops.nix
   ];
 }
