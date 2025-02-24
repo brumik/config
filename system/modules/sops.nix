@@ -1,5 +1,10 @@
 { ... }:
 {
+  # Needed for the yubike UI
+  services.pcscd = {
+    enable = true;
+  };
+ 
   sops = {
     defaultSopsFile = ../../secrets.yaml;
     validateSopsFiles = false;
