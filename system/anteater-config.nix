@@ -25,7 +25,7 @@
 
   users.users.root = {
     openssh.authorizedKeys.keys = [
-      "${builtins.readFile ../../keys/id-brum.pub}"
+      "${builtins.readFile ../keys/id-brum.pub}"
     ];
   };
 
