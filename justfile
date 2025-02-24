@@ -38,6 +38,10 @@ sops-edit:
 sops-update:
   nix-shell -p sops --run "sops updatekeys secrets.yaml"
 
+# Deploy the configuration to remote system
+deploy-n100:
+  nixos-rebuild switch --flake .#nixos-n100 --target-host root@berky.me --verbose
+
 # Restore symlinks with stow (and simple script)
 stow-mac:
   ./non-nix/stow/install.sh
