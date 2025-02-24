@@ -1,5 +1,9 @@
-{ ... }:
+{ inputs, ... }:
 {
+  imports = [
+    inputs.sops-nix.nixosModules.sops
+  ];
+
   # Needed for the yubike UI
   services.pcscd = {
     enable = true;
@@ -16,7 +20,9 @@
    };
 
     secrets = {
-      smb-credentials = { };
+      # I reference these by path so need to be here.
+      "brum/smb-credentials" = { };
+      "anteater/smb-credentials" = { };
       "n100/smb-credentials" = { };
     };
   };

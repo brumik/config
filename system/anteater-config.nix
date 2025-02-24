@@ -10,7 +10,7 @@
     # ./modules/ollama.nix
   ];
 
-  networking.hostName = "nixos-katerina";
+  networking.hostName = "nixos-anteater";
 
   # Needed for the sops keys
   services.openssh = {

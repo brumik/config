@@ -38,13 +38,22 @@ sops-edit:
 sops-update:
   nix-shell -p sops --run "sops updatekeys secrets.yaml"
 
+# Check if the config is valid for all hosts
+check: 
+  nix flake check
+
+# Deploy all hosts
+deploy:
+  just deploy-n100
+  just deploy-anteater
+
 # Deploy the configuration to remote system
 deploy-n100:
-  nixos-rebuild switch --flake .#nixos-n100 --target-host root@n100.berky.me --verbose
+  nixos-rebuild switch --flake .#nixos-n100 --target-host root@n100.berky.me 
 
 # Deploy the configuration to remote system
 deploy-anteater:
-  nixos-rebuild switch --flake .#nixos-anteater --target-host root@anteater.berky.me --verbose
+  nixos-rebuild switch --flake .#nixos-anteater --target-host root@anteater.berky.me 
 
 # Restore symlinks with stow (and simple script)
 stow-mac:

@@ -66,7 +66,6 @@
             stylix.nixosModules.stylix
             home-manager.nixosModules.home-manager
             commonHomeManagerConfig
-            sops-nix.nixosModules.sops
             ./system/n100-config.nix
             (import ./system/users/n100.nix { username = "n100"; })
           ];
@@ -80,7 +79,6 @@
             stylix.nixosModules.stylix
             home-manager.nixosModules.home-manager
             commonHomeManagerConfig
-            sops-nix.nixosModules.sops
             ./system/brumstellar-config.nix
             (import ./system/users/levente.nix { username = "levente"; })
             (import ./system/users/work.nix { username = "work"; })
@@ -102,7 +100,7 @@
       #     ];
       #   }
       # );
-      nixos-katerina = (
+      nixos-anteater = (
         nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {inherit inputs outputs;};
@@ -110,7 +108,6 @@
             stylix.nixosModules.stylix
             home-manager.nixosModules.home-manager
             commonHomeManagerConfig
-            sops-nix.nixosModules.sops
             ./system/anteater-config.nix
             (import ./system/users/katerina.nix { username = "katerina"; })
           ];

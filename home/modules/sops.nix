@@ -10,6 +10,5 @@
     validateSopsFiles = false;
 
     age.keyFile = ".config/sops/age/keys.txt";
-
   };
 }
