@@ -36,7 +36,7 @@ sops-edit:
 
 # Updating secrets after editing .sops.yml
 sops-update:
-  nix-shell -p sops --run "sops updatekeys secrets/example.yaml"
+  nix-shell -p sops --run "sops updatekeys secrets.yaml"
 
 # Restore symlinks with stow (and simple script)
 stow-mac:

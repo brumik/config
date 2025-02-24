@@ -26,7 +26,15 @@
       commit.gpgsign = true;
       rerere.enable = true;
       column.ui = "auto";
-      url = { "git@github.com" = { insteadOf = "https://github.com"; }; };
+      url = { "git@github.com:" = { insteadOf = "https://github.com/"; }; };
     };
   };
+
+  home.file.".ssh/allowed_signers".text = ''
+    * ${builtins.readFile ../../keys/id-brum.pub}
+  '';
+
+  home.file.".ssh/config".text = ''
+    IdentityFile ~/.ssh/id_ed25519
+  '';
 }
