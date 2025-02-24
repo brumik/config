@@ -17,6 +17,8 @@
     enable = true;
   };
 
+  # This is not working, for now making router reservation
+  # see https://www.reddit.com/r/NixOS/comments/1c5gcwa/static_ip_over_wifi_with_systemdnetworkd/
   networking.interfaces.wlp5s0.ipv4.addresses = [{
     address = "192.168.1.101";
     prefixLength = 32;

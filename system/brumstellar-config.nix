@@ -13,10 +13,11 @@
   networking.hostName = "nixos-brumstellar";
   virtualisation.vmware.host.enable = true;
 
-  networking.interfaces.enp6s0.ipv4.addresses = [{
-    address = "192.168.1.100";
-    prefixLength = 32;
-  }];
+  # See same issue in anteater
+  # networking.interfaces.enp6s0.ipv4.addresses = [{
+  #   address = "192.168.1.100";
+  #   prefixLength = 32;
+  # }];
 
   # Needed for the sops keys
   services.openssh = {
