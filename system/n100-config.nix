@@ -3,6 +3,7 @@
     ./hardware/n100.nix
     ./modules/stylix-everforest.nix
     ./homelab
+    ./modules/sops.nix
   ];
 
   #boot.loader.systemd-boot.enable = true;

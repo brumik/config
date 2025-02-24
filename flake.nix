@@ -66,6 +66,7 @@
             stylix.nixosModules.stylix
             home-manager.nixosModules.home-manager
             commonHomeManagerConfig
+            sops-nix.nixosModules.sops
             ./system/n100-config.nix
             (import ./system/users/n100.nix { username = "n100"; })
           ];
@@ -109,6 +110,7 @@
             stylix.nixosModules.stylix
             home-manager.nixosModules.home-manager
             commonHomeManagerConfig
+            sops-nix.nixosModules.sops
             ./system/anteater-config.nix
             (import ./system/users/katerina.nix { username = "katerina"; })
           ];

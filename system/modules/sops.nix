@@ -16,8 +16,8 @@
    };
 
     secrets = {
-      levente-smb-credentials = { };
-      work-smb-credentials = { };
+      smb-credentials = { };
+      "n100/smb-credentials" = { };
     };
   };
 }

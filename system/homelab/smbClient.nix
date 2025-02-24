@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  options = ["x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,credentials=/home/n100/smb-secrets,gid=${toString config.homelab.group},file_mode=0664,dir_mode=0775"];
+  options = ["x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,credentials=/home/n100/smb-secrets,gid=${config.sops.secrets."n100/smb-credentials".path},file_mode=0664,dir_mode=0775"];
 
 in {
   environment.systemPackages = [ pkgs.cifs-utils ];

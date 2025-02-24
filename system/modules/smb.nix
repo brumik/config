@@ -1,6 +1,6 @@
 { username }: { config, pkgs, ... }:
 let
-  options = ["x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,credentials=${config.sops.secrets."${username}-smb-credentials".path},gid=${toString config.users.groups.smbusers.name},file_mode=0664,dir_mode=0775"];
+  options = ["x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,credentials=${config.sops.secrets.smb-credentials.path},gid=${toString config.users.groups.smbusers.name},file_mode=0664,dir_mode=0775"];
 
 ## README 
 # This config depends on: server ip address for smb, uid of user and gid and user home path
