@@ -21,7 +21,6 @@
     # Zen browser flake, not so stable:
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
-    bw-setup-secrets.url = "github:brumik/bw-setup-secrets";
     # Future, stroring sensitive info in different repo
     # rotate secrets when switching
     # mySecrets = {

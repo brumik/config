@@ -24,7 +24,6 @@
     (import ../modules/terminal { inherit username; })
     ../modules/spotdl
     ../modules/qmk
-    (import ../modules/bw-setup-secrets { inherit username; })
     # Local
     ./git.nix
     ./gnome.nix
