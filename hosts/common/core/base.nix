@@ -1,18 +1,5 @@
-{ pkgs, ... }: {
-  imports = [
-    ./hardware/n100.nix
-    ./modules/stylix-everforest.nix
-    ./homelab
-    ./modules/sops.nix
-  ];
-
-  #boot.loader.systemd-boot.enable = true;
-  #boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub = {
-    enable = true;
-    device = "/dev/sda";
-  };
-
+{ pkgs, ... }:
+{
   # Enable networking
   networking.networkmanager.enable = true;
 
@@ -33,6 +20,13 @@
     LC_TELEPHONE = "de_DE.UTF-8";
     LC_TIME = "de_DE.UTF-8";
   };
+
+
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -64,39 +58,6 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  networking.hostName = "nixos-n100"; # Define your hostname.
-
-  # Server preparation
-  # ===========================
-
-  # Enable ssh
-  services.openssh.enable = true;
-
-  # Services trying
-  homelab = {
-    enable = true;
-    domain = "berky.me";
-    serverIP = "192.168.1.127";
-    gateway = "192.168.1.1";
-
-    vaultwarden = {
-      enable = true;
-      address = "0.0.0.0";
-      openFirewall = true;
-    };
-
-    adguardhome.enable = true;
-    ddclient.enable = true;
-    jellyfin.enable = true;
-    # TODO This might be required by other services so need to add there?
-    lldap.enable = true;
-    # Enable backup
-    backup.enable = true;
-    # Set up the new backup to back up the docker isntances too
-    backup.stateDirs = [
-      "/home/n100/docker"
-    ];
-  };
 }

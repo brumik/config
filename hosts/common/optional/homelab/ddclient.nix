@@ -14,7 +14,7 @@ in {
       protocol = "dyndns2";
       server = "dyndns.websupport.sk";
       username = "3a2bf436-c280-43f3-97b9-d71c27172191";
-      passwordFile = "/home/n100/ddclient.key";
+      passwordFile = config.sops.secrets."n100/ddclient-key".path;
       extraConfig = "wildcard=yes";
       domains = [ config.homelab.domain ];
     };
