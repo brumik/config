@@ -1,29 +1,22 @@
-{ inputs, ... }:
-{
-  imports = [
-    inputs.sops-nix.nixosModules.sops
-  ];
+{ inputs, ... }: {
+  imports = [ inputs.sops-nix.nixosModules.sops ];
 
-  # Needed for the yubike UI
-  services.pcscd = {
-    enable = true;
-  };
- 
   sops = {
-    defaultSopsFile = ../../secrets.yaml;
+    defaultSopsFile = ../../../secrets.yaml;
     validateSopsFiles = false;
 
     age = {
       sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
       keyFile = "/var/lib/sops-nix/key.txt";
       generateKey = true;
-   };
+    };
 
     secrets = {
       # I reference these by path so need to be here.
       "brum/smb-credentials" = { };
       "anteater/smb-credentials" = { };
       "n100/smb-credentials" = { };
+      "n100/ddclient-key" = { };
     };
   };
 }

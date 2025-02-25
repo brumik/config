@@ -4,7 +4,7 @@
     pkgs.gnomeExtensions.steal-my-focus-window
     pkgs.gnomeExtensions.hide-top-bar
   ];
-  home.file.".face".source = ../../wallpapers/sebastian-portrait.png;
+  home.file.".face".source = ../../assets/profile-pictures/sebastian-portrait.png;
 
   gtk = {
     enable = true;

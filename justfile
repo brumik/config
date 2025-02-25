@@ -49,11 +49,11 @@ deploy:
 
 # Deploy the configuration to remote system
 deploy-n100:
-  nixos-rebuild switch --flake .#nixos-n100 --target-host root@n100.berky.me 
+  nixos-rebuild switch --flake .#n100 --target-host root@n100.berky.me 
 
 # Deploy the configuration to remote system
 deploy-anteater:
-  nixos-rebuild switch --flake .#nixos-anteater --target-host root@anteater.berky.me 
+  nixos-rebuild switch --flake .#anteater --target-host root@anteater.berky.me 
 
 # Restore symlinks with stow (and simple script)
 stow-mac:

@@ -1,8 +1,5 @@
 { ... }: {
-  imports = [ ../modules/sops.nix ];
-
   home.file.".ssh/id_ed25519.pub".source = ../../keys/id-brum.pub;
-  sops.secrets = { "private-keys/id-brum" = { path = ".ssh/id_ed25519"; }; };
 
   programs.git = {
     enable = true;

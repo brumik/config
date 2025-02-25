@@ -4,7 +4,7 @@
     enable = true;
   };
 
-  home.file.".face".source = ../../wallpapers/emily-portrait.png;
+  home.file.".face".source = ../../assets/profile-pictures/emily-portrait.png;
 
   dconf.settings = {
     "org/gnome/desktop/interface" = {
