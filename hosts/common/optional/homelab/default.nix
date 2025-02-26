@@ -9,6 +9,10 @@ in {
     ./jellyfin.nix
     ./lldap.nix
     ./backup.nix
+    ./radicale.nix
+    ./languagetool.nix
+    # ./homepage.nix
+    ./mealie.nix
   ];
 
   options.homelab = {

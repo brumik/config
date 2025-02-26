@@ -2,7 +2,8 @@ keys:
   - &brum age18p2gethkwx0ngntgg8y3jrhfe8qjdqw07hrslchqmyutuw2m8ysqthcyr5
   - &anteater age1revjgg0dv9gs6tdudztfx7e4hxhyrpf0qtqqw8p47ymwf6ymu52s4n27lk
   - &brumstellar age1yf972c6v37du9q67e38nk77ucs89kxg9hxzhv398h2eheq9k0fqqw2cuf9
-  - &n100 age18nvkdz275kx6p0cy4n2z3x3h9kchedj9tn3wvgznj6wsex987uqqp3qfyh
+  - &n100 age1wh6s7yvvpn0rtpalju9jkr0uxmr2xxg3ktvdu4wq3a6ujd8d6fhsnd8w2l
+    # age18nvkdz275kx6p0cy4n2z3x3h9kchedj9tn3wvgznj6wsex987uqqp3qfyh
 creation_rules:
   # relative path to the secrets form this file
   - path_regex: secrets.yaml$

@@ -5,9 +5,7 @@ in {
   imports = [
     ./hardware-configuration.nix
 
-    ../common/core/base.nix
-    ../common/core/sops.nix
-    ../common/core/networking.nix
+    ../common/core
 
     ../common/optional/homelab
     ../common/optional/docker.nix
@@ -60,6 +58,10 @@ in {
     adguardhome.enable = true;
     ddclient.enable = true;
     jellyfin.enable = true;
+    radicale.enable = true;
+    # mealie.enable = true;
+    languagetool.enable = true;
+
     # TODO This might be required by other services so need to add there?
     lldap.enable = true;
     # Enable backup

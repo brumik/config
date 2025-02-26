@@ -7,6 +7,8 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    sops.secrets."n100/ddclient-key" = { };
+
     services.ddclient = {
       enable = true;
       use = "web, web=ip.websupport.sk/";

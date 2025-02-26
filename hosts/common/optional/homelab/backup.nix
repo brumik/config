@@ -12,6 +12,9 @@ in {
 
   config = lib.mkIf cfg.enable {
     users.users.restic = { isNormalUser = true; };
+    sops.secrets."n100/restic-password" = {
+      owner = "restic";
+    };
 
     security.wrappers.restic = {
       source = "${pkgs.restic.out}/bin/restic";
@@ -26,7 +29,7 @@ in {
         initialize = true;
         paths = cfg.stateDirs;
         repository = "/mnt/share/resticBackup";
-        passwordFile = "/etc/restic-password";
+        passwordFile = config.sops.secrets."n100/restic-password".path;
         pruneOpts = [ "--keep-daily 4" ];
 
         timerConfig = {

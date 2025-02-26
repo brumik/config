@@ -16,7 +16,6 @@
       "brum/smb-credentials" = { };
       "anteater/smb-credentials" = { };
       "n100/smb-credentials" = { };
-      "n100/ddclient-key" = { };
     };
   };
 }
