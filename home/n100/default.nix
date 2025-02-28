@@ -11,7 +11,7 @@
   imports = [
     (import ../modules/terminal/git { username = "levente"; })
     ../modules/terminal/zsh
-    # ../modules/terminal/nvim
+    ../modules/terminal/nvim
     ../modules/terminal/kitty.nix
     ../modules/terminal/tmux
   ];

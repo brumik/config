@@ -57,7 +57,9 @@
       lualine.enable = true;
       treesitter = {
         enable = true;
-        indent = true;
+        settings = {
+          indent.enable = true;
+        };
         folding = true;
       };
       tmux-navigator = {
@@ -72,6 +74,8 @@
         };
       };
       which-key.enable = true;
+      # Required by plugins, needs explicit from 24.11
+      web-devicons.enable = true;
     };
   };
 }

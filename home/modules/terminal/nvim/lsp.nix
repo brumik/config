@@ -110,6 +110,7 @@
         enable = true;
         servers = {
           html.enable = true;
+          # TODO: We need to get these flakes to be relative to the project
           nixd = {
             enable = true; # nix
             settings = { 
@@ -120,9 +121,9 @@
             };
           };
           gopls.enable = true; # go
-          tsserver.enable = true; # ts
+          ts_ls.enable = true; # ts
           pyright.enable = true; # python
-          ruby-lsp.enable = true; # ruby
+          ruby_lsp.enable = true; # ruby
         };
       };
       none-ls = {
