@@ -13,7 +13,9 @@ in {
       enable = true;
       listenAddress = "0.0.0.0";
       port = 9000;
-      package = pkgs.mealie;
+      # TODO: This can break as unstable can change required variables
+      # Once 25.05 update the system
+      package = pkgs.unstable.mealie;
       settings = {
         BASE_URL = "https://mealie.${config.homelab.domain}";
         ALLOW_SIGNUP = "false";

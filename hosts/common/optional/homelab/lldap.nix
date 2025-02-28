@@ -18,6 +18,8 @@ in {
       environment = {
         LLDAP_KEY_SEED_FILE = config.sops.secrets."n100/lldap-key-seed".path;
       };
+      # TODO: This can break as unstable can change required variables
+      # Once 25.05 update the system
       package = pkgs.unstable.lldap;
       settings = {
         # Web user interface
