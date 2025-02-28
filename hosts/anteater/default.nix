@@ -29,9 +29,4 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "anteater";
-
-  # Styling
-  stylix = {
-    image = lib.mkForce ../assets/wallpapers/anteater-3360x2240.jpg;
-  };
 }
