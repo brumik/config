@@ -7,7 +7,7 @@
   imports = [
     # (import ./git { inherit username; })
     ./zsh
-    ./nvim
+    # ./nvim
     ./tmux
     # ./alacritty.nix
     ./kitty.nix
