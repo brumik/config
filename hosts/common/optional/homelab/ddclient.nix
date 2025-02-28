@@ -11,7 +11,7 @@ in {
 
     services.ddclient = {
       enable = true;
-      usev4 = "web, web=ip.websupport.sk/";
+      usev4 = "webv4, webv4=ip.websupport.sk/";
       ssl = true;
       protocol = "dyndns2";
       server = "dyndns.websupport.sk";
