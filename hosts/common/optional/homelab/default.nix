@@ -68,16 +68,17 @@ in {
 
     # Get static ip address instead of dhcp
     networking = {
-      useDHCP = false; # Disable DHCP to allow static IP configuration
-
-      interfaces = {
-        ens18 = {
-          ipv4.addresses = [{
-            address = cfg.serverIP; # Your desired static IP address
-            prefixLength = 32; # Subnet mask in CIDR notation
-          }];
-        };
-      };
+      # TODO: This is managed in networkmanager service
+      # useDHCP = false; # Disable DHCP to allow static IP configuration
+      #
+      # interfaces = {
+      #   ens18 = {
+      #     ipv4.addresses = [{
+      #       address = cfg.serverIP; # Your desired static IP address
+      #       prefixLength = 32; # Subnet mask in CIDR notation
+      #     }];
+      #   };
+      # };
 
       defaultGateway = cfg.gateway;
       # DNS settings
