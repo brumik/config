@@ -1,6 +1,6 @@
 { username }: { ... }: {
   services.tailscale = {
-    enable = true;
+    enable = false;
     openFirewall = true;
     useRoutingFeatures = "server";
     authKeyFile = "/home/${username}/tailscale.key";
