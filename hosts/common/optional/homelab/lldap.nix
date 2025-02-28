@@ -9,14 +9,25 @@ in {
       group = "lldap";
     };
     users.groups.lldap = {};
-    sops.secrets."n100/lldap-key-seed" = {
+    sops.secrets."n100/lldap/key-seed" = {
+      owner = "lldap";
+    };
+    sops.secrets."n100/lldap/smtp-pass" = {
       owner = "lldap";
     };
 
     services.lldap = {
       enable = true;
       environment = {
-        LLDAP_KEY_SEED_FILE = config.sops.secrets."n100/lldap-key-seed".path;
+        LLDAP_KEY_SEED_FILE = config.sops.secrets."n100/lldap/key-seed".path;
+        LLDAP_SMTP_OPTIONS__ENABLE_PASSWORD_RESET = "true";
+        LLDAP_SMTP_OPTIONS__SERVER = "smtp.m1.websupport.sk";
+        LLDAP_SMTP_OPTIONS__PORT = "465";
+        LLDAP_SMTP_OPTIONS__SMTP_ENCRYPTION = "TLS";
+        LLDAP_SMTP_OPTIONS__USER = "lldap-noreply@berky.me";
+        LLDAP_SMTP_OPTIONS__PASSWORD_FILE = config.sops.secrets."n100/lldap/smtp-pass".path;
+        LLDAP_SMTP_OPTIONS__FROM = "LLDAP <lldap-noreply@berky.me>";
+        LLDAP_SMTP_OPTIONS__TO = "Levente Berky <levente@berky.me>";
       };
       # TODO: This can break as unstable can change required variables
       # Once 25.05 update the system
