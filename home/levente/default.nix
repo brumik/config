@@ -27,6 +27,5 @@
     # Local
     ./git.nix
     ./gnome.nix
-    ./styling.nix
   ];
 }

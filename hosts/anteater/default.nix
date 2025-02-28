@@ -2,6 +2,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./stylix.nix
 
     ../common/core
 
@@ -10,7 +11,6 @@
     ../common/optional/smb.nix
     ../common/optional/scanner.nix
     ../common/optional/sound.nix
-    ../common/optional/stylix-default.nix
     ../common/optional/gaming.nix
 
     ../common/users/katerina.nix
