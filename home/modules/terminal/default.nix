@@ -2,6 +2,7 @@
 {
   home.packages = [
     pkgs.just
+    pkgs.tree
   ];
 
   imports = [
