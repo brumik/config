@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let
   cfg = config.homelab.mealie;
 in {
@@ -13,9 +13,6 @@ in {
       enable = true;
       listenAddress = "0.0.0.0";
       port = 9000;
-      # TODO: This can break as unstable can change required variables
-      # Once 25.05 update the system
-      package = pkgs.unstable.mealie;
       settings = {
         BASE_URL = "https://mealie.${config.homelab.domain}";
         ALLOW_SIGNUP = "false";
@@ -38,7 +35,7 @@ in {
         OIDC_SIGNUP_ENABLED = "true";
         OIDC_CONFIGURATION_URL = "https://authelia.${config.homelab.domain}/.well-known/openid-configuration";
         OIDC_CLIENT_ID = "mealie";
-        OIDC_AUTO_REDIRECT = "true";
+        OIDC_AUTO_REDIRECT = "false";
         OIDC_ADMIN_GROUP = "mealie_admin";
         OIDC_USER_GROUP = "mealie_user";
       };
