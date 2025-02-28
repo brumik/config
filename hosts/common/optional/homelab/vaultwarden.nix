@@ -30,7 +30,7 @@ in {
     };
 
     homelab.backup.stateDirs = [
-      "/var/lib/vaultwarden/attachements"
+      "/var/lib/vaultwarden/attachments"
       "/var/lib/vaultwarden/db.sqlite3"
     ];
 
