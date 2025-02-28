@@ -34,9 +34,9 @@
       }
     ];
 
-    plugins.which-key.registrations = {
-      "<leader>f" = "> Find in (telescope)";
-    };
+    plugins.which-key.settings.specs = [
+      { "<leader>f" = "> Find in (telescope)"; }
+    ];
 
     plugins = {
       telescope = {

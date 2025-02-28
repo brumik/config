@@ -20,6 +20,5 @@
     ../modules/spotdl
     # Local
     ./gnome.nix
-    ./styling.nix
   ];
 }
