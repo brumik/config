@@ -19,12 +19,6 @@
     };
   };
 
-  networking.hosts = {
-    "192.168.1.127" = [ "n100.berky.me" ];
-    "192.168.1.100" = [ "brumspace.berky.me" ];
-    "192.168.1.101" = [ "anteater.berky.me" ];
-  };
-
   users.users.root = {
     openssh.authorizedKeys.keys = [
       "${builtins.readFile ../../../keys/id-brum.pub}"
