@@ -11,10 +11,10 @@ in {
     ./backup.nix
     ./radicale.nix
     ./languagetool.nix
-    # ./homepage.nix
-    # ./mealie.nix
-    # ./traefik.nix
+    ./mealie.nix
     ./freshrss.nix
+    # ./homepage.nix
+    # ./traefik.nix
   ];
 
   options.homelab = {
@@ -92,7 +92,8 @@ in {
     boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 0;
 
     # Enable podman and set all container based services to it;
-    virtualisation.oci-containers.backend = "docker";
+    virtualisation.podman.enable = true;
+    virtualisation.oci-containers.backend = "podman";
 
     # Open ports for reverse proxy
     networking.firewall.allowedTCPPorts = [ 80 443 ];

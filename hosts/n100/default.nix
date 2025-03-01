@@ -59,7 +59,7 @@ in {
     ddclient.enable = true;
     jellyfin.enable = true;
     radicale.enable = true;
-    # mealie.enable = true;
+    mealie.enable = true;
     languagetool.enable = true;
     freshrss.enable = true;
 
