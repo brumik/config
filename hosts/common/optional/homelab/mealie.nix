@@ -57,7 +57,7 @@ in {
       "n100/mealie/smtp-pass" = {};
     };
 
-    sops.templates.".env" = {
+    sops.templates."n100/mealie/.env" = {
       content = ''
         OIDC_CLIENT_SECRET=${config.sops.placeholder."n100/mealie/oidc-client-secret"}
         SMTP_PASSWORD=${config.sops.placeholder."n100/mealie/smtp-pass"}
@@ -103,7 +103,7 @@ in {
         OIDC_USER_GROUP = "mealie_user";
       };
       environmentFiles = [
-        config.sops.templates.".env".path
+        config.sops.templates."n100/mealie/.env".path
       ];
     };
     
