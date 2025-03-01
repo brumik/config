@@ -9,6 +9,7 @@ in {
   config = lib.mkIf cfg.enable {
     sops.secrets."n100/mealie-credentials" = { };
 
+    # TODO: the current stable mealie is outdated (1.24 vs 2.x)
     services.mealie = {
       enable = true;
       listenAddress = "0.0.0.0";

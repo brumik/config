@@ -12,7 +12,9 @@ in {
     ./radicale.nix
     ./languagetool.nix
     # ./homepage.nix
-    ./mealie.nix
+    # ./mealie.nix
+    # ./traefik.nix
+    ./freshrss.nix
   ];
 
   options.homelab = {
@@ -88,6 +90,9 @@ in {
 
     # Enable binding on the 80 and 443 port for docker
     boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 0;
+
+    # Enable podman and set all container based services to it;
+    virtualisation.oci-containers.backend = "docker";
 
     # Open ports for reverse proxy
     networking.firewall.allowedTCPPorts = [ 80 443 ];
