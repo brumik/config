@@ -14,7 +14,7 @@ in {
     ./mealie.nix
     ./freshrss.nix
     # ./homepage.nix
-    # ./traefik.nix
+    ./traefik.nix
   ];
 
   options.homelab = {

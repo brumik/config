@@ -55,6 +55,7 @@ in {
       openFirewall = true;
     };
 
+    traefik.enable = false;
     adguardhome.enable = true;
     ddclient.enable = true;
     jellyfin.enable = true;
