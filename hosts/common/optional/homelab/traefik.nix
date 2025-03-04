@@ -81,35 +81,39 @@ in {
           };
         };
 
-        # TODO: Find a better place for this:
-        dynamicConfigOptions.http = {
-          routers = {
-            "synology-rtr" = {
-              entryPoints = "websecure";
-              rule = "Host(`nas.${config.homelab.domain}`)";
-              service = "synology-srv";
-              # TODO Middleware
-            };
-            "ha-rtr" = {
-              entryPoints = "websecure";
-              rule = "Host(`ha.${config.homelab.domain}`)";
-              service = "ha";
-              # TODO Middleware
-            };
+      };
+
+      # TODO: Find a better place for this:
+      dynamicConfigOptions.http = {
+        routers = {
+          "traefik-rtr" = {
+            entryPoints = "websecure";
+            rule = "Host(`traefik.${config.homelab.domain}`)";
+            service = "api@internal";
+            # TODO Middleware
           };
-          services = {
-            "synology-srv".loadBalancer.servers =
-              [{ url = "http://${config.homelab.smbServerIP}:5000"; }];
-            "ha-srv".loadBalancer.servers =
-              [{ url = "http://192.168.1.125:8123"; }];
+          "synology-rtr" = {
+            entryPoints = "websecure";
+            rule = "Host(`nas.${config.homelab.domain}`)";
+            service = "synology-srv";
+            # TODO Middleware
+          };
+          "ha-rtr" = {
+            entryPoints = "websecure";
+            rule = "Host(`ha.${config.homelab.domain}`)";
+            service = "ha-srv";
+            # TODO Middleware
           };
         };
-
+        services = {
+          "synology-srv".loadBalancer.servers =
+            [{ url = "http://${config.homelab.smbServerIP}:5000"; }];
+          "ha-srv".loadBalancer.servers =
+            [{ url = "http://192.168.1.125:8123"; }];
+        };
       };
+
       environmentFiles = [ config.sops.templates."n100/traefik/.env".path ];
-    } // createRouter {
-      name = "traefik";
-      port = 8080;
     };
   };
 }
