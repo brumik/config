@@ -1,17 +1,16 @@
 { config, lib, ... }:
-let
-  cfg = config.homelab.adguardhome;
+let cfg = config.homelab.adguardhome;
 in {
-  options.homelab.adguardhome = {
-    enable = lib.mkEnableOption "adguard";
-  };
+  options.homelab.adguardhome = { enable = lib.mkEnableOption "adguard"; };
 
   config = lib.mkIf cfg.enable {
     services.adguardhome = {
       enable = true;
       host = "0.0.0.0";
       port = 10000;
-      openFirewall = true;
+      # TODO: enable this to delete all settings made from the web-interface
+      # this needs to have much more options defined as this will be the complete config
+      mutableSettings = true;
       settings = {
         dns = {
           upstream_dns = [
@@ -33,6 +32,11 @@ in {
           ];
         };
       };
+    };
+
+    services.traefik = config.homelab.traefik.createRouter {
+      name = "adguard";
+      port = 10000;
     };
   };
 }

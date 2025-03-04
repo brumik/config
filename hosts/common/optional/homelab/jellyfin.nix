@@ -12,7 +12,11 @@ in {
       user = config.homelab.user;
       group = config.homelab.group;
       # port is 8096
-      openFirewall = true;
+    };
+
+    services.traefik = config.homelab.traefik.createRouter {
+      name = "jellyfin";
+      port = 8096;
     };
 
     homelab.backup.stateDirs = [

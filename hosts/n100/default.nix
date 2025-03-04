@@ -50,13 +50,8 @@ in {
     gateway = "192.168.1.1";
     tailscale.enable = true;
 
-    vaultwarden = {
-      enable = true;
-      address = "0.0.0.0";
-      openFirewall = true;
-    };
-
-    traefik.enable = false;
+    vaultwarden.enable = true;
+    traefik.enable = true;
     adguardhome.enable = true;
     ddclient.enable = true;
     jellyfin.enable = true;

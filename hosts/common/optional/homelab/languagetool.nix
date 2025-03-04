@@ -9,11 +9,11 @@ in {
     services.languagetool = {
       enable = true;
       # jvmOptions = [ "-Xmx512m" ];
-      # Turn off after reverse proxy
-      public = true;
-      # port = 8081
     };
 
-    networking.firewall.allowedTCPPorts = [ 8081 ];
+    services.traefik = config.homelab.traefik.createRouter {
+      name = "languagetool";
+      port = 8081;
+    };
   };
 }

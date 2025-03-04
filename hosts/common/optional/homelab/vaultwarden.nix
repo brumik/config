@@ -9,7 +9,7 @@ in {
       type = lib.types.port;
     }; 
     address = lib.mkOption {
-      default = "::1";
+      default = "127.0.0.1";
       type = lib.types.str;
     }; 
     openFirewall = lib.mkOption {
@@ -27,6 +27,11 @@ in {
         ROCKET_ADDRESS = "${cfg.address}";
         ROCKET_PORT = cfg.port;
       };
+    };
+
+    services.traefik = config.homelab.traefik.createRouter {
+      name = "bitwarden";
+      port = cfg.port;
     };
 
     homelab.backup.stateDirs = [

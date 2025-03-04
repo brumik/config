@@ -43,8 +43,14 @@ in {
       };
     };
 
+    services.traefik = config.homelab.traefik.createRouter {
+      name = "lldap";
+      port = 17170;
+    };
+
     homelab.backup.stateDirs = [ "/var/lib/lldap" ];
 
-    networking.firewall.allowedTCPPorts = [ 17170 3890 ];
+    # TODO close this when authelia migrated
+    networking.firewall.allowedTCPPorts = [ 3890 ];
   };
 }

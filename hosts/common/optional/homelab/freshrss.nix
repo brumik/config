@@ -58,6 +58,9 @@ in {
 
     homelab.backup.stateDirs = [ dir ];
 
-    networking.firewall.allowedTCPPorts = [ 10003 ];
+    services.traefik = config.homelab.traefik.createRouter {
+      name = "rss";
+      port = 10003;
+    };
   };
 }

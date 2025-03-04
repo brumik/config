@@ -107,7 +107,11 @@ in {
       ];
     };
     
+    services.traefik = config.homelab.traefik.createRouter {
+      name = "mealie";
+      port = 9000;
+    };
+
     homelab.backup.stateDirs = [ dir ];
-    networking.firewall.allowedTCPPorts = [ 9000 ];
   };
 }

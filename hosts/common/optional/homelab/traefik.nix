@@ -9,15 +9,14 @@ let
         service = "${name}-srv";
         # TODO Middleware
       };
-      services."${name}-srv".loadBalancer.servers.url = "127.0.0.1:${port}";
+      services."${name}-srv".loadBalancer.servers =
+        [{ url = "http://127.0.0.1:${builtins.toString port}"; }];
     };
   };
 in {
-  options.homelab.traefik = { 
+  options.homelab.traefik = {
     enable = lib.mkEnableOption "traefik";
-    createRouter = lib.mkOption {
-      default = createRouter;
-    };
+    createRouter = lib.mkOption { default = createRouter; };
   };
 
   config = lib.mkIf cfg.enable {
@@ -28,6 +27,7 @@ in {
           config.sops.placeholder."n100/traefik/websupport-secret"
         }
         WEBSUPPORT_API_KEY=a154f3f6-b7cc-49d4-9db7-40b1f99bc0ce
+        LEGO_DISABLE_CNAME_SUPPORT=true
       '';
     };
 
@@ -38,7 +38,7 @@ in {
         api.dashboard = true;
 
         # DEBUG, INFO, WARN, ERROR, FATAL, PANIC
-        log.level = "WARN";
+        log.level = "DEBUG";
 
         entrypoints = {
           traefik.address = ":8080";
@@ -56,7 +56,7 @@ in {
               certresolver = "websupportletsencrypt";
               domains = [{
                 main = config.homelab.domain;
-                sans = ["*.${config.homelab.domain}"];
+                sans = [ "*.${config.homelab.domain}" ];
               }];
             };
             transport.respondingTimeouts = {
@@ -80,11 +80,36 @@ in {
             resolvers = [ "1.1.1.1:53" ];
           };
         };
+
+        # TODO: Find a better place for this:
+        dynamicConfigOptions.http = {
+          routers = {
+            "synology-rtr" = {
+              entryPoints = "websecure";
+              rule = "Host(`nas.${config.homelab.domain}`)";
+              service = "synology-srv";
+              # TODO Middleware
+            };
+            "ha-rtr" = {
+              entryPoints = "websecure";
+              rule = "Host(`ha.${config.homelab.domain}`)";
+              service = "ha";
+              # TODO Middleware
+            };
+          };
+          services = {
+            "synology-srv".loadBalancer.servers =
+              [{ url = "http://${config.homelab.smbServerIP}:5000"; }];
+            "ha-srv".loadBalancer.servers =
+              [{ url = "http://192.168.1.125:8123"; }];
+          };
+        };
+
       };
       environmentFiles = [ config.sops.templates."n100/traefik/.env".path ];
     } // createRouter {
       name = "traefik";
-      port = "8080";
+      port = 8080;
     };
   };
 }

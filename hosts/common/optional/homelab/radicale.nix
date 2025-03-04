@@ -32,6 +32,11 @@ in {
       };
     };
 
+    services.traefik = config.homelab.traefik.createRouter {
+      name = "radicale";
+      port = 5232;
+    };
+
     homelab.backup.stateDirs = [
       "/var/lib/radicale/collections"
     ];
