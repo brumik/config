@@ -56,11 +56,16 @@ in {
       ];
     };
 
-    homelab.backup.stateDirs = [ dir ];
-
     services.traefik = config.homelab.traefik.createRouter {
       name = "rss";
       port = 10003;
     };
+
+    homelab.authelia.exposedDomains = [ "rss.${config.homelab.domain}" ];
+
+    homelab.backup.stateDirs = [ dir ];
+
+
+
   };
 }

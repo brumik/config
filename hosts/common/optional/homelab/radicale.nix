@@ -11,24 +11,18 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    sops.secrets."n100/radicale-users" = {
-      owner = "radicale";
-    };
+    sops.secrets."n100/radicale-users" = { owner = "radicale"; };
 
     services.radicale = {
       enable = true;
       settings = {
-        server = {
-          hosts = [ "0.0.0.0:5232" "[::]:5232" ];
-        };
+        server = { hosts = [ "127.0.0.1:5232" ]; };
         auth = {
           type = "htpasswd";
           htpasswd_filename = config.sops.secrets."n100/radicale-users".path;
           htpasswd_encryption = "bcrypt";
         };
-        storage = {
-          filesystem_folder = "/var/lib/radicale/collections";
-        };
+        storage = { filesystem_folder = "/var/lib/radicale/collections"; };
       };
     };
 
@@ -37,9 +31,9 @@ in {
       port = 5232;
     };
 
-    homelab.backup.stateDirs = [
-      "/var/lib/radicale/collections"
-    ];
+    homelab.authelia.bypassDomains = [ "radicale.${config.homelab.domain}" ];
+
+    homelab.backup.stateDirs = [ "/var/lib/radicale/collections" ];
 
     networking.firewall.allowedTCPPorts = [ 5232 ];
   };

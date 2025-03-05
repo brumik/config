@@ -112,6 +112,8 @@ in {
       port = 9000;
     };
 
+    homelab.authelia.exposedDomains = [ "mealie.${config.homelab.domain}" ];
+
     homelab.backup.stateDirs = [ dir ];
   };
 }
