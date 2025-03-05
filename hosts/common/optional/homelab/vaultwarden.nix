@@ -1,6 +1,7 @@
 { config, lib, ... }:
 let
   cfg = config.homelab.vaultwarden;
+  domain = "bitwarden.${config.homelab.domain}";
 in {
   options.homelab.vaultwarden = {
     enable = lib.mkEnableOption "vaultwarden";
@@ -22,7 +23,7 @@ in {
     services.vaultwarden = {
       enable = true;
       config = {
-        DOMAIN = "https://bitwarden.${config.homelab.domain}";
+        DOMAIN = "https://${domain}";
         SIGNUPS_ALLOWED = false;
         ROCKET_ADDRESS = "${cfg.address}";
         ROCKET_PORT = cfg.port;
@@ -33,6 +34,8 @@ in {
       name = "bitwarden";
       port = cfg.port;
     };
+
+    homelab.authelia.bypassDomains = [ domain ];
 
     homelab.backup.stateDirs = [
       "/var/lib/vaultwarden/attachments"

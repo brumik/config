@@ -49,6 +49,7 @@ in {
     serverIP = "192.168.1.127";
     gateway = "192.168.1.1";
     tailscale.enable = true;
+    authelia.enable = true;
 
     vaultwarden.enable = true;
     traefik.enable = true;

@@ -7,7 +7,6 @@ let
         entryPoints = "websecure";
         rule = "Host(`${name}.${config.homelab.domain}`)";
         service = "${name}-srv";
-        # TODO Middleware
       };
       services."${name}-srv".loadBalancer.servers =
         [{ url = "http://127.0.0.1:${builtins.toString port}"; }];
@@ -54,6 +53,7 @@ in {
           };
           websecure = {
             address = ":443";
+            http.middlewares = [ "chain-authelia" ];
             http.tls = {
               certresolver = "websupportletsencrypt";
               domains = [{

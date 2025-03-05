@@ -6,19 +6,16 @@
           entryPoints = "websecure";
           rule = "Host(`traefik.${config.homelab.domain}`)";
           service = "api@internal";
-          # TODO Middleware
         };
         "synology-rtr" = {
           entryPoints = "websecure";
           rule = "Host(`nas.${config.homelab.domain}`)";
           service = "synology-srv";
-          # TODO Middleware
         };
         "ha-rtr" = {
           entryPoints = "websecure";
           rule = "Host(`ha.${config.homelab.domain}`)";
           service = "ha-srv";
-          # TODO Middleware
         };
       };
       services = {
@@ -29,4 +26,11 @@
       };
     };
   };
+
+  # Set up with authelia
+  homelab.authelia.bypassDomains = [
+    "nas.${config.homelab.domain}"
+    "ha.${config.homelab.domain}"
+  ];
+
 }

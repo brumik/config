@@ -1,4 +1,6 @@
-{ ... }: {
+{ config, ... }:
+let authelia = config.homelab.authelia;
+in {
   services.traefik.dynamicConfigOptions = {
     http.middlewares = {
       chain-authelia = {
@@ -10,16 +12,10 @@
           ];
         };
       };
-      chain-no-auth = {
-        chain = {
-          middlewares =
-            [ "middlewares-rate-limit" "middlewares-secure-headers" ];
-        };
-      };
 
       middlewares-authelia = {
         forwardAuth = {
-          address = "http://authelia:9091/api/authz/forward-auth";
+          address = "http://${authelia.address}:${builtins.toString authelia.port}/api/authz/forward-auth";
           trustForwardHeader = true;
           authResponseHeaders =
             [ "Remote-User" "Remote-Groups" "Remote-Email" "Remote-Name" ];

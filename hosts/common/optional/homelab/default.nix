@@ -15,6 +15,7 @@ in {
     ./freshrss.nix
     # ./homepage.nix
     ./traefik
+    ./authelia
     ./tailscale.nix
   ];
 
