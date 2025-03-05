@@ -45,7 +45,7 @@ in {
         # Optional parameter, set to 1 to enable OpenID Connect (only available in our Debian image)
         # Requires more environment variables. See https://freshrss.github.io/FreshRSS/en/admins/16_OpenID-Connect.html
         OIDC_ENABLED = "1";
-        OIDC_PROVIDER_METADATA_URL = "https://authelia.berky.me/.well-known/openid-configuration";
+        OIDC_PROVIDER_METADATA_URL = "https://authelia.${config.homelab.domain}/.well-known/openid-configuration";
         OIDC_CLIENT_ID = "freshrss";
         OIDC_REMOTE_USER_CLAIM = "preferred_username";
         OIDC_SCOPES = "openid groups email profile";
@@ -60,6 +60,21 @@ in {
       name = "rss";
       port = 10003;
     };
+
+
+    homelab.authelia.oidc.clients = [{
+      client_id = "freshrss";
+      client_name = "FreshRSS";
+      client_secret = "$pbkdf2-sha512$310000$yw9HeEPelo9ebAkzDJBWkA$diTSif9RC5TPkzl.mCCHqpvquOkwOYj5GV8u/fyVvYLe2DAueVVgz0pa8lsKmHEAN2FwlEvQgzlzLGftz9ze4A";
+      public = false;
+      consent_mode = "implicit";
+      authorization_policy = "one_factor";
+      require_pkce = true;
+      pkce_challenge_method = "S256";
+      redirect_uris = [ "https://rss.${config.homelab.domain}:443/i/oidc/" ];
+      scopes = [ "openid" "email" "profile" "groups" ];
+      userinfo_signed_response_alg = "none";
+    }];
 
     homelab.authelia.exposedDomains = [ "rss.${config.homelab.domain}" ];
 

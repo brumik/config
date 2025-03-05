@@ -114,6 +114,20 @@ in {
 
     homelab.authelia.exposedDomains = [ "mealie.${config.homelab.domain}" ];
 
+    homelab.authelia.oidc.clients = [{
+      client_id = "mealie";
+      client_name = "Mealie";
+      client_secret = "$pbkdf2-sha512$310000$VZKQTEyh9Dksw6uio6HMFA$HCMHsoYcSOx.2bwt7DM6IXk1MNi0ng2WU.I83KcVCzE16.voP4HPoh58AO.ltLLiLvdzroZ0oxD23XAkvs925A";
+      public = false;
+      consent_mode = "implicit";
+      authorization_policy = "one_factor";
+      require_pkce = true;
+      pkce_challenge_method = "S256";
+      redirect_uris = [ "https://mealie.${config.homelab.domain}/login" ];
+      scopes = [ "openid" "email" "profile" "groups" ];
+      userinfo_signed_response_alg = "none";
+    }];
+
     homelab.backup.stateDirs = [ dir ];
   };
 }

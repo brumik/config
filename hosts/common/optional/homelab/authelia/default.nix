@@ -3,6 +3,7 @@ let
   cfg = config.homelab.authelia;
   secrets = config.sops.secrets;
   hcfg = config.homelab;
+  storagePath = "/var/lib/authelia-main/db.sqlite3";
 in {
   imports = [ ./oidc.nix ];
 
@@ -88,7 +89,7 @@ in {
           sender = "Authelia <authelia-noreply@berky.me>";
           address = "submissions://smtp.m1.websupport.sk:465";
         };
-        storage.local.path = "/var/lib/authelia-main/db.sqlite3";
+        storage.local.path = storagePath;
 
         access_control = {
           default_policy = "deny";
@@ -157,5 +158,14 @@ in {
         };
       };
     };
+
+    services.traefik = config.homelab.traefik.createRouter {
+      name = "authelia";
+      port = cfg.port;
+    };
+    
+    homelab.authelia.bypassDomains = [ "authelia.${config.homelab.domain}" ];
+
+    homelab.backup.stateDirs = [ storagePath ];
   };
 }
