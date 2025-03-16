@@ -18,6 +18,7 @@ in {
     ./authelia
     ./tailscale.nix
     ./audiobooks.nix
+    ./webdav.nix
   ];
 
   options.homelab = {
