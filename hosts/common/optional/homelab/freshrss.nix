@@ -69,8 +69,6 @@ in {
       public = false;
       consent_mode = "implicit";
       authorization_policy = "one_factor";
-      require_pkce = true;
-      pkce_challenge_method = "S256";
       redirect_uris = [ "https://rss.${config.homelab.domain}:443/i/oidc/" ];
       scopes = [ "openid" "email" "profile" "groups" ];
       userinfo_signed_response_alg = "none";
