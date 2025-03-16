@@ -60,6 +60,7 @@ in {
     mealie.enable = true;
     languagetool.enable = true;
     freshrss.enable = true;
+    audiobookshelf.enable = true;
 
     # TODO This might be required by other services so need to add there?
     lldap.enable = true;

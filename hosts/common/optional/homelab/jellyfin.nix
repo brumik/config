@@ -1,14 +1,11 @@
 { config, lib, ... }:
-let
-  cfg = config.homelab.jellyfin;
+let cfg = config.homelab.jellyfin;
 in {
-  options.homelab.jellyfin = {
-    enable = lib.mkEnableOption "Jellyfin";
-  };
+  options.homelab.jellyfin = { enable = lib.mkEnableOption "Jellyfin"; };
 
   config = lib.mkIf cfg.enable {
     services.jellyfin = {
-      enable = true; 
+      enable = true;
       user = config.homelab.user;
       group = config.homelab.group;
       # port is 8096
@@ -19,8 +16,6 @@ in {
       port = 8096;
     };
 
-    homelab.backup.stateDirs = [
-      "/var/lib/jellyfin"
-    ];
+    homelab.backup.stateDirs = [ "/var/lib/jellyfin" ];
   };
 }

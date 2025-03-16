@@ -17,6 +17,7 @@ in {
     ./traefik
     ./authelia
     ./tailscale.nix
+    ./audiobooks.nix
   ];
 
   options.homelab = {
