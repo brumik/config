@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let uname = "katerina";
 in {
   sops.secrets."anteater/hashed-password".neededForUsers = true;
@@ -14,6 +14,7 @@ in {
     description = "Katerina";
     extraGroups = [ "networkmanager" "wheel" "smbusers" ];
     hashedPasswordFile = config.sops.secrets."anteater/hashed-password".path;
+    shell = pkgs.zsh;
   };
 
   home-manager.users.${uname} = import ../../../home/${uname} { username = uname; };

@@ -3,17 +3,15 @@ let cfg = config.homelab.homepage;
 in {
   options.homelab.homepage = { enable = lib.mkEnableOption "homepage"; };
 
-  # TODO The services format is absolutely unusable for distributed config...
   config = lib.mkIf cfg.enable {
     services.homepage-dashboard = {
       enable = true;
-      port = 8082;
-      openFirewall = true;
+      # listenPort = 8082;
       services = [
-        { Admin = []; }
-        { Media = []; }
-        { Services = []; }
-        { App = []; }
+        { Admin = [ ]; }
+        { Media = [ ]; }
+        { Services = [ ]; }
+        { App = [ ]; }
       ];
       widgets = [
         {
@@ -30,6 +28,21 @@ in {
           };
         }
       ];
+    };
+
+    # Traefik custom config contains this service on the default domain
+    services.traefik.dynamicConfigOptions.http = {
+      routers = {
+        "homepage-rtr" = {
+          entryPoints = "websecure";
+          rule = "Host(`${config.homelab.domain}`)";
+          service = "homepage-srv";
+        };
+      };
+      services = {
+        "homepage-srv".loadBalancer.servers =
+          [{ url = "http://127.0.0.1:8082"; }];
+      };
     };
   };
 }

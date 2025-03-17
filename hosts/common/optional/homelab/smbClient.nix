@@ -1,8 +1,10 @@
 { config, pkgs, ... }:
 let
-  options = ["x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,credentials=${config.sops.secrets."n100/smb-credentials".path},gid=${toString config.users.groups.smbusers.name},file_mode=0664,dir_mode=0775"];
+  options = ["x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,credentials=${config.sops.secrets."n100/smb-credentials".path},gid=${toString config.users.groups.${config.homelab.group}.gid},file_mode=0664,dir_mode=0775"];
 
 in {
+  sops.secrets."n100/smb-credentials" = {};
+
   environment.systemPackages = [ pkgs.cifs-utils ];
   fileSystems."/mnt/video" = {
     device = "//${config.homelab.smbServerIP}/video";

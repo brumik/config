@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let uname = "work";
 in {
   sops.secrets."brum/hashed-password".neededForUsers = true;
@@ -15,6 +15,7 @@ in {
     description = "Work";
     extraGroups = [ "networkmanager" "wheel" ];
     hashedPasswordFile = config.sops.secrets."brum/hashed-password".path;
+    shell = pkgs.zsh;
   };
 
   home-manager.users.work = import ../../../home/work { username = "work"; };

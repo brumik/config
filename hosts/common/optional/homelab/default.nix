@@ -19,6 +19,7 @@ in {
     ./audiobooks.nix
     ./webdav.nix
     ./calibre.nix
+    ./homepage.nix
   ];
 
   options.homelab = {

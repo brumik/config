@@ -1,15 +1,8 @@
-{ config, ... }: 
-let
-  username = "n100";
-in {
+{ ... }: {
   imports = [
     ./hardware-configuration.nix
-
     ../common/core
-
     ../common/optional/homelab
-    ../common/optional/docker.nix
-    ../common/optional/smb.nix
   ];
 
   boot.loader.grub = {
@@ -18,29 +11,6 @@ in {
   };
 
   networking.hostName = "n100"; # Define your hostname.
-
-  # Temporary user copy
-  users.users."${username}" = {
-    uid = 1000;
-    isNormalUser = true;
-    initialPassword = "passwd";
-    description = "Brum";
-    extraGroups = [ "networkmanager" "wheel" ];
-  };
-
-  mySystems.docker = {
-    enable = true;
-    users = [ "n100" ];
-  };
-
-  mySystems.smb = {
-    enable = true;
-    credentials = config.sops.secrets."n100/smb-credentials".path;
-    users = [ "n100" ];
-  };
-
-  home-manager.users.${username} = import ../../home/${username} { inherit username; };
-  # End temporary user copy
 
   # Services trying
   homelab = {
@@ -51,6 +21,8 @@ in {
     tailscale.enable = true;
     authelia.enable = true;
     traefik.enable = true;
+
+    homepage.enable = true;
 
     vaultwarden.enable = true;
     adguardhome.enable = true;
@@ -69,8 +41,6 @@ in {
     # Enable backup
     backup.enable = true;
     # Set up the new backup to back up the docker isntances too
-    backup.stateDirs = [
-      "/home/n100/docker"
-    ];
+    backup.stateDirs = [ "/home/n100/docker" ];
   };
 }
