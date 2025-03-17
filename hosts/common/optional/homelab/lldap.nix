@@ -8,13 +8,9 @@ in {
       isSystemUser = true;
       group = "lldap";
     };
-    users.groups.lldap = {};
-    sops.secrets."n100/lldap/key-seed" = {
-      owner = "lldap";
-    };
-    sops.secrets."n100/lldap/smtp-pass" = {
-      owner = "lldap";
-    };
+    users.groups.lldap = { };
+    sops.secrets."n100/lldap/key-seed" = { owner = "lldap"; };
+    sops.secrets."n100/lldap/smtp-pass" = { owner = "lldap"; };
 
     services.lldap = {
       enable = true;
@@ -25,7 +21,8 @@ in {
         LLDAP_SMTP_OPTIONS__PORT = "465";
         LLDAP_SMTP_OPTIONS__SMTP_ENCRYPTION = "TLS";
         LLDAP_SMTP_OPTIONS__USER = "lldap-noreply@berky.me";
-        LLDAP_SMTP_OPTIONS__PASSWORD_FILE = config.sops.secrets."n100/lldap/smtp-pass".path;
+        LLDAP_SMTP_OPTIONS__PASSWORD_FILE =
+          config.sops.secrets."n100/lldap/smtp-pass".path;
         LLDAP_SMTP_OPTIONS__FROM = "LLDAP <lldap-noreply@berky.me>";
         LLDAP_SMTP_OPTIONS__TO = "Levente Berky <levente@berky.me>";
       };
@@ -43,10 +40,10 @@ in {
       };
     };
 
-    services.traefik = config.homelab.traefik.createRouter {
-      name = "lldap";
+    homelab.traefik.routes = [{
+      host = "lldap";
       port = 17170;
-    };
+    }];
 
     homelab.backup.stateDirs = [ "/var/lib/lldap" ];
 

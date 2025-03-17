@@ -13,12 +13,12 @@ in {
     ./languagetool.nix
     ./mealie.nix
     ./freshrss.nix
-    # ./homepage.nix
     ./traefik
     ./authelia
     ./tailscale.nix
     ./audiobooks.nix
     ./webdav.nix
+    ./calibre.nix
   ];
 
   options.homelab = {

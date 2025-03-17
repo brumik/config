@@ -17,7 +17,7 @@ in {
     # };
     # homelab.backup.stateDirs = [ "/var/lib/freshrss" ];
 
-    sops.secrets."n100/freshrss-credentials" = {};
+    sops.secrets."n100/freshrss-credentials" = { };
 
     virtualisation.oci-containers.containers.freshrss = {
       image = "freshrss/freshrss";
@@ -45,27 +45,28 @@ in {
         # Optional parameter, set to 1 to enable OpenID Connect (only available in our Debian image)
         # Requires more environment variables. See https://freshrss.github.io/FreshRSS/en/admins/16_OpenID-Connect.html
         OIDC_ENABLED = "1";
-        OIDC_PROVIDER_METADATA_URL = "https://authelia.${config.homelab.domain}/.well-known/openid-configuration";
+        OIDC_PROVIDER_METADATA_URL =
+          "https://authelia.${config.homelab.domain}/.well-known/openid-configuration";
         OIDC_CLIENT_ID = "freshrss";
         OIDC_REMOTE_USER_CLAIM = "preferred_username";
         OIDC_SCOPES = "openid groups email profile";
-        OIDC_X_FORWARDED_HEADERS = "X-Forwarded-Host X-Forwarded-Port X-Forwarded-Proto";
+        OIDC_X_FORWARDED_HEADERS =
+          "X-Forwarded-Host X-Forwarded-Port X-Forwarded-Proto";
       };
-      environmentFiles = [
-        config.sops.secrets."n100/freshrss-credentials".path
-      ];
+      environmentFiles =
+        [ config.sops.secrets."n100/freshrss-credentials".path ];
     };
 
-    services.traefik = config.homelab.traefik.createRouter {
-      name = "rss";
+    homelab.traefik.routes = [{
+      host = "rss";
       port = 10003;
-    };
-
+    }];
 
     homelab.authelia.oidc.clients = [{
       client_id = "freshrss";
       client_name = "FreshRSS";
-      client_secret = "$pbkdf2-sha512$310000$yw9HeEPelo9ebAkzDJBWkA$diTSif9RC5TPkzl.mCCHqpvquOkwOYj5GV8u/fyVvYLe2DAueVVgz0pa8lsKmHEAN2FwlEvQgzlzLGftz9ze4A";
+      client_secret =
+        "$pbkdf2-sha512$310000$yw9HeEPelo9ebAkzDJBWkA$diTSif9RC5TPkzl.mCCHqpvquOkwOYj5GV8u/fyVvYLe2DAueVVgz0pa8lsKmHEAN2FwlEvQgzlzLGftz9ze4A";
       public = false;
       consent_mode = "implicit";
       authorization_policy = "one_factor";
@@ -77,8 +78,5 @@ in {
     homelab.authelia.exposedDomains = [ "rss.${config.homelab.domain}" ];
 
     homelab.backup.stateDirs = [ dir ];
-
-
-
   };
 }

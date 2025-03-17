@@ -159,11 +159,11 @@ in {
       };
     };
 
-    services.traefik = config.homelab.traefik.createRouter {
-      name = "authelia";
+    homelab.traefik.routes = [{
+      host = "authelia";
       port = cfg.port;
-    };
-    
+    }];
+
     homelab.authelia.bypassDomains = [ "authelia.${config.homelab.domain}" ];
 
     homelab.backup.stateDirs = [ storagePath ];

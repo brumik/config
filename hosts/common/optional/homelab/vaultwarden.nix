@@ -8,11 +8,11 @@ in {
     port = lib.mkOption {
       default = 10001;
       type = lib.types.port;
-    }; 
+    };
     address = lib.mkOption {
       default = "127.0.0.1";
       type = lib.types.str;
-    }; 
+    };
     openFirewall = lib.mkOption {
       default = false;
       type = lib.types.bool;
@@ -30,18 +30,17 @@ in {
       };
     };
 
-    services.traefik = config.homelab.traefik.createRouter {
-      name = "bitwarden";
+    homelab.traefik.routes = [{
+      host = "bitwarden";
       port = cfg.port;
-    };
+    }];
 
     homelab.authelia.bypassDomains = [ domain ];
 
-    homelab.backup.stateDirs = [
-      "/var/lib/vaultwarden/attachments"
-      "/var/lib/vaultwarden/db.sqlite3"
-    ];
+    homelab.backup.stateDirs =
+      [ "/var/lib/vaultwarden/attachments" "/var/lib/vaultwarden/db.sqlite3" ];
 
-    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts =
+      lib.mkIf cfg.openFirewall [ cfg.port ];
   };
 }

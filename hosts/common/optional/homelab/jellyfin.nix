@@ -11,10 +11,10 @@ in {
       # port is 8096
     };
 
-    services.traefik = config.homelab.traefik.createRouter {
-      name = "jellyfin";
+    homelab.traefik.routes = [{
+      host = "jellyfin";
       port = 8096;
-    };
+    }];
 
     homelab.backup.stateDirs = [ "/var/lib/jellyfin" ];
   };

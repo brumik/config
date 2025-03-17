@@ -34,9 +34,9 @@ in {
       };
     };
 
-    services.traefik = config.homelab.traefik.createRouter {
-      name = "adguard";
+    homelab.traefik.routes = [{
+      host = "adguard";
       port = 10000;
-    };
+    }];
   };
 }

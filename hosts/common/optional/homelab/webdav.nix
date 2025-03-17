@@ -30,10 +30,10 @@ in {
       environmentFile = config.sops.secrets."n100/webdav-users".path;
     };
 
-    services.traefik = config.homelab.traefik.createRouter {
-      name = name;
+    homelab.traefik.routes = [{
+      host = name;
       port = 6065;
-    };
+    }];
 
     homelab.authelia.exposedDomains = [ dname ];
   };

@@ -50,9 +50,9 @@ in {
     gateway = "192.168.1.1";
     tailscale.enable = true;
     authelia.enable = true;
+    traefik.enable = true;
 
     vaultwarden.enable = true;
-    traefik.enable = true;
     adguardhome.enable = true;
     ddclient.enable = true;
     jellyfin.enable = true;
@@ -62,6 +62,7 @@ in {
     freshrss.enable = true;
     audiobookshelf.enable = true;
     webdav.enable = true;
+    calibre.enable = true;
 
     # TODO This might be required by other services so need to add there?
     lldap.enable = true;

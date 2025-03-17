@@ -17,10 +17,10 @@ in {
       port = 18000; # default is 8000
     };
 
-    services.traefik = config.homelab.traefik.createRouter {
-      name = name;
+    homelab.traefik.routes = [{
+      host = name;
       port = 18000;
-    };
+    }];
 
     homelab.authelia.exposedDomains = [ dname ];
 

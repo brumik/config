@@ -26,10 +26,10 @@ in {
       };
     };
 
-    services.traefik = config.homelab.traefik.createRouter {
-      name = "radicale";
+    homelab.traefik.routes = [{
+      host = "radicale";
       port = 5232;
-    };
+    }];
 
     homelab.authelia.bypassDomains = [ "radicale.${config.homelab.domain}" ];
 

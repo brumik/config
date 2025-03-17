@@ -1,5 +1,6 @@
 { config, lib, ... }:
 let
+  types = lib.types;
   cfg = config.homelab.traefik;
   createRouter = { name, port }: {
     dynamicConfigOptions.http = {
@@ -18,6 +19,21 @@ in {
   options.homelab.traefik = {
     enable = lib.mkEnableOption "traefik";
     createRouter = lib.mkOption { default = createRouter; };
+    routes = lib.mkOption {
+      type = types.listOf (types.submodule ({ ... }: {
+        options = {
+          port = lib.mkOption {
+            type = types.int;
+            description = "Port number for the service.";
+          };
+          host = lib.mkOption {
+            type = types.str;
+            description = "Host address for the service.";
+          };
+        };
+      }));
+      default = { };
+    };
   };
 
   config = lib.mkIf cfg.enable {

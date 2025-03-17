@@ -107,10 +107,10 @@ in {
       ];
     };
     
-    services.traefik = config.homelab.traefik.createRouter {
-      name = "mealie";
+    homelab.traefik.routes = [{
+      host = "mealie";
       port = 9000;
-    };
+    }];
 
     homelab.authelia.exposedDomains = [ "mealie.${config.homelab.domain}" ];
 

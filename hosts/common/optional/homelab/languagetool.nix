@@ -11,9 +11,9 @@ in {
       # jvmOptions = [ "-Xmx512m" ];
     };
 
-    services.traefik = config.homelab.traefik.createRouter {
-      name = "languagetool";
+    homelab.traefik.routes = [{
+      host = "languagetool";
       port = 8081;
-    };
+    }];
   };
 }
