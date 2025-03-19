@@ -47,7 +47,12 @@ in {
 
     homelab.backup.stateDirs = [ "/var/lib/lldap" ];
 
-    # TODO close this when authelia migrated
-    networking.firewall.allowedTCPPorts = [ 3890 ];
+    homelab.homepage.admin = [{
+      LLDAP = {
+        href = "https://lldap.${config.homelab.domain}";
+        siteMonitor = "https://lldap.${config.homelab.domain}";
+        description = "LDAP Server";
+      };
+    }];
   };
 }

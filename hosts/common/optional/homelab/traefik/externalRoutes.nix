@@ -51,4 +51,28 @@ in {
   homelab.authelia.bypassDomains =
     [ "nas.${config.homelab.domain}" "ha.${config.homelab.domain}" ];
 
+  homelab.homepage.app = [{
+    Synology = {
+      icon = "synology.png";
+      href = "https://nas.${config.homelab.domain}";
+      siteMonitor = "https://nas.${config.homelab.domain}";
+      description = "Server with Drive and Photos";
+    };
+  }];
+
+  homelab.homepage.admin = [{
+    Traefik = {
+      icon = "traefik.png";
+      href = "https://traefik.${config.homelab.domain}";
+      siteMonitor = "https://traefik.${config.homelab.domain}";
+      description = "Reverse proxy dashboard (read only)";
+    };
+    HomeAssistant = {
+      icon = "home-assistant.png";
+      href = "https://ha.${config.homelab.domain}";
+      siteMonitor = "https://ha.${config.homelab.domain}";
+      description = "Home automation platform";
+    };
+  }];
+
 }

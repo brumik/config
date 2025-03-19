@@ -13,10 +13,6 @@ in {
       default = "127.0.0.1";
       type = lib.types.str;
     };
-    openFirewall = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -40,7 +36,13 @@ in {
     homelab.backup.stateDirs =
       [ "/var/lib/vaultwarden/attachments" "/var/lib/vaultwarden/db.sqlite3" ];
 
-    networking.firewall.allowedTCPPorts =
-      lib.mkIf cfg.openFirewall [ cfg.port ];
+    homelab.homepage.app = [{
+      Bitwarden = {
+        icon = "bitwarden.png";
+        href = "https://${domain}";
+        siteMonitor = "https://${domain}";
+        description = "Password manager";
+      };
+    }];
   };
 }

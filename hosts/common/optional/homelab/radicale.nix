@@ -35,6 +35,14 @@ in {
 
     homelab.backup.stateDirs = [ "/var/lib/radicale/collections" ];
 
-    networking.firewall.allowedTCPPorts = [ 5232 ];
+
+    homelab.homepage.services = [{
+      Radicale = {
+        icon = "radicale.png";
+        href = "https://radicale.${config.homelab.domain}";
+        siteMonitor = "https://radicale.${config.homelab.domain}";
+        description = "Calendar and contacts manager";
+      };
+    }];
   };
 }

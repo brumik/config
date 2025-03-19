@@ -36,5 +36,14 @@ in {
     }];
 
     homelab.authelia.exposedDomains = [ dname ];
+
+    homelab.homepage.services = [{
+      Webdav = {
+        icon = "webdav.png";
+        href = "https://${dname}";
+        siteMonitor = "https://${dname}";
+        description = "A file synchronization service (used: obsidian)";
+      };
+    }];
   };
 }

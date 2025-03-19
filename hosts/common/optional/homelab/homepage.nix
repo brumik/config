@@ -1,17 +1,27 @@
 { config, lib, ... }:
 let cfg = config.homelab.homepage;
 in {
-  options.homelab.homepage = { enable = lib.mkEnableOption "homepage"; };
+  options.homelab.homepage = {
+    enable = lib.mkEnableOption "homepage";
+    app = lib.mkOption {
+      default = [ ];
+    };
+    admin = lib.mkOption {
+      default = [ ];
+    };
+    services = lib.mkOption {
+      default = [ ];
+    };
+  };
 
   config = lib.mkIf cfg.enable {
     services.homepage-dashboard = {
       enable = true;
       # listenPort = 8082;
       services = [
-        { Admin = [ ]; }
-        { Media = [ ]; }
-        { Services = [ ]; }
-        { App = [ ]; }
+        { App = cfg.app; }
+        { Admin = cfg.admin ++ cfg.services; }
+        # { Services = cfg.services; }
       ];
       widgets = [
         {

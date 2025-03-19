@@ -2,6 +2,7 @@
 let
   cfg = config.homelab.freshrss;
   dir = "/var/lib/oci-freshrss";
+  dname = "rss.${config.homelab.domain}";
 in {
   options.homelab.freshrss = { enable = lib.mkEnableOption "freshrss"; };
 
@@ -70,13 +71,22 @@ in {
       public = false;
       consent_mode = "implicit";
       authorization_policy = "one_factor";
-      redirect_uris = [ "https://rss.${config.homelab.domain}:443/i/oidc/" ];
+      redirect_uris = [ "https://${dname}:443/i/oidc/" ];
       scopes = [ "openid" "email" "profile" "groups" ];
       userinfo_signed_response_alg = "none";
     }];
 
-    homelab.authelia.exposedDomains = [ "rss.${config.homelab.domain}" ];
+    homelab.authelia.exposedDomains = [ dname ];
 
     homelab.backup.stateDirs = [ dir ];
+
+    homelab.homepage.app = [{
+      FreshRSS = {
+        icon = "freshrss.png";
+        href = "https://${dname}";
+        siteMonitor = "https://${dname}";
+        description = "Rss feed manager";
+      };
+    }];
   };
 }

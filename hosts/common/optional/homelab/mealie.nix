@@ -2,10 +2,9 @@
 let
   cfg = config.homelab.mealie;
   dir = "/var/lib/oci-mealie";
+  dname = "mealie.${config.homelab.domain}";
 in {
-  options.homelab.mealie = {
-    enable = lib.mkEnableOption "mealie";
-  };
+  options.homelab.mealie = { enable = lib.mkEnableOption "mealie"; };
 
   config = lib.mkIf cfg.enable {
     # sops.secrets = {
@@ -53,13 +52,15 @@ in {
     # networking.firewall.allowedTCPPorts = [ 9000 ];
 
     sops.secrets = {
-      "n100/mealie/oidc-client-secret" = {};
-      "n100/mealie/smtp-pass" = {};
+      "n100/mealie/oidc-client-secret" = { };
+      "n100/mealie/smtp-pass" = { };
     };
 
     sops.templates."n100/mealie/.env" = {
       content = ''
-        OIDC_CLIENT_SECRET=${config.sops.placeholder."n100/mealie/oidc-client-secret"}
+        OIDC_CLIENT_SECRET=${
+          config.sops.placeholder."n100/mealie/oidc-client-secret"
+        }
         SMTP_PASSWORD=${config.sops.placeholder."n100/mealie/smtp-pass"}
       '';
       owner = config.homelab.user;
@@ -68,16 +69,16 @@ in {
     virtualisation.oci-containers.containers.mealie = {
       image = "ghcr.io/mealie-recipes/mealie:latest";
       ports = [ "9000:9000" ];
-      volumes = [
-        "${dir}:/app/data"
-      ];
+      volumes = [ "${dir}:/app/data" ];
       environment = {
         # A timezone http://php.net/timezones (default is UTC)
         TZ = "${config.time.timeZone}";
-        PUID = builtins.toString config.users.users."${config.homelab.user}".uid;
-        PGID = builtins.toString config.users.groups."${config.homelab.group}".gid;
+        PUID =
+          builtins.toString config.users.users."${config.homelab.user}".uid;
+        PGID =
+          builtins.toString config.users.groups."${config.homelab.group}".gid;
 
-        BASE_URL = "https://mealie.${config.homelab.domain}";
+        BASE_URL = "https://${dname}";
         ALLOW_SIGNUP = "false";
         LOG_LEVEL = "ERROR";
         # LOG_LEVEL = "DEBUG";
@@ -96,38 +97,47 @@ in {
         # SSO Configuration;
         OIDC_AUTH_ENABLED = "true";
         OIDC_SIGNUP_ENABLED = "true";
-        OIDC_CONFIGURATION_URL = "https://authelia.${config.homelab.domain}/.well-known/openid-configuration";
+        OIDC_CONFIGURATION_URL =
+          "https://authelia.${config.homelab.domain}/.well-known/openid-configuration";
         OIDC_CLIENT_ID = "mealie";
         OIDC_AUTO_REDIRECT = "true";
         OIDC_ADMIN_GROUP = "mealie_admin";
         OIDC_USER_GROUP = "mealie_user";
       };
-      environmentFiles = [
-        config.sops.templates."n100/mealie/.env".path
-      ];
+      environmentFiles = [ config.sops.templates."n100/mealie/.env".path ];
     };
-    
+
     homelab.traefik.routes = [{
       host = "mealie";
       port = 9000;
     }];
 
-    homelab.authelia.exposedDomains = [ "mealie.${config.homelab.domain}" ];
+    homelab.authelia.exposedDomains = [ dname ];
 
     homelab.authelia.oidc.clients = [{
       client_id = "mealie";
       client_name = "Mealie";
-      client_secret = "$pbkdf2-sha512$310000$VZKQTEyh9Dksw6uio6HMFA$HCMHsoYcSOx.2bwt7DM6IXk1MNi0ng2WU.I83KcVCzE16.voP4HPoh58AO.ltLLiLvdzroZ0oxD23XAkvs925A";
+      client_secret =
+        "$pbkdf2-sha512$310000$VZKQTEyh9Dksw6uio6HMFA$HCMHsoYcSOx.2bwt7DM6IXk1MNi0ng2WU.I83KcVCzE16.voP4HPoh58AO.ltLLiLvdzroZ0oxD23XAkvs925A";
       public = false;
       consent_mode = "implicit";
       authorization_policy = "one_factor";
       require_pkce = true;
       pkce_challenge_method = "S256";
-      redirect_uris = [ "https://mealie.${config.homelab.domain}/login" ];
+      redirect_uris = [ "https://${dname}/login" ];
       scopes = [ "openid" "email" "profile" "groups" ];
       userinfo_signed_response_alg = "none";
     }];
 
     homelab.backup.stateDirs = [ dir ];
+
+    homelab.homepage.app = [{
+      Mealie = {
+        icon = "mealie.png";
+        href = "https://${dname}";
+        siteMonitor = "https://${dname}";
+        description = "Recipe manager";
+      };
+    }];
   };
 }

@@ -4,6 +4,7 @@ let
   secrets = config.sops.secrets;
   hcfg = config.homelab;
   storagePath = "/var/lib/authelia-main/db.sqlite3";
+  dname = "authelia.${config.homelab.domain}";
 in {
   imports = [ ./oidc.nix ];
 
@@ -164,8 +165,17 @@ in {
       port = cfg.port;
     }];
 
-    homelab.authelia.bypassDomains = [ "authelia.${config.homelab.domain}" ];
+    homelab.authelia.bypassDomains = [ dname ];
 
     homelab.backup.stateDirs = [ storagePath ];
+
+    homelab.homepage.admin = [{
+      Authelia = {
+        icon = "authelia.png";
+        href = "https://${dname}";
+        siteMonitor = "https://${dname}";
+        description = "User authentication service (and reset password)";
+      };
+    }];
   };
 }

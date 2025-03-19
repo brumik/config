@@ -17,5 +17,15 @@ in {
     }];
 
     homelab.backup.stateDirs = [ "/var/lib/jellyfin" ];
+
+
+    homelab.homepage.app = [{
+      Jellyfin = {
+        icon = "jellyfin.png";
+        href = "https://jellyfin.${config.homelab.domain}";
+        siteMonitor = "https://jellyfin.${config.homelab.domain}";
+        description = "Netflix and Spotify at home";
+      };
+    }];
   };
 }

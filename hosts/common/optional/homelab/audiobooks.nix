@@ -43,5 +43,14 @@ in {
     }];
 
     homelab.backup.stateDirs = [ "/var/lib/audiobookshelf" ];
+
+    homelab.homepage.app = [{
+      Audiobookshelf = {
+        icon = "audiobookshelf.png";
+        href = "https://${dname}";
+        siteMonitor = "https://${dname}";
+        description = "Audiobook service";
+      };
+    }];
   };
 }

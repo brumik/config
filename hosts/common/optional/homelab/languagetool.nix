@@ -15,5 +15,14 @@ in {
       host = "languagetool";
       port = 8081;
     }];
+
+    homelab.homepage.services = [{
+      "Language Tool" = {
+        icon = "sh-languagetool.png";
+        href = "https://languagetool.${config.homelab.domain}";
+        siteMonitor = "https://languagetool.${config.homelab.domain}";
+        description = "Text correction tool";
+      };
+    }];
   };
 }

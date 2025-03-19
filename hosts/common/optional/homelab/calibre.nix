@@ -57,5 +57,24 @@ in {
     homelab.authelia.exposedDomains = [ "books.${config.homelab.domain}" ];
 
     homelab.backup.stateDirs = [ dir ];
+
+    homelab.homepage.app = [
+      {
+        "Calibre Web" = {
+          icon = "calibre-web.png";
+          href = "https://books.${config.homelab.domain}";
+          siteMonitor = "https://books.${config.homelab.domain}";
+          description = "Ebook reading services";
+        };
+      }
+      {
+        "Calibre" = {
+          icon = "calibre.png";
+          href = "https://calibre.${config.homelab.domain}";
+          siteMonitor = "https://calibre.${config.homelab.domain}";
+          description = "Ebook management software";
+        };
+      }
+    ];
   };
 }

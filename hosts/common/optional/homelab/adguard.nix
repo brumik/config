@@ -38,5 +38,14 @@ in {
       host = "adguard";
       port = 10000;
     }];
+
+    homelab.homepage.services = [{
+      AdGuard = {
+        icon = "adguard-home.png";
+        href = "https://adguard.berky.me";
+        siteMonitor = "https://adguard.berky.me";
+        description = "DNS server";
+      };
+    }];
   };
 }
