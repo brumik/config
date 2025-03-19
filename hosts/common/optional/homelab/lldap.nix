@@ -54,5 +54,8 @@ in {
         description = "LDAP Server";
       };
     }];
+
+    # TODO close this when calibre-web is migrated
+    networking.firewall.allowedTCPPorts = [ 3890 ];
   };
 }
