@@ -40,6 +40,7 @@
 
       # If exists map docker compose to dc
       dc = "docker compose";
+      t = "tmux";
     };
 
     # This extra config loads the secrets file that you can generate on your own.
