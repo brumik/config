@@ -78,16 +78,16 @@ in {
       # TODO: if enabled networkmanager it conflicts, if not it is not getting internet
       # useDHCP = true; # Disable DHCP to allow static IP configuration
 
-      interfaces = {
-        ens18 = {
-          ipv4.addresses = [{
-            address = cfg.serverIP; # Your desired static IP address
-            prefixLength = 32; # Subnet mask in CIDR notation
-          }];
-        };
-      };
-
-      defaultGateway = cfg.gateway;
+      # interfaces = {
+      #   ens18 = {
+      #     ipv4.addresses = [{
+      #       address = cfg.serverIP; # Your desired static IP address
+      #       prefixLength = 32; # Subnet mask in CIDR notation
+      #     }];
+      #   };
+      # };
+      #
+      # defaultGateway = cfg.gateway;
       # DNS settings
       nameservers =
         [ "1.1.1.1" "8.8.8.8" ]; # Replace with your preferred DNS servers
