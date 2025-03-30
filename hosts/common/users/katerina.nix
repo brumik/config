@@ -12,12 +12,13 @@ in {
     uid = 1000;
     isNormalUser = true;
     description = "Katerina";
-    extraGroups = [ "networkmanager" "wheel" "smbusers" ];
+    extraGroups = [ "networkmanager" "wheel" ];
     hashedPasswordFile = config.sops.secrets."anteater/hashed-password".path;
     shell = pkgs.zsh;
   };
 
-  home-manager.users.${uname} = import ../../../home/${uname} { username = uname; };
+  home-manager.users.${uname} =
+    import ../../../home/${uname} { username = uname; };
 
   mySystems.smb.users = [ uname ];
   mySystems.scanner.users = [ uname ];

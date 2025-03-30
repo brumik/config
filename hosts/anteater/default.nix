@@ -1,5 +1,4 @@
-{ config, lib, ... }:
-{
+{ config, ... }: {
   imports = [
     ./hardware-configuration.nix
     ./stylix.nix
@@ -21,9 +20,7 @@
     credentials = config.sops.secrets."anteater/smb-credentials".path;
   };
 
-  mySystems.scanner = {
-    enable = true;
-  };
+  mySystems.scanner = { enable = true; };
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
