@@ -10,7 +10,7 @@
     ../common/optional/docker.nix
     ../common/optional/smb.nix
     ../common/optional/nvidia.nix
-    ../common/optional/ollama.nix
+    # ../common/optional/ollama.nix
     ../common/optional/scanner.nix
     ../common/optional/sound.nix
     ../common/optional/gaming.nix
@@ -39,5 +39,4 @@
 
   # Needed for the yubike UI
   services.pcscd = { enable = true; };
-  virtualisation.vmware.host.enable = true;
 }
