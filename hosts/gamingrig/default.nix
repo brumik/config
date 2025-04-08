@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let uname = "gamer";
 in {
   imports = [
@@ -13,22 +13,6 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
 
   hardware.xone.enable = true;
-  #TEMP
-  # # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-  # services.xserver.videoDrivers = [ "amdgpu" ];
-  #
-  # # Enable the GNOME Desktop Environment.
-  # services.xserver.displayManager.gdm.enable = true;
-  # services.xserver.desktopManager.gnome.enable = true;
-  # #TEMP
-  #
-  # programs.steam = {
-  #   enable = true;
-  #   remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-  #   dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-  #   localNetworkGameTransfers.openFirewall = true; 
-  # };
 
   services.desktopManager.plasma6.enable = true;
 
@@ -43,6 +27,14 @@ in {
     };
     steamos = { useSteamOSConfig = false; };
   };
+
+  environment.systemPackages = with pkgs; [
+    curl
+    git
+    vim
+    jellyfin-media-player
+    brave
+  ];
 
   sops.secrets."brum/hashed-password".neededForUsers = true;
   # It's important to include users.mutableUsers = false to ensure the user can't modify
