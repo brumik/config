@@ -16,6 +16,10 @@
         publicKey = builtins.readFile ../../../keys/id-brumstellar.pub;
         hostNames = [ "anteater.berky.me" ];
       };
+      "gamingrig.berky.me/ed25519" = {
+        publicKey = builtins.readFile ../../../keys/id-gamingrig.pub;
+        hostNames = [ "gamingrig.berky.me" ];
+      };
     };
   };
 

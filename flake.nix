@@ -27,9 +27,16 @@
     #   url = "git+ssh://git@github.com/brumik/nix-secrets.git?shallow=1";
     #   flake = false;
     # };
+
+    # Gaming Rig SteamOS
+    jovian = {
+      url = "github:Jovian-Experiments/Jovian-NixOS";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, stylix, jovian, ...
+    }@inputs:
     let
       inherit (self) outputs;
       system = "x86_64-linux";
@@ -69,6 +76,12 @@
             commonHomeManagerConfig
             ./hosts/brumstellar
           ];
+        });
+        # This is built with nixos-unstable
+        gamingrig = (nixpkgs-unstable.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs outputs; };
+          modules = [ jovian.nixosModules.default ./hosts/gamingrig ];
         });
         anteater = (nixpkgs.lib.nixosSystem {
           inherit system;

@@ -42,14 +42,13 @@ sops-update:
 check: 
   nix flake check
 
-# Deploy all hosts
-deploy:
-  just deploy-n100
-  just deploy-anteater
-
 # Deploy the configuration to remote system
 deploy-n100:
   nixos-rebuild switch --flake .#n100 --target-host root@n100.berky.me 
+
+# Deploy the configuration to remote system
+deploy-gamingrig:
+  nixos-rebuild switch --flake .#gamingrig --target-host root@gamingrig.berky.me 
 
 # Deploy the configuration to remote system
 deploy-anteater:
