@@ -41,13 +41,15 @@
   
   nix.optimise = {
     automatic = true;
-    dates = ["10:00"];
+    dates = ["12:00"];
+    persistent = true;
   };
 
   nix.gc = {
     automatic = true;
     dates = "10:00";
     options = "--delete-older-than 7d";
+    persistent = true;
   };
 
   # This value determines the NixOS release from which the default
