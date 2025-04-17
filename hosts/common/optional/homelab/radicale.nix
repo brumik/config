@@ -35,7 +35,6 @@ in {
 
     homelab.backup.stateDirs = [ "/var/lib/radicale/collections" ];
 
-
     homelab.homepage.services = [{
       Radicale = {
         icon = "radicale.png";
