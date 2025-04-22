@@ -7,6 +7,7 @@
     spotify
     signal-desktop
     unstable.obsidian
+    unstable.vscode
     bitwarden
     onlyoffice-bin
     vlc

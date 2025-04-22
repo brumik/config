@@ -18,7 +18,6 @@ in {
 
     homelab.backup.stateDirs = [ "/var/lib/jellyfin" ];
 
-
     homelab.homepage.app = [{
       Jellyfin = {
         icon = "jellyfin.png";

@@ -20,6 +20,7 @@ in {
     ./webdav.nix
     ./calibre.nix
     ./homepage.nix
+    ./immich.nix
   ];
 
   options.homelab = {

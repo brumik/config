@@ -35,12 +35,11 @@
     audiobookshelf.enable = true;
     webdav.enable = true;
     calibre.enable = true;
+    immich.enable = true;
 
     # TODO This might be required by other services so need to add there?
     lldap.enable = true;
     # Enable backup
     backup.enable = true;
-    # Set up the new backup to back up the docker isntances too
-    backup.stateDirs = [ "/home/n100/docker" ];
   };
 }
