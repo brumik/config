@@ -67,12 +67,12 @@
             ./hosts/n100
           ];
         });
-        sleeper = (nixpkgs.lib.nixosSystem {
+        sleeper = (nixpkgs-unstable.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs outputs; };
           modules = [
-            home-manager.nixosModules.home-manager
-            commonHomeManagerConfig
+            # home-manager.nixosModules.home-manager
+            # commonHomeManagerConfig
             ./hosts/sleeper
           ];
         });
