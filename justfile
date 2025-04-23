@@ -46,6 +46,9 @@ check:
 deploy-n100:
   nixos-rebuild switch --flake .#n100 --target-host root@n100.berky.me 
 
+deploy-sleeper:
+  nixos-rebuild switch --flake .#sleeper --target-host root@sleeper.berky.me 
+
 # Deploy the configuration to remote system
 deploy-gamingrig:
   nixos-rebuild switch --flake .#gamingrig --target-host root@gamingrig.berky.me 
