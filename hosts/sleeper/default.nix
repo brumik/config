@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   imports = [
     ./hardware-configuration.nix
     ../common/core
@@ -33,4 +33,22 @@
 
   # Open firewall for ollama
   networking.firewall.allowedTCPPorts = [ 11434 11111 ];
+
+  # ZFS
+  # Generated from machine id, ensures we import zfs on correct machine
+  networking.hostId = "58cfdf5e";
+
+  boot.supportedFilesystems = [ "zfs" ];
+
+  # here we specify which exact pools to import at startup
+  boot.zfs.extraPools = [ "tank" ];
+
+  services.zfs = {
+    autoScrub.enable = true; # optional: enables periodic scrubbing
+    trim.enable = true; # optional: enables TRIM if supported
+  };
+
+  environment.systemPackages = with pkgs; [
+    zfs
+  ];
 }
