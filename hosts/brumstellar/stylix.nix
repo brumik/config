@@ -8,8 +8,10 @@
 
     fonts = { 
       monospace = {
-        package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
-        name = "JetBrainsMono Nerd Font";
+        # we might neet to clear font cache when using this:
+        # https://github.com/NixOS/nixpkgs/issues/57780
+        package = pkgs.nerd-fonts.jetbrains-mono;
+        name = "JetBrainsMono";
       };
       sansSerif = {
         package = pkgs.dejavu_fonts;

@@ -2,29 +2,54 @@
 
 {
   programs.nixvim = {
-    plugins.which-key.settings.spec = [
-      { __unkeyed = "<leader>h"; desc = "> Harpoon"; group = true; }
-      { __unkeyed = "<leader>hm"; desc = "Add a file to harpoon"; }
-      { __unkeyed = "<leader>hh"; desc = "Open harpoon popup"; }
-      { __unkeyed = "<leader>ht"; desc = "Harpoon jump to 1st"; }
-      { __unkeyed = "<leader>hs"; desc = "Harpoon jump to 2nd"; }
-      { __unkeyed = "<leader>hr"; desc = "Harpoon jump to 3rd"; }
-      { __unkeyed = "<leader>ha"; desc = "Harpoon jump to 4th"; }
+    plugins.which-key.settings.spec = [{
+      __unkeyed = "<leader>h";
+      desc = "> Harpoon";
+      group = true;
+    }];
+
+    keymaps = [
+      {
+        mode = "n";
+        key = "<leader>hm";
+        action.__raw = "function() require'harpoon':list():add() end";
+        options.desc = "Add file to harpoon";
+      }
+      {
+        mode = "n";
+        key = "<leader>hh";
+        action.__raw =
+          "function() require'harpoon'.ui:toggle_quick_menu(require'harpoon':list()) end";
+        options.desc = "Open harpoon popup";
+      }
+      {
+        mode = "n";
+        key = "<leader>ht";
+        action.__raw = "function() require'harpoon':list():select(1) end";
+        options.desc = "Harpoon jump to 1st";
+      }
+      {
+        mode = "n";
+        key = "<leader>hs";
+        action.__raw = "function() require'harpoon':list():select(2) end";
+        options.desc = "Harpoon jump to 2nd";
+      }
+      {
+        mode = "n";
+        key = "<leader>hr";
+        action.__raw = "function() require'harpoon':list():select(3) end";
+        options.desc = "Harpoon jump to 3rd";
+      }
+      {
+        mode = "n";
+        key = "<leader>ha";
+        action.__raw = "function() require'harpoon':list():select(4) end";
+        options.desc = "Harpoon jump to 4th";
+      }
     ];
+
     plugins.harpoon = {
       enable = true;
-      keymaps = {
-        addFile = "<leader>hm";
-        toggleQuickMenu = "<leader>hh";
-        navPrev = "<M-C-n>";
-        navNext = "<C-n>";
-        navFile = {
-          "1" = "<leader>ht";
-          "2" = "<leader>hs";
-          "3" = "<leader>hr";
-          "4" = "<leader>ha";
-        };
-      };
     };
   };
 }

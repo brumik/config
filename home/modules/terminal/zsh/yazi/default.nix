@@ -1,6 +1,6 @@
 { ... }: {
   programs.zsh = {
-    initExtra = ''
+    initContent = ''
       function yy() {
         local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
         yazi "$@" --cwd-file="$tmp"

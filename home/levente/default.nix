@@ -15,8 +15,6 @@
     element-desktop
     brave
     todoist-electron
-    # ytsum
-    zen-browser
     yubioath-flutter
   ];
 
