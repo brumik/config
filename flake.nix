@@ -51,9 +51,6 @@
           inherit system;
           specialArgs = { inherit inputs outputs; };
           modules = [
-            # Todo: this is not needed but need to aplly overlay somehow
-            home-manager.nixosModules.home-manager
-            commonHomeManagerConfig
             ./hosts/n100
           ];
         });

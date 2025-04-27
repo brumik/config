@@ -1,27 +1,27 @@
-{ config, lib, ... }:
-let cfg = config.homelab.homepage;
+{ config, pkgs, lib, ... }:
+let
+  cfg = config.homelab.homepage;
+  envFile = pkgs.writeText "my-service-env" ''
+    HOMEPAGE_ALLOWED_HOSTS=${config.homelab.domain}
+  '';
 in {
   options.homelab.homepage = {
     enable = lib.mkEnableOption "homepage";
-    app = lib.mkOption {
-      default = [ ];
-    };
-    admin = lib.mkOption {
-      default = [ ];
-    };
-    services = lib.mkOption {
-      default = [ ];
-    };
+    app = lib.mkOption { default = [ ]; };
+    admin = lib.mkOption { default = [ ]; };
+    services = lib.mkOption { default = [ ]; };
   };
 
   config = lib.mkIf cfg.enable {
     services.homepage-dashboard = {
       enable = true;
+      environmentFile = "${envFile}";
       # listenPort = 8082;
       services = [
         { App = cfg.app; }
-        { Admin = cfg.admin ++ cfg.services; }
-        # { Services = cfg.services; }
+        {
+          Admin = cfg.admin ++ cfg.services;
+        }
       ];
       widgets = [
         {

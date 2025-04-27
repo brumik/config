@@ -28,7 +28,6 @@ in {
       };
       # TODO: This can break as unstable can change required variables
       # Once 25.05 update the system
-      package = pkgs.unstable.lldap;
       settings = {
         # Web user interface
         http_host = "0.0.0.0"; # TODO change to localhost
