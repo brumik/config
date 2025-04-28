@@ -3,18 +3,23 @@ let
   cfg = config.homelab.immich;
   dname = "photos.${config.homelab.domain}";
   # Needs permissions to upload
-  # mediaDir = "/mnt/share/immich";
-  mediaDir = "/var/lib/immich";
+  mediaDir = "/mnt/share/immich";
+  # mediaDir = "/var/lib/immich";
 in {
   options.homelab.immich = { enable = lib.mkEnableOption "Immich"; };
 
   config = lib.mkIf cfg.enable {
+    # Create the dir for first startup
+    # This has no perms to create it on an smb share
+    # systemd.tmpfiles.rules = [ "d ${mediaDir} 0775 ${config.homelab.user} ${config.homelab.group} - -" ];
+
     services.immich = {
       enable = true;
       mediaLocation = mediaDir;
       host = "127.0.0.1";
       port = 2283;
       group = config.homelab.group;
+      user = config.homelab.user;
       environment = { IMMICH_TRUSTED_PROXIES = "127.0.0.1"; };
     };
 
@@ -23,7 +28,8 @@ in {
       port = 2283;
     }];
 
-    homelab.backup.stateDirs = [ mediaDir ];
+    # no need to backup the smb dir
+    # homelab.backup.stateDirs = [ mediaDir ];
 
     homelab.homepage.app = [{
       Immich = {

@@ -35,7 +35,8 @@ in {
 
     homelab.authelia.bypassDomains = [ domain ];
 
-    homelab.backup.stateDirs = [ dir ];
+    # Back up not only the backup location but the original dir too (should work out of the box)
+    homelab.backup.stateDirs = [ dir "/var/lib/vaultwarden" ];
 
     homelab.homepage.app = [{
       Bitwarden = {
