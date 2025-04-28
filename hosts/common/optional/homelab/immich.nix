@@ -1,19 +1,21 @@
 { config, lib, ... }:
-let cfg = config.homelab.immich;
+let
+  cfg = config.homelab.immich;
   dname = "photos.${config.homelab.domain}";
+  # Needs permissions to upload
+  # mediaDir = "/mnt/share/immich";
+  mediaDir = "/var/lib/immich";
 in {
   options.homelab.immich = { enable = lib.mkEnableOption "Immich"; };
 
   config = lib.mkIf cfg.enable {
     services.immich = {
       enable = true;
-      mediaLocation = "/mnt/share/immich";
+      mediaLocation = mediaDir;
       host = "127.0.0.1";
       port = 2283;
       group = config.homelab.group;
-      environment = {
-        IMMICH_TRUSTED_PROXIES = "127.0.0.1";
-      };
+      environment = { IMMICH_TRUSTED_PROXIES = "127.0.0.1"; };
     };
 
     homelab.traefik.routes = [{
@@ -21,7 +23,7 @@ in {
       port = 2283;
     }];
 
-    homelab.backup.stateDirs = [ "/var/lib/immich" ];
+    homelab.backup.stateDirs = [ mediaDir ];
 
     homelab.homepage.app = [{
       Immich = {
