@@ -12,12 +12,21 @@
   networking.hostName = "sleeper"; # Define your hostname.
 
   services.ollama = {
-    enable = true;
+    enable = false;
     acceleration = "cuda";
     host = "0.0.0.0";
     port = 11434;
     loadModels = [ "gemma3:27b" "deepseek-r1:32b" "mxbai-embed-large" ];
   };
+
+  # Powermanagement
+  boot.kernelModules = [ "cpufreq_stats" ];
+  boot.kernelParams = [ "pcie_aspm=force" "acpi_enforce_resources=lax" ];
+  powerManagement.powertop.enable = true;
+  powerManagement.enable = true;
+  powerManagement.cpuFreqGovernor =
+    "ondemand"; # Alternatives: "ondemand", "performance"
+  # End of powermanagement
 
   # AI Web UI testing
   services.open-webui = {
@@ -48,7 +57,5 @@
     trim.enable = true; # optional: enables TRIM if supported
   };
 
-  environment.systemPackages = with pkgs; [
-    zfs
-  ];
+  environment.systemPackages = with pkgs; [ zfs powertop pciutils ];
 }
