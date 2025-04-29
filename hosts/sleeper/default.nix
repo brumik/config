@@ -28,6 +28,12 @@
     "ondemand"; # Alternatives: "ondemand", "performance"
   # End of powermanagement
 
+  # Disks management (power saving)
+  # Spin down all rotational disks after (60*5) 300 seconds of inactivity
+  services.udev.extraRules = ''
+    ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", RUN+="${pkgs.hdparm}/sbin/hdparm -S 60 /dev/%k"
+  '';
+
   # AI Web UI testing
   services.open-webui = {
     enable = true;
@@ -57,5 +63,10 @@
     trim.enable = true; # optional: enables TRIM if supported
   };
 
-  environment.systemPackages = with pkgs; [ zfs powertop pciutils ];
+  environment.systemPackages = with pkgs; [
+    zfs
+    powertop
+    pciutils
+    hdparm
+  ];
 }
