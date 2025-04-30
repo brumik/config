@@ -12,11 +12,11 @@
   networking.hostName = "sleeper"; # Define your hostname.
 
   services.ollama = {
-    enable = false;
+    enable = true;
     acceleration = "cuda";
     host = "0.0.0.0";
     port = 11434;
-    loadModels = [ "gemma3:27b" "deepseek-r1:32b" "mxbai-embed-large" ];
+    loadModels = [ "gemma3:27b" "qwen2.5-coder:32b" "mxbai-embed-large" ];
   };
 
   # Powermanagement
