@@ -21,7 +21,6 @@
 
   # Powermanagement
   boot.kernelModules = [ "cpufreq_stats" ];
-  boot.kernelParams = [ "pcie_aspm=force" "acpi_enforce_resources=lax" ];
   powerManagement.powertop.enable = true;
   powerManagement.enable = true;
   powerManagement.cpuFreqGovernor =

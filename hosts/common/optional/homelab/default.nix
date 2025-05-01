@@ -21,6 +21,7 @@ in {
     ./calibre.nix
     ./homepage.nix
     ./immich.nix
+    ./vm.nix
   ];
 
   options.homelab = {

@@ -1,7 +1,6 @@
 { config, lib, ... }:
 let
   cfg = config.homelab.mealie;
-  dir = "/var/lib/oci-mealie";
   dname = "mealie.${config.homelab.domain}";
 in {
   options.homelab.mealie = { enable = lib.mkEnableOption "mealie"; };

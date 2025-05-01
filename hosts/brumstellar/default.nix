@@ -18,7 +18,7 @@
     ../common/users/levente.nix
     ../common/users/work.nix
 
-    # ./vm.nix
+    ./vm.nix
   ];
 
   mySystems.smb = {
