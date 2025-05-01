@@ -2,6 +2,7 @@
 let
   cfg = config.homelab.vaultwarden;
   domain = "bitwarden.${config.homelab.domain}";
+  dir = "/var/lib/backup-valutwarden";
 in {
   options.homelab.vaultwarden = {
     enable = lib.mkEnableOption "vaultwarden";
@@ -24,6 +25,7 @@ in {
         ROCKET_ADDRESS = "${cfg.address}";
         ROCKET_PORT = cfg.port;
       };
+      backupDir = dir;
     };
 
     homelab.traefik.routes = [{
@@ -33,8 +35,8 @@ in {
 
     homelab.authelia.bypassDomains = [ domain ];
 
-    homelab.backup.stateDirs =
-      [ "/var/lib/vaultwarden/attachments" "/var/lib/vaultwarden/db.sqlite3" ];
+    # Back up not only the backup location but the original dir too (should work out of the box)
+    homelab.backup.stateDirs = [ dir "/var/lib/vaultwarden" ];
 
     homelab.homepage.app = [{
       Bitwarden = {

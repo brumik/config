@@ -47,7 +47,7 @@
     # With this you can load env variables with API keys that are sensitive
     # Yes this is circumventing the nix mindset but secrets are hardly specific
     # to your system config, but rather to somebody's elese system's.
-    initExtra = ''
+    initContent = ''
       if [ -f ~/.zshsecrets ]; then
           source ~/.zshsecrets
       fi

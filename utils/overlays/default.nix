@@ -18,13 +18,6 @@
       commandLineArgs =
         "--disable-web-security --user-data-dir=/tmp/chromiumuser";
     };
-
-    zen-browser = inputs.zen-browser.packages."x86_64-linux".default; # beta
-
-    # We replaced this with an service.ollama which can support acceleration
-    # ollama = prev.ollama.override {
-    #   acceleration = "cuda";
-    # };
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will

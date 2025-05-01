@@ -16,8 +16,23 @@
     acceleration = "cuda";
     host = "0.0.0.0";
     port = 11434;
-    loadModels = [ "gemma3:27b" "deepseek-r1:32b" "mxbai-embed-large" ];
+    loadModels = [ "gemma3:27b" "qwen2.5-coder:32b" "mxbai-embed-large" ];
   };
+
+  # Powermanagement
+  boot.kernelModules = [ "cpufreq_stats" ];
+  boot.kernelParams = [ "pcie_aspm=force" "acpi_enforce_resources=lax" ];
+  powerManagement.powertop.enable = true;
+  powerManagement.enable = true;
+  powerManagement.cpuFreqGovernor =
+    "ondemand"; # Alternatives: "ondemand", "performance"
+  # End of powermanagement
+
+  # Disks management (power saving)
+  # Spin down all rotational disks after (60*5) 300 seconds of inactivity
+  services.udev.extraRules = ''
+    ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", RUN+="${pkgs.hdparm}/sbin/hdparm -S 60 /dev/%k"
+  '';
 
   # AI Web UI testing
   services.open-webui = {
@@ -50,5 +65,8 @@
 
   environment.systemPackages = with pkgs; [
     zfs
+    powertop
+    pciutils
+    hdparm
   ];
 }

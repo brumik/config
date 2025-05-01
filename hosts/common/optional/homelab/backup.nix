@@ -34,7 +34,6 @@ in {
 
         timerConfig = {
           OnCalendar = "00:01";
-          RandomizedDelaySec = "2h";
         };
       };
     };

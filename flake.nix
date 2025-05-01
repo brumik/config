@@ -2,31 +2,21 @@
   description = "Home system configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-24.11";
+      url = "github:nix-community/nixvim/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    stylix.url = "github:danth/stylix/release-24.11";
+    stylix.url = "github:danth/stylix/master";
     sops-nix = {
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Zen browser flake, not so stable:
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
-
-    # Future, stroring sensitive info in different repo
-    # rotate secrets when switching
-    # mySecrets = {
-    #   url = "git+ssh://git@github.com/brumik/nix-secrets.git?shallow=1";
-    #   flake = false;
-    # };
 
     # Gaming Rig SteamOS
     jovian = {
@@ -61,9 +51,6 @@
           inherit system;
           specialArgs = { inherit inputs outputs; };
           modules = [
-            # Todo: this is not needed but need to aplly overlay somehow
-            home-manager.nixosModules.home-manager
-            commonHomeManagerConfig
             ./hosts/n100
           ];
         });
