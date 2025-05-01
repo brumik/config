@@ -11,7 +11,7 @@ let
     }") cfg.usbDevices);
 in {
   options.homelab.home-assistant = {
-    enable = lib.mkEnableOption "homelab";
+    enable = lib.mkEnableOption "Home Assistant";
 
     image = lib.mkOption {
       type = lib.types.str;

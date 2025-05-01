@@ -22,6 +22,8 @@ in {
     ./homepage.nix
     ./immich.nix
     ./vm.nix
+    ./ollama.nix
+    ./open-ui.nix
   ];
 
   options.homelab = {
