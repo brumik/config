@@ -7,16 +7,8 @@ in {
     sops.secrets."n100/tailscale-key" = {};
     services.tailscale = {
       enable = true;
-      openFirewall = true;
-      useRoutingFeatures = "server";
+      useRoutingFeatures = "server"; # should include advertise-exit-node and others
       authKeyFile = config.sops.secrets."n100/tailscale-key".path;
-      # extraUpFlags = [
-      #   # These are for servers only. If you want to use it for personal PC remove
-      #   "--accept-routes"
-      #   "--advertise-exit-node"
-      #   "--ssh"
-      #   "--reset"
-      # ];
     };
   };
 }

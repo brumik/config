@@ -24,6 +24,7 @@ in {
     ./vm.nix
     ./ollama.nix
     ./open-ui.nix
+    ./nextcloud.nix
   ];
 
   options.homelab = {

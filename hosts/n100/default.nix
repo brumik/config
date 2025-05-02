@@ -36,6 +36,7 @@
     webdav.enable = true;
     calibre.enable = true;
     immich.enable = true;
+    nextcloud.enable = true;
 
     # TODO This might be required by other services so need to add there?
     lldap.enable = true;

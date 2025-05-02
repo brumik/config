@@ -22,7 +22,7 @@ in {
       port = 11434;
     }];
 
-    homelab.homepage.service = [{
+    homelab.homepage.services = [{
       Ollama = {
         icon = "ollama.png";
         href = "https://${subdomain}.${config.homelab.domain}";
