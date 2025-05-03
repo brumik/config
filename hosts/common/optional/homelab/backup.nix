@@ -45,20 +45,9 @@ in {
         passwordFile = config.sops.secrets."n100/restic-password".path;
         pruneOpts = [ "--keep-daily 4" ];
         timerConfig = { OnCalendar = "00:01"; };
+        backupPrepareCommand = builtins.concatStringsSep "\n" cfg.preBackupScripts;
+        backupCleanupCommand = builtins.concatStringsSep "\n" cfg.postBackupScripts;
       };
     };
-
-    # Extend systemd service for pre/post hooks
-    systemd.services.restic-backups-remotebackup = {
-      serviceConfig = {
-        ExecStartPre = map (cmd:
-          pkgs.writeShellScript "restic-pre-${lib.hashString "sha256" cmd}" cmd)
-          cfg.preBackupScripts;
-        ExecStartPost = map (cmd:
-          pkgs.writeShellScript "restic-post-${lib.hashString "sha256" cmd}"
-          cmd) cfg.postBackupScripts;
-      };
-    };
-
   };
 }
