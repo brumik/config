@@ -9,7 +9,10 @@ in {
   options.homelab.nextcloud = { enable = lib.mkEnableOption "Nextcloud"; };
 
   config = lib.mkIf cfg.enable {
-    environment.etc."nextcloud-admin-pass".text = "thisisalongpassword";
+    sops.secrets = {
+      "n100/nextcloud/oidc-client-secret" = { };
+      "n100/nextcloud/admin-password" = { };
+    };
 
     services.nextcloud = {
       enable = true;
@@ -17,11 +20,45 @@ in {
       # Only increase one by one for migrations!!!!
       package = pkgs.nextcloud31;
       hostName = dname;
-      config.adminpassFile = "/etc/nextcloud-admin-pass";
+      config.adminpassFile =
+        config.sops.placeholder."n100/nextcloud/admin-password".path;
       config.dbtype = "pgsql";
       database.createLocally = true;
       settings = {
-        trusted_proxies = [ "127.0.0.1" ]; # trusted_domains = [ dname ];
+        trusted_proxies = [ "127.0.0.1" ];
+        # TODO: We need to install this app through nix config probably OR fix traefik for nextcloud
+        # # For OICD: https://apps.nextcloud.com/apps/oidc_login
+        # allow_user_to_change_display_name = false;
+        # lost_password_link = "disabled";
+        # oidc_login_provider_url = "https://authelia.${config.homelab.domain}";
+        # oidc_login_client_id = "nextcloud";
+        # oidc_login_client_secret = "insecure_secret";
+        # oidc_login_auto_redirect = false;
+        # oidc_login_end_session_redirect = false;
+        # oidc_login_button_text = "Log in with Authelia";
+        # oidc_login_hide_password_form = false;
+        # oidc_login_use_id_token = false;
+        # oidc_login_attributes = {
+        #     id = "preferred_username";
+        #     name = "name";
+        #     mail = "email";
+        #     groups = "groups";
+        # };
+        # oidc_login_default_group = "oidc";
+        # oidc_login_use_external_storage = false;
+        # oidc_login_scope = "openid profile email groups";
+        # oidc_login_proxy_ldap = false;
+        # oidc_login_disable_registration = true;
+        # oidc_login_redir_fallback = false;
+        # oidc_login_tls_verify = true;
+        # oidc_create_groups = false;
+        # oidc_login_webdav_enabled = false;
+        # oidc_login_password_authentication = false;
+        # oidc_login_public_key_caching_time = "86400";
+        # oidc_login_min_time_between_jwks_requests = "10";
+        # oidc_login_well_known_caching_time = "86400";
+        # oidc_login_update_avatar = false;
+        # oidc_login_code_challenge_method = "S256";
       };
       configureRedis = true;
       home = rootDir;
@@ -38,6 +75,8 @@ in {
       port = 11112;
     }];
 
+    homelab.authelia.exposedDomains = [ dname ];
+
     # no need to backup the smb dir
     # homelab.backup.stateDirs = [ mediaDir ];
 
@@ -50,23 +89,19 @@ in {
       };
     }];
 
-    #   homelab.authelia.oidc.clients = [{
-    #     client_id = "immich";
-    #     client_name = "Immich";
-    #     client_secret =
-    #       "$pbkdf2-sha512$310000$zdze0iljXy76xeHihU7lbg$FDCjNnLuQ7qpDGzX03zFPuFUyGdiHE3OGEZvbD8/rXUp79HCFnGd1KflgUqWUXtthTRDCBch3IusTMAJzBkqRQ";
-    #     public = false;
-    #     consent_mode = "implicit";
-    #     authorization_policy = "one_factor";
-    #     require_pkce = false;
-    #     redirect_uris = [
-    #       "https://${dname}/auth/login"
-    #       "https://${dname}/user-settings"
-    #       "app.immich:///oauth-callback"
-    #     ];
-    #     scopes = [ "openid" "email" "profile" ];
-    #     userinfo_signed_response_alg = "none";
-    #   }];
-    # };
+    homelab.authelia.oidc.clients = [{
+      client_id = "nextcloud";
+      client_name = "Nextcloud";
+      client_secret =
+        "$pbkdf2-sha512$310000$RdFeq6sHkW1IG4M8EKM/VQ$.4RAqcLh5pkVJWjOwRzj.v0wGzJDH3y.tSkrcmLGfoCGIsZpUnwDsZFuarZ63UWAVQ2/aWuGete56j6zpWRhgQ";
+      public = false;
+      consent_mode = "implicit";
+      authorization_policy = "one_factor";
+      require_pkce = true;
+      redirect_uris = [ "https://${dname}/apps/oidc_login/oidc" ];
+      scopes = [ "openid" "email" "profile" "groups" ];
+      userinfo_signed_response_alg = "none";
+      token_endpoint_auth_method = "client_secret_post";
+    }];
   };
 }
