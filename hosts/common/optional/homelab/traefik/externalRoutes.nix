@@ -60,6 +60,7 @@ in {
     };
   }];
 
+  # TODO remove it when we move it to the local machine
   homelab.homepage.admin = [{
     Traefik = {
       icon = "traefik.png";
@@ -74,5 +75,4 @@ in {
       description = "Home automation platform";
     };
   }];
-
 }

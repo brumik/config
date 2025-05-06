@@ -18,6 +18,11 @@
     };
     snippets = [
       {
+        command = "grep -rnw './' -e 'string to find'";
+        description = "Find in the files under the ./ the specified string";
+        tag = ["cmd" "find"];
+      }
+      {
         command = ":cfdo %s/stringOne/stringTwo/g | update | bd";
         description = "Regex replace across the whole project";
         tag = ["cmd" "vim" "replace"];

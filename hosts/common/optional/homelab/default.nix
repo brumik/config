@@ -21,6 +21,10 @@ in {
     ./calibre.nix
     ./homepage.nix
     ./immich.nix
+    ./home-assistant.nix
+    ./ollama.nix
+    ./open-ui.nix
+    ./nextcloud.nix
   ];
 
   options.homelab = {
