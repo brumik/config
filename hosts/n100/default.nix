@@ -38,7 +38,7 @@
     immich.enable = true;
     # TODO switch back on when using the AIO container instead of nix package
     # https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
-    nextcloud.enable = true;
+    nextcloud.enable = false;
 
     # TODO This might be required by other services so need to add there?
     lldap.enable = true;
