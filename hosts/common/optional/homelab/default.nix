@@ -21,7 +21,7 @@ in {
     ./calibre.nix
     ./homepage.nix
     ./immich.nix
-    ./vm.nix
+    ./home-assistant.nix
     ./ollama.nix
     ./open-ui.nix
     ./nextcloud.nix
