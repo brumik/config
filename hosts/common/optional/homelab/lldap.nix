@@ -26,11 +26,9 @@ in {
         LLDAP_SMTP_OPTIONS__FROM = "LLDAP <lldap-noreply@berky.me>";
         LLDAP_SMTP_OPTIONS__TO = "Levente Berky <levente@berky.me>";
       };
-      # TODO: This can break as unstable can change required variables
-      # Once 25.05 update the system
       settings = {
         # Web user interface
-        http_host = "0.0.0.0"; # TODO change to localhost
+        http_host = "localhost"; 
         # http_port = 17170 default
         # Password reset links:
         http_url = "https://lldap.${config.homelab.domain}";
@@ -53,8 +51,5 @@ in {
         description = "LDAP Server";
       };
     }];
-
-    # TODO close this when calibre-web is migrated
-    networking.firewall.allowedTCPPorts = [ 3890 ];
   };
 }

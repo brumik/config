@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -25,14 +24,13 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, stylix, jovian, ...
+  outputs = { self, nixpkgs, home-manager, stylix, jovian, ...
     }@inputs:
     let
       inherit (self) outputs;
       system = "x86_64-linux";
       commonHomeManagerConfig = {
         nixpkgs.overlays = [
-          outputs.overlays.unstable-packages
           outputs.overlays.modifications
           outputs.overlays.additions
         ];
@@ -54,12 +52,10 @@
             ./hosts/n100
           ];
         });
-        sleeper = (nixpkgs-unstable.lib.nixosSystem {
+        sleeper = (nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs outputs; };
           modules = [
-            # home-manager.nixosModules.home-manager
-            # commonHomeManagerConfig
             ./hosts/sleeper
           ];
         });
@@ -74,7 +70,7 @@
           ];
         });
         # This is built with nixos-unstable
-        gamingrig = (nixpkgs-unstable.lib.nixosSystem {
+        gamingrig = (nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs outputs; };
           modules = [ jovian.nixosModules.default ./hosts/gamingrig ];

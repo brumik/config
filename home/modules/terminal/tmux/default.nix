@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   home.packages = [
-    pkgs.unstable.tmux-sessionizer
+    pkgs.tmux-sessionizer
   ];
   home.file.".config/tms/config.toml".source = ./default-config.toml;
 

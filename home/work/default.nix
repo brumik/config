@@ -5,16 +5,16 @@
   home.stateVersion = "24.05";
   programs.home-manager.enable = true;
   home.packages = with pkgs; [
-    unstable.vscode
+    vscode
     chromium
-    unstable.slack
+    slack
     spotify
     bitwarden
-    unstable.obsidian
+    obsidian
     vlc
-    unstable.todoist-electron
-    unstable.brave
-    unstable.google-chrome
+    todoist-electron
+    brave
+    google-chrome
     yubioath-flutter
   ];
 

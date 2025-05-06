@@ -11,7 +11,7 @@
     onlyoffice-bin
     anki-bin
     google-chrome
-    unstable.obsidian
+    obsidian
     spotify
   ];
 

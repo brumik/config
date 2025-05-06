@@ -4,8 +4,8 @@
   home.stateVersion = "24.05";
   programs.home-manager.enable = true;
   home.packages = with pkgs; [
-    unstable.firefox
-    unstable.brave
+    firefox
+    brave
     spotify
     vlc
     zen-browser

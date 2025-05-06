@@ -6,8 +6,8 @@
   home.packages = with pkgs; [
     spotify
     signal-desktop
-    unstable.obsidian
-    unstable.vscode
+    obsidian
+    vscode
     bitwarden
     onlyoffice-bin
     vlc
