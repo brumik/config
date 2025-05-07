@@ -30,19 +30,18 @@
     jellyfin.enable = true;
     radicale.enable = true;
     mealie.enable = true;
-    languagetool.enable = true;
+    # Only place I used was obsidian but the plugin cannot support some 
+    # security features defined in Traefik, so disabling for now
+    languagetool.enable = false;
+
     freshrss.enable = true;
     audiobookshelf.enable = true;
     webdav.enable = true;
     calibre.enable = true;
     immich.enable = true;
-    # TODO switch back on when using the AIO container instead of nix package
-    # https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
-    nextcloud.enable = false;
 
     # TODO This might be required by other services so need to add there?
     lldap.enable = true;
-    # Enable backup
     backup.enable = true;
   };
 }
