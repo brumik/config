@@ -6,7 +6,7 @@
     "192.168.1.101" = [ "anteater.berky.me" ];
     "192.168.1.102" = [ "gamingrig.berky.me" ];
   };
-
+ 
   # Get static ip address instead of dhcp
   # This is not working now and just using reserved addresses
   # networking = {

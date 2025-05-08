@@ -1,8 +1,9 @@
 { pkgs, ... }: {
   imports = [
     ./hardware-configuration.nix
-    ../common/core
+    ./disko.nix
 
+    ../common/core
     ../common/optional/nvidia.nix
   ];
 
@@ -32,7 +33,7 @@
   boot.supportedFilesystems = [ "zfs" ];
 
   # here we specify which exact pools to import at startup
-  boot.zfs.extraPools = [ "tank" ];
+  boot.zfs.extraPools = [ "plane" ];
 
   services.zfs = {
     autoScrub.enable = true; # optional: enables periodic scrubbing

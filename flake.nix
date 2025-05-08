@@ -17,6 +17,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Nixos Anywhere, new deployments use disko for auto partitioning
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Gaming Rig SteamOS
     jovian = {
       url = "github:Jovian-Experiments/Jovian-NixOS";
@@ -24,7 +30,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, jovian, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, stylix, jovian, disko, ... }@inputs:
     let
       inherit (self) outputs;
       system = "x86_64-linux";
@@ -42,16 +48,24 @@
       overlays = import ./utils/overlays { inherit inputs; };
 
       nixosConfigurations = {
+        # VM server
         n100 = (nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs outputs; };
           modules = [ ./hosts/n100 ];
         });
+
+        # Standalone server
         sleeper = (nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs outputs; };
-          modules = [ ./hosts/sleeper ];
+          modules = [
+            disko.nixosModules.disko
+            ./hosts/sleeper
+          ];
         });
+
+        # Personal PC
         brumstellar = (nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs outputs; };
@@ -62,12 +76,15 @@
             ./hosts/brumstellar
           ];
         });
-        # This is built with nixos-unstable
+
+        # Steam TV gaming
         gamingrig = (nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs outputs; };
           modules = [ jovian.nixosModules.default ./hosts/gamingrig ];
         });
+
+        # Anteater PC
         anteater = (nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs outputs; };
@@ -78,6 +95,8 @@
             ./hosts/anteater
           ];
         });
+
+        # For creating a live installation ISO, bootsrapping nixos-anywhere
         nixos-live = (nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs outputs; };
@@ -87,5 +106,6 @@
           ];
         }).config.system.build.isoImage;
       };
+
     };
 }
