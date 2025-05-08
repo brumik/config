@@ -1,11 +1,16 @@
 { config, lib, ... }:
-let cfg = config.homelab.ollama;  
-  subdomain = "ollama";
+let cfg = config.homelab.ollama;
 in {
   options.homelab.ollama = {
     enable = lib.mkEnableOption "Ollama";
     loadModels = config.services.ollama.loadModels.acceleration;
     acceleration = config.services.ollama.options.acceleration;
+
+    domain = lib.mkOption {
+      type = lib.types.str;
+      default = "ollama";
+      description = "The subdomain where the service will be served";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -18,16 +23,16 @@ in {
     };
 
     homelab.traefik.routes = [{
-      host = subdomain;
+      host = cfg.domain;
       port = 11434;
     }];
 
     homelab.homepage.services = [{
       Ollama = {
         icon = "ollama.png";
-        href = "https://${subdomain}.${config.homelab.domain}";
-        siteMonitor = "https://${subdomain}.${config.homelab.domain}";
-        description = "LLM at home";
+        href = "https://${cfg.domain}.${config.homelab.domain}";
+        siteMonitor = "https://${cfg.domain}.${config.homelab.domain}";
+        escription = "LLM at home";
       };
     }];
   };

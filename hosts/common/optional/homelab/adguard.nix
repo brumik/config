@@ -1,7 +1,18 @@
 { config, lib, ... }:
-let cfg = config.homelab.adguardhome;
+let
+  cfg = config.homelab.adguardhome;
+  hcfg = config.homelab;
+  dname = "${cfg.domain}.${hcfg.domain}";
 in {
-  options.homelab.adguardhome = { enable = lib.mkEnableOption "adguard"; };
+  options.homelab.adguardhome = {
+    enable = lib.mkEnableOption "adguard";
+
+    domain = lib.mkOption {
+      type = lib.types.str;
+      default = "adguard";
+      description = "The subdomain where the service will be served";
+    };
+  };
 
   config = lib.mkIf cfg.enable {
     services.adguardhome = {
@@ -34,16 +45,19 @@ in {
       };
     };
 
+    # Open ports for DNS server
+    networking.firewall.allowedUDPPorts = [ 53 ];
+
     homelab.traefik.routes = [{
-      host = "adguard";
+      host = cfg.domain;
       port = 10000;
     }];
 
     homelab.homepage.services = [{
       AdGuard = {
         icon = "adguard-home.png";
-        href = "https://adguard.berky.me";
-        siteMonitor = "https://adguard.berky.me";
+        href = "https://${dname}";
+        siteMonitor = "https://${dname}";
         description = "DNS server";
       };
     }];

@@ -2,10 +2,29 @@
 let
   cfg = config.homelab.mealie;
   dname = "mealie.${config.homelab.domain}";
+  baseDirDefaultVal = "/var/lib/mealie";
 in {
-  options.homelab.mealie = { enable = lib.mkEnableOption "mealie"; };
+  options.homelab.mealie = {
+    enable = lib.mkEnableOption "mealie";
+
+    domain = lib.mkOption {
+      type = lib.types.str;
+      default = "mealie";
+      description = "The subdomain where the service will be served";
+    };
+
+    baseDir = lib.mkOption {
+      type = lib.types.path;
+      default = baseDirDefaultVal;
+      description = "The absolute path where the service will store the important informations";
+    };
+  };
 
   config = lib.mkIf cfg.enable {
+    systemd.tmpfiles.rules = lib.mkIf (cfg.domain != baseDirDefaultVal) [
+      "L ${baseDirDefaultVal} - - - - ${cfg.baseDir}"
+    ];
+
     sops.secrets = {
       "n100/mealie/oidc-client-secret" = { };
       "n100/mealie/smtp-pass" = { };
@@ -23,7 +42,7 @@ in {
 
     services.mealie = {
       enable = true;
-      listenAddress = "0.0.0.0";
+      listenAddress = "127.0.0.1";
       port = 9000;
       settings = {
         BASE_URL = "https://${dname}";
@@ -46,7 +65,7 @@ in {
         OIDC_AUTH_ENABLED = "true";
         OIDC_SIGNUP_ENABLED = "true";
         OIDC_CONFIGURATION_URL =
-          "https://authelia.${config.homelab.domain}/.well-known/openid-configuration";
+          "https://${config.homelab.audhelia.domain}.${config.homelab.domain}/.well-known/openid-configuration";
         OIDC_CLIENT_ID = "mealie";
         OIDC_AUTO_REDIRECT = "true";
         OIDC_ADMIN_GROUP = "mealie_admin";
@@ -55,10 +74,10 @@ in {
       credentialsFile = config.sops.templates."n100/mealie/.env".path;
     };
 
-    homelab.backup.stateDirs = [ "/var/lib/mealie" ];
+    homelab.backup.stateDirs = [ cfg.baseDir ];
 
     homelab.traefik.routes = [{
-      host = "mealie";
+      host = cfg.domain;
       port = 9000;
     }];
 

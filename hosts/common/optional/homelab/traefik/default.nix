@@ -2,23 +2,18 @@
 let
   types = lib.types;
   cfg = config.homelab.traefik;
-  createRouter = { name, port }: {
-    dynamicConfigOptions.http = {
-      routers."${name}-rtr" = {
-        entryPoints = "websecure";
-        rule = "Host(`${name}.${config.homelab.domain}`)";
-        service = "${name}-srv";
-      };
-      services."${name}-srv".loadBalancer.servers =
-        [{ url = "http://127.0.0.1:${builtins.toString port}"; }];
-    };
-  };
 in {
   imports = [ ./middlewares.nix ./externalRoutes.nix ];
 
   options.homelab.traefik = {
     enable = lib.mkEnableOption "traefik";
-    createRouter = lib.mkOption { default = createRouter; };
+
+    domain = lib.mkOption {
+      type = lib.types.str;
+      default = "traefik";
+      description = "The subdomain where the service will be served";
+    };
+
     routes = lib.mkOption {
       type = types.listOf (types.submodule ({ ... }: {
         options = {

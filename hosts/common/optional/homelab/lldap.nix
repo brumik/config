@@ -1,7 +1,21 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let cfg = config.homelab.lldap;
 in {
-  options.homelab.lldap = { enable = lib.mkEnableOption "lldap"; };
+  options.homelab.lldap = {
+    enable = lib.mkEnableOption "lldap";
+
+    domain = lib.mkOption {
+      type = lib.types.str;
+      default = "lldap";
+      description = "The subdomain where the service will be served";
+    };
+
+    baseDir = lib.mkOption {
+      type = lib.types.path;
+      default = "/var/lib/lldap";
+      description = "The absolute path where the service will store the important informations";
+    };
+  };
   config = lib.mkIf cfg.enable {
     # create the user that run the service
     users.users.lldap = {
@@ -9,6 +23,7 @@ in {
       group = "lldap";
     };
     users.groups.lldap = { };
+
     sops.secrets."n100/lldap/key-seed" = { owner = "lldap"; };
     sops.secrets."n100/lldap/smtp-pass" = { owner = "lldap"; };
 
@@ -31,23 +46,24 @@ in {
         http_host = "localhost"; 
         # http_port = 17170 default
         # Password reset links:
-        http_url = "https://lldap.${config.homelab.domain}";
+        http_url = "https://${cfg.domain}.${config.homelab.domain}";
         ldap_base_dn = "dc=berky,dc=me";
         # ldap_port = 3890 default
+        database_url = "sqlite:///${cfg.baseDir}/users.db?mode=rwc";
       };
     };
 
     homelab.traefik.routes = [{
-      host = "lldap";
+      host = cfg.domain;
       port = 17170;
     }];
 
-    homelab.backup.stateDirs = [ "/var/lib/lldap" ];
+    homelab.backup.stateDirs = [ cfg.baseDir ];
 
     homelab.homepage.admin = [{
       LLDAP = {
-        href = "https://lldap.${config.homelab.domain}";
-        siteMonitor = "https://lldap.${config.homelab.domain}";
+        href = "https://${cfg.domain}.${config.homelab.domain}";
+        siteMonitor = "https://${cfg.domain}.${config.homelab.domain}";
         description = "LDAP Server";
       };
     }];

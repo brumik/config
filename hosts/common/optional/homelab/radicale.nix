@@ -4,9 +4,16 @@ in {
   options.homelab.radicale = {
     enable = lib.mkEnableOption "radicale";
 
-    usersFile = lib.mkOption {
+    domain = lib.mkOption {
+      type = lib.types.str;
+      default = "radicale";
+      description = "The subdomain where the service will be served";
+    };
+
+    baseDir = lib.mkOption {
       type = lib.types.path;
-      description = "Path to the bcryped users file";
+      default = "/var/lib/radicale";
+      description = "The absolute path where the service will store the important informations";
     };
   };
 
@@ -22,24 +29,24 @@ in {
           htpasswd_filename = config.sops.secrets."n100/radicale-users".path;
           htpasswd_encryption = "bcrypt";
         };
-        storage = { filesystem_folder = "/var/lib/radicale/collections"; };
+        storage = { filesystem_folder = "${cfg.baseDir}/collections"; };
       };
     };
 
     homelab.traefik.routes = [{
-      host = "radicale";
+      host = cfg.domain;
       port = 5232;
     }];
 
-    homelab.authelia.bypassDomains = [ "radicale.${config.homelab.domain}" ];
+    homelab.authelia.bypassDomains = [ "${cfg.domain}.${config.homelab.domain}" ];
 
-    homelab.backup.stateDirs = [ "/var/lib/radicale/collections" ];
+    homelab.backup.stateDirs = [ cfg.baseDir ];
 
     homelab.homepage.services = [{
       Radicale = {
         icon = "radicale.png";
-        href = "https://radicale.${config.homelab.domain}";
-        siteMonitor = "https://radicale.${config.homelab.domain}";
+        href = "https://${cfg.domain}.${config.homelab.domain}";
+        siteMonitor = "https://${cfg.domain}.${config.homelab.domain}";
         description = "Calendar and contacts manager";
       };
     }];

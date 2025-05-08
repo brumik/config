@@ -1,14 +1,30 @@
 { config, lib, ... }:
 let
   cfg = config.homelab.audiobookshelf;
-  name = "audiobooks";
-  dname = "${name}.${config.homelab.domain}";
+  dname = "${cfg.domain}.${config.homelab.domain}";
+  baseDirDefaultVal = "/var/lib/audiobookshelf";
 in {
   options.homelab.audiobookshelf = {
     enable = lib.mkEnableOption "audiobookshelf";
+
+    domain = lib.mkOption {
+      type = lib.types.str;
+      default = "audiobooks";
+      description = "The subdomain where the service will be served";
+    };
+
+    baseDir = lib.mkOption {
+      type = lib.types.path;
+      default = baseDirDefaultVal;
+      description = "The absolute path where the service will store the important informations";
+    };
   };
 
   config = lib.mkIf cfg.enable {
+    systemd.tmpfiles.rules = lib.mkIf (cfg.domain != baseDirDefaultVal) [
+      "L ${baseDirDefaultVal} - - - - ${cfg.baseDir}"
+    ];
+
     services.audiobookshelf = {
       enable = true;
       user = config.homelab.user;
@@ -18,7 +34,7 @@ in {
     };
 
     homelab.traefik.routes = [{
-      host = name;
+      host = cfg.domain;
       port = 18000;
     }];
 
@@ -42,7 +58,7 @@ in {
       userinfo_signed_response_alg = "none";
     }];
 
-    homelab.backup.stateDirs = [ "/var/lib/audiobookshelf" ];
+    homelab.backup.stateDirs = [ cfg.baseDir ];
 
     homelab.homepage.app = [{
       Audiobookshelf = {

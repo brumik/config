@@ -1,11 +1,22 @@
-{ config, ... }:
-let dir = "/var/backup/postgresql";
+{ config, lib, ... }:
+let 
+  cfg = config.homelab.postgresBackup;
 in {
-  services.postgresBackup = {
-    enable = config.services.postgresql.enable;
-    location = dir;
-    startAt = "*-*-* 23:00:00"; # do the backup every day befor the system is backed up
+  options.homelab.postgresBackup = {
+    baseDir = lib.mkOption {
+      type = lib.types.path;
+      default = "/var/backup/postgresql";
+      description = "The absolute path where the service will store the important informations";
+    };
   };
 
-  homelab.backup.stateDirs = [ dir ];
+  config = { 
+    services.postgresBackup = {
+      enable = config.services.postgresql.enable;
+      location = cfg.baseDir;
+      startAt = "*-*-* 23:00:00"; # do the backup every day befor the system is backed up
+    };
+
+    homelab.backup.stateDirs = [ cfg.baseDir ];
+  };
 }

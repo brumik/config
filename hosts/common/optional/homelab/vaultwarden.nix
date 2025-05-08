@@ -1,18 +1,21 @@
 { config, lib, ... }:
 let
   cfg = config.homelab.vaultwarden;
-  domain = "bitwarden.${config.homelab.domain}";
-  dir = "/var/lib/backup-valutwarden";
+  domain = "${cfg.domain}.${config.homelab.domain}";
 in {
   options.homelab.vaultwarden = {
     enable = lib.mkEnableOption "vaultwarden";
-    port = lib.mkOption {
-      default = 10001;
-      type = lib.types.port;
-    };
-    address = lib.mkOption {
-      default = "127.0.0.1";
+
+    domain = lib.mkOption {
       type = lib.types.str;
+      default = "bitwarden";
+      description = "The subdomain where the service will be served";
+    };
+
+    baseBackupDir = lib.mkOption {
+      type = lib.types.path;
+      default = "/var/lib/backup-valutwarden";
+      description = "The absolute path where the service will store the important informations";
     };
   };
 
@@ -22,21 +25,21 @@ in {
       config = {
         DOMAIN = "https://${domain}";
         SIGNUPS_ALLOWED = false;
-        ROCKET_ADDRESS = "${cfg.address}";
-        ROCKET_PORT = cfg.port;
+        ROCKET_ADDRESS = "127.0.0.1";
+        ROCKET_PORT = 11110;
       };
-      backupDir = dir;
+      backupDir = cfg.baseBackupDir;
     };
 
     homelab.traefik.routes = [{
-      host = "bitwarden";
-      port = cfg.port;
+      host = cfg.domain;
+      port = 11110;
     }];
 
     homelab.authelia.bypassDomains = [ domain ];
 
     # Back up not only the backup location but the original dir too (should work out of the box)
-    homelab.backup.stateDirs = [ dir "/var/lib/vaultwarden" ];
+    homelab.backup.stateDirs = [ cfg.baseBackupDir "/var/lib/vaultwarden" ];
 
     homelab.homepage.app = [{
       Bitwarden = {

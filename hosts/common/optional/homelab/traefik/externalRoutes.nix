@@ -64,8 +64,8 @@ in {
   homelab.homepage.admin = [{
     Traefik = {
       icon = "traefik.png";
-      href = "https://traefik.${config.homelab.domain}";
-      siteMonitor = "https://traefik.${config.homelab.domain}";
+      href = "https://${cfg.domain}.${config.homelab.domain}";
+      siteMonitor = "https://${cfg.domain}.${config.homelab.domain}";
       description = "Reverse proxy dashboard (read only)";
     };
     HomeAssistant = {

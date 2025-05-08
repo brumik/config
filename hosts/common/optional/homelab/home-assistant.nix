@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 let
   cfg = config.homelab.home-assistant;
-  subdomain = "ha";
   serviceName = "home-assistant-vm";
 
   usbDeviceArgs = lib.concatStringsSep " \\\n  " (map (id:
@@ -25,6 +24,12 @@ in {
       default = [ ];
       description = "List of USB vendor:product IDs to pass through to the VM.";
       example = [ "1a86:7523" ];
+    };
+
+    domain = lib.mkOption {
+      type = lib.types.str;
+      default = "ha";
+      description = "The subdomain where the service will be served";
     };
   };
 
@@ -68,18 +73,18 @@ in {
     };
 
     homelab.traefik.routes = [{
-      host = subdomain;
+      host = cfg.domain;
       port = 8123;
     }];
 
     homelab.authelia.exposedDomains =
-      [ "${subdomain}.${config.homelab.domain}" ];
+      [ "${cfg.domain}.${config.homelab.domain}" ];
 
     homelab.homepage.app = [{
       HomeAssistant = {
         icon = "home-assistant.png";
-        href = "https://${subdomain}.${config.homelab.domain}";
-        siteMonitor = "https://${subdomain}.${config.homelab.domain}";
+        href = "https://${cfg.domain}.${config.homelab.domain}";
+        siteMonitor = "https://${cfg.domain}.${config.homelab.domain}";
         description = "Home automation platform";
       };
     }];

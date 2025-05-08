@@ -107,7 +107,5 @@ in {
 
     # Open ports for reverse proxy
     networking.firewall.allowedTCPPorts = [ 80 443 ];
-    # Open ports for DNS server
-    networking.firewall.allowedUDPPorts = [ 53 ];
   };
 }

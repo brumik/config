@@ -1,9 +1,23 @@
 { config, lib, ... }:
 let
   cfg = config.homelab.calibre;
-  dir = "/var/lib/oci-calibre";
+  dir = cfg.baseDir;
 in {
-  options.homelab.calibre = { enable = lib.mkEnableOption "calibre"; };
+  options.homelab.calibre = {
+    enable = lib.mkEnableOption "calibre";
+
+    domain = lib.mkOption {
+      type = lib.types.str;
+      default = "books";
+      description = "The subdomain where the service will be served";
+    };
+
+    baseDir = lib.mkOption {
+      type = lib.types.path;
+      default = "/var/lib/oci-calibre";
+      description = "The absolute path where the service will store the important informations";
+    };
+  };
 
   config = lib.mkIf cfg.enable {
     # Create directories
@@ -49,12 +63,12 @@ in {
         port = 11080;
       }
       {
-        host = "books";
+        host = cfg.domain;
         port = 11083;
       }
     ];
 
-    homelab.authelia.exposedDomains = [ "books.${config.homelab.domain}" ];
+    homelab.authelia.exposedDomains = [ "${cfg.books}.${config.homelab.domain}" ];
 
     homelab.backup.stateDirs = [ dir ];
 
@@ -62,8 +76,8 @@ in {
       {
         "Calibre Web" = {
           icon = "calibre-web.png";
-          href = "https://books.${config.homelab.domain}";
-          siteMonitor = "https://books.${config.homelab.domain}";
+          href = "https://${cfg.books}.${config.homelab.domain}";
+          siteMonitor = "https://${cfg.books}.${config.homelab.domain}";
           description = "Ebook reading services";
         };
       }

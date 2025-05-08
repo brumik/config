@@ -3,13 +3,25 @@ let
   cfg = config.homelab.authelia;
   secrets = config.sops.secrets;
   hcfg = config.homelab;
-  storagePath = "/var/lib/authelia-main/db.sqlite3";
-  dname = "authelia.${config.homelab.domain}";
+  storagePath = "${cfg.baseDir}/db.sqlite3";
+  dname = "${cfg.domain}.${hcfg.domain}";
 in {
   imports = [ ./oidc.nix ];
 
   options.homelab.authelia = {
     enable = lib.mkEnableOption "authelia";
+
+    domain = lib.mkOption {
+      type = lib.types.str;
+      default = "authelia";
+      description = "The subdomain where the service will be served";
+    };
+
+    baseDir = lib.mkOption {
+      type = lib.types.path;
+      default = "/var/lib/authelia-main";
+      description = "The absolute path where authelia will store the important informations";
+    };
 
     bypassDomains = lib.mkOption {
       type = lib.types.listOf lib.types.str;
@@ -81,7 +93,7 @@ in {
         };
         session.cookies = [{
           domain = hcfg.domain;
-          authelia_url = "https://authelia.${hcfg.domain}";
+          authelia_url = "https://${cfg.domain}.${hcfg.domain}";
           default_redirection_url = "https://${hcfg.domain}";
         }];
         notifier.smtp = {
@@ -161,7 +173,7 @@ in {
     };
 
     homelab.traefik.routes = [{
-      host = "authelia";
+      host = cfg.domain;
       port = cfg.port;
     }];
 

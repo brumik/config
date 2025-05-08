@@ -1,21 +1,29 @@
 { config, lib, ... }:
 let
   cfg = config.homelab.immich;
-  dname = "photos.${config.homelab.domain}";
-  # Needs permissions to upload
-  mediaDir = "/mnt/share/immich";
-  # mediaDir = "/var/lib/immich";
+  dname = "${cfg.domain}.${config.homelab.domain}";
 in {
-  options.homelab.immich = { enable = lib.mkEnableOption "Immich"; };
+  options.homelab.immich = {
+    enable = lib.mkEnableOption "Immich";
+
+    domain = lib.mkOption {
+      type = lib.types.str;
+      default = "photos";
+      description = "The subdomain where the service will be served";
+    };
+
+    baseDir = lib.mkOption {
+      type = lib.types.path;
+      # TODO change this afer migration to default immich one
+      default = "/mnt/share/immich";
+      description = "The absolute path where the service will store the important informations";
+    };
+  };
 
   config = lib.mkIf cfg.enable {
-    # Create the dir for first startup
-    # This has no perms to create it on an smb share
-    # systemd.tmpfiles.rules = [ "d ${mediaDir} 0775 ${config.homelab.user} ${config.homelab.group} - -" ];
-
     services.immich = {
       enable = true;
-      mediaLocation = mediaDir;
+      mediaLocation = cfg.baseDir;
       host = "127.0.0.1";
       port = 2283;
       group = config.homelab.group;
@@ -24,7 +32,7 @@ in {
     };
 
     homelab.traefik.routes = [{
-      host = "photos";
+      host = cfg.domain;
       port = 2283;
     }];
 

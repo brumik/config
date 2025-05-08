@@ -1,22 +1,26 @@
 { config, lib, ... }:
 let
   cfg = config.homelab.freshrss;
-  dir = "/var/lib/oci-freshrss";
-  dname = "rss.${config.homelab.domain}";
+  dname = "${cfg.domain}.${config.homelab.domain}";
 in {
-  options.homelab.freshrss = { enable = lib.mkEnableOption "freshrss"; };
+  options.homelab.freshrss = {
+    enable = lib.mkEnableOption "freshrss";
+
+    domain = lib.mkOption {
+      type = lib.types.str;
+      default = "audiobooks";
+      description = "The subdomain where the service will be served";
+    };
+
+    baseDir = lib.mkOption {
+      type = lib.types.path;
+      default = "/var/lib/oci-freshrss";
+      description = "The absolute path where the service will store the important informations";
+    };
+  };
 
   config = lib.mkIf cfg.enable {
-    # # TODO: This is not fully functioning with ngnx throwing some errors.
-    # services.freshrss = {
-    #   enable = true;
-    #   user = config.homelab.user;
-    #   baseUrl = "https://rss.${config.homelab.domain}";
-    #   extensions = [
-    #     pkgs.freshrss-extensions.youtube
-    #   ];
-    # };
-    # homelab.backup.stateDirs = [ "/var/lib/freshrss" ];
+    # TODO: The official nixos service is not fully functioning with ngnx throwing some errors.
 
     sops.secrets."n100/freshrss-credentials" = { };
 
@@ -24,8 +28,8 @@ in {
       image = "freshrss/freshrss";
       ports = [ "10003:80" ];
       volumes = [
-        "${dir}/data:/var/www/FreshRSS/data"
-        "${dir}/extensions:/var/www/FreshRSS/extensions"
+        "${cfg.baseDir}/data:/var/www/FreshRSS/data"
+        "${cfg.baseDir}/extensions:/var/www/FreshRSS/extensions"
       ];
       environment = {
         # A timezone http://php.net/timezones (default is UTC)
@@ -47,7 +51,7 @@ in {
         # Requires more environment variables. See https://freshrss.github.io/FreshRSS/en/admins/16_OpenID-Connect.html
         OIDC_ENABLED = "1";
         OIDC_PROVIDER_METADATA_URL =
-          "https://authelia.${config.homelab.domain}/.well-known/openid-configuration";
+          "https://${config.homelab.authelia.domain}.${config.homelab.domain}/.well-known/openid-configuration";
         OIDC_CLIENT_ID = "freshrss";
         OIDC_REMOTE_USER_CLAIM = "preferred_username";
         OIDC_SCOPES = "openid groups email profile";
@@ -78,7 +82,7 @@ in {
 
     homelab.authelia.exposedDomains = [ dname ];
 
-    homelab.backup.stateDirs = [ dir ];
+    homelab.backup.stateDirs = [ cfg.baseDir ];
 
     homelab.homepage.app = [{
       FreshRSS = {
