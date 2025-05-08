@@ -24,16 +24,13 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, jovian, ...
-    }@inputs:
+  outputs = { self, nixpkgs, home-manager, stylix, jovian, ... }@inputs:
     let
       inherit (self) outputs;
       system = "x86_64-linux";
       commonHomeManagerConfig = {
-        nixpkgs.overlays = [
-          outputs.overlays.modifications
-          outputs.overlays.additions
-        ];
+        nixpkgs.overlays =
+          [ outputs.overlays.modifications outputs.overlays.additions ];
         home-manager.extraSpecialArgs = { inherit inputs outputs; };
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
@@ -48,16 +45,12 @@
         n100 = (nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs outputs; };
-          modules = [
-            ./hosts/n100
-          ];
+          modules = [ ./hosts/n100 ];
         });
         sleeper = (nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs outputs; };
-          modules = [
-            ./hosts/sleeper
-          ];
+          modules = [ ./hosts/sleeper ];
         });
         brumstellar = (nixpkgs.lib.nixosSystem {
           inherit system;
@@ -85,6 +78,14 @@
             ./hosts/anteater
           ];
         });
+        nixos-live = (nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs outputs; };
+          modules = [
+            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
+            ./hosts/live
+          ];
+        }).config.system.build.isoImage;
       };
     };
 }

@@ -1,6 +1,4 @@
 { ... }: {
-  services.openssh.enable = true;
-
   networking.hosts = {
     "192.168.1.129" = [ "sleeper.berky.me" ];
     "192.168.1.127" = [ "n100.berky.me" ];

@@ -18,6 +18,16 @@
     };
     snippets = [
       {
+        command = "lsblk";
+        description = "List all drives connected to the PC";
+        tag = ["cmd" "disks" "list"];
+      }
+      {
+        command = "sudo dd if=./result/iso/<ISONAME>.iso of=/dev/sdX";
+        description = "Copy iso image to a device at sdX making live USB";
+        tag = ["cmd" "live" "iso" "copy"];
+      }
+      {
         command = "nix run nixpkgs#btop";
         description = "Run a program specified from nixpkgs. Just like using the nix-shell.";
         tag = ["cmd" "nix" "app"];
