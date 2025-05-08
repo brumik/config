@@ -18,6 +18,11 @@
     };
     snippets = [
       {
+        command = "nix run nixpkgs#btop";
+        description = "Run a program specified from nixpkgs. Just like using the nix-shell.";
+        tag = ["cmd" "nix" "app"];
+      }
+      {
         command = "grep -rnw './' -e 'string to find'";
         description = "Find in the files under the ./ the specified string";
         tag = ["cmd" "find"];
