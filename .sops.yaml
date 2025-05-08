@@ -4,7 +4,7 @@ keys:
   - &brumstellar age1yf972c6v37du9q67e38nk77ucs89kxg9hxzhv398h2eheq9k0fqqw2cuf9
   - &gamingrig age1xj5rxkfa4xuq3pt0f842wsvmkukcqasjvmh9e7gp90k2n4c7pvusd4ak5p
   - &n100 age1wh6s7yvvpn0rtpalju9jkr0uxmr2xxg3ktvdu4wq3a6ujd8d6fhsnd8w2l
-  - &sleeper age1s8k2layd3ac46dnmesj4x3vmrwu2v29f7jklz3nwx7jwwlas0yus0yl4xj
+  - &sleeper age12kvmfrkepvn4llc2n9e8lcvf6mdap3hcmqqv5keqw5unuvhkzpesgr7wp7
 creation_rules:
   # relative path to the secrets form this file
   - path_regex: secrets.yaml$
