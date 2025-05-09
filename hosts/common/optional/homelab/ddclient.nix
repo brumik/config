@@ -1,15 +1,10 @@
 { config, lib, ... }:
-let
-  cfg = config.homelab.ddclient;
+let cfg = config.homelab.ddclient;
 in {
-  options.homelab.ddclient = {
-    enable = lib.mkEnableOption "ddclient";
-  };
+  options.homelab.ddclient = { enable = lib.mkEnableOption "ddclient"; };
 
   config = lib.mkIf cfg.enable {
-    sops.secrets."n100/ddclient-key" = {
-      path = "/var/lib/ddclient/ddclient.key";
-    };
+    sops.secrets."n100/ddclient-key" = { };
 
     services.ddclient = {
       enable = true;
