@@ -8,7 +8,7 @@ in {
 
     domain = lib.mkOption {
       type = lib.types.str;
-      default = "audiobooks";
+      default = "rss";
       description = "The subdomain where the service will be served";
     };
 
@@ -63,7 +63,7 @@ in {
     };
 
     homelab.traefik.routes = [{
-      host = "rss";
+      host = cfg.domain;
       port = 10003;
     }];
 
