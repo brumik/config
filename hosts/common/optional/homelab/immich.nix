@@ -14,8 +14,7 @@ in {
 
     baseDir = lib.mkOption {
       type = lib.types.path;
-      # TODO change this afer migration to default immich one
-      default = "/mnt/share/immich";
+      default = "/var/lib/immich";
       description = "The absolute path where the service will store the important informations";
     };
   };
@@ -26,8 +25,6 @@ in {
       mediaLocation = cfg.baseDir;
       host = "127.0.0.1";
       port = 2283;
-      group = config.homelab.group;
-      user = config.homelab.user;
       environment = { IMMICH_TRUSTED_PROXIES = "127.0.0.1"; };
     };
 
@@ -36,8 +33,7 @@ in {
       port = 2283;
     }];
 
-    # no need to backup the smb dir
-    # homelab.backup.stateDirs = [ mediaDir ];
+    homelab.backup.stateDirs = [ cfg.baseDir ];
 
     homelab.homepage.app = [{
       Immich = {
@@ -50,9 +46,9 @@ in {
 
     homelab.authelia.oidc.clients = [{
       client_id = "immich";
-      client_name = "Immich";
+      client_name = "immich";
       client_secret =
-        "$pbkdf2-sha512$310000$zdze0iljXy76xeHihU7lbg$FDCjNnLuQ7qpDGzX03zFPuFUyGdiHE3OGEZvbD8/rXUp79HCFnGd1KflgUqWUXtthTRDCBch3IusTMAJzBkqRQ";
+        "$pbkdf2-sha512$310000$iTqA/Ea6mzGKSOjj3q6OnQ$pHEqDjpQ/AtJWg0wMgPbYvP3laYVF7EKrLRJoKp4vTQOK8JIbPOOTApd.O0C5gucQ07lFKHO9WpxBVyvpduc6g";
       public = false;
       consent_mode = "implicit";
       authorization_policy = "one_factor";
@@ -64,6 +60,7 @@ in {
       ];
       scopes = [ "openid" "email" "profile" ];
       userinfo_signed_response_alg = "none";
+      token_endpoint_auth_method = "client_secret_post";
     }];
   };
 }
