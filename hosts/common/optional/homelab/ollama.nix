@@ -1,10 +1,23 @@
 { config, lib, ... }:
-let cfg = config.homelab.ollama;
+let
+  cfg = config.homelab.ollama;
+  hcfg = config.homelab;
+  acceleration = if hcfg.gpu == "nvidia" then
+    "cuda"
+  else if hcfg.gpu == "amd" then
+    "rocm"
+  else
+    null;
 in {
   options.homelab.ollama = {
     enable = lib.mkEnableOption "Ollama";
-    loadModels = config.services.ollama.loadModels.acceleration;
-    acceleration = config.services.ollama.options.acceleration;
+
+    loadModels = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ "gemma3:12b" ];
+      description =
+        "The list of models that will be avaiable after system build";
+    };
 
     domain = lib.mkOption {
       type = lib.types.str;
@@ -14,9 +27,15 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    assertions = [{
+      assertion = hcfg.gpu != null;
+      message =
+        "You must specify a GPU vendor (nvidia or amd) when using Ollama";
+    }];
+
     services.ollama = {
       enable = true;
-      acceleration = cfg.acceleration;
+      acceleration = acceleration;
       host = "127.0.0.1";
       port = 11434;
       loadModels = cfg.loadModels;

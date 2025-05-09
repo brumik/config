@@ -43,5 +43,7 @@
     # TODO This might be required by other services so need to add there?
     lldap.enable = true;
     backup.enable = true;
+
+    ollama.enable = false;
   };
 }

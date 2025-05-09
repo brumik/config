@@ -65,7 +65,7 @@ in {
         OIDC_AUTH_ENABLED = "true";
         OIDC_SIGNUP_ENABLED = "true";
         OIDC_CONFIGURATION_URL =
-          "https://${config.homelab.audhelia.domain}.${config.homelab.domain}/.well-known/openid-configuration";
+          "https://${config.homelab.authelia.domain}.${config.homelab.domain}/.well-known/openid-configuration";
         OIDC_CLIENT_ID = "mealie";
         OIDC_AUTO_REDIRECT = "true";
         OIDC_ADMIN_GROUP = "mealie_admin";

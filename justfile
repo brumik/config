@@ -63,5 +63,5 @@ stow-mac:
   stow --dir=$(pwd)/non-nix/stow --target=$HOME .
 
 # Build a bootable iso image outputted to ./result
-buld-live-iso:
-  nix build .#nixosConfigurations.nixos-live
+build-live-iso:
+  nix build .#nixosConfigurations.nixos-live.config.system.build.isoImage
