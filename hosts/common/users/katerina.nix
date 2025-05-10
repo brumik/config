@@ -9,6 +9,8 @@ in {
   users.mutableUsers = false;
 
   users.users."${uname}" = {
+    # TODO: Migrate the PC away from the 1000 uid, most installations create this automaticaly
+    # uid = 1020;
     uid = 1000;
     isNormalUser = true;
     description = "Katerina";

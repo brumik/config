@@ -2,7 +2,7 @@
 { pkgs, ... }: {
   home.username = username;
   home.homeDirectory = "/home/" + username;
-  home.stateVersion = "24.05";
+  home.stateVersion = "24.11";
   programs.home-manager.enable = true;
   home.packages = with pkgs; [
     vscode
@@ -16,6 +16,8 @@
     brave
     google-chrome
     yubioath-flutter
+    # to decode jwt tokens
+    jwt-cli
   ];
 
   imports = [
