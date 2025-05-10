@@ -38,9 +38,14 @@
       # github fzf and clone repo
       ghrepo = "gh-fzf-find-repo";
 
+      # custom alias to simplify nix run nixpgks#program
+      nr = "nix-runner";
+
       # If exists map docker compose to dc
       dc = "docker compose";
+      # shortcuts
       t = "tmux";
+      e = "exit";
     };
 
     # This extra config loads the secrets file that you can generate on your own.
@@ -78,6 +83,7 @@
   # Add functions to the ~/.zsh/functions folder for autoload
   home.file.".zsh/functions/fzf-git-checkout".source = ./fzf-git-checkout.sh;
   home.file.".zsh/functions/gh-fzf-find-repo".source = ./gh-fzf-find-repo.sh;
+  home.file.".zsh/functions/nix-runner".source = ./nix-runner.sh;
   home.file.".zshautoload".source = ./autoload.sh;
 
   programs.gh = {
