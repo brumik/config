@@ -26,4 +26,10 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "anteater";
+
+  # Testing:
+  programs.hyprland = { enable = true; };
+
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
 }

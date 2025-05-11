@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ config, pkgs, ... }: {
   imports = [
     ./hardware-configuration.nix
     ./stylix.nix
@@ -10,7 +10,6 @@
     ../common/optional/docker.nix
     ../common/optional/smb.nix
     ../common/optional/nvidia.nix
-    # ../common/optional/ollama.nix
     ../common/optional/scanner.nix
     ../common/optional/sound.nix
     ../common/optional/gaming.nix
@@ -39,4 +38,18 @@
 
   # Needed for the yubike UI
   services.pcscd = { enable = true; };
+
+  # Hyprland part
+  programs.hyprland = { enable = true; };
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+  # extra packages
+  # environment.systemPackages = with pkgs; [
+  #   libnotify # testing out notification daemon
+  # ];
+
+  # screen sharing capabilities
+  # seems same as sound.nix
+  # need to enable pipewire and pipewire.wireplumber (default true)
+
 }
