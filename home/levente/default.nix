@@ -1,4 +1,5 @@
-{ username }: { pkgs, ... }: {
+{ username }:
+{ pkgs, ... }: {
   home.username = username;
   home.homeDirectory = "/home/" + username;
   home.stateVersion = "24.11";
@@ -47,7 +48,33 @@
   # services.hyprpolkitagent.enable = true;
 
   # Top bar
-  programs.waybar.enable = true;
+  programs.waybar = {
+    enable = true;
+    settings = {
+      mainBar = {
+        layer = "top";
+        position = "top";
+        height = 30;
+        output = [ "eDP-1" "HDMI-A-1" ];
+        modules-left = [ "sway/workspaces" "sway/mode" "wlr/taskbar" ];
+        modules-center = [ "sway/window" "custom/hello-from-waybar" ];
+        modules-right = [ "mpd" "custom/mymodule#with-css-id" "temperature" ];
+
+        "sway/workspaces" = {
+          disable-scroll = true;
+          all-outputs = true;
+        };
+        "custom/hello-from-waybar" = {
+          format = "hello {}";
+          max-length = 40;
+          interval = "once";
+          exec = pkgs.writeShellScript "hello-from-waybar" ''
+            echo "from within waybar"
+          '';
+        };
+      };
+    };
+  };
 
   # Wallpaper
   # TODO: does not work for some reason (seems like not installing hyprpaper
@@ -61,14 +88,10 @@
   # };
 
   # App lancher
-  programs.wofi = { 
-    enable = true;
-  };
+  programs.wofi = { enable = true; };
 
   # allow music controlls
   services.playerctld.enable = true;
   services.cliphist.enable = true;
-  programs.qutebrowser = {
-    enable = true;
-  };
+  programs.qutebrowser = { enable = true; };
 }

@@ -16,7 +16,7 @@
     modesetting.enable = true;
 
     # experimental and can cause sleep/suspend to fail
-    powerManagement.enable = false;
+    powerManagement.enable = true;
     # Fine-grained power management. Turns off GPU when not in use.
     # Only for Laptops
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
@@ -28,7 +28,7 @@
     # Only available from driver 515.43.04+
 
     # TODO: BUG: if enabled the camera feed will display blank if aplied any effect on video in chromium
-    open = false;
+    open = true;
 
     # Enable the Nvidia settings menu,
     # accessible via `nvidia-settings`.
