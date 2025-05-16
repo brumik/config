@@ -1,19 +1,40 @@
-@define-color bg_default   #2b3339;  /* Dark background */
-@define-color bg_lighter  #323c41;  /* Lighter background (status bars, line numbers) */
-@define-color bg_selection #503946; /* Selection background */
-@define-color fg_muted    #868d80;  /* Comments, invisibles, highlights */
-@define-color fg_dark     #d3c6aa;  /* Status bars, secondary text */
-@define-color fg_default  #d3c6aa;  /* Main foreground, operators */
-@define-color fg_light    #e9e8d2;  /* Light foreground (rarely used) */
-@define-color bg_light    #fff9e8;  /* Light background (rarely used) */
+/* === Background Shades === */
+@define-color bg_dim       #232A2E;  /* Dimmed Background */
+@define-color bg0          #2D353B;  /* Default Background, Line Numbers, Inactive Status Line */
+@define-color bg1          #343F44;  /* Cursor Line, Active Status Line, Color Columns */
+@define-color bg2          #3D484D;  /* Popup Menus, Floating Windows */
+@define-color bg3          #475258;  /* List Characters, Special Keys */
+@define-color bg4          #4F585E;  /* Window Splits, Whitespace */
+@define-color bg5          #56635F;  /* Unused */
+@define-color bg_visual    #543A48;  /* Visual Selection */
 
-@define-color cyan        #7fbbb3;  /* Variables, XML tags, deleted diffs */
-@define-color pink        #d699b6;  /* Constants, booleans, link URLs */
-@define-color green       #83c092;  /* Classes, bold text, search highlights */
-@define-color yellow      #dbbc7f;  /* Strings, inserted diffs */
-@define-color orange      #e69875;  /* Support, regex, escape chars */
-@define-color olive       #a7c080;  /* Functions, headings */
-@define-color red         #e67e80;  /* Keywords, storage, selectors */
+/* === Background Highlights === */
+@define-color bg_red       #514045;  /* Diff Deleted Line, Errors */
+@define-color bg_green     #425047;  /* Diff Added Line, Hints */
+@define-color bg_blue      #3A515D;  /* Diff Changed Line, Info */
+@define-color bg_yellow    #4D4C43;  /* Warnings */
+
+/* === Foregrounds === */
+@define-color fg           #D3C6AA;  /* Main Foreground, Constants, Variables, Parameters */
+
+/* === Syntax Colors === */
+@define-color red          #E67E80;  /* Keywords, Errors */
+@define-color orange       #E69875;  /* Operators, Types, Titles */
+@define-color yellow       #DBBC7F;  /* Types, Special Chars, Warnings */
+@define-color green        #A7C080;  /* Functions, Strings, Highlights */
+@define-color aqua         #83C092;  /* Constants, Strings */
+@define-color blue         #7FBBB3;  /* Identifiers, Info */
+@define-color purple       #D699B6;  /* Numbers, Booleans, Preprocessors */
+
+/* === Greys === */
+@define-color grey0        #7A8478;  /* Line Numbers, Concealed */
+@define-color grey1        #859289;  /* Comments, Punctuation, Borders */
+@define-color grey2        #9DA9A0;  /* Cursor Line Number, Tabs */
+
+/* === Status Line === */
+@define-color statusline1  #A7C080;  /* Menu Selection, Active Tab */
+@define-color statusline2  #D3C6AA;  /* Mode Indicator */
+@define-color statusline3  #E67E80;  /* Mode Indicator */
 
 /* Reset default hover effects from gtk */
 button:hover {
@@ -23,98 +44,99 @@ button:hover {
   transition: none; /* Disable predefined animations */
 }
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
 #waybar {
-  background: @bg_default; 
+  background: transparent; 
   font-family: "JetBrainsMono NF";
   font-size: 14px;
-  color: @fg_dark;
+  color: @fg;
 }
 
 #mpris {
-  background: transparent;
-  margin-right: 10px;
-  padding: 0 8px;
-  border: 2px solid @olive;
+  background: @bg0;
+  margin-right: 5px;
+  padding: 0 10px;
   border-radius: 15px;
 }
 
 #mpris.playing {
-  color: @fg_dark; 
+  color: @green; 
 }
 
 #mpris.paused {
-  color: @fg_muted;
-  border: 2px solid @red;
+  color: @red;
 }
 
 #workspaces {
-  background: transparent;
-  margin-right: 10px;
+  background: @bg0;
+  margin-right: 5px;
+  /* as first element from the side */
+  margin-left: 10px;
   padding: 0 8px;
-  border: 2px solid @olive;
   border-radius: 15px;
 }
 
 
 #window {
+  background: @bg0;
+  margin-right: 5px;
   padding: 0 10px;
-  border: 2px solid @olive;
   border-radius: 15px;
-  color: @pink;
+  color: @purple;
 }
 
 #workspaces button {
-  color: @fg_muted;
+  color: @grey1;
   padding-left: 2px;
   padding-right: 2px;
 }
 
 #workspaces button.active {
-  color: @pink;   
+  color: @orange;   
 }
 
 #clock {
+  background: @bg0;
+  color: @yellow;
   padding: 0 10px;
-  border: 2px solid @olive;
   border-radius: 15px;
 }
 
 tooltip {
-  color: @fg_light;
-  background: @bg_default;
-  border: 2px solid @olive;
+  color: @fg;
+  background: @bg2;
   border-radius: 10px;
 }
 
 /* group hardware */
 #hardware {
+  background: @bg0;
   padding: 0 10px;
-  border: 2px solid @fg_muted;
-  color: @fg_muted;
+  color: @grey0;
   border-radius: 15px;
-}
-
-#memory, #disk {
+  /* as last element from the side */
   margin-right: 10px;
 }
 
-#user {
-  margin-left: 10px;
-  color: @fg_default;
+#memory, #disk {
+  margin-right: 5px;
 }
 
 /* group aio */
 #aio {
-  margin-right: 10px;
+  background: @bg0;
+  margin-right: 5px;
   padding: 0 10px;
-  border: 2px solid @olive;
   border-radius: 15px;
 }
 
 #privacy {
-  margin-right: 10px;
+  margin-right: 5px;
   padding: 0 10px;
-  border: 2px solid @red;
   border-radius: 15px;
   color: @red;
 }
