@@ -1,0 +1,120 @@
+@define-color bg_default   #2b3339;  /* Dark background */
+@define-color bg_lighter  #323c41;  /* Lighter background (status bars, line numbers) */
+@define-color bg_selection #503946; /* Selection background */
+@define-color fg_muted    #868d80;  /* Comments, invisibles, highlights */
+@define-color fg_dark     #d3c6aa;  /* Status bars, secondary text */
+@define-color fg_default  #d3c6aa;  /* Main foreground, operators */
+@define-color fg_light    #e9e8d2;  /* Light foreground (rarely used) */
+@define-color bg_light    #fff9e8;  /* Light background (rarely used) */
+
+@define-color cyan        #7fbbb3;  /* Variables, XML tags, deleted diffs */
+@define-color pink        #d699b6;  /* Constants, booleans, link URLs */
+@define-color green       #83c092;  /* Classes, bold text, search highlights */
+@define-color yellow      #dbbc7f;  /* Strings, inserted diffs */
+@define-color orange      #e69875;  /* Support, regex, escape chars */
+@define-color olive       #a7c080;  /* Functions, headings */
+@define-color red         #e67e80;  /* Keywords, storage, selectors */
+
+/* Reset default hover effects from gtk */
+button:hover {
+  box-shadow: none; /* Remove predefined box-shadow */
+  text-shadow: none; /* Remove predefined text-shadow */
+  background: none; /* Remove predefined background color (white) */
+  transition: none; /* Disable predefined animations */
+}
+
+#waybar {
+  background: @bg_default; 
+  font-family: "JetBrainsMono NF";
+  font-size: 14px;
+  color: @fg_dark;
+}
+
+#mpris {
+  background: transparent;
+  margin-right: 10px;
+  padding: 0 8px;
+  border: 2px solid @olive;
+  border-radius: 15px;
+}
+
+#mpris.playing {
+  color: @fg_dark; 
+}
+
+#mpris.paused {
+  color: @fg_muted;
+  border: 2px solid @red;
+}
+
+#workspaces {
+  background: transparent;
+  margin-right: 10px;
+  padding: 0 8px;
+  border: 2px solid @olive;
+  border-radius: 15px;
+}
+
+
+#window {
+  padding: 0 10px;
+  border: 2px solid @olive;
+  border-radius: 15px;
+  color: @pink;
+}
+
+#workspaces button {
+  color: @fg_muted;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+#workspaces button.active {
+  color: @pink;   
+}
+
+#clock {
+  padding: 0 10px;
+  border: 2px solid @olive;
+  border-radius: 15px;
+}
+
+tooltip {
+  color: @fg_light;
+  background: @bg_default;
+  border: 2px solid @olive;
+  border-radius: 10px;
+}
+
+/* group hardware */
+#hardware {
+  padding: 0 10px;
+  border: 2px solid @fg_muted;
+  color: @fg_muted;
+  border-radius: 15px;
+}
+
+#memory, #disk {
+  margin-right: 10px;
+}
+
+#user {
+  margin-left: 10px;
+  color: @fg_default;
+}
+
+/* group aio */
+#aio {
+  margin-right: 10px;
+  padding: 0 10px;
+  border: 2px solid @olive;
+  border-radius: 15px;
+}
+
+#privacy {
+  margin-right: 10px;
+  padding: 0 10px;
+  border: 2px solid @red;
+  border-radius: 15px;
+  color: @red;
+}
