@@ -14,19 +14,26 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.file."${configPath}".text = ''
-      preload = ${builtins.toString cfg.wallpaperFile}
-      wallpaper = ,${builtins.toString cfg.wallpaperFile}
-    '';
-
-    systemd.user.services.hyprpaper = {
-      Install = { WantedBy = [ "default.target" ]; };
-
-      Unit = { Description = "hyprpaper"; };
-
-      Service = {
-        ExecStart = "${pkgs.hyprpaper}/bin/hyprpaper --config ${configPath}";
+    services.hyprpaper = {
+      enable = true;
+      settings = {
+        preload = [ "${builtins.toString cfg.wallpaperFile}" ];
+        wallpaper = [ ",${builtins.toString cfg.wallpaperFile}" ];
       };
     };
+    # home.file."${configPath}".text = ''
+    #   preload = ${builtins.toString cfg.wallpaperFile}
+    #   wallpaper = ,${builtins.toString cfg.wallpaperFile}
+    # '';
+    #
+    # systemd.user.services.hyprpaper = {
+    #   Install = { WantedBy = [ "default.target" ]; };
+    #
+    #   Unit = { Description = "hyprpaper"; };
+    #
+    #   Service = {
+    #     ExecStart = "${pkgs.hyprpaper}/bin/hyprpaper --config ${configPath}";
+    #   };
+    # };
   };
 }

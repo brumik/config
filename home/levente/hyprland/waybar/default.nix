@@ -13,7 +13,7 @@ in {
     home.file."${configPath}/config.jsonc".source = ./config.jsonc;
 
     systemd.user.services.waybar = {
-      Install = { WantedBy = [ "default.target" ]; };
+      Install = { WantedBy = [ "hyprland-service.target" ]; };
 
       Unit = { Description = "waybar"; };
 

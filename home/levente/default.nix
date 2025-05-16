@@ -16,6 +16,7 @@
     element-desktop
     todoist-electron
     yubioath-flutter
+    brave
   ];
 
   imports = [
