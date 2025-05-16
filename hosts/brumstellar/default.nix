@@ -9,7 +9,6 @@
     ../common/optional/sound.nix
     ../common/optional/docker.nix
     ../common/optional/smb.nix
-    ../common/optional/nvidia.nix
     ../common/optional/scanner.nix
     ../common/optional/sound.nix
     ../common/optional/gaming.nix
@@ -44,9 +43,9 @@
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # extra packages
-  # environment.systemPackages = with pkgs; [
-  #   libnotify # testing out notification daemon
-  # ];
+  environment.systemPackages = with pkgs; [
+    libnotify # testing out notification daemon
+  ];
 
   # screen sharing capabilities
   # seems same as sound.nix

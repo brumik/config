@@ -17,6 +17,7 @@
     brave
     todoist-electron
     yubioath-flutter
+    waybar
   ];
 
   imports = [
@@ -39,6 +40,8 @@
     enable = true;
     defaultTimeout = 5000;
     borderRadius = 8;
+    padding = 10;
+    margin = "20 10 0 10";
   };
 
   # Getting elevated permissions.
@@ -48,50 +51,26 @@
   # services.hyprpolkitagent.enable = true;
 
   # Top bar
-  programs.waybar = {
-    enable = true;
-    settings = {
-      mainBar = {
-        layer = "top";
-        position = "top";
-        height = 30;
-        output = [ "eDP-1" "HDMI-A-1" ];
-        modules-left = [ "sway/workspaces" "sway/mode" "wlr/taskbar" ];
-        modules-center = [ "sway/window" "custom/hello-from-waybar" ];
-        modules-right = [ "mpd" "custom/mymodule#with-css-id" "temperature" ];
-
-        "sway/workspaces" = {
-          disable-scroll = true;
-          all-outputs = true;
-        };
-        "custom/hello-from-waybar" = {
-          format = "hello {}";
-          max-length = 40;
-          interval = "once";
-          exec = pkgs.writeShellScript "hello-from-waybar" ''
-            echo "from within waybar"
-          '';
-        };
-      };
-    };
-  };
+  # There is a pacakge too but only installing the waybar is enough for now
 
   # Wallpaper
   # TODO: does not work for some reason (seems like not installing hyprpaper
-  # services.hyprpaper = {
-  #   enable = true;
-  #   settings = {
-  #     ipc = "on";
-  #     peload = [ "/home/levente/config/assets/wallpapers/everforest-original.png" ];
-  #     wallpaper = [ ",/home/levente/config/assets/wallpapers/everforest-original.png" ];
-  #   };
-  # };
+  services.hyprpaper = {
+    enable = true;
+    settings = {
+      ipc = "on";
+      peload = [ "/home/levente/config/assets/wallpapers/everforest-original.png" ];
+      wallpaper = [ ",/home/levente/config/assets/wallpapers/everforest-original.png" ];
+    };
+  };
 
   # App lancher
   programs.wofi = { enable = true; };
 
   # allow music controlls
   services.playerctld.enable = true;
+  # allow copy history
   services.cliphist.enable = true;
+  # allow browser
   programs.qutebrowser = { enable = true; };
 }
