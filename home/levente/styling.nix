@@ -40,5 +40,4 @@ in {
   programs.tmux = {
     plugins = [ everforest ];
   };
-
 }
