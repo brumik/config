@@ -52,6 +52,11 @@
       }
     ];
 
+    colorschemes.everforest = {
+      enable = true;
+      settings.background = "hard";
+    };
+
     plugins = { 
       nix.enable = true;
       lualine.enable = true;
