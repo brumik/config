@@ -145,12 +145,15 @@ tooltip {
   background: @bg0;
   color: @aqua;
   border-radius: 15px;
+  /* fix for the weird icons */
+  padding-right: 2px;
   /* as last element from the side */
   margin-right: 10px;
-  padding-right: 10px;
 }
 
 #power .text-button {
-  padding-left: 10px;
+  /* fix for the weird icons */
+  min-width: 38px;
   color: @aqua;
 }
+
