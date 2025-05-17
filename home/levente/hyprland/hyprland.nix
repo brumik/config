@@ -1,6 +1,7 @@
 { ... }: {
   wayland.windowManager.hyprland = {
     enable = true;
+    systemd.enable = true;
 
     settings = {
       monitor = [ ", highres, auto, 1.6" ];
@@ -27,8 +28,8 @@
       decoration = {
         rounding = 10;
         rounding_power = 2;
-        active_opacity = 1.0;
-        inactive_opacity = 0.8;
+        active_opacity = 0.99;
+        inactive_opacity = 0.95;
         shadow = {
           enabled = true;
           range = 4;

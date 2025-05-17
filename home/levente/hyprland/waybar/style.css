@@ -118,8 +118,7 @@ tooltip {
   padding: 0 10px;
   color: @grey0;
   border-radius: 15px;
-  /* as last element from the side */
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 #memory, #disk {
@@ -139,4 +138,19 @@ tooltip {
   padding: 0 10px;
   border-radius: 15px;
   color: @red;
+}
+
+/* group powerbuttons */
+#power {
+  background: @bg0;
+  color: @aqua;
+  border-radius: 15px;
+  /* as last element from the side */
+  margin-right: 10px;
+  padding-right: 10px;
+}
+
+#power .text-button {
+  padding-left: 10px;
+  color: @aqua;
 }

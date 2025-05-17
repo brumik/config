@@ -14,10 +14,11 @@ in {
         layer = "top";
         position = "top";
         height = 24;
+        reload_style_on_change = true;
 
         modules-left = [ "hyprland/workspaces" "hyprland/window" ];
         modules-center = [ "clock" ];
-        modules-right = [ "mpris" "group/aio" "privacy" "group/hardware" ];
+        modules-right = [ "mpris" "group/aio" "privacy" "group/hardware" "group/power"];
 
         "hyprland/workspaces" = { format = "{id}"; };
 
@@ -87,6 +88,44 @@ in {
             # Optional: You can define device-specific icons here
             # "alsa_output.usb-0b0e_Jabra_Link_370_305075769572-00.iec958-stereo" = "";
           };
+        };
+
+        "group/power" = {
+          orientation = "horizontal";
+          drawer = {
+            transition-duration = 500;
+            transition-left-to-right = false;
+          };
+          modules = [
+            "custom/shutdown"
+            "custom/suspend"
+            "custom/logout"
+            "custom/reboot"
+          ];
+        };
+
+        "custom/logout" = {
+          format = "  ";
+          tooltip = "Logout";
+          on-click = "loginctl terminate-user $USER";
+        };
+
+        "custom/suspend" = {
+          format = "  ";
+          tooltip = "Suspend";
+          on-click = "systemctl suspend";
+        };
+
+        "custom/reboot" = {
+          format = "  ";
+          tooltip = "Reboot";
+          on-click = "systemctl reboot";
+        };
+
+        "custom/shutdown" = {
+          format = "  ";
+          tooltip = "Shutdown";
+          on-click = "systemctl poweroff";
         };
       }];
 
