@@ -1,26 +1,31 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
 
     ../common/core
-    ../common/optional/nvidia.nix
   ];
 
-  # We need to use grub for mirroredBoot
-  # boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    open = true;
+    nvidiaSettings = false;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
 
   networking.hostName = "sleeper"; # Define your hostname.
-  networking.hostId =
-    "58cfdf5e"; # Generated from machine id, ensures we import zfs on correct machine
+  # Generated from machine id, ensures we import zfs on correct machine
+  # WARNING: changing this number will cause ZFS to fail import and keep hanging on boot
+  networking.hostId = "20c133b5"; # head -c 8 /etc/machine-id
 
   # Powermanagement
   boot.kernelModules = [ "cpufreq_stats" ];
   powerManagement.powertop.enable = true;
   powerManagement.enable = true;
-  powerManagement.cpuFreqGovernor =
-    "ondemand"; # Alternatives: "ondemand", "performance"
+  # Alternatives: "ondemand", "performance"
+  powerManagement.cpuFreqGovernor = "ondemand";
   # End of powermanagement
 
   # Disks management (power saving)
@@ -29,9 +34,8 @@
     ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", RUN+="${pkgs.hdparm}/sbin/hdparm -S 60 /dev/%k"
   '';
 
-  # ZFS
-  # disko + settings needed
-  myHome.disks = {
+  # Including setting up ZFS, impermanence and boot
+  mySystems.disks = {
     enable = true;
     rootDisk1 = "/dev/disk/by-id/nvme-KINGSTON_SKC3000S512G_50026B7686F84D4B";
     rootDisk2 = "/dev/disk/by-id/nvme-KINGSTON_SKC3000S512G_50026B7383A70C89";

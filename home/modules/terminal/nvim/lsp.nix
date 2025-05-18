@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ...}: {
   home.packages = with pkgs; [
     lua54Packages.jsregexp
   ];
@@ -110,16 +110,8 @@
         enable = true;
         servers = {
           html.enable = true;
-          # TODO: We need to get these flakes to be relative to the project
-          nixd = {
-            enable = true; # nix
-            settings = { 
-              nixos.expr = "(builtins.getFlake \"/home/levente/config\").inputs.nixpkgs";
-              options = {
-                nixos.expr = "(builtins.getFlake \"/home/levente/config\").nixosConfigurations.nixos-brumstellar.options";
-              };
-            };
-          };
+          cssls.enable = true;
+          nixd.enable = true; # nix
           gopls.enable = true; # go
           ts_ls.enable = true; # ts
           pyright.enable = true; # python

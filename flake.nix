@@ -23,6 +23,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # For server impermanence
+    impermanence.url = "github:nix-community/impermanence";
+
     # Gaming Rig SteamOS
     jovian = {
       url = "github:Jovian-Experiments/Jovian-NixOS";
@@ -30,7 +33,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, jovian, disko, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, stylix, jovian, disko, impermanence, ... }@inputs:
     let
       inherit (self) outputs;
       system = "x86_64-linux";
@@ -60,6 +63,7 @@
           inherit system;
           specialArgs = { inherit inputs outputs; };
           modules = [
+            impermanence.nixosModules.impermanence
             disko.nixosModules.disko
             ./hosts/sleeper
           ];

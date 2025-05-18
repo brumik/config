@@ -8,10 +8,10 @@
         publicKey = builtins.readFile ../../../keys/id-n100.pub;
         hostNames = [ "n100.berky.me" ];
       };
-      # "sleeper.berky.me/ed25519" = {
-      #   publicKey = builtins.readFile ../../../keys/id-sleeper.pub;
-      #   hostNames = [ "sleeper.berky.me" ];
-      # };
+      "sleeper.berky.me/ed25519" = {
+        publicKey = builtins.readFile ../../../keys/id-sleeper.pub;
+        hostNames = [ "sleeper.berky.me" ];
+      };
       "anteater.berky.me/ed25519" = {
         publicKey = builtins.readFile ../../../keys/id-anteater.pub;
         hostNames = [ "anteater.berky.me" ];

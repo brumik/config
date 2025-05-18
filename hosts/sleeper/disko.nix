@@ -1,8 +1,8 @@
 { config, lib, ... }:
 with lib;
-let cfg = config.myHome.disks;
+let cfg = config.mySystems.disks;
 in {
-  options.myHome.disks = {
+  options.mySystems.disks = {
     enable = mkEnableOption "disks";
 
     rootPool = mkOption {
@@ -47,13 +47,11 @@ in {
 
     # Set up Mirrored Boot disks. This is only doable with GRUB right now
     # so we need to enable grub as our bootloader.
+    boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.grub = {
       enable = true;
       efiSupport = true;
       efiInstallAsRemovable = false;
-      # Install grub on both devices, so we can use it if one disk fails.
-      # TODO: we do not need this because we do efi
-      # devices = [ cfg.rootDisk1 cfg.rootDisk2 ];
 
       # Set up mirrored boot disks
       mirroredBoots = [
@@ -61,21 +59,13 @@ in {
           path = "/boot";
           # we use efi so nodev
           devices = [ "nodev" ];
-          # devices = [ cfg.rootDisk1 ];
         }
         {
           path = "/boot2";
-          # we use efi so nodev
           devices = [ "nodev" ];
         }
       ];
     };
-
-    # Follows https://grahamc.com/blog/erase-your-darlings/
-    # https://github.com/NixOS/nixpkgs/pull/346247/files
-    boot.initrd.postResumeCommands = lib.mkAfter ''
-      zfs rollback -r ${cfg.rootPool}/local/root@blank
-    '';
 
     # setting up the disks
     disko.devices = {
@@ -163,8 +153,6 @@ in {
               type = "zfs_fs";
               mountpoint = "/";
               options.mountpoint = "legacy";
-              postCreateHook =
-                "zfs list -t snapshot -H -o name | grep -E '^${cfg.rootPool}/local/root@blank$' || zfs snapshot ${cfg.rootPool}/local/root@blank";
             };
 
             "local/nix" = {

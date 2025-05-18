@@ -4,7 +4,6 @@
     ./stylix.nix
 
     ../common/core
-
     ../common/optional/base-gnome.nix
     ../common/optional/sound.nix
     ../common/optional/docker.nix
