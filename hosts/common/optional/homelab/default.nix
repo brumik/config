@@ -2,6 +2,7 @@
 let cfg = config.homelab;
 in {
   imports = [
+    ./power.nix
     ./smbClient.nix
     ./vaultwarden.nix
     ./adguard.nix
@@ -25,6 +26,7 @@ in {
     ./ollama.nix
     ./open-ui.nix
     ./nextcloud.nix
+    ./nvidia.nix
   ];
 
   options.homelab = {
@@ -68,7 +70,7 @@ in {
     };
 
     gpu = lib.mkOption {
-      type = lib.types.nullOr (lib.types.enum [ "nvidia" "amd"]);
+      type = lib.types.nullOr (lib.types.enum [ "nvidia" "amd" ]);
       default = null;
       description = "Set the GPU for the homelab, needed for some setups";
     };

@@ -1,38 +1,17 @@
-{ config, pkgs, ... }: {
+{ ... }: {
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
 
     ../common/core
+    ../common/optional/homelab
   ];
 
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = false;
-    powerManagement.finegrained = false;
-    open = true;
-    nvidiaSettings = false;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
-
   networking.hostName = "sleeper"; # Define your hostname.
+
   # Generated from machine id, ensures we import zfs on correct machine
   # WARNING: changing this number will cause ZFS to fail import and keep hanging on boot
   networking.hostId = "20c133b5"; # head -c 8 /etc/machine-id
-
-  # Powermanagement
-  boot.kernelModules = [ "cpufreq_stats" ];
-  powerManagement.powertop.enable = true;
-  powerManagement.enable = true;
-  # Alternatives: "ondemand", "performance"
-  powerManagement.cpuFreqGovernor = "ondemand";
-  # End of powermanagement
-
-  # Disks management (power saving)
-  # Spin down all rotational disks after (60*5) 300 seconds of inactivity
-  services.udev.extraRules = ''
-    ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", RUN+="${pkgs.hdparm}/sbin/hdparm -S 60 /dev/%k"
-  '';
 
   # Including setting up ZFS, impermanence and boot
   mySystems.disks = {
@@ -42,5 +21,49 @@
     rootReservation = "70G";
   };
 
-  environment.systemPackages = with pkgs; [ zfs powertop pciutils hdparm ];
+  # Import created pool on the fly
+  # fileSystems."/backup" = {
+  #   device = "tank/backup";
+  #   options = [ "legacy" ];
+  #   fsType = "zfs";
+  # };
+  #
+  # fileSystems."/photos" = {
+  #   device = "tank/photos";
+  #   fsType = "zfs";
+  # };
+  #
+  # fileSystems."/media" = {
+  #   device = "tank/media";
+  #   fsType = "zfs";
+  # };
+
+  homelab = {
+    enable = true;
+    domain = "berky.me";
+    serverIP = "192.168.1.129";
+    gateway = "192.168.1.1";
+    gpu = "nvidia";
+    # tailscale.enable = true;
+    # authelia.enable = true;
+    # traefik.enable = true;
+    #
+    # homepage.enable = true;
+    #
+    # vaultwarden.enable = true;
+    # adguardhome.enable = true;
+    # ddclient.enable = true; 
+    # jellyfin.enable = true;
+    # radicale.enable = true;
+    # mealie.enable = true;
+    # freshrss.enable = true;
+    # audiobookshelf.enable = true;
+    # webdav.enable = true;
+    # calibre.enable = true;
+    # immich.enable = true;
+    # lldap.enable = true;
+    # backup.enable = true;
+    # ollama.enable = true;
+    # open-webui.enable = true;
+  };
 }

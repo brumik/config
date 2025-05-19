@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let cfg = config.mySystems.disks;
 in {
@@ -41,6 +41,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [ zfs ];
+
     # General config for this setup:
     boot.supportedFilesystems = [ "zfs" ];
     boot.zfs.forceImportRoot = false;
