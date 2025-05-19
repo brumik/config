@@ -11,5 +11,6 @@
     ./tmux
     ./kitty.nix
     ./pet.nix
+    ./hx.nix
   ];
 }
