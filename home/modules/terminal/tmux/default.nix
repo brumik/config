@@ -30,6 +30,8 @@
       # styling
       set -g status-position top
       set -g status-left-length 20
+
+      set -g status-right '#(gh-job-status)'
     '';
   };
 

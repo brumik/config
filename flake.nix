@@ -74,6 +74,7 @@
           inherit system;
           specialArgs = { inherit inputs outputs; };
           modules = [
+            stylix.nixosModules.stylix
             home-manager.nixosModules.home-manager
             commonHomeManagerConfig
             ./hosts/brumstellar

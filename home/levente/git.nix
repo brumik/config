@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   home.file.".ssh/id_ed25519.pub".source = ../../keys/id-brum.pub;
 
   programs.git = {
@@ -9,6 +9,7 @@
       user.signingkey = "~/.ssh/id_ed25519.pub";
       core.editor = "vi";
       push.default = "simple";
+      pager.diff = "${pkgs.diffnav}/bin/diffnav";
       alias = {
         fap = "fetch --prune";
         lg =

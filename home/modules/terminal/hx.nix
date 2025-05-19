@@ -8,6 +8,5 @@
       ruby-lsp
       solargraph
     ];
-    settings = { theme = "everforest_dark"; };
   };
 }

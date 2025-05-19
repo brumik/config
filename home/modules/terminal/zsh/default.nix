@@ -84,6 +84,7 @@
   home.file.".zsh/functions/fzf-git-checkout".source = ./fzf-git-checkout.sh;
   home.file.".zsh/functions/gh-fzf-find-repo".source = ./gh-fzf-find-repo.sh;
   home.file.".zsh/functions/nix-runner".source = ./nix-runner.sh;
+  home.file.".zsh/functions/gh-job-status".source = ./gh-job-status.sh;
   home.file.".zshautoload".source = ./autoload.sh;
 
   programs.gh = {

@@ -15,7 +15,16 @@ let
     };
   };
 in {
-  imports = [ ./hyprland ];
+
+  stylix.targets = {
+    waybar.enable = false;
+    kitty.enable = false;
+    vim.enable = false;
+    tmux.enable = false;
+    hyprpaper.enable = false;
+    hyprland.enable = false;
+    gtk.enable = false;
+  };
 
   # Nvim
   programs.nixvim.colorschemes.everforest = {
@@ -41,11 +50,7 @@ in {
     plugins = [ everforest ];
   };
 
-  home.pointerCursor = {
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Ice";
-    size = 24;
-    x11.enable = true;
-    gtk.enable = true;
-  };
+  # Style the diffnav set as default pager for git
+  stylix.targets.bat.enable = true;
+  programs.git.extraConfig.delta.syntax-theme = "base16-stylix";
 }
