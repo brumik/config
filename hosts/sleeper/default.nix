@@ -27,7 +27,7 @@
     domain = "berky.me";
     serverIP = "192.168.1.129";
     gateway = "192.168.1.1";
-    gpu = "nvidia";
+    nvidia.enable = true;
     tailscale.enable = true;
     authelia.enable = true;
     traefik.enable = true;
@@ -55,6 +55,4 @@
       image = "/var/lib/haos.qcow2";
     };
   };
-
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
 }

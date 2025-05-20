@@ -68,12 +68,6 @@ in {
       type = lib.types.str;
       default = "192.168.1.2";
     };
-
-    gpu = lib.mkOption {
-      type = lib.types.nullOr (lib.types.enum [ "nvidia" "amd" ]);
-      default = null;
-      description = "Set the GPU for the homelab, needed for some setups";
-    };
   };
 
   config = lib.mkIf cfg.enable {

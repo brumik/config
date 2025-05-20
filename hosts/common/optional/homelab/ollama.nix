@@ -2,12 +2,6 @@
 let
   cfg = config.homelab.ollama;
   hcfg = config.homelab;
-  acceleration = if hcfg.gpu == "nvidia" then
-    "cuda"
-  else if hcfg.gpu == "amd" then
-    "rocm"
-  else
-    null;
 in {
   options.homelab.ollama = {
     enable = lib.mkEnableOption "Ollama";
@@ -27,15 +21,8 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    assertions = [{
-      assertion = hcfg.gpu != null;
-      message =
-        "You must specify a GPU vendor (nvidia or amd) when using Ollama";
-    }];
-
     services.ollama = {
       enable = true;
-      acceleration = acceleration;
       host = "127.0.0.1";
       port = 11434;
       loadModels = cfg.loadModels;
