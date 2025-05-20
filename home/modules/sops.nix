@@ -9,8 +9,8 @@
     age.keyFile = ".config/sops/age/keys.txt";
 
     secrets = {
-      "private-keys/id-brum" = { path = ".ssh/id_ed25519"; };
-      "brum/zshsecrets" = { path = ".zshsecrets"; };
+      "private-keys/id-brum" = {};
+      "brum/zshsecrets" = {};
     };
   };
 }

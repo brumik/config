@@ -21,6 +21,7 @@
   ];
 
   imports = [
+    ../modules/sops.nix
     (import ../modules/terminal { username = "levente"; })
     ../levente/git.nix
     ../levente/gnome.nix

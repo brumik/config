@@ -20,7 +20,11 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    # TODO: The official nixos service is not fully functioning with ngnx throwing some errors.
+    systemd.tmpfiles.rules = [
+      "d ${cfg.baseDir} 0755 - - -"
+      "d ${cfg.baseDir}/extensions 0755 - - -"
+      "d ${cfg.baseDir}/data 0755 - - -"
+    ];
 
     sops.secrets."n100/freshrss-credentials" = { };
 

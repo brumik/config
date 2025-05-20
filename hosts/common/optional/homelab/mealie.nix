@@ -21,7 +21,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.tmpfiles.rules = lib.mkIf (cfg.domain != baseDirDefaultVal) [
+    systemd.tmpfiles.rules = lib.mkIf (cfg.baseDir != baseDirDefaultVal) [
       "L ${baseDirDefaultVal} - - - - ${cfg.baseDir}"
     ];
 
@@ -74,7 +74,8 @@ in {
       credentialsFile = config.sops.templates."n100/mealie/.env".path;
     };
 
-    homelab.backup.stateDirs = [ cfg.baseDir ];
+    # Need to add private here since mealie service is already doing a symlink to it and we cannot follow it
+    homelab.backup.stateDirs = [ cfg.baseDir "/var/lib/private/mealie" ];
 
     homelab.traefik.routes = [{
       host = cfg.domain;

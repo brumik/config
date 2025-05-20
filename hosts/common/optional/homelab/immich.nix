@@ -15,7 +15,8 @@ in {
     baseDir = lib.mkOption {
       type = lib.types.path;
       default = "/var/lib/immich";
-      description = "The absolute path where the service will store the important informations";
+      description =
+        "The absolute path where the service will store the important informations";
     };
   };
 
@@ -33,7 +34,35 @@ in {
       port = 2283;
     }];
 
-    homelab.backup.stateDirs = [ cfg.baseDir ];
+    # Create a service to backup the PG database
+    systemd.services.pgDumpImmich = {
+      description = "PostgreSQL dump of the immich database";
+      after = [ "postgresql.service" ];
+
+      serviceConfig = {
+        Type = "oneshot";
+        User = config.services.immich.user;
+        ExecStart = "pg_dump -F c -f ${cfg.baseDir}/immich_dump.sql immich";
+      };
+    };
+
+    systemd.services.pgRestoreImmich = {
+      description = "Restore the immich PostgreSQL database from backup";
+      after = [ "postgresql.service" ];
+
+      serviceConfig = {
+        Type = "oneshot";
+        User = config.services.immich.user;
+
+        # Restore command assumes immich DB exists and user has rights
+        ExecStart = "pg_restore -d immich ${cfg.baseDir}/immich.dump";
+      };
+    };
+
+    homelab.backup = {
+      stateDirs = [ cfg.baseDir ];
+      preBackupScripts = [ "systemctl start pgDumpImmich" ];
+    };
 
     homelab.homepage.app = [{
       Immich = {

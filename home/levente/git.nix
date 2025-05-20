@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   home.file.".ssh/id_ed25519.pub".source = ../../keys/id-brum.pub;
 
   programs.git = {
@@ -6,7 +6,7 @@
     userName = "Levente Berky";
     userEmail = "levente.berky@gmail.com";
     extraConfig = {
-      user.signingkey = "~/.ssh/id_ed25519.pub";
+      user.signingkey = "${config.sops.secrets."private-keys/id-brum".path}";
       core.editor = "vi";
       push.default = "simple";
       pager.diff = "${pkgs.diffnav}/bin/diffnav";

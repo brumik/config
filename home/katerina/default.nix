@@ -16,6 +16,7 @@
   ];
 
   imports = [
+    ../modules/sops.nix
     (import ../modules/terminal { inherit username; })
     ../modules/spotdl
     # Local

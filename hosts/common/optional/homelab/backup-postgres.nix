@@ -2,7 +2,7 @@
 let 
   cfg = config.homelab.postgresBackup;
 in {
-  options.homelab.postgresBackup = {
+  options.homelab.postgresqlBackup = {
     baseDir = lib.mkOption {
       type = lib.types.path;
       default = "/var/backup/postgresql";
@@ -11,7 +11,7 @@ in {
   };
 
   config = { 
-    services.postgresBackup = {
+    services.postgresqlBackup = {
       enable = config.services.postgresql.enable;
       location = cfg.baseDir;
       startAt = "*-*-* 23:00:00"; # do the backup every day befor the system is backed up

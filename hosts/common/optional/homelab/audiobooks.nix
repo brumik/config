@@ -21,7 +21,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.tmpfiles.rules = lib.mkIf (cfg.domain != baseDirDefaultVal) [
+    systemd.tmpfiles.rules = lib.mkIf (cfg.baseDir != baseDirDefaultVal) [
       "L ${baseDirDefaultVal} - - - - ${cfg.baseDir}"
     ];
 

@@ -41,6 +41,8 @@ in {
       volumes = [ "/mnt/video/Ebooks:/config/books" "${dir}/calibre:/config" ];
     };
 
+    # TODO: this will fail on empty calibre library
+    # solution: wait until calibre starts up and creates an empty library on a new server
     virtualisation.oci-containers.containers."calibre-web" = {
       image = "lscr.io/linuxserver/calibre-web:latest";
       ports = [ "11083:8083" ];

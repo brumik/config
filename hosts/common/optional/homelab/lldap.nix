@@ -58,7 +58,8 @@ in {
       port = 17170;
     }];
 
-    homelab.backup.stateDirs = [ cfg.baseDir ];
+    # Need to add private here since mealie service is already doing a symlink to it and we cannot follow it
+    homelab.backup.stateDirs = [ cfg.baseDir "/var/lib/private/lldap" ];
 
     homelab.homepage.admin = [{
       LLDAP = {

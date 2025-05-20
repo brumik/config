@@ -28,25 +28,25 @@
     serverIP = "192.168.1.129";
     gateway = "192.168.1.1";
     gpu = "nvidia";
-    # tailscale.enable = true;
-    # authelia.enable = true;
-    # traefik.enable = true;
-    #
-    # homepage.enable = true;
-    #
-    # vaultwarden.enable = true;
-    # adguardhome.enable = true;
+    tailscale.enable = true;
+    authelia.enable = true;
+    traefik.enable = true;
+
+    homepage.enable = true;
+
+    vaultwarden.enable = true;
+    adguardhome.enable = true;
     # ddclient.enable = true; 
-    # jellyfin.enable = true;
-    # radicale.enable = true;
-    # mealie.enable = true;
-    # freshrss.enable = true;
-    # audiobookshelf.enable = true;
-    # webdav.enable = true;
-    # calibre.enable = true;
-    # immich.enable = true;
-    # lldap.enable = true;
-    # backup.enable = true;
+    jellyfin.enable = true;
+    radicale.enable = true;
+    mealie.enable = true;
+    freshrss.enable = true;
+    audiobookshelf.enable = true;
+    webdav.enable = true;
+    calibre.enable = true;
+    immich.enable = true;
+    lldap.enable = true;
+    backup.enable = true;
     # ollama.enable = true;
     # open-webui.enable = true;
   };

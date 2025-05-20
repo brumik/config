@@ -1,4 +1,7 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: 
+let
+  zshsecrets = config.sops.secrets."brum/zshsecrets".path; 
+in {
   imports = [
     ./yazi
   ];
@@ -53,8 +56,8 @@
     # Yes this is circumventing the nix mindset but secrets are hardly specific
     # to your system config, but rather to somebody's elese system's.
     initContent = ''
-      if [ -f ~/.zshsecrets ]; then
-          source ~/.zshsecrets
+      if [ -f ${zshsecrets} ]; then
+          source ${zshsecrets}
       fi
       if [ -f ~/.zshautoload ]; then
           source ~/.zshautoload
