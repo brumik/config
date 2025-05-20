@@ -21,8 +21,9 @@ in {
     users.users.lldap = {
       isSystemUser = true;
       group = "lldap";
+      uid = 992;
     };
-    users.groups.lldap = { };
+    users.groups.lldap = { gid = 990; };
 
     sops.secrets."n100/lldap/key-seed" = { owner = "lldap"; };
     sops.secrets."n100/lldap/smtp-pass" = { owner = "lldap"; };

@@ -18,6 +18,10 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    # Define user ids
+    users.users.radicale.uid = 995;
+    users.groups.radicale.gid = 994;
+
     sops.secrets."n100/radicale-users" = { owner = "radicale"; };
 
     services.radicale = {

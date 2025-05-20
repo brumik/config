@@ -5,6 +5,7 @@ let
   hcfg = config.homelab;
   storagePath = "${cfg.baseDir}/db.sqlite3";
   dname = "${cfg.domain}.${hcfg.domain}";
+  instance = "main";
 in {
   imports = [ ./oidc.nix ];
 
@@ -58,6 +59,10 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    # Define user ids
+    users.users."${config.services.authelia.instances."${instance}".user}".uid = 989;
+    users.groups."${config.services.authelia.instances."${instance}".user}".gid = 985;
+
     sops.secrets = {
       "n100/authelia/jwt-secret" = { owner = "authelia-main"; };
       "n100/authelia/session-secret" = { owner = "authelia-main"; };
@@ -66,7 +71,7 @@ in {
       "n100/authelia/smtp-pass" = { owner = "authelia-main"; };
     };
 
-    services.authelia.instances.main = {
+    services.authelia.instances."${instance}" = {
       enable = true;
       secrets = {
         jwtSecretFile = secrets."n100/authelia/jwt-secret".path;

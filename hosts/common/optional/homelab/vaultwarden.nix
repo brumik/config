@@ -20,6 +20,10 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    # Define user ids
+    users.users.vaultwarden.uid = 993;
+    users.groups.vaultwarden.gid = 991;
+
     services.vaultwarden = {
       enable = true;
       config = {

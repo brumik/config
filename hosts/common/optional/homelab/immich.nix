@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.homelab.immich;
   dname = "${cfg.domain}.${config.homelab.domain}";
@@ -34,6 +34,8 @@ in {
       port = 2283;
     }];
 
+    systemd.tmpfiles.rules = [ "d /var/lib/pgdump 0755 postgres postgres -" ];
+
     # Create a service to backup the PG database
     systemd.services.pgDumpImmich = {
       description = "PostgreSQL dump of the immich database";
@@ -41,26 +43,25 @@ in {
 
       serviceConfig = {
         Type = "oneshot";
-        User = config.services.immich.user;
-        ExecStart = "pg_dump -F c -f ${cfg.baseDir}/immich_dump.sql immich";
+        User = "postgres";
+        ExecStart =
+          "${pkgs.postgresql}/bin/pg_dump -f /var/lib/pgdump/immich_dump.sql immich";
       };
     };
 
-    systemd.services.pgRestoreImmich = {
-      description = "Restore the immich PostgreSQL database from backup";
-      after = [ "postgresql.service" ];
-
-      serviceConfig = {
-        Type = "oneshot";
-        User = config.services.immich.user;
-
-        # Restore command assumes immich DB exists and user has rights
-        ExecStart = "pg_restore -d immich ${cfg.baseDir}/immich.dump";
-      };
-    };
+    # generate wrapper scripts, as described in the createWrapper option
+    environment.systemPackages = [
+      (pkgs.writeShellScriptBin "restore-immich-pg" ''
+        systemctl stop immich-server
+        sudo -u postgres ${pkgs.postgresql}/bin/dropdb --if-exists immich
+        sudo -u postgres ${pkgs.postgresql}/bin/createdb immich
+        sudo -u postgres ${pkgs.postgresql}/bin/psql -d immich -f /var/lib/pgdump/immich_dump.sql
+        systemctl start immich-server
+      '')
+    ];
 
     homelab.backup = {
-      stateDirs = [ cfg.baseDir ];
+      stateDirs = [ cfg.baseDir "/var/lib/pgdump" ];
       preBackupScripts = [ "systemctl start pgDumpImmich" ];
     };
 
