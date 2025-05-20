@@ -2,12 +2,6 @@
 let
   cfg = config.homelab.home-assistant;
   serviceName = "home-assistant-vm";
-
-  usbDeviceArgs = lib.concatStringsSep " \\\n  " (map (id:
-    let parts = lib.strings.splitString ":" id;
-    in "-device usb-host,vendorid=0x${builtins.elemAt parts 0},productid=0x${
-      builtins.elemAt parts 1
-    }") cfg.usbDevices);
 in {
   options.homelab.home-assistant = {
     enable = lib.mkEnableOption "Home Assistant";
@@ -19,13 +13,6 @@ in {
       example = "/var/lib/haos.qcow2";
     };
 
-    usbDevices = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [ ];
-      description = "List of USB vendor:product IDs to pass through to the VM.";
-      example = [ "1a86:7523" ];
-    };
-
     domain = lib.mkOption {
       type = lib.types.str;
       default = "ha";
@@ -34,11 +21,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    assertions = [
-      (lib.assertMsg (cfg.image != "")
-        "homelab.home-assistant.image must not be empty when home assistand is enabled.")
-    ];
-
     # Enable libvirt and virtualization support
     virtualisation.libvirtd.enable = true;
     environment.systemPackages = with pkgs; [ qemu_kvm OVMF ];
@@ -59,9 +41,12 @@ in {
           -drive file=${cfg.image},format=qcow2,if=virtio \
           -netdev user,id=net0,hostfwd=tcp::8123-:8123 \
           -device virtio-net-pci,netdev=net0 \
-          -nographic
-          ${usbDeviceArgs}
-        '';
+          -device qemu-xhci \
+          -nographic \
+          -device usb-host,vendorid=0x1a86,productid=0x55d4 \
+          -device usb-host,vendorid=0x1cf1,productid=0x0030 \
+          -device usb-host,vendorid=0x0658,productid=0x0200
+         '';
         Restart = "always";
       };
     };

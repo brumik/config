@@ -68,11 +68,11 @@ in {
       siteMonitor = "https://${cfg.domain}.${config.homelab.domain}";
       description = "Reverse proxy dashboard (read only)";
     };
-    HomeAssistant = {
-      icon = "home-assistant.png";
-      href = "https://ha.${config.homelab.domain}";
-      siteMonitor = "https://ha.${config.homelab.domain}";
-      description = "Home automation platform";
-    };
+    # HomeAssistant = {
+    #   icon = "home-assistant.png";
+    #   href = "https://ha.${config.homelab.domain}";
+    #   siteMonitor = "https://ha.${config.homelab.domain}";
+    #   description = "Home automation platform";
+    # };
   }];
 }

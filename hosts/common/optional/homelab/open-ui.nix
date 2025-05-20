@@ -28,7 +28,7 @@ in {
       port = 11111;
       stateDir = cfg.baseDir;
       environment = {
-        OLLAMA_API_BASE_URL = "http://127.0.0.1:${config.services.ollama.port}";
+        OLLAMA_API_BASE_URL = "http://127.0.0.1:${builtins.toString config.services.ollama.port}";
         # Disable authentication
         WEBUI_AUTH = "False";
       };

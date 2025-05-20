@@ -36,7 +36,7 @@
 
     vaultwarden.enable = true;
     adguardhome.enable = true;
-    # ddclient.enable = true; 
+    ddclient.enable = true; 
     jellyfin.enable = true;
     radicale.enable = true;
     mealie.enable = true;
@@ -47,7 +47,14 @@
     immich.enable = true;
     lldap.enable = true;
     backup.enable = true;
-    # ollama.enable = true;
-    # open-webui.enable = true;
+    ollama.enable = true;
+    open-webui.enable = true;
+
+    home-assistant = {
+      enable = true;
+      image = "/var/lib/haos.qcow2";
+    };
   };
+
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
 }
