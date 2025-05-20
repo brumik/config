@@ -8,7 +8,13 @@ in {
     rootPool = mkOption {
       type = types.str;
       description = "Name of the root pool";
-      default = "root";
+      default = "rpool";
+    };
+
+    dataPool = mkOption {
+      type = types.str;
+      description = "Name of the data pool";
+      default = "dpool";
     };
 
     rootDisk1 = mkOption {
@@ -21,6 +27,12 @@ in {
       type = types.nullOr types.str;
       description = "Second SSD disk on which to install.";
       example = "/dev/nvme1";
+    };
+
+    dataDisk1 = mkOption {
+      type = types.nullOr types.str;
+      description = "First Hdd disk on which to set up SSD.";
+      example = "/dev/hdd1";
     };
 
     rootReservation = mkOption {
@@ -124,6 +136,22 @@ in {
             };
           };
         };
+        data1 = {
+          type = "disk";
+          device = cfg.dataDisk1;
+          content = {
+            type = "gpt";
+            partitions = {
+              zfs = {
+                size = "100%";
+                content = {
+                  type = "zfs";
+                  pool = cfg.dataPool;
+                };
+              };
+            };
+          };
+        };
       };
       zpool = {
         ${cfg.rootPool} = {
@@ -172,6 +200,39 @@ in {
             "safe/persist" = {
               type = "zfs_fs";
               mountpoint = "/persist";
+              options.mountpoint = "legacy";
+            };
+          };
+        };
+        ${cfg.dataPool} = {
+          type = "zpool";
+          # mode = "mirror";
+          options = {
+            # good for ssds
+            ashift = "12";
+            autotrim = "on";
+          };
+          rootFsOptions = {
+            # compression should be 2.5 to 1 sohuld be fine on modern cpu
+            compression = "zstd";
+            "com.sun:auto-snapshot" = "false";
+          };
+          datasets = {
+            "backup" = {
+              type = "zfs_fs";
+              mountpoint = "/backup";
+              options.mountpoint = "legacy";
+            };
+
+            "photos" = {
+              type = "zfs_fs";
+              mountpoint = "/photos";
+              options.mountpoint = "legacy";
+            };
+
+            "media" = {
+              type = "zfs_fs";
+              mountpoint = "/media";
               options.mountpoint = "legacy";
             };
           };

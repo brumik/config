@@ -11,32 +11,16 @@
 
   # Generated from machine id, ensures we import zfs on correct machine
   # WARNING: changing this number will cause ZFS to fail import and keep hanging on boot
-  networking.hostId = "20c133b5"; # head -c 8 /etc/machine-id
+  networking.hostId = "20c133b6"; # head -c 8 /etc/machine-id
 
   # Including setting up ZFS, impermanence and boot
   mySystems.disks = {
     enable = true;
     rootDisk1 = "/dev/disk/by-id/nvme-KINGSTON_SKC3000S512G_50026B7686F84D4B";
     rootDisk2 = "/dev/disk/by-id/nvme-KINGSTON_SKC3000S512G_50026B7383A70C89";
-    rootReservation = "70G";
+    dataDisk1 = "/dev/disk/by-id/ata-ST31000528AS_6VPD01MX";
+    rootReservation = "70G"; # 10+% of total size
   };
-
-  # Import created pool on the fly
-  # fileSystems."/backup" = {
-  #   device = "tank/backup";
-  #   options = [ "legacy" ];
-  #   fsType = "zfs";
-  # };
-  #
-  # fileSystems."/photos" = {
-  #   device = "tank/photos";
-  #   fsType = "zfs";
-  # };
-  #
-  # fileSystems."/media" = {
-  #   device = "tank/media";
-  #   fsType = "zfs";
-  # };
 
   homelab = {
     enable = true;
