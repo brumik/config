@@ -1,5 +1,7 @@
 { config, lib, ... }:
-let cfg = config.homelab.lldap;
+let
+  cfg = config.homelab.lldap;
+  dname = "${cfg.domain}.${config.homelab.domain}";
 in {
   options.homelab.lldap = {
     enable = lib.mkEnableOption "lldap";
@@ -58,6 +60,8 @@ in {
       host = cfg.domain;
       port = 17170;
     }];
+
+    homelab.authelia.exposedDomains = [ dname ];
 
     # Need to add private here since mealie service is already doing a symlink to it and we cannot follow it
     homelab.backup.stateDirs = [ cfg.baseDir "/var/lib/private/lldap" ];
