@@ -34,6 +34,8 @@ in {
       port = 2283;
     }];
 
+    homelab.authelia.exposedDomains = [ dname ];
+
     systemd.tmpfiles.rules = [ "d /var/lib/pgdump 0755 postgres postgres -" ];
 
     # Create a service to backup the PG database
