@@ -34,7 +34,7 @@ in {
       port = 2283;
     }];
 
-    homelab.authelia.exposedDomains = [ dname ];
+    homelab.authelia.bypassDomains = [ dname ];
 
     systemd.tmpfiles.rules = [ "d /var/lib/pgdump 0755 postgres postgres -" ];
 
