@@ -61,7 +61,7 @@ in {
       port = 17170;
     }];
 
-    homelab.authelia.exposedDomains = [ dname ];
+    homelab.authelia.bypassDomains = [ dname ];
 
     # Need to add private here since mealie service is already doing a symlink to it and we cannot follow it
     homelab.backup.stateDirs = [ cfg.baseDir "/var/lib/private/lldap" ];
