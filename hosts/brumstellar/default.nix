@@ -11,6 +11,7 @@
     ../common/optional/scanner.nix
     ../common/optional/sound.nix
     ../common/optional/gaming.nix
+    ../common/optional/printing.nix
 
     ../common/users/levente.nix
     ../common/users/work.nix
@@ -42,12 +43,12 @@
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # extra packages
-  environment.systemPackages = with pkgs; [
-    libnotify # testing out notification daemon
-  ];
+  environment.systemPackages = with pkgs;
+    [
+      libnotify # testing out notification daemon
+    ];
 
   # screen sharing capabilities
   # seems same as sound.nix
   # need to enable pipewire and pipewire.wireplumber (default true)
-
 }

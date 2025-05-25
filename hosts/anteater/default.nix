@@ -11,6 +11,7 @@
     ../common/optional/scanner.nix
     ../common/optional/sound.nix
     ../common/optional/gaming.nix
+    ../common/optional/printing.nix
 
     ../common/users/katerina.nix
   ];

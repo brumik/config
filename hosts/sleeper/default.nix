@@ -36,7 +36,7 @@
 
     vaultwarden.enable = true;
     adguardhome.enable = true;
-    ddclient.enable = true; 
+    ddclient.enable = true;
     jellyfin.enable = true;
     radicale.enable = true;
     mealie.enable = true;
