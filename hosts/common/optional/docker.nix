@@ -18,7 +18,7 @@ in {
     users.groups.docker.members = cfg.users;
     environment.systemPackages = with pkgs; [
       docker-compose
-      # distrobox
+      distrobox
     ];
   };
 }
