@@ -12,6 +12,7 @@
     ../common/optional/sound.nix
     ../common/optional/gaming.nix
     ../common/optional/printing.nix
+    ../common/optional/usb-waekup-disable.nix
 
     ../common/users/katerina.nix
   ];
@@ -28,9 +29,8 @@
 
   networking.hostName = "anteater";
 
-  # Testing:
-  programs.hyprland = { enable = true; };
-
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
+  hardware.usb.wakeupDisabled = [{
+    vendor = "046d";
+    product = "c548";
+  }];
 }
