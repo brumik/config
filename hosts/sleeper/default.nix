@@ -48,7 +48,8 @@
     lldap.enable = true;
     backup.enable = true;
     ollama.enable = true;
-    open-webui.enable = true;
+    open-webui.enable = false;
+    nextcloud.enable = true;
 
     home-assistant = {
       enable = true;
