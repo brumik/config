@@ -49,7 +49,11 @@
       baseDir = "/photos/immich";
     };
     lldap.enable = true;
-    backup.enable = true;
+    backup = {
+      enable = true;
+      # Add extra state dirs
+      stateDirs = [ "/backup" ];
+    };
     ollama.enable = false;
     open-webui.enable = false;
     nextcloud.enable = true;

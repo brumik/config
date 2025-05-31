@@ -17,6 +17,11 @@ in {
     fsType = "cifs";
     inherit options;
   };
+  fileSystems."/mnt/photo" = {
+    device = "//${cfg.smbServerIP}/photo";
+    fsType = "cifs";
+    inherit options;
+  };
   fileSystems."/mnt/homes" = {
     device = "//${cfg.smbServerIP}/homes";
     fsType = "cifs";
