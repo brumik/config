@@ -4,6 +4,8 @@ let
   hcfg = config.homelab;
   dname = "${cfg.domain}.${hcfg.domain}";
   baseDirDefaultVal = "/var/lib/nextcloud";
+  dbname = "nextcloud";
+  servicename = "phpfpm-nextcloud";
 in {
   options.homelab.nextcloud = {
     enable = lib.mkEnableOption "Nextcloud";
@@ -23,9 +25,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    users.users.nextcloud = {
-      uid = 985;
-    };
+    users.users.nextcloud = { uid = 985; };
     users.groups.nextcloud = { gid = 983; };
 
     sops.secrets = {
@@ -94,6 +94,7 @@ in {
       };
       secretFile = config.sops.templates."n100/nextcloud/config-secrets".path;
       extraApps = {
+        # the name here should be the same as the name of pacakge otherwise "App not found error"
         oidc_login = pkgs.fetchNextcloudApp {
           sha256 = "sha256-RLYquOE83xquzv+s38bahOixQ+y4UI6OxP9HfO26faI=";
           url =
@@ -118,7 +119,43 @@ in {
 
     homelab.authelia.bypassDomains = [ dname ];
 
-    homelab.backup.stateDirs = [ cfg.baseDir ];
+    ######################################
+    # Set up the dumping of the database #
+    # Duplicated in Nextcloud            #
+    ######################################
+    systemd.tmpfiles.rules = [ "d /var/lib/pgdump 0755 postgres postgres -" ];
+
+    # Create a service to backup the PG database
+    systemd.services.pgDumpNextcloud = {
+      description = "PostgreSQL dump of the nextcloud database";
+      after = [ "postgresql.service" ];
+
+      serviceConfig = {
+        Type = "oneshot";
+        User = "postgres";
+        ExecStart =
+          "${pkgs.postgresql}/bin/pg_dump -f /var/lib/pgdump/${dbname}_dump.sql ${dbname}";
+      };
+    };
+
+    # generate wrapper scripts, as described in the createWrapper option
+    environment.systemPackages = [
+      (pkgs.writeShellScriptBin "restore-nextcloud-pg" ''
+        systemctl stop ${servicename}
+        sudo -u postgres ${pkgs.postgresql}/bin/dropdb --if-exists ${dbname}
+        sudo -u postgres ${pkgs.postgresql}/bin/createdb ${dbname}
+        sudo -u postgres ${pkgs.postgresql}/bin/psql -d ${dbname} -f /var/lib/pgdump/${dbname}_dump.sql
+        systemctl start ${servicename}
+      '')
+    ];
+    ######################################
+    # End of duplication                 #
+    ######################################
+
+    homelab.backup = {
+      stateDirs = [ cfg.baseDir "/var/lib/pgdump" ];
+      preBackupScripts = [ "systemctl start pgDumpNextcloud" ];
+    };
 
     homelab.homepage.app = [{
       Drive = {

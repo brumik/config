@@ -36,6 +36,10 @@ in {
 
     homelab.authelia.bypassDomains = [ dname ];
 
+    ######################################
+    # Set up the dumping of the database #
+    # Duplicated in Nextcloud            #
+    ######################################
     systemd.tmpfiles.rules = [ "d /var/lib/pgdump 0755 postgres postgres -" ];
 
     # Create a service to backup the PG database
@@ -61,6 +65,9 @@ in {
         systemctl start immich-server
       '')
     ];
+    ######################################
+    # End of duplication                 #
+    ######################################
 
     homelab.backup = {
       stateDirs = [ cfg.baseDir "/var/lib/pgdump" ];
