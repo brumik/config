@@ -39,7 +39,7 @@ in {
       content = ''
         {
           "oidc_login_client_secret": "${
-            config.sops.placeholder."n100/mealie/oidc-client-secret"
+            config.sops.placeholder."n100/nextcloud/oidc-client-secret"
           }"
         }
       '';
@@ -170,7 +170,7 @@ in {
       client_id = "nextcloud";
       client_name = "Nextcloud";
       client_secret =
-        "$pbkdf2-sha512$310000$RdFeq6sHkW1IG4M8EKM/VQ$.4RAqcLh5pkVJWjOwRzj.v0wGzJDH3y.tSkrcmLGfoCGIsZpUnwDsZFuarZ63UWAVQ2/aWuGete56j6zpWRhgQ";
+        "$pbkdf2-sha512$310000$YbTheSu9VfRbSXkg3v39WA$CwBcFJy3hZlF94it/r5aPGIP1r4RXfxu9ZgpUpPH0dBOAlcih8RhSGCeVWHXoOzQR5Jyx3Vp9Whu.uywamjV9Q";
       public = false;
       consent_mode = "implicit";
       authorization_policy = "one_factor";

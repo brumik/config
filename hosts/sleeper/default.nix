@@ -44,10 +44,13 @@
     audiobookshelf.enable = true;
     webdav.enable = true;
     calibre.enable = true;
-    immich.enable = true;
+    immich = {
+      enable = true;
+      baseDir = "/photos/immich";
+    };
     lldap.enable = true;
     backup.enable = true;
-    ollama.enable = true;
+    ollama.enable = false;
     open-webui.enable = false;
     nextcloud.enable = true;
 
