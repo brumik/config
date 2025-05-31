@@ -2,15 +2,48 @@
 let
   cfg = config.homelab.nextcloud;
   hcfg = config.homelab;
-  dname = "drive.${hcfg.domain}";
-  rootDir = "/var/lib/nextcloud";
+  dname = "${cfg.domain}.${hcfg.domain}";
+  baseDirDefaultVal = "/var/lib/nextcloud";
 in {
-  options.homelab.nextcloud = { enable = lib.mkEnableOption "Nextcloud"; };
+  options.homelab.nextcloud = {
+    enable = lib.mkEnableOption "Nextcloud";
+
+    domain = lib.mkOption {
+      type = lib.types.str;
+      default = "drive";
+      description = "The subdomain where the service will be served";
+    };
+
+    baseDir = lib.mkOption {
+      type = lib.types.path;
+      default = baseDirDefaultVal;
+      description =
+        "The absolute path where the service will store the important informations";
+    };
+  };
 
   config = lib.mkIf cfg.enable {
+    users.users.nextcloud = {
+      uid = 985;
+    };
+    users.groups.nextcloud = { gid = 983; };
+
     sops.secrets = {
       "n100/nextcloud/oidc-client-secret" = { };
       "n100/nextcloud/admin-password" = { owner = "nextcloud"; };
+    };
+
+    # https://mynixos.com/nixpkgs/option/services.nextcloud.secretFile
+    # Json formatted config.php
+    sops.templates."n100/nextcloud/config-secrets" = {
+      content = ''
+        {
+          "oidc_login_client_secret": "${
+            config.sops.placeholder."n100/mealie/oidc-client-secret"
+          }"
+        }
+      '';
+      owner = "nextcloud";
     };
 
     services.nextcloud = {
@@ -24,14 +57,14 @@ in {
       config.dbtype = "pgsql";
       database.createLocally = true;
       configureRedis = true;
-      home = rootDir;
+      home = cfg.baseDir;
       settings = {
         trusted_proxies = [ "127.0.0.1" ];
         "allow_user_to_change_display_name" = false;
         "lost_password_link" = "disabled";
-        "oidc_login_provider_url" = "https://${hcfg.authelia.domain}.${hcfg.domain}";
+        "oidc_login_provider_url" =
+          "https://${hcfg.authelia.domain}.${hcfg.domain}";
         "oidc_login_client_id" = "nextcloud";
-        "oidc_login_client_secret" = "insecure_secret";
         "oidc_login_auto_redirect" = false;
         "oidc_login_end_session_redirect" = false;
         "oidc_login_button_text" = "Log in with Authelia";
@@ -59,6 +92,7 @@ in {
         "oidc_login_update_avatar" = false;
         "oidc_login_code_challenge_method" = "S256";
       };
+      secretFile = config.sops.templates."n100/nextcloud/config-secrets".path;
       extraApps = {
         oidc_login = pkgs.fetchNextcloudApp {
           sha256 = "sha256-RLYquOE83xquzv+s38bahOixQ+y4UI6OxP9HfO26faI=";
@@ -78,13 +112,13 @@ in {
     }];
 
     homelab.traefik.routes = [{
-      host = "drive";
+      host = cfg.domain;
       port = 11112;
     }];
 
-    homelab.authelia.exposedDomains = [ dname ];
+    homelab.authelia.bypassDomains = [ dname ];
 
-    homelab.backup.stateDirs = [ rootDir ];
+    homelab.backup.stateDirs = [ cfg.baseDir ];
 
     homelab.homepage.app = [{
       Drive = {
@@ -99,7 +133,7 @@ in {
       client_id = "nextcloud";
       client_name = "Nextcloud";
       client_secret =
-        "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng";
+        "$pbkdf2-sha512$310000$RdFeq6sHkW1IG4M8EKM/VQ$.4RAqcLh5pkVJWjOwRzj.v0wGzJDH3y.tSkrcmLGfoCGIsZpUnwDsZFuarZ63UWAVQ2/aWuGete56j6zpWRhgQ";
       public = false;
       consent_mode = "implicit";
       authorization_policy = "one_factor";

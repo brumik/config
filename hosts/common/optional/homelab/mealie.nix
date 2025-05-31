@@ -45,6 +45,8 @@ in {
       listenAddress = "127.0.0.1";
       port = 9000;
       settings = {
+        PUID = 63892;
+        PGID = 63892;
         BASE_URL = "https://${dname}";
         ALLOW_SIGNUP = "false";
         LOG_LEVEL = "ERROR";
