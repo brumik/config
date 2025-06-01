@@ -27,6 +27,8 @@ in {
       host = "127.0.0.1";
       port = 2283;
       environment = { IMMICH_TRUSTED_PROXIES = "127.0.0.1"; };
+      accelerationDevices =
+        [ "/dev/nvidia0" "/dev/nvidiactl" "/dev/nvidia-uvm" ];
     };
 
     homelab.traefik.routes = [{

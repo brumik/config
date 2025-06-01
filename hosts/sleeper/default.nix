@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
@@ -21,6 +21,8 @@
     dataDisk1 = "/dev/disk/by-id/ata-ST31000528AS_6VPD01MX";
     rootReservation = "70G"; # 10+% of total size
   };
+
+  environment.systemPackages = [ pkgs.tmux ];
 
   homelab = {
     enable = true;
@@ -54,7 +56,7 @@
       # Add extra state dirs
       stateDirs = [ "/backup" ];
     };
-    ollama.enable = false;
+    ollama.enable = true;
     open-webui.enable = false;
     nextcloud.enable = true;
 
