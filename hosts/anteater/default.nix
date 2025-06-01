@@ -17,10 +17,10 @@
     ../common/users/katerina.nix
   ];
 
-  mySystems.smb = {
-    enable = true;
-    credentials = config.sops.secrets."anteater/smb-credentials".path;
-  };
+  # mySystems.smb = {
+  #   enable = true;
+  #   credentials = config.sops.secrets."anteater/smb-credentials".path;
+  # };
 
   mySystems.scanner = { enable = true; };
 

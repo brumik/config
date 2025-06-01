@@ -50,7 +50,7 @@ in {
         # This impacts which IP address is logged (X-Forwarded-For or REMOTE_ADDR).
         # This also impacts external authentication methods;
         # see https://freshrss.github.io/FreshRSS/en/admins/09_AccessControl.html
-        TRUSTED_PROXY = "172.16.0.1/12 192.168.0.1/16";
+        TRUSTED_PROXY = "172.16.0.1/12 192.168.0.1/16 10.0.0.0/8";
         # Optional parameter, set to 1 to enable OpenID Connect (only available in our Debian image)
         # Requires more environment variables. See https://freshrss.github.io/FreshRSS/en/admins/16_OpenID-Connect.html
         OIDC_ENABLED = "1";
@@ -82,6 +82,7 @@ in {
       redirect_uris = [ "https://${dname}:443/i/oidc/" ];
       scopes = [ "openid" "email" "profile" "groups" ];
       userinfo_signed_response_alg = "none";
+      token_endpoint_auth_method = "client_secret_basic";
     }];
 
     homelab.authelia.exposedDomains = [ dname ];

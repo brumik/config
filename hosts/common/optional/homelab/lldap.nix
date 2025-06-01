@@ -61,8 +61,10 @@ in {
       port = 17170;
     }];
 
-    # Add users when not home was not possible.
-    # homelab.authelia.bypassDomains = [ dname ];
+    homelab.authelia.exposedDomains = [ dname ];
+
+    # TODO close this when calibre-web is migrated away from docker
+    networking.firewall.allowedTCPPorts = [ 3890 ];
 
     # Need to add private here since mealie service is already doing a symlink to it and we cannot follow it
     homelab.backup.stateDirs = [ cfg.baseDir "/var/lib/private/lldap" ];

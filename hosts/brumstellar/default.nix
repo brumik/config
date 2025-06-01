@@ -17,11 +17,11 @@
     ../common/users/work.nix
   ];
 
-  mySystems.smb = {
-    enable = true;
-    credentials = config.sops.secrets."brum/smb-credentials".path;
-  };
-
+  # mySystems.smb = {
+  #   enable = true;
+  #   credentials = config.sops.secrets."brum/smb-credentials".path;
+  # };
+ 
   mySystems.docker = { enable = true; };
 
   mySystems.scanner = { enable = true; };

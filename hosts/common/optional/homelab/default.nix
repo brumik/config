@@ -3,7 +3,7 @@ let cfg = config.homelab;
 in {
   imports = [
     ./power.nix
-    ./smbClient.nix
+    # ./smbClient.nix
     ./vaultwarden.nix
     ./adguard.nix
     ./ddclient.nix
@@ -64,10 +64,10 @@ in {
       '';
     };
 
-    smbServerIP = lib.mkOption {
-      type = lib.types.str;
-      default = "192.168.1.2";
-    };
+    # smbServerIP = lib.mkOption {
+    #   type = lib.types.str;
+    #   default = "192.168.1.2";
+    # };
   };
 
   config = lib.mkIf cfg.enable {

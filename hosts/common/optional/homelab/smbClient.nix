@@ -27,19 +27,6 @@ in {
     fsType = "cifs";
     inherit options;
   };
-
-  # TODO: This is for the nextcloud instance
-  fileSystems."/var/lib/nextcloud/data/brum/files/smb" = {
-    device = "//${cfg.smbServerIP}/homes/brum/Drive";
-    fsType = "cifs";
-    inherit options;
-  };
-  # TODO: This is for the nextcloud instance
-  fileSystems."/var/lib/nextcloud/data/katerina/files/smb" = {
-    device = "//${cfg.smbServerIP}/homes/Katerina/Drive";
-    fsType = "cifs";
-    inherit options;
-  };
   # TODO Move to backup and localize, no reason all apps need to access this
   fileSystems."/mnt/share" = {
     device = "//${cfg.smbServerIP}/share";

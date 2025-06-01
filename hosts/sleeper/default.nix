@@ -24,6 +24,13 @@
 
   environment.systemPackages = [ pkgs.tmux ];
 
+  # TODO: Jellyfin, Calibre, Audiobookshelf uses this path to reach the media
+  # This is because of migration from smb share
+  fileSystems."/mnt/video" = {
+    device = "/media";
+    options = [ "bind" ];
+  };
+
   homelab = {
     enable = true;
     domain = "berky.me";
@@ -56,8 +63,8 @@
       # Add extra state dirs
       stateDirs = [ "/backup" ];
     };
-    ollama.enable = true;
-    open-webui.enable = false;
+    # ollama.enable = true;
+    # open-webui.enable = true;
     nextcloud.enable = true;
 
     home-assistant = {
