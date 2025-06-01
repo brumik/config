@@ -42,10 +42,6 @@ sops-update:
 check: 
   nix flake check
 
-# Deploy the configuration to remote system
-deploy-n100:
-  nixos-rebuild switch --flake .#n100 --target-host root@n100.berky.me 
-
 deploy-sleeper:
   nixos-rebuild switch --flake .#sleeper --target-host root@sleeper.berky.me 
 
