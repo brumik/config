@@ -21,7 +21,7 @@
   #   enable = true;
   #   credentials = config.sops.secrets."brum/smb-credentials".path;
   # };
- 
+
   mySystems.docker = { enable = true; };
 
   mySystems.scanner = { enable = true; };
@@ -42,10 +42,46 @@
   programs.hyprland = { enable = true; };
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
+  security.pki.certificates = [ (builtins.readFile ../../MODMED.pem) ];
+
+  # services.strongswan = {
+  #   enable = true;
+  #
+  #   secrets = [ "/home/levente/config/hosts/brumstellar/secrets" ];
+  #
+  #   connections = {
+  #     boca = {
+  #       dpdaction = "restart";
+  #       dpddelay = "30";
+  #       dpdtimeout = "90";
+  #       fragmentation = "yes";
+  #       leftsourceip = "%config";
+  #       keyexchange = "ikev2";
+  #       right = "cerberus-boca-1.corp.modmed.com";
+  #       rightcert="/home/levente/config/MODMED.pem";
+  #       leftauth = "eap_mschapv2";
+  #       rightauth = "pubkey";
+  #       rightsubnet = "0.0.0.0/0";
+  #       auto = "add";
+  #
+  #       # rightid = "cerberus-boca-1.corp.modmed.com";
+  #       # rightcert="/home/levente/config/MODMED.pem";
+  #       # leftid = "levente.berky";
+  #       # eap_identity = "%identity";
+  #     };
+  #   };
+  # };
+  services.dbus.packages = [ pkgs.networkmanager pkgs.strongswanNM ];
+  networking.networkmanager = {
+    enable = true;
+    plugins = [ pkgs.networkmanager_strongswan ];
+  };
   # extra packages
   environment.systemPackages = with pkgs;
     [
       libnotify # testing out notification daemon
+      strongswan # for ipsec
+      strongswanNM
     ];
 
   # screen sharing capabilities
