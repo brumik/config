@@ -31,6 +31,21 @@
     options = [ "bind" ];
   };
 
+  services.zfs = {
+    # The default keeps a lot of snapshots starting with
+    # every 15min for the last hour
+    # and ending with 1 for each month for the last year
+    autoSnapshot.enable = true;
+
+    # Try to scrub and repair data every month once
+    autoScrub.enable = true;
+
+    # Run weekly trims 
+    trim.enable = true;
+    
+    # TODO: Email setups (with ZED option)
+  };
+
   homelab = {
     enable = true;
     domain = "berky.me";
