@@ -18,6 +18,7 @@
     yubioath-flutter
     # to decode jwt tokens
     jwt-cli
+    ncspot
   ];
 
   imports = [

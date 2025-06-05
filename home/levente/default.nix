@@ -18,6 +18,7 @@
     yubioath-flutter
     brave
     nextcloud-client
+    ncspot
   ];
 
   services.nextcloud-client = {
