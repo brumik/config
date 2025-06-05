@@ -13,6 +13,9 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
 
   hardware.xone.enable = true;
+  hardware.bluetooth.enable = true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+
 
   services.desktopManager.plasma6.enable = true;
 
