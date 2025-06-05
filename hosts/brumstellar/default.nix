@@ -42,7 +42,15 @@
   programs.hyprland = { enable = true; };
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  security.pki.certificates = [ (builtins.readFile ../../MODMED.pem) ];
+  security.pki.certificateFiles = [
+    ./MODMED.pem
+    # ./trusted_certs.pem
+    ./test.pem
+    # ./BPClass2CA2Bundle.pem
+    # ./CiscoRootCA2048.cer
+    # ./BuypassClass2RootCA.cer
+    # ./BuypassClass3RootCA.cer
+  ];
 
   # services.strongswan = {
   #   enable = true;
