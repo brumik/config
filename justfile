@@ -43,15 +43,15 @@ check:
   nix flake check
 
 deploy-sleeper:
-  nixos-rebuild switch --flake .#sleeper --target-host root@sleeper.berky.me 
+  sudo nixos-rebuild switch --flake .#sleeper --target-host root@sleeper.berky.me 
 
 # Deploy the configuration to remote system
 deploy-gamingrig:
-  nixos-rebuild switch --flake .#gamingrig --target-host root@gamingrig.berky.me 
+  sudo nixos-rebuild switch --flake .#gamingrig --target-host root@gamingrig.berky.me 
 
 # Deploy the configuration to remote system
 deploy-anteater:
-  nixos-rebuild switch --flake .#anteater --target-host root@anteater.berky.me 
+  sudo nixos-rebuild switch --flake .#anteater --target-host root@anteater.berky.me 
 
 # Restore symlinks with stow (and simple script)
 stow-mac:

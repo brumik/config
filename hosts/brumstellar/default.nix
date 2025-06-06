@@ -21,9 +21,19 @@
   #   enable = true;
   #   credentials = config.sops.secrets."brum/smb-credentials".path;
   # };
- 
-  mySystems.docker = { enable = true; };
 
+  # The root of this pc should be able to log in to the root of every other PC
+  sops.secrets = {
+    "private-keys/id-deploy" = {};
+  };
+
+  programs.ssh.extraConfig = ''
+    Host *.berky.me
+        IdentityFile ${config.sops.secrets."private-keys/id-deploy".path}
+        IdentitiesOnly yes
+  '';
+
+  mySystems.docker = { enable = true; };
   mySystems.scanner = { enable = true; };
 
   boot.loader.systemd-boot.enable = true;

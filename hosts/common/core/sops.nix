@@ -10,12 +10,5 @@
       keyFile = "/var/lib/sops-nix/key.txt";
       generateKey = true;
     };
-
-    secrets = {
-      # I reference these by path so need to be here.
-      "brum/smb-credentials" = { };
-      "anteater/smb-credentials" = { };
-      "n100/smb-credentials" = { };
-    };
   };
 }

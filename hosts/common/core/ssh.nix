@@ -1,13 +1,8 @@
-{ ... }:
-{
+{ ... }: {
   services.openssh = {
     enable = true;
     openFirewall = true;
     knownHosts = {
-      "n100.berky.me/ed25519" = {
-        publicKey = builtins.readFile ../../../keys/id-n100.pub;
-        hostNames = [ "n100.berky.me" ];
-      };
       "sleeper.berky.me/ed25519" = {
         publicKey = builtins.readFile ../../../keys/id-sleeper.pub;
         hostNames = [ "sleeper.berky.me" ];
@@ -28,8 +23,7 @@
   };
 
   users.users.root = {
-    openssh.authorizedKeys.keys = [
-      "${builtins.readFile ../../../keys/id-brum.pub}"
-    ];
+    openssh.authorizedKeys.keys =
+      [ "${builtins.readFile ../../../keys/id-deploy.pub}" ];
   };
 }

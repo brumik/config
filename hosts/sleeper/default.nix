@@ -18,7 +18,8 @@
     enable = true;
     rootDisk1 = "/dev/disk/by-id/nvme-KINGSTON_SKC3000S512G_50026B7686F84D4B";
     rootDisk2 = "/dev/disk/by-id/nvme-KINGSTON_SKC3000S512G_50026B7383A70C89";
-    dataDisk1 = "/dev/disk/by-id/ata-ST31000528AS_6VPD01MX";
+    dataDisk1 = "/dev/disk/by-id/wwn-0x5000c500c8af03ce";
+    # dataDisk2 = "/dev/disk/by-id/wwn-0x5000c500c7482d01";
     rootReservation = "70G"; # 10+% of total size
   };
 
