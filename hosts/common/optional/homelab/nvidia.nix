@@ -19,6 +19,15 @@ in {
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
 
-    services.ollama.acceleration = "cuda";
+    services.ollama = {
+      acceleration = "cuda";
+      loadModels = [ "gemma3:27b" ];
+    };
+
+    services.mealie.settings = {
+      OPENAI_BASE_URL = "http://localhost:11434/v1";
+      OPENAI_API_KEY = "unused";
+      OPENAI_MODEL = "gemma3:27b";
+    };
   };
 }

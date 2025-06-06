@@ -79,7 +79,7 @@
       # Add extra state dirs
       stateDirs = [ "/backup" ];
     };
-    # ollama.enable = true;
+    ollama.enable = true;
     # open-webui.enable = true;
     nextcloud.enable = true;
 
