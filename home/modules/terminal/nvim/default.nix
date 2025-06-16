@@ -9,15 +9,21 @@
     ./telescope.nix
     ./comment.nix
     ./harpoon.nix
+    ./codecompanion.nix
+    ./markdown.nix
     # ./flash.nix
   ];
-
 
   home.packages = with pkgs; [
     # clipboard provider for wayland
     wl-clipboard
     # clipboard providre for xorg
     xclip
+
+
+    ripgrep # for telescope
+    fd # for telescope
+    fzf # for telescope
   ];
 
   programs.nixvim = {
@@ -42,7 +48,7 @@
 
     globals.mapleader = " ";
 
-    keymaps = [ 
+    keymaps = [
       # Reset search
       {
         action = "<cmd>noh<CR><CR>";
@@ -52,14 +58,13 @@
       }
     ];
 
-    plugins = { 
+
+    plugins = {
       nix.enable = true;
       lualine.enable = true;
       treesitter = {
         enable = true;
-        settings = {
-          indent.enable = true;
-        };
+        settings = { indent.enable = true; };
         folding = true;
       };
       tmux-navigator = {
