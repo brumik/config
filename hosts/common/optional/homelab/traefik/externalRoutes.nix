@@ -27,40 +27,12 @@ in {
           rule = "Host(`traefik.${config.homelab.domain}`)";
           service = "api@internal";
         };
-        # "synology-rtr" = {
-        #   entryPoints = "websecure";
-        #   rule = "Host(`nas.${config.homelab.domain}`)";
-        #   service = "synology-srv";
-        # };
-        # "ha-rtr" = {
-        #   entryPoints = "websecure";
-        #   rule = "Host(`ha.${config.homelab.domain}`)";
-        #   service = "ha-srv";
-        # };
       } // createRoutes;
       services = {
-        # "synology-srv".loadBalancer.servers =
-        #   [{ url = "http://${config.homelab.smbServerIP}:5000"; }];
-        # "ha-srv".loadBalancer.servers =
-        #   [{ url = "http://192.168.1.125:8123"; }];
       } // createServices;
     };
   };
 
-  # Set up with authelia
-  # homelab.authelia.bypassDomains =
-  #   [ "nas.${config.homelab.domain}" "ha.${config.homelab.domain}" ];
-
-  # homelab.homepage.app = [{
-  #   Synology = {
-  #     icon = "synology.png";
-  #     href = "https://nas.${config.homelab.domain}";
-  #     siteMonitor = "https://nas.${config.homelab.domain}";
-  #     description = "Server with Drive and Photos";
-  #   };
-  # }];
-
-  # TODO remove it when we move it to the local machine
   homelab.homepage.admin = [{
     Traefik = {
       icon = "traefik.png";
@@ -68,11 +40,5 @@ in {
       siteMonitor = "https://${cfg.domain}.${config.homelab.domain}";
       description = "Reverse proxy dashboard (read only)";
     };
-    # HomeAssistant = {
-    #   icon = "home-assistant.png";
-    #   href = "https://ha.${config.homelab.domain}";
-    #   siteMonitor = "https://ha.${config.homelab.domain}";
-    #   description = "Home automation platform";
-    # };
   }];
 }

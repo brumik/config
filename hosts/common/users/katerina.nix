@@ -22,6 +22,5 @@ in {
   home-manager.users.${uname} =
     import ../../../home/${uname} { username = uname; };
 
-  mySystems.smb.users = [ uname ];
   mySystems.scanner.users = [ uname ];
 }

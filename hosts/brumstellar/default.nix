@@ -7,7 +7,6 @@
     ../common/optional/base-gnome.nix
     ../common/optional/sound.nix
     ../common/optional/docker.nix
-    ../common/optional/smb.nix
     ../common/optional/scanner.nix
     ../common/optional/sound.nix
     ../common/optional/gaming.nix
@@ -16,11 +15,6 @@
     ../common/users/levente.nix
     ../common/users/work.nix
   ];
-
-  # mySystems.smb = {
-  #   enable = true;
-  #   credentials = config.sops.secrets."brum/smb-credentials".path;
-  # };
 
   # The root of this pc should be able to log in to the root of every other PC
   sops.secrets = {

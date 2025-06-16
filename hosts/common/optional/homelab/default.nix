@@ -3,7 +3,6 @@ let cfg = config.homelab;
 in {
   imports = [
     ./power.nix
-    # ./smbClient.nix
     ./vaultwarden.nix
     ./adguard.nix
     ./ddclient.nix
@@ -63,11 +62,6 @@ in {
         Group to run the homelab services as
       '';
     };
-
-    # smbServerIP = lib.mkOption {
-    #   type = lib.types.str;
-    #   default = "192.168.1.2";
-    # };
   };
 
   config = lib.mkIf cfg.enable {

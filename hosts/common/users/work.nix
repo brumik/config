@@ -20,6 +20,5 @@ in {
 
   home-manager.users.work = import ../../../home/work { username = "work"; };
 
-  mySystems.smb.users = [ uname ];
   mySystems.docker.users = [ uname ];
 }

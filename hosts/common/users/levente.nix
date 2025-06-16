@@ -20,7 +20,6 @@ in {
   home-manager.users."${uname}" =
     import ../../../home/levente { username = "levente"; };
 
-  mySystems.smb.users = [ uname ];
   mySystems.docker.users = [ uname ];
   mySystems.scanner.users = [ uname ];
 }

@@ -7,7 +7,6 @@
 
     ../common/optional/base-gnome.nix
     ../common/optional/sound.nix
-    ../common/optional/smb.nix
     ../common/optional/scanner.nix
     ../common/optional/sound.nix
     ../common/optional/gaming.nix
@@ -16,11 +15,6 @@
 
     ../common/users/katerina.nix
   ];
-
-  # mySystems.smb = {
-  #   enable = true;
-  #   credentials = config.sops.secrets."anteater/smb-credentials".path;
-  # };
 
   mySystems.scanner = { enable = true; };
 
