@@ -15,7 +15,9 @@ in {
 
       middlewares-authelia = {
         forwardAuth = {
-          address = "http://${authelia.address}:${builtins.toString authelia.port}/api/authz/forward-auth";
+          address = "http://${authelia.address}:${
+              builtins.toString authelia.port
+            }/api/authz/forward-auth";
           trustForwardHeader = true;
           authResponseHeaders =
             [ "Remote-User" "Remote-Groups" "Remote-Email" "Remote-Name" ];
@@ -52,7 +54,6 @@ in {
           };
         };
       };
-
     };
 
     tls.options.default = {

@@ -23,10 +23,11 @@ in {
   config = lib.mkIf cfg.enable {
     services.ollama = {
       enable = true;
-      host = "127.0.0.1";
+      host = "0.0.0.0";
       port = 11434;
       environmentVariables = {
         OLLAMA_ORIGINS = "*";
+        OLLAMA_FLASH_ATTENTION = "1";
       };
       loadModels = cfg.loadModels;
     };
@@ -39,8 +40,8 @@ in {
     homelab.homepage.services = [{
       Ollama = {
         icon = "ollama.png";
-        href = "https://${cfg.domain}.${config.homelab.domain}";
-        siteMonitor = "https://${cfg.domain}.${config.homelab.domain}";
+        href = "https://${cfg.domain}.${hcfg.domain}";
+        siteMonitor = "https://${cfg.domain}.${hcfg.domain}";
         escription = "LLM at home";
       };
     }];
