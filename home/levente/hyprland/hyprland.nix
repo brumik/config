@@ -1,4 +1,6 @@
-{ ... }: {
+{ pkgs, ... }: {
+  home.packages = with pkgs; [ hyprshot ];
+
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = true;
@@ -143,6 +145,13 @@
 
         "$mainMod, mouse_down, workspace, e+1"
         "$mainMod, mouse_up, workspace, e-1"
+
+        # Screenshot a window
+        "$mainMod, PRINT, exec, hyprshot -m window"
+        # Screenshot a monitor
+        ", PRINT, exec, hyprshot -m output"
+        # Screenshot a region
+        "$shiftMod, PRINT, exec, hyprshot -m region"
       ];
 
       bindm = [
