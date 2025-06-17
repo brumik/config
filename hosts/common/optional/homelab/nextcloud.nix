@@ -31,6 +31,7 @@ in {
     sops.secrets = {
       "n100/nextcloud/oidc-client-secret" = { };
       "n100/nextcloud/admin-password" = { owner = "nextcloud"; };
+      "n100/onlyoffice-jwt-secret" = { owner = "onlyoffice"; };
     };
 
     # https://mynixos.com/nixpkgs/option/services.nextcloud.secretFile
@@ -93,7 +94,8 @@ in {
         "oidc_login_code_challenge_method" = "S256";
       };
       secretFile = config.sops.templates."n100/nextcloud/config-secrets".path;
-      extraApps = {
+      extraApps = with config.services.nextcloud.package.packages.apps; {
+        inherit onlyoffice;
         # the name here should be the same as the name of pacakge otherwise "App not found error"
         oidc_login = pkgs.fetchNextcloudApp {
           sha256 = "sha256-RLYquOE83xquzv+s38bahOixQ+y4UI6OxP9HfO26faI=";
@@ -112,10 +114,37 @@ in {
       port = 11112;
     }];
 
-    homelab.traefik.routes = [{
-      host = cfg.domain;
-      port = 11112;
+    homelab.traefik.routes = [
+      {
+        host = cfg.domain;
+        port = 11112;
+      }
+      {
+        host = "office";
+        port = 11113;
+      }
+    ];
+
+    ######################################
+    # Only office setup                  #
+    ######################################
+
+    services.onlyoffice = {
+      enable = true;
+      hostname = "office.berky.me";
+      jwtSecretFile = config.sops.secrets."n100/onlyoffice-jwt-secret".path;
+    };
+
+    services.nginx.virtualHosts."office.berky.me".listen = [{
+      addr = "localhost";
+      port = 11113;
     }];
+
+    # homelab.authelia.bypassDomains = [ dname ];
+
+    ######################################
+    # Only office setup                  #
+    ######################################
 
     homelab.authelia.bypassDomains = [ dname ];
 
