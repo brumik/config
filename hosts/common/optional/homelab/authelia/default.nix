@@ -86,6 +86,20 @@ in {
           secrets."n100/authelia/smtp-pass".path;
       };
       settings = {
+        webauthn = {
+          enable_passkey_login = true;
+          attestation_conveyance_preference = "direct";
+          filtering = {
+            prohibit_backup_eligibility = true;
+          };
+          metadata = {
+            enabled = true;
+            validate_trust_anchor = true;
+            validate_entry = true;
+            validate_status = true;
+            validate_entry_permit_zero_aaguid = false;
+          };
+        };
         log = {
           keep_stdout = true;
           level = "error"; # default is debug
