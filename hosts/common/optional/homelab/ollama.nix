@@ -8,7 +8,7 @@ in {
 
     loadModels = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ "gemma3:12b" "devstral:24b" ];
+      default = [];
       description =
         "The list of models that will be avaiable after system build";
     };

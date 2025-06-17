@@ -15,7 +15,7 @@ in {
 
     baseDir = lib.mkOption {
       type = lib.types.path;
-      default = "/var/lib/open-webui";
+      default = "/var/lib/open-webui-oci";
       description =
         "The absolute path where the service will store the important informations";
     };
@@ -23,11 +23,12 @@ in {
 
   config = lib.mkIf cfg.enable {
     # Requires ollama running
-    homelab.ollama.enable = true;
-
-    sops.secrets = {
-      "n100/open-webui/oidc-client-secret" = { };
+    homelab.ollama = {
+      enable = true;
+      loadModels = [ "gemma3:12b" ];
     };
+
+    sops.secrets = { "n100/open-webui/oidc-client-secret" = { }; };
 
     sops.templates."n100/open-webui/.env" = {
       content = ''
@@ -37,15 +38,28 @@ in {
       '';
     };
 
-    services.open-webui = {
-      enable = true;
-      host = "127.0.0.1";
-      port = 11111;
-      stateDir = cfg.baseDir;
+    systemd.tmpfiles.rules = [
+      "d ${cfg.baseDir} 0755 share share -"
+    ];
+
+    virtualisation.oci-containers.containers.open-webui = {
+      image = "ghcr.io/open-webui/open-webui:main";
+      extraOptions = [ "--network=host" ];
       environment = {
+        PORT = "11111";
+        WEBUI_URL = "https://${dname}";
+
+        ENABLE_OPENAI_API = "false";
+        ENABLE_EVALUATION_ARENA_MODELS = "false";
         OLLAMA_API_BASE_URL =
           "http://127.0.0.1:${builtins.toString config.services.ollama.port}";
+        DEFAULT_MODELS = "gemma3:12b";
+
+        ENABLE_WEB_SEARCH = "true";
+        WEB_SEARCH_ENGINE = "duckduckgo";
+
         ENABLE_OAUTH_SIGNUP = "true";
+        ENABLE_LOGIN_FORM = "false";
         OAUTH_MERGE_ACCOUNTS_BY_EMAIL = "true";
         OAUTH_CLIENT_ID = "open-webui";
         OPENID_PROVIDER_URL =
@@ -57,7 +71,8 @@ in {
         OAUTH_ADMIN_ROLES = "openwebui-admin";
         OAUTH_ROLES_CLAIM = "groups";
       };
-      environmentFile = config.sops.templates."n100/open-webui/.env".path;
+      environmentFiles = [ config.sops.templates."n100/open-webui/.env".path ];
+      volumes = [ "${cfg.baseDir}:/app/backend/data" ];
     };
 
     homelab.traefik.routes = [{

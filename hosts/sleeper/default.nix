@@ -79,8 +79,11 @@
       # Add extra state dirs
       stateDirs = [ "/backup" ];
     };
-    ollama.enable = true;
-    # open-webui.enable = true;
+    ollama = {
+      enable = true;
+      loadModels = [ "gemma3:12b" "devstral:24b" "mxbai-embed-large" ];
+    };
+    open-webui.enable = true;
     nextcloud.enable = true;
 
     home-assistant = {
