@@ -7,6 +7,11 @@ in {
     # This enables cuda support in as many applications as possible.
     # To enable this make sure you set up community cache...
     nixpkgs.config.cudaSupport = true;
+    
+    # Docker nvidia
+    hardware.nvidia-container-toolkit.enable = true;
+    virtualisation.docker.daemon.settings.features.cdi = true;
+    virtualisation.docker.rootless.daemon.settings.features.cdi = true;
 
     hardware.graphics = { enable = true; };
     services.xserver.videoDrivers = ["nvidia"];

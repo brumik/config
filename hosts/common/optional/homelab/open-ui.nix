@@ -25,7 +25,7 @@ in {
     # Requires ollama running
     homelab.ollama = {
       enable = true;
-      loadModels = [ "gemma3:27b" ];
+      loadModels = [ "gemma3:27b" "mxbai-embed-large" ];
     };
 
     sops.secrets = { "n100/open-webui/oidc-client-secret" = { }; };
@@ -38,9 +38,10 @@ in {
       '';
     };
 
-    systemd.tmpfiles.rules = [
-      "d ${cfg.baseDir} 0755 share share -"
-    ];
+    systemd.tmpfiles.rules = [ "d ${cfg.baseDir} 0755 share share -" ];
+
+    # Enable text extraction engine:
+    services.tika.enable = true;
 
     virtualisation.oci-containers.containers.open-webui = {
       image = "ghcr.io/open-webui/open-webui:main";
@@ -49,14 +50,29 @@ in {
         PORT = "11111";
         WEBUI_URL = "https://${dname}";
 
-        ENABLE_OPENAI_API = "false";
-        ENABLE_EVALUATION_ARENA_MODELS = "false";
-        OLLAMA_API_BASE_URL =
+        ENABLE_OPENAI_API = "False";
+        ENABLE_EVALUATION_ARENA_MODELS = "False";
+        OLLAMA_BASE_URL =
           "http://127.0.0.1:${builtins.toString config.services.ollama.port}";
         DEFAULT_MODELS = "gemma3:27b";
 
         ENABLE_WEB_SEARCH = "true";
         WEB_SEARCH_ENGINE = "duckduckgo";
+
+        USER_PERMISSIONS_WORKSPACE_MODELS_ACCESS = "True";
+        USER_PERMISSIONS_WORKSPACE_KNOWLEDGE_ACCESS = "True";
+        USER_PERMISSIONS_WORKSPACE_PROMPTS_ACCESS = "True";
+        USER_PERMISSIONS_WORKSPACE_TOOLS_ACCESS = "True";
+
+        RAG_OLLAMA_BASE_URL =
+          "http://127.0.0.1:${builtins.toString config.services.ollama.port}";
+        RAG_EMBEDDING_ENGINE = "ollama";
+        RAG_EMBEDDING_MODEL = "mxbai-embed-large";
+        CONTENT_EXTRACTION_ENGINE = "tika";
+        TIKA_SERVER_URL = "http://127.0.0.1:9998";
+        RAG_TOP_K = "10";
+        # DOCLING_OCR_LANG = "eng,deu";
+        # DOCLING_SERVER_URL = "http://127.0.0.1:5001";
 
         ENABLE_OAUTH_SIGNUP = "true";
         ENABLE_LOGIN_FORM = "false";
@@ -70,6 +86,10 @@ in {
         OAUTH_ALLOWED_ROLES = "openwebui,openwebui-admin";
         OAUTH_ADMIN_ROLES = "openwebui-admin";
         OAUTH_ROLES_CLAIM = "groups";
+
+        # To treat all env variables the same, which means on restart reaply them
+        # removing any changes made in the UI
+        ENABLE_PERSISTENT_CONFIG = "False";
       };
       environmentFiles = [ config.sops.templates."n100/open-webui/.env".path ];
       volumes = [ "${cfg.baseDir}:/app/backend/data" ];

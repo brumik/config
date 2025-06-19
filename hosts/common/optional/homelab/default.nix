@@ -98,8 +98,8 @@ in {
     boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 0;
 
     # Enable podman and set all container based services to it;
-    virtualisation.podman.enable = true;
-    virtualisation.oci-containers.backend = "podman";
+    virtualisation.docker.enable = true;
+    virtualisation.oci-containers.backend = "docker";
 
     # Open ports for reverse proxy
     networking.firewall.allowedTCPPorts = [ 80 443 ];
