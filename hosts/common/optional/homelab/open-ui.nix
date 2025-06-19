@@ -25,7 +25,7 @@ in {
     # Requires ollama running
     homelab.ollama = {
       enable = true;
-      loadModels = [ "gemma3:12b" ];
+      loadModels = [ "gemma3:27b" ];
     };
 
     sops.secrets = { "n100/open-webui/oidc-client-secret" = { }; };
@@ -53,7 +53,7 @@ in {
         ENABLE_EVALUATION_ARENA_MODELS = "false";
         OLLAMA_API_BASE_URL =
           "http://127.0.0.1:${builtins.toString config.services.ollama.port}";
-        DEFAULT_MODELS = "gemma3:12b";
+        DEFAULT_MODELS = "gemma3:27b";
 
         ENABLE_WEB_SEARCH = "true";
         WEB_SEARCH_ENGINE = "duckduckgo";
