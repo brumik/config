@@ -7,6 +7,10 @@
     };
   };
 
+  home.sessionVariables = {
+    TERMINAL = "kitty";
+  };
+
   programs.zsh.shellAliases = {
     ssh = "kitten ssh";
   };

@@ -9,7 +9,7 @@
       monitor = [ ", highres, auto, 1.6" ];
 
       "$terminal" = "kitty";
-      "$fileManager" = "nautilus";
+      "$fileManager" = "yazi";
       "$menu" = "wofi --show drun";
 
       exec-once = [ "wl-paste --watch cliphist store" ];

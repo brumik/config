@@ -14,6 +14,10 @@
     # ./flash.nix
   ];
 
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
+
   home.packages = with pkgs; [
     # clipboard provider for wayland
     wl-clipboard
