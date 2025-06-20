@@ -44,8 +44,9 @@ in {
           contentTypeNosniff = true;
           browserXssFilter = true;
           referrerPolicy = "same-origin";
-          permissionsPolicy =
-            "camera=(), microphone=(), geolocation=(), payment=(), usb=(), vr=()";
+          # Leave the permission policy alone so we can use anything that we want
+          # permissionsPolicy =
+          #   "camera=(), microphone=(), geolocation=(), payment=(), usb=(), vr=()";
           customResponseHeaders = {
             # disable search engines from indexing home server
             X-Robots-Tag = "none,noarchive,nosnippet,notranslate,noimageindex,";
