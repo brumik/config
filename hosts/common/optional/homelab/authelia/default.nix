@@ -127,10 +127,14 @@ in {
           default_policy = "deny";
           # Reads from top to bottom and stops at the first matche when applying
           rules = [{
-            # Bypass authelia on LAN (non guest network at least :)
+            # Always bypass the authelia
+            domain = [ dname ];
+            policy = "bypass";
+          } {
+            # On LAN we do one_factor (non guest network at least :)
             domain = [ "*.${hcfg.domain}" "${hcfg.domain}" ];
             networks = [ "192.168.0.0/16" ];
-            policy = "bypass";
+            policy = "one_factor";
           }] ++ lib.optional (cfg.exposedDomains != [ ]) {
             # Allow apps from internet behind 2FA only
             domain = cfg.exposedDomains;

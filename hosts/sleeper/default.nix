@@ -85,6 +85,7 @@
     };
     open-webui.enable = true;
     nextcloud.enable = true;
+    timetagger.enable = true;
 
     home-assistant = {
       enable = true;
