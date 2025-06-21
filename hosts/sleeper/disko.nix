@@ -194,12 +194,14 @@ in {
             "safe/home" = {
               type = "zfs_fs";
               mountpoint = "/home";
+              options."com.sun:auto-snapshot" = "true";
               options.mountpoint = "legacy";
             };
 
             "safe/persist" = {
               type = "zfs_fs";
               mountpoint = "/persist";
+              options."com.sun:auto-snapshot" = "true";
               options.mountpoint = "legacy";
             };
           };
@@ -221,18 +223,21 @@ in {
             "backup" = {
               type = "zfs_fs";
               mountpoint = "/backup";
+              options."com.sun:auto-snapshot" = "true";
               options.mountpoint = "legacy";
             };
 
             "photos" = {
               type = "zfs_fs";
               mountpoint = "/photos";
+              options."com.sun:auto-snapshot" = "true";
               options.mountpoint = "legacy";
             };
 
             "media" = {
               type = "zfs_fs";
               mountpoint = "/media";
+              options."com.sun:auto-snapshot" = "true";
               options.mountpoint = "legacy";
             };
           };
