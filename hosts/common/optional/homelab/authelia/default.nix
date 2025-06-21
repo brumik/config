@@ -130,7 +130,11 @@ in {
             # Always bypass the authelia
             domain = [ dname ];
             policy = "bypass";
-          } {
+          }] ++ (lib.optional (cfg.bypassDomains != [ ]) {
+            # Bypass apps that have strong auth
+            domain = cfg.bypassDomains;
+            policy = "bypass";
+          }) ++ [{
             # On LAN we do one_factor (non guest network at least :)
             domain = [ "*.${hcfg.domain}" "${hcfg.domain}" ];
             networks = [ "192.168.0.0/16" ];
@@ -139,11 +143,7 @@ in {
             # Allow apps from internet behind 2FA only
             domain = cfg.exposedDomains;
             policy = "two_factor";
-          } ++ (lib.optional (cfg.bypassDomains != [ ]) {
-            # Bypass apps that have strong auth
-            domain = cfg.bypassDomains;
-            policy = "bypass";
-          });
+          };
         };
 
         authentication_backend = {
