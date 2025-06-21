@@ -33,7 +33,14 @@ in {
 
       middlewares-secure-headers = {
         headers = {
-          accessControlAllowMethods = [ "GET" "OPTIONS" "PUT" ];
+          # Allow cors headear from obsidian
+          # Technically I could only apply it to some endpoint but 
+          # I am bit lazy and it should be fine
+          accessControlAllowOriginList = [ "app://obsidian.md" ]; 
+          accessControlAllowHeaders = [ "Authorization" "Content-Type" ];
+          accessControlAllowMethods = [ "GET" "POST" "OPTIONS" "PUT" "DELETE" ];
+          accessControlAllowCredentials = true;
+
           accessControlMaxAge = 100;
           hostsProxyHeaders = [ "X-Forwarded-Host" ];
           stsSeconds = 63072000;

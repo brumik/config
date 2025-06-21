@@ -17,9 +17,7 @@
   ];
 
   # The root of this pc should be able to log in to the root of every other PC
-  sops.secrets = {
-    "private-keys/id-deploy" = {};
-  };
+  sops.secrets = { "private-keys/id-deploy" = { }; };
 
   programs.ssh.extraConfig = ''
     Host *.berky.me
