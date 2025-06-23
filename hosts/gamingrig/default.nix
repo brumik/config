@@ -37,6 +37,7 @@ in {
     vim
     jellyfin-media-player
     brave
+    discord
   ];
 
   sops.secrets."brum/hashed-password".neededForUsers = true;
