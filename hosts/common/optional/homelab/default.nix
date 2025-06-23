@@ -27,6 +27,7 @@ in {
     ./nextcloud.nix
     ./nvidia.nix
     ./timetagger.nix
+    ./cache.nix
   ];
 
   options.homelab = {

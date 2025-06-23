@@ -4,6 +4,8 @@
   nixConfig = {
     # will be appended to the system-level substituters
     extra-substituters = [
+      # own cache server
+      "https://cache.berky.me"
       # nix community's cache server
       "https://nix-community.cachix.org"
     ];
@@ -12,6 +14,7 @@
     extra-trusted-public-keys = [
       # nix community's cache server public key
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "cache.berky.me:lqgkHX3lPraXCiWpPneC4L0AzujpuMUvcuVVpkALTGw="
     ];
   };
 
