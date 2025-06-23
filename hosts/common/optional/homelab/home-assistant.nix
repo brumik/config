@@ -2,6 +2,8 @@
 let
   cfg = config.homelab.home-assistant;
   serviceName = "home-assistant-vm";
+  hcfg = config.homelab;
+  dname = "${cfg.domain}.${hcfg.domain}";
 in {
   options.homelab.home-assistant = {
     enable = lib.mkEnableOption "Home Assistant";
@@ -62,14 +64,13 @@ in {
       port = 8123;
     }];
 
-    homelab.authelia.exposedDomains =
-      [ "${cfg.domain}.${config.homelab.domain}" ];
+    homelab.authelia.localBypassDomains = [ dname ];
 
     homelab.homepage.app = [{
       HomeAssistant = {
         icon = "home-assistant.png";
-        href = "https://${cfg.domain}.${config.homelab.domain}";
-        siteMonitor = "https://${cfg.domain}.${config.homelab.domain}";
+        href = "https://${dname}";
+        siteMonitor = "https://${dname}";
         description = "Home automation platform";
       };
     }];

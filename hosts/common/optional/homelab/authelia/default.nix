@@ -34,6 +34,16 @@ in {
       '';
     };
 
+    localBypassDomains = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      description = ''
+        The list of domains that have strong auth and will bypass authelia.
+        It is recommended to put here domains that also will be acessesd from
+        mobile applications (non browser).
+      '';
+    };
+
     exposedDomains = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ ];
@@ -134,6 +144,11 @@ in {
             # Bypass apps that have strong auth
             domain = cfg.bypassDomains;
             policy = "bypass";
+          }) ++ (lib.optional (cfg.localBypassDomains != [ ]) {
+            # Bypass apps that have strong auth
+            domain = cfg.localBypassDomains;
+            policy = "bypass";
+            networks = [ "192.168.0.0/16" ];
           }) ++ [{
             # On LAN we do one_factor (non guest network at least :)
             domain = [ "*.${hcfg.domain}" "${hcfg.domain}" ];

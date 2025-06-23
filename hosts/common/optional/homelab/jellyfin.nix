@@ -1,5 +1,8 @@
 { config, lib, ... }:
-let cfg = config.homelab.jellyfin;
+let
+  cfg = config.homelab.jellyfin;
+  hcfg = config.homelab;
+  dname = "${cfg.domain}.${hcfg.domain}";
 in {
   options.homelab.jellyfin = {
     enable = lib.mkEnableOption "Jellyfin";
@@ -31,13 +34,15 @@ in {
       port = 8096;
     }];
 
+    homelab.authelia.localBypassDomains = [ dname ];
+
     homelab.backup.stateDirs = [ cfg.baseDir ];
 
     homelab.homepage.app = [{
       Jellyfin = {
         icon = "jellyfin.png";
-        href = "https://${cfg.domain}.${config.homelab.domain}";
-        siteMonitor = "https://${cfg.domain}.${config.homelab.domain}";
+        href = "https://${dname}";
+        siteMonitor = "https://${dname}";
         description = "Netflix and Spotify at home";
       };
     }];
