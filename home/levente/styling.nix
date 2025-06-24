@@ -17,13 +17,9 @@ let
 in {
 
   stylix.targets = {
-    waybar.enable = false;
     kitty.enable = false;
     vim.enable = false;
     tmux.enable = false;
-    hyprpaper.enable = false;
-    hyprland.enable = false;
-    gtk.enable = false;
   };
 
   # Nvim
@@ -34,17 +30,6 @@ in {
 
   # kitty
   programs.kitty.themeFile = "everforest_dark_hard";
-
-  # GTK Apps:
-  gtk = {
-    theme = {
-      name = "Everforest-Dark-BL-LB";
-      package = pkgs.everforest-gtk-theme;
-    };
-  };
-
-  myHome.hyprpaper.wallpaperFile =
-    ../../assets/wallpapers/everforest-nixos-3840x2160.jpg;
 
   programs.tmux = {
     plugins = [ everforest ];

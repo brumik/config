@@ -27,6 +27,5 @@
     ../levente/git.nix
     ../levente/gnome.nix
     ../levente/styling.nix
-    ../levente/hyprland
   ];
 }

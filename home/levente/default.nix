@@ -35,6 +35,5 @@
     ./git.nix
     ./gnome.nix
     ./styling.nix
-    ./hyprland
   ];
 }

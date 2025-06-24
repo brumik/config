@@ -27,7 +27,8 @@ in {
     ./nextcloud.nix
     ./nvidia.nix
     ./timetagger.nix
-    ./cache.nix
+    # For now we do not popluate server cache and I have my machine as a "builder".
+    # ./cache.nix
   ];
 
   options.homelab = {
