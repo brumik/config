@@ -29,7 +29,3 @@ stow-mac:
 # Build a bootable iso image outputted to ./result
 build-live-iso:
   nix build .#nixosConfigurations.nixos-live.config.system.build.isoImage
-
-# Build all nixos configurations
-upgrade:
-  sudo ./flake-test-n-update.sh

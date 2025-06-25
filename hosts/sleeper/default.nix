@@ -4,6 +4,7 @@
     ./disko.nix
 
     ./email.nix
+    ./nixos-updater.nix
 
     ../common/core
     ../common/optional/homelab
@@ -52,6 +53,9 @@
     domain = "berky.me";
     serverIP = "192.168.1.129";
     gateway = "192.168.1.1";
+
+    cache.enable = true;
+
     nvidia.enable = true;
     tailscale.enable = true;
     authelia.enable = true;
