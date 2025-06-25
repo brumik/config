@@ -1,5 +1,6 @@
 { config, pkgs, ... }:
 let
+  hosts = [ "brumstellar" "anteater" "sleeper" "gamingrig" "nixos-live" ];
   update-flake = pkgs.writeShellApplication {
     name = "update-flake.sh";
     runtimeInputs = [ pkgs.nix pkgs.git ];
@@ -40,13 +41,15 @@ let
       nix flake check --accept-flake-config
 
       # Build
-      for host in "brumstellar" "anteater" "sleeper"; do
-        echo "Building NixOS configuration for: $host"
-        nix build ".#nixosConfigurations.$${host}.config.system.build.toplevel" --accept-flake-config || {
-          echo "Failed to build $host"
+      ${builtins.concatStringsSep "\n\n" (map (host:
+        ''
+        echo "Building NixOS configuration for: ${host}"
+        nix build ".#nixosConfigurations.${host}.config.system.build.toplevel" --accept-flake-config || {
+          echo "Failed to build ${host}"
           exit 1
         }
-      done
+        ''
+      ) hosts)}
 
       # Commit and push
       git add .

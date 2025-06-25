@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, ... }: {
   imports = [
     ./hardware-configuration.nix
     ./stylix.nix
@@ -43,7 +43,6 @@
   system.autoUpgrade = {
     enable = true;
     flake = "github:brumik/config";
-    upgrade = false;
-    dates = "23:55"; # Sunday at 5 PM
+    dates = "Sun 17:00"; # Sunday at 5 PM
   };
 }
