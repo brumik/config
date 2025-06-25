@@ -21,6 +21,7 @@
   };
 
   inputs = {
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -49,7 +50,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, jovian, disko, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, stylix, jovian, disko, nixpkgs-stable, ... }@inputs:
     let
       inherit (self) outputs;
       system = "x86_64-linux";
@@ -68,7 +69,7 @@
 
       nixosConfigurations = {
         # Standalone server
-        sleeper = (nixpkgs.lib.nixosSystem {
+        sleeper = (nixpkgs-stable.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs outputs; };
           modules = [

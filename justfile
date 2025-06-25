@@ -10,22 +10,6 @@ update:
 update-debug:
   sudo nixos-rebuild switch --flake . --show-trace
 
-# updates the lockfile
-upgrade:
-  nix flake update && just update
-  git add flake.lock
-  git commit -m "lockfile update"
-  git push
-
-# clean old generations
-clean:
-  nix-collect-garbage -d
-
-# Set up ssh agent and add the keys
-set-up-ssh:
-  eval "$(ssh-agent -s)"
-  ssh-add
-
 # Create a age key from current machines ssh key (openssh needs to be enabled)
 sops-ssh-to-age:
   nix-shell -p ssh-to-age --run 'cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age'
@@ -37,10 +21,6 @@ sops-edit:
 # Updating secrets after editing .sops.yml
 sops-update:
   nix-shell -p sops --run "sops updatekeys secrets.yaml"
-
-# Check if the config is valid for all hosts
-check: 
-  nix flake check
 
 deploy-sleeper:
   sudo nixos-rebuild switch --flake .#sleeper --target-host root@sleeper.berky.me 
@@ -61,3 +41,7 @@ stow-mac:
 # Build a bootable iso image outputted to ./result
 build-live-iso:
   nix build .#nixosConfigurations.nixos-live.config.system.build.isoImage
+
+# Build all nixos configurations
+build-all:
+  sudo ./build.sh
