@@ -1,5 +1,31 @@
 { config, lib, pkgs, ... }:
-let cfg = config.homelab.backup;
+let
+  cfg = config.homelab.backup;
+
+  emailScript = pkgs.writeShellScript "restic-check-and-email" ''
+    #!/bin/sh
+
+    tmpfile=$(mktemp)
+    cat > "$tmpfile" << EOF
+    Subject: Restic Backup Check Report
+    To: root
+    From: sleeper@berky.me
+
+    Restic check started at $(date)
+    List of directories:
+    ${builtins.concatStringsSep "\n" cfg.stateDirs}
+
+
+    Restic check results:
+    $(/run/current-system/sw/bin/restic-remotebackup check)
+
+
+    Check completed at $(date)
+    EOF
+
+    ${pkgs.msmtp}/bin/msmtp -t < "$tmpfile"
+  '';
+
 in {
   options.homelab.backup = {
     enable = lib.mkEnableOption "backup";
@@ -40,16 +66,6 @@ in {
     };
 
     services.restic.backups = {
-      # localbackup = {
-      #   initialize = true;
-      #   paths = cfg.stateDirs;
-      #   repository = "/mnt/share/resticBackup";
-      #   passwordFile = config.sops.secrets."n100/restic/password".path;
-      #   pruneOpts = [ "--keep-daily 7" ];
-      #   timerConfig = { OnCalendar = "00:01"; };
-      #   backupPrepareCommand = builtins.concatStringsSep "\n" cfg.preBackupScripts;
-      #   backupCleanupCommand = builtins.concatStringsSep "\n" cfg.postBackupScripts;
-      # };
       remotebackup = {
         initialize = true;
         paths = cfg.stateDirs;
@@ -66,6 +82,24 @@ in {
           builtins.concatStringsSep "\n" cfg.preBackupScripts;
         backupCleanupCommand =
           builtins.concatStringsSep "\n" cfg.postBackupScripts;
+      };
+    };
+
+    # TODO: This requires the msmtp configured and enabled
+    systemd.services.restic-remotebackup-email = {
+      description = "Restic Check and Email Results";
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${emailScript}";
+      };
+    };
+
+    systemd.timers.restic-remotebackup-email = {
+      description = "Weekly Restic Check Email Timer";
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnCalendar = "Sun 10:00";
+        Persistent = true;
       };
     };
   };

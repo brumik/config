@@ -39,18 +39,4 @@
 
   # Needed for the yubike UI
   services.pcscd = { enable = true; };
-
-  # Hyprland part
-  programs.hyprland = { enable = true; };
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
-  # extra packages
-  environment.systemPackages = with pkgs;
-    [
-      libnotify # testing out notification daemon
-    ];
-
-  # screen sharing capabilities
-  # seems same as sound.nix
-  # need to enable pipewire and pipewire.wireplumber (default true)
 }

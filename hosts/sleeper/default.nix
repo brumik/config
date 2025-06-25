@@ -3,6 +3,8 @@
     ./hardware-configuration.nix
     ./disko.nix
 
+    ./email.nix
+
     ../common/core
     ../common/optional/homelab
   ];
@@ -43,8 +45,6 @@
 
     # Run weekly trims 
     trim.enable = true;
-    
-    # TODO: Email setups (with ZED option)
   };
 
   homelab = {
