@@ -77,7 +77,7 @@ in {
   systemd.timers.update-flake = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
-      OnCalendar = "Sun 08:00";
+      OnCalendar = "Mon 4:30";
       Persistent = true;
     };
   };

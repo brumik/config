@@ -39,10 +39,4 @@
 
   # Needed for the yubike UI
   services.pcscd = { enable = true; };
-
-  system.autoUpgrade = {
-    enable = true;
-    flake = "github:brumik/config";
-    dates = "Sun 17:00"; # Sunday at 5 PM
-  };
 }
