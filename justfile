@@ -2,13 +2,9 @@
 default:
   @just --list
 
-# rebuild the system from config
-update:
+# rebuild current system
+rebuild:
   sudo nixos-rebuild switch --flake .
-
-# print out all the trace while doing rebuild
-update-debug:
-  sudo nixos-rebuild switch --flake . --show-trace
 
 # Create a age key from current machines ssh key (openssh needs to be enabled)
 sops-ssh-to-age:
@@ -22,16 +18,8 @@ sops-edit:
 sops-update:
   nix-shell -p sops --run "sops updatekeys secrets.yaml"
 
-deploy-sleeper:
-  sudo nixos-rebuild switch --flake .#sleeper --target-host root@sleeper.berky.me 
-
-# Deploy the configuration to remote system
-deploy-gamingrig:
-  sudo nixos-rebuild switch --flake .#gamingrig --target-host root@gamingrig.berky.me 
-
-# Deploy the configuration to remote system
-deploy-anteater:
-  sudo nixos-rebuild switch --flake .#anteater --target-host root@anteater.berky.me 
+deploy ARG="brumstellar":
+  sudo nixos-rebuild switch --flake .#{{ARG}} --target-host root@{{ARG}}.berky.me 
 
 # Restore symlinks with stow (and simple script)
 stow-mac:
@@ -43,5 +31,5 @@ build-live-iso:
   nix build .#nixosConfigurations.nixos-live.config.system.build.isoImage
 
 # Build all nixos configurations
-build-all:
-  sudo ./build.sh
+upgrade:
+  sudo ./flake-test-n-update.sh
