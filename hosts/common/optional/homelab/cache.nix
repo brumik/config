@@ -28,6 +28,7 @@ in {
     homelab.traefik.routes = [{
       host = cfg.domain;
       port = 11117;
+      local = true;
     }];
 
     homelab.authelia.localBypassDomains = [ dname ];

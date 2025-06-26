@@ -13,6 +13,15 @@ in {
         };
       };
 
+      chain-authelia-local = {
+        chain = {
+          middlewares = [
+            "middlewares-secure-headers"
+            "middlewares-authelia"
+          ];
+        };
+      };
+
       middlewares-authelia = {
         forwardAuth = {
           address = "http://${authelia.address}:${

@@ -2,16 +2,17 @@
 let
   cfg = config.homelab.traefik;
 
-  createRoutes = builtins.listToAttrs (map ({ host, ... }: {
+  createRoutes = builtins.listToAttrs (map ({ host, local, ... }: {
     name = "${host}-rtr";
     value = {
       entryPoints = "websecure";
       rule = "Host(`${host}.${config.homelab.domain}`)";
+      middlewares = [ (if local then "chain-authelia-local" else "chain-authelia") ];
       service = "${host}-srv";
     };
   }) cfg.routes);
 
-  createServices = builtins.listToAttrs (map ({ host, port }: {
+  createServices = builtins.listToAttrs (map ({ host, port, ... }: {
     name = "${host}-srv";
     value = {
       loadBalancer.servers =

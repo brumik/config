@@ -25,6 +25,11 @@ in {
             type = types.str;
             description = "Host address for the service.";
           };
+          local = lib.mkOption {
+            type = types.bool;
+            default = false;
+            description = "If it should be marked as a local only route, skipping some security features";
+          };
         };
       }));
       default = [ ];
@@ -64,7 +69,6 @@ in {
           };
           websecure = {
             address = ":443";
-            http.middlewares = [ "chain-authelia" ];
             http.tls = {
               certresolver = "websupportletsencrypt";
               domains = [{
@@ -72,13 +76,6 @@ in {
                 sans = [ "*.${config.homelab.domain}" ];
               }];
             };
-            transport.respondingTimeouts = {
-              readTimeout = 600;
-              writeTimeout = 600;
-              idleTimeout = 600;
-            };
-            forwardedHeaders.trustedIPs =
-              [ "127.0.0.1/32" "10.0.0.0/8" "192.168.0.0/16" ];
           };
         };
 
