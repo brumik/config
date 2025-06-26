@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let
   hosts = [ "brumstellar" "anteater" "sleeper" "gamingrig" "nixos-live" ];
   update-flake = pkgs.writeShellApplication {
@@ -8,13 +8,6 @@ let
       #!/bin/bash
 
       set -e
-
-
-      # Check if token is provided
-      if [ -z "$GITHUB_TOKEN" ]; then
-        echo "Error: GitHub token not provided as an argument."
-        exit 1
-      fi
 
       # Local directory for the repository
       REPO_DIR="/etc/brumik/config"  # Replace with your desired path
@@ -29,7 +22,7 @@ let
 
       # Clone or pull the repository
       if [ ! -d ".git" ]; then
-        git clone "https://brumik:$GITHUB_TOKEN@github.com/brumik/config.git" "$REPO_DIR"
+        git clone "git@github.com/brumik/config.git" "$REPO_DIR"
       else
         git pull origin main
       fi
@@ -58,19 +51,11 @@ let
     '';
   };
 in {
-  sops.secrets = { "n100/github-token" = { }; };
-  sops.templates."n100/update-flake/.env" = {
-    content = ''
-      GITHUB_TOKEN=${config.sops.placeholder."n100/github-token"}
-    '';
-  };
-
   systemd.services.update-flake = {
     description = "Run update every Sunday at 8 AM";
     serviceConfig = {
       Type = "oneshot";
       ExecStart = "${update-flake}/bin/update-flake.sh";
-      EnvironmentFile = config.sops.templates."n100/update-flake/.env".path;
     };
   };
 
