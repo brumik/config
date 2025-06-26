@@ -22,9 +22,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    # systemd.tmpfiles.rules = [ "d ${cfg.baseDir} 0755 share share -" ];
-
-    # Enable text extraction engine:
+    systemd.tmpfiles.rules = [ "d ${cfg.baseDir} 0755 share share -" ];
 
     virtualisation.oci-containers.containers.timetagger = {
       image = "ghcr.io/almarklein/timetagger";
@@ -38,7 +36,10 @@ in {
         TIMETAGGER_PROXY_AUTH_TRUSTED = "172.0.0.0/8";
         TIMETAGGER_PROXY_AUTH_HEADER = "Remote-User";
       };
+      volumes = [ "${cfg.baseDir}:/root/_timetagger" ];
     };
+
+    homelab.backup.stateDirs = [ cfg.baseDir ];
 
     homelab.traefik.routes = [{
       host = cfg.domain;
