@@ -4,17 +4,18 @@ in {
   options.homelab.power = { enable = lib.mkEnableOption "power"; };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ powertop pciutils hdparm ];
+    environment.systemPackages = with pkgs; [
+      powertop
+      pciutils
+      hdparm
+      cpufrequtils
+    ];
 
-    # Powermanagement
-    boot.kernelModules = [ "cpufreq_stats" ];
     powerManagement.powertop.enable = true;
     powerManagement.enable = true;
     # Alternatives: "ondemand", "performance"
     powerManagement.cpuFreqGovernor = "ondemand";
-    # End of powermanagement
 
-    # Disks management (power saving)
     # Spin down all rotational disks after (60*5) 300 seconds of inactivity
     services.udev.extraRules = ''
       ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", RUN+="${pkgs.hdparm}/sbin/hdparm -S 60 /dev/%k"

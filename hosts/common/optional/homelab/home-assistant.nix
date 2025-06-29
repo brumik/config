@@ -15,6 +15,13 @@ in {
       example = "/var/lib/haos.qcow2";
     };
 
+    imageBackup = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+      description = "The absolute path to the qcow2 image of HAOS";
+      example = "backup/haos.qcow2";
+    };
+
     domain = lib.mkOption {
       type = lib.types.str;
       default = "ha";
@@ -54,9 +61,12 @@ in {
     };
 
     homelab.backup = {
-      stateDirs = [ cfg.image ]; # or wherever your `haDisk` points
-      preBackupScripts = [ "systemctl stop ${serviceName}" ];
-      postBackupScripts = [ "systemctl start ${serviceName}" ];
+      stateDirs = [ cfg.imageBackup ]; 
+      preBackupScripts = [ ''
+        systemctl stop ${serviceName}
+        cp -f ${cfg.image} ${cfg.imageBackup}
+        systemctl start ${serviceName}
+      ''];
     };
 
     homelab.traefik.routes = [{

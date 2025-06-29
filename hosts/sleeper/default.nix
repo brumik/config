@@ -55,6 +55,7 @@
     gateway = "192.168.1.1";
 
     cache.enable = true;
+    power.enable = true;
 
     nvidia.enable = true;
     tailscale.enable = true;
@@ -94,6 +95,7 @@
     home-assistant = {
       enable = true;
       image = "/var/lib/haos.qcow2";
+      imageBackup = "/backup/haos.qcow2";
     };
   };
 }
