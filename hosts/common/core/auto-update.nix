@@ -6,6 +6,6 @@
     flags = [
       "--accept-flake-config"
     ];
-    dates = "Tue 4:30"; # Sunday at 5 PM
+    dates = "Mon 8:00"; 
   };
 }

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 let
   hosts = [ "brumstellar" "anteater" "sleeper" "gamingrig" "nixos-live" ];
   update-flake = pkgs.writeShellApplication {
@@ -24,7 +24,8 @@ let
       if [ ! -d ".git" ]; then
         git clone "git@github.com/brumik/config.git" "$REPO_DIR"
       else
-        git pull origin main
+        git fetch origin
+        git reset --hard origin/main
       fi
 
       # Update flakes
@@ -51,6 +52,14 @@ let
     '';
   };
 in {
+  sops.secrets = { "private-keys/id-n100-github" = { }; };
+
+  programs.ssh.extraConfig = ''
+    Host github.com
+        IdentityFile ${config.sops.secrets."private-keys/id-n100-github".path}
+        IdentitiesOnly yes
+  '';
+
   systemd.services.update-flake = {
     description = "Run update every Sunday at 8 AM";
     serviceConfig = {
