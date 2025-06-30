@@ -35,11 +35,29 @@
     options = [ "bind" ];
   };
 
+  services.sanoid = {
+    enable = true;
+    # every six hours
+    interval = "*-*-* 00,06,12,18:00:00";
+    templates.backup = {
+      hourly = 12;
+      daily = 30;
+      monthly = 4;
+      yearly = 12;
+      autoprune = true;
+      autosnap = true;
+    };
+
+    datasets."dpool/backup" = { useTemplate = [ "backup" ]; };
+    datasets."dpool/media" = { useTemplate = [ "backup" ]; };
+    datasets."dpool/photos" = { useTemplate = [ "backup" ]; };
+    datasets."rpool/safe" = { useTemplate = [ "backup" ]; };
+  };
+
   services.zfs = {
-    # The default keeps a lot of snapshots starting with
-    # every 15min for the last hour
-    # and ending with 1 for each month for the last year
-    autoSnapshot.enable = true;
+    # The autoSnapshot is not configurable how many times run
+    # this means that it wakes up all disks every 5 min, spinning
+    # up the disks constantly.
 
     # Try to scrub and repair data every month once
     autoScrub.enable = true;
