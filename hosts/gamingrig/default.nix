@@ -5,6 +5,7 @@ in {
     ./hardware-configuration.nix
 
     ../common/core
+    ../common/optional/gaming.nix
   ];
 
   networking.hostName = "gamingrig";
@@ -15,7 +16,6 @@ in {
   hardware.xone.enable = true;
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-
 
   services.desktopManager.plasma6.enable = true;
 
@@ -30,6 +30,9 @@ in {
     };
     steamos = { useSteamOSConfig = false; };
   };
+
+  # Trust the network to enable playing LAN games
+  networking.firewall.trustedInterfaces = [ "wlp9s0" ];
 
   environment.systemPackages = with pkgs; [
     curl
