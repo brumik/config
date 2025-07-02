@@ -11,9 +11,11 @@
     ../common/optional/sound.nix
     ../common/optional/gaming.nix
     ../common/optional/printing.nix
+    ../common/optional/usb-waekup-disable.nix
 
     ../common/users/levente.nix
     ../common/users/work.nix
+
   ];
 
   # The root of this pc should be able to log in to the root of every other PC
@@ -39,4 +41,9 @@
 
   # Needed for the yubike UI
   services.pcscd = { enable = true; };
+
+  hardware.usb.wakeupDisabled = [{
+    vendor = "046d";
+    product = "c548";
+  }];
 }

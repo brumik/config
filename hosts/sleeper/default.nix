@@ -16,13 +16,13 @@
   # WARNING: changing this number will cause ZFS to fail import and keep hanging on boot
   networking.hostId = "20c133b6"; # head -c 8 /etc/machine-id
 
-  # Including setting up ZFS, impermanence and boot
+  # Including setting up ZFS boot
   mySystems.disks = {
     enable = true;
     rootDisk1 = "/dev/disk/by-id/nvme-KINGSTON_SKC3000S512G_50026B7686F84D4B";
     rootDisk2 = "/dev/disk/by-id/nvme-KINGSTON_SKC3000S512G_50026B7383A70C89";
     dataDisk1 = "/dev/disk/by-id/wwn-0x5000c500c8af03ce";
-    # dataDisk2 = "/dev/disk/by-id/wwn-0x5000c500c7482d01";
+    dataDisk2 = "/dev/disk/by-id/wwn-0x5000c500c7482d01";
     rootReservation = "70G"; # 10+% of total size
   };
 

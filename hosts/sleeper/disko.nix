@@ -35,6 +35,12 @@ in {
       example = "/dev/hdd1";
     };
 
+    dataDisk2 = mkOption {
+      type = types.nullOr types.str;
+      description = "First Hdd disk on which to set up SSD.";
+      example = "/dev/hdd2";
+    };
+
     rootReservation = mkOption {
       type = types.str;
       description = ''
@@ -81,7 +87,13 @@ in {
       ];
     };
 
-    # setting up the disks
+    ##############################################
+    # This section only runs one when deploying.
+    # WARNING: When running this section disks
+    # are wiped.
+    # Doing my best to keep this up to date to
+    # non-nix modifications.
+    ##############################################
     disko.devices = {
       disk = {
         root1 = {
@@ -152,6 +164,22 @@ in {
             };
           };
         };
+        data2 = {
+          type = "disk";
+          device = cfg.dataDisk2;
+          content = {
+            type = "gpt";
+            partitions = {
+              zfs = {
+                size = "100%";
+                content = {
+                  type = "zfs";
+                  pool = cfg.dataPool;
+                };
+              };
+            };
+          };
+        };
       };
       zpool = {
         ${cfg.rootPool} = {
@@ -194,24 +222,22 @@ in {
             "safe/home" = {
               type = "zfs_fs";
               mountpoint = "/home";
-              options."com.sun:auto-snapshot" = "true";
               options.mountpoint = "legacy";
             };
 
             "safe/persist" = {
               type = "zfs_fs";
               mountpoint = "/persist";
-              options."com.sun:auto-snapshot" = "true";
               options.mountpoint = "legacy";
             };
           };
         };
         ${cfg.dataPool} = {
           type = "zpool";
-          # mode = "mirror";
+          mode = "mirror";
           options = {
             # good for ssds
-            ashift = "12";
+            # ashift = "12";
             autotrim = "on";
           };
           rootFsOptions = {
@@ -223,21 +249,18 @@ in {
             "backup" = {
               type = "zfs_fs";
               mountpoint = "/backup";
-              options."com.sun:auto-snapshot" = "true";
               options.mountpoint = "legacy";
             };
 
             "photos" = {
               type = "zfs_fs";
               mountpoint = "/photos";
-              options."com.sun:auto-snapshot" = "true";
               options.mountpoint = "legacy";
             };
 
             "media" = {
               type = "zfs_fs";
               mountpoint = "/media";
-              options."com.sun:auto-snapshot" = "true";
               options.mountpoint = "legacy";
             };
           };
