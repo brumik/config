@@ -31,6 +31,7 @@ in {
     ./zfs.nix
     ./email.nix
     ./auto-update.nix
+    ./stirling-pdf.nix
   ];
 
   options.homelab = {

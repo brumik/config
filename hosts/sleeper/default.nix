@@ -81,5 +81,7 @@
       image = "/var/lib/haos.qcow2";
       imageBackup = "/backup/haos.qcow2";
     };
+
+    stirling-pdf.enable = true;
   };
 }
