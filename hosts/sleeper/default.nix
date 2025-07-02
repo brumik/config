@@ -2,12 +2,9 @@
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
-
-    ./email.nix
-    ./nixos-updater.nix
+    ./homelab
 
     ../common/core
-    ../common/optional/homelab
   ];
 
   networking.hostName = "sleeper"; # Define your hostname.
@@ -28,37 +25,6 @@
 
   environment.systemPackages = [ pkgs.tmux ];
 
-  services.sanoid = {
-    enable = true;
-    # every six hours
-    interval = "*-*-* 00,06,12,18:00:00";
-    templates.backup = {
-      hourly = 12;
-      daily = 30;
-      monthly = 4;
-      yearly = 12;
-      autoprune = true;
-      autosnap = true;
-    };
-
-    datasets."dpool/backup" = { useTemplate = [ "backup" ]; };
-    datasets."dpool/media" = { useTemplate = [ "backup" ]; };
-    datasets."dpool/photos" = { useTemplate = [ "backup" ]; };
-    datasets."rpool/safe" = { useTemplate = [ "backup" ]; };
-  };
-
-  services.zfs = {
-    # The autoSnapshot is not configurable how many times run
-    # this means that it wakes up all disks every 5 min, spinning
-    # up the disks constantly.
-
-    # Try to scrub and repair data every month once
-    autoScrub.enable = true;
-
-    # Run weekly trims 
-    trim.enable = true;
-  };
-
   homelab = {
     enable = true;
     domain = "berky.me";
@@ -66,6 +32,13 @@
     gateway = "192.168.1.1";
 
     cache.enable = true;
+    auto-update = {
+      enable = true;
+      hosts = [ "brumstellar" "anteater" "sleeper" "gamingrig" "nixos-live" ];
+    };
+
+    zfs.enable = true;
+    email.enable = true;
     power.enable = true;
 
     nvidia.enable = true;

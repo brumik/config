@@ -28,6 +28,9 @@ in {
     ./nvidia.nix
     ./timetagger.nix
     ./cache.nix
+    ./zfs.nix
+    ./email.nix
+    ./auto-update.nix
   ];
 
   options.homelab = {

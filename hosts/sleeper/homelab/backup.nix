@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.homelab.backup;
+  hcfg = config.homelab;
 
   emailScript = pkgs.writeShellScript "restic-check-and-email" ''
     #!/bin/sh
@@ -8,7 +9,7 @@ let
     tmpfile=$(mktemp)
     cat > "$tmpfile" << EOF
     Subject: Restic Backup Check Report
-    To: root
+    To: ${hcfg.email.addr}
     From: sleeper@berky.me
 
     Restic check started at $(date)
@@ -84,8 +85,7 @@ in {
           builtins.concatStringsSep "\n" cfg.postBackupScripts;
       };
     };
-
-    # TODO: This requires the msmtp configured and enabled
+  } // (lib.mkIf hcfg.email.enable {
     systemd.services.restic-remotebackup-email = {
       description = "Restic Check and Email Results";
       serviceConfig = {
@@ -102,5 +102,5 @@ in {
         Persistent = true;
       };
     };
-  };
+  });
 }

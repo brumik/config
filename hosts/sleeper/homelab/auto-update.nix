@@ -1,6 +1,9 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
-  hosts = [ "brumstellar" "anteater" "sleeper" "gamingrig" "nixos-live" ];
+  cfg = config.homelab.auto-update;
+  hcfg = config.homelab;
+
+  hosts = cfg.hosts;
   update-flake = pkgs.writeShellApplication {
     name = "update-flake.sh";
     runtimeInputs = [ pkgs.nix pkgs.git ];
@@ -20,7 +23,7 @@ let
       # Clone or pull the repository
       if [ ! -d ".git" ]; then
         echo "Cloning the repo"
-        git clone "https://$${GITHUB_TOKEN}@github.com/brumik/config.git" ./
+        git clone "https://$''${GITHUB_TOKEN}@github.com/brumik/config.git" ./
       else
         echo "Updating the repo"
         git fetch origin
@@ -54,29 +57,45 @@ let
     '';
   };
 in {
-  sops.secrets = { "n100/update-flake/github-token" = { }; };
-  sops.templates."n100/update-flake/.env" = {
-    content = ''
-      GITHUB_TOKEN=${config.sops.placeholder."n100/update-flake/github-token"}
-    '';
-  };
+  options.homelab.auto-update = {
+    enable = lib.mkEnableOption "auto-update";
 
-  systemd.services.update-flake = {
-    description = "Run update every Sunday at 8 AM";
-
-
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${update-flake}/bin/update-flake.sh";
-      EnvironmentFile = config.sops.templates."n100/update-flake/.env".path;
+    hosts = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      description = "The subdomain where the service will be served";
     };
   };
 
-  systemd.timers.update-flake = {
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnCalendar = "Mon 4:30";
-      Persistent = true;
+  config = lib.mkIf cfg.enable {
+    assertions = [{
+      assertion = hcfg.cache.enable;
+      message =
+        "NixOS updater makes only sense if cache is enabled an working.";
+    }];
+
+    sops.secrets = { "n100/update-flake/github-token" = { }; };
+    sops.templates."n100/update-flake/.env" = {
+      content = ''
+        GITHUB_TOKEN=${config.sops.placeholder."n100/update-flake/github-token"}
+      '';
+    };
+
+    systemd.services.update-flake = {
+      description = "Run update every Sunday at 8 AM";
+
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${update-flake}/bin/update-flake.sh";
+        EnvironmentFile = config.sops.templates."n100/update-flake/.env".path;
+      };
+    };
+
+    systemd.timers.update-flake = {
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnCalendar = "Mon 4:30";
+        Persistent = true;
+      };
     };
   };
 }
