@@ -30,6 +30,7 @@ in {
 
     virtualisation.oci-containers.containers.freshrss = {
       image = "freshrss/freshrss";
+      extraOptions = [ "--pull=always" ];
       ports = [ "10003:80" ];
       volumes = [
         "${cfg.baseDir}/data:/var/www/FreshRSS/data"
@@ -50,7 +51,7 @@ in {
         # This impacts which IP address is logged (X-Forwarded-For or REMOTE_ADDR).
         # This also impacts external authentication methods;
         # see https://freshrss.github.io/FreshRSS/en/admins/09_AccessControl.html
-        TRUSTED_PROXY = "172.16.0.1/12 192.168.0.1/16 10.0.0.0/8";
+        TRUSTED_PROXY = "172.0.0.0/12 192.168.0.1/16 10.0.0.0/8";
         # Optional parameter, set to 1 to enable OpenID Connect (only available in our Debian image)
         # Requires more environment variables. See https://freshrss.github.io/FreshRSS/en/admins/16_OpenID-Connect.html
         OIDC_ENABLED = "1";

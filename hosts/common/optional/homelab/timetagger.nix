@@ -26,6 +26,7 @@ in {
 
     virtualisation.oci-containers.containers.timetagger = {
       image = "ghcr.io/almarklein/timetagger";
+      extraOptions = [ "--pull=always" ];
       ports = [ "11115:80" ];
       environment = {
         TIMETAGGER_BIND = "0.0.0.0:80";

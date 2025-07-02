@@ -76,32 +76,20 @@ in {
       };
     };
 
-    # Get static ip address instead of dhcp
-    networking = {
-      # TODO: if enabled networkmanager it conflicts, if not it is not getting internet
-      # useDHCP = true; # Disable DHCP to allow static IP configuration
+    # Do not use our own dns server 
+    networking.nameservers = [ "1.1.1.1" "8.8.8.8" ]; 
 
-      # interfaces = {
-      #   ens18 = {
-      #     ipv4.addresses = [{
-      #       address = cfg.serverIP; # Your desired static IP address
-      #       prefixLength = 32; # Subnet mask in CIDR notation
-      #     }];
-      #   };
-      # };
-      #
-      # defaultGateway = cfg.gateway;
-      # DNS settings
-      nameservers =
-        [ "1.1.1.1" "8.8.8.8" ]; # Replace with your preferred DNS servers
+    # Enable docker and set all container based services to it;
+    virtualisation = {
+      docker = {
+        enable = true;
+        autoPrune.enable = true;
+      };
+      oci-containers.backend = "docker";
     };
 
-    # Enable binding on the 80 and 443 port for docker
+    # Enable binding on the 80 and 443 port 
     boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 0;
-
-    # Enable podman and set all container based services to it;
-    virtualisation.docker.enable = true;
-    virtualisation.oci-containers.backend = "docker";
 
     # Open ports for reverse proxy
     networking.firewall.allowedTCPPorts = [ 80 443 ];

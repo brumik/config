@@ -30,6 +30,7 @@ in {
 
     virtualisation.oci-containers.containers."calibre" = {
       image = "lscr.io/linuxserver/calibre:latest";
+      extraOptions = [ "--pull=always" ];
       ports = [ "11080:8080" ];
       environment = {
         TZ = "${config.time.timeZone}";
@@ -45,6 +46,7 @@ in {
     # solution: wait until calibre starts up and creates an empty library on a new server
     virtualisation.oci-containers.containers."calibre-web" = {
       image = "lscr.io/linuxserver/calibre-web:latest";
+      extraOptions = [ "--pull=always" ];
       ports = [ "11083:8083" ];
       environment = {
         TZ = "${config.time.timeZone}";
