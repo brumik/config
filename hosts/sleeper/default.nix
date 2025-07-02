@@ -28,13 +28,6 @@
 
   environment.systemPackages = [ pkgs.tmux ];
 
-  # TODO: Jellyfin, Calibre, Audiobookshelf uses this path to reach the media
-  # This is because of migration from smb share
-  fileSystems."/mnt/video" = {
-    device = "/media";
-    options = [ "bind" ];
-  };
-
   services.sanoid = {
     enable = true;
     # every six hours

@@ -39,7 +39,7 @@ in {
         PGID =
           builtins.toString config.users.groups."${config.homelab.group}".gid;
       };
-      volumes = [ "/mnt/video/Ebooks:/config/books" "${dir}/calibre:/config" ];
+      volumes = [ "${dir}/calibre:/config" ];
     };
 
     # TODO: this will fail on empty calibre library
