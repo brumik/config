@@ -46,4 +46,7 @@
     vendor = "046d";
     product = "c548";
   }];
+
+  # Disable typing the password then using sudo
+  security.sudo.wheelNeedsPassword = false;
 }
