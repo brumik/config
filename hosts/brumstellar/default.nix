@@ -42,6 +42,9 @@
   # Needed for the yubike UI
   services.pcscd = { enable = true; };
 
+  # Trust the network to enable playing LAN games
+  networking.firewall.trustedInterfaces = [ "wlp5s0" ];
+
   hardware.usb.wakeupDisabled = [{
     vendor = "046d";
     product = "c548";
