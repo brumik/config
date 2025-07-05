@@ -19,6 +19,7 @@
     brave
     nextcloud-client
     ncspot
+    protonvpn-gui
   ];
 
   services.nextcloud-client = {
