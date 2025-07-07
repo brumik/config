@@ -23,7 +23,7 @@ let
       # Clone or pull the repository
       if [ ! -d ".git" ]; then
         echo "Cloning the repo"
-        git clone "https://$''${GITHUB_TOKEN}@github.com/brumik/config.git" ./
+        git clone "https://$GITHUB_TOKEN@github.com/brumik/config.git" ./
       else
         echo "Updating the repo"
         git fetch origin
