@@ -56,7 +56,6 @@
     mealie.enable = true;
     freshrss.enable = true;
     audiobookshelf.enable = true;
-    webdav.enable = true;
     calibre.enable = true;
     immich = {
       enable = true;

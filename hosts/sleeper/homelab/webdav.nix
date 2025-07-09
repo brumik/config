@@ -20,10 +20,11 @@ in {
         # port = "6065"; # default
         behindProxy = true;
         # the users and passwords are defined in the env file.
+        # TODO: this is built in nexctloud, but still needs password. Disabled for now
         users = [{
           username = "{env}ANTEATER";
           password = "{env}ANTEATER_PASS";
-          directory = "/mnt/homes/Katerina/Drive";
+          directory = "/var/lib/nextcloud/data/katerina/files";
           permissions = "CRUD";
         }];
       };
