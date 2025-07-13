@@ -16,6 +16,7 @@
     wasistlos
     brave
     nextcloud-client
+    protonvpn-gui
   ];
 
   services.nextcloud-client = {
