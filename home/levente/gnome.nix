@@ -1,8 +1,5 @@
-{ pkgs, ... }: {
-  home.packages = [
-    pkgs.gnomeExtensions.steal-my-focus-window
-    pkgs.gnomeExtensions.pop-shell
-  ];
+{ pkgs, lib, ... }: {
+  home.packages = [ pkgs.gnomeExtensions.steal-my-focus-window ];
 
   home.file.".face".source =
     ../../assets/profile-pictures/sebastian-portrait.png;
@@ -17,15 +14,16 @@
       workspace-names = [ "Main" "Code" "Other" ];
     };
 
-    "org/gnome/desktop/wm/keybindings" = { };
-
     "org/gnome/desktop/notifications" = { show-in-lock-screen = false; };
 
-    "org/gnome/desktop/session" = { idle-delay = 0; };
+    "org/gnome/desktop/session" = {
+      idle-delay = lib.hm.gvariant.mkUint32 600;
+    };
 
     "org/gnome/settings-daemon/plugins/power" = {
       # After suspend either gnome or the OS got broken
-      sleep-inactive-ac-type = "nothing";
+      sleep-inactive-ac-type = "suspend";
+      sleep-inactive-ac-timeout = 1200;
     };
 
     "org/gnome/mutter" = {
@@ -38,10 +36,7 @@
 
     "org/gnome/shell" = {
       disable-user-extensions = false;
-      enabled-extensions = [
-        "steal-my-focus-window@steal-my-focus-window"
-        "pop-shell@system76.com"
-      ];
+      enabled-extensions = [ "steal-my-focus-window@steal-my-focus-window" ];
     };
   };
 }

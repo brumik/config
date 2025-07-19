@@ -30,4 +30,8 @@
     vendor = "046d";
     product = "c548";
   }];
+
+  # Enable appimage support for some apps
+  programs.appimage.enable = true;
+  programs.appimage.binfmt = true;
 }
