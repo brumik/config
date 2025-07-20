@@ -95,6 +95,14 @@ in {
       environmentVariables = {
         OLLAMA_ORIGINS = "*";
         OLLAMA_FLASH_ATTENTION = "1";
+        # Gemma 27b does not fit with bigger context to VRAM
+        # Slowdown without context is 3x
+        # 32k for gemma:27b is 24Gb and devstral:24b is 22Gb, deepseek:32b does not fit
+        OLLAMA_CONTEXT_LENGTH = "32000";
+        # Keep models longer in memory
+        OLLAMA_KEEP_ALIVE = "24h";
+        # Qvantizing context slows down processing a lot (4x).
+        # OLLAMA_KV_CACHE_TYPE = "q8_0";
       };
       loadModels = cfg.loadModels;
     };
