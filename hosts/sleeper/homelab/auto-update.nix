@@ -43,7 +43,7 @@ let
       # Build
       ${builtins.concatStringsSep "\n\n" (map (host: ''
         echo "Building NixOS configuration for: ${host}"
-        nix build ".#nixosConfigurations.${host}.config.system.build.toplevel" --accept-flake-config || {
+        nix build ".#nixosConfigurations.${host}.config.system.build.toplevel" --accept-flake-config --out-link result-${host} || {
           echo "Failed to build ${host}"
           exit 1
         }
