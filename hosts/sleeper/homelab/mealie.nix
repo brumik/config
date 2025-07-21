@@ -1,7 +1,7 @@
 { config, lib, ... }:
 let
   cfg = config.homelab.mealie;
-  dname = "mealie.${config.homelab.domain}";
+  dname = "${cfg.domain}.${config.homelab.domain}";
   baseDirDefaultVal = "/var/lib/mealie";
 in {
   options.homelab.mealie = {

@@ -82,5 +82,6 @@
     };
 
     stirling-pdf.enable = true;
+    n8n.enable = true;
   };
 }

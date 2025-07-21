@@ -32,6 +32,7 @@ in {
     ./email.nix
     ./auto-update.nix
     ./stirling-pdf.nix
+    ./n8n.nix
   ];
 
   options.homelab = {
