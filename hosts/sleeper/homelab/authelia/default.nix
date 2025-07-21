@@ -6,6 +6,7 @@ let
   storagePath = "${cfg.baseDir}/db.sqlite3";
   dname = "${cfg.domain}.${hcfg.domain}";
   instance = "main";
+  redisPort = 6380;
 in {
   imports = [ ./oidc.nix ];
 
@@ -21,7 +22,8 @@ in {
     baseDir = lib.mkOption {
       type = lib.types.path;
       default = "/var/lib/authelia-main";
-      description = "The absolute path where authelia will store the important informations";
+      description =
+        "The absolute path where authelia will store the important informations";
     };
 
     bypassDomains = lib.mkOption {
@@ -70,8 +72,10 @@ in {
 
   config = lib.mkIf cfg.enable {
     # Define user ids
-    users.users."${config.services.authelia.instances."${instance}".user}".uid = 989;
-    users.groups."${config.services.authelia.instances."${instance}".user}".gid = 985;
+    users.users."${config.services.authelia.instances."${instance}".user}".uid =
+      989;
+    users.groups."${config.services.authelia.instances."${instance}".user}".gid =
+      985;
 
     sops.secrets = {
       "n100/authelia/jwt-secret" = { owner = "authelia-main"; };
@@ -79,6 +83,12 @@ in {
       "n100/authelia/storage-encryption-key" = { owner = "authelia-main"; };
       "n100/authelia/lldap-pass" = { owner = "authelia-main"; };
       "n100/authelia/smtp-pass" = { owner = "authelia-main"; };
+    };
+
+    services.redis.servers.authelia = {
+      enable = true;
+      bind = "127.0.0.1"; # Only bind to localhost unless used remotely
+      port = redisPort;
     };
 
     services.authelia.instances."${instance}" = {
@@ -99,9 +109,7 @@ in {
         webauthn = {
           enable_passkey_login = true;
           attestation_conveyance_preference = "direct";
-          filtering = {
-            prohibit_backup_eligibility = true;
-          };
+          filtering = { prohibit_backup_eligibility = true; };
           metadata = {
             enabled = true;
             validate_trust_anchor = true;
@@ -120,11 +128,17 @@ in {
           period = 30;
           skew = 1;
         };
+
+        session.redis = {
+          host = "127.0.0.1";
+          port = redisPort;
+        };
         session.cookies = [{
           domain = hcfg.domain;
           authelia_url = "https://${cfg.domain}.${hcfg.domain}";
           default_redirection_url = "https://${hcfg.domain}";
         }];
+
         notifier.smtp = {
           username = "authelia-noreply@berky.me";
           # Password set from env variables
