@@ -26,7 +26,7 @@
 
   imports = [
     ../modules/sops.nix
-    (import ../modules/terminal { inherit username; })
+    ../modules/terminal
     ../modules/spotdl
     # Local
     ./gnome.nix

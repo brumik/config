@@ -23,7 +23,7 @@
 
   imports = [
     ../modules/sops.nix
-    (import ../modules/terminal { username = "levente"; })
+    ../modules/terminal
     ../levente/git.nix
     ../levente/gnome.nix
     ../levente/styling.nix

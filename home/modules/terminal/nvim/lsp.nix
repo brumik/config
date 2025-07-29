@@ -111,6 +111,7 @@
         servers = {
           html.enable = true;
           cssls.enable = true;
+          marksman.enable = true; # md
           nixd.enable = true; # nix
           gopls.enable = true; # go
           ts_ls.enable = true; # ts

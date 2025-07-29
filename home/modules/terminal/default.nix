@@ -1,4 +1,4 @@
-{ username }: { pkgs, ... }:
+{ pkgs, ... }:
 {
   home.packages = [
     pkgs.just

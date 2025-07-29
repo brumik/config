@@ -7,6 +7,7 @@
       typescript-language-server
       ruby-lsp
       solargraph
+      marksman
     ];
   };
 }
