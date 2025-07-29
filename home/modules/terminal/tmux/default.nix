@@ -22,6 +22,12 @@
       # instead of closing the terminal window
       set -g detach-on-destroy off
 
+      # This removes the wait from tmux for listening to the escape sequence
+      # and passes it right down to the application. By default after pressing
+      # esc there is a 2s delay while you can do escape sequence in tmux
+      # that I do not use. This fixes esc issues in helix editor
+      set -sg escape-time 0
+
       # custom commands
       bind C-a display-popup -E "tms switch"
       bind C-o display-popup -E "tms"
