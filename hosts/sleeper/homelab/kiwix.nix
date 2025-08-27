@@ -23,7 +23,7 @@ in {
 
     virtualisation.oci-containers.containers.kiwix = {
       image = "ghcr.io/kiwix/kiwix-serve:latest";
-      extraOptions = [ "--pull=always" ];
+      pull = "always";
       ports = [ "10004:8080" ];
       cmd = [ "*.zim" ];
       volumes = [

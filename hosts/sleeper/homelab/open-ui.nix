@@ -45,7 +45,8 @@ in {
 
     virtualisation.oci-containers.containers.open-webui = {
       image = "ghcr.io/open-webui/open-webui:main";
-      extraOptions = [ "--network=host" "--pull=always" ];
+      extraOptions = [ "--network=host" ];
+      pull = "always";
       environment = {
         PORT = "11111";
         WEBUI_URL = "https://${dname}";

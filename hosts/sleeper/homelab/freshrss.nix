@@ -28,7 +28,7 @@ in {
 
     virtualisation.oci-containers.containers.freshrss = {
       image = "freshrss/freshrss";
-      extraOptions = [ "--pull=always" ];
+      pull = "always";
       ports = [ "10003:80" ];
       volumes = [
         "${cfg.baseDir}/data:/var/www/FreshRSS/data"
