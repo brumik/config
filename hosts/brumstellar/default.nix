@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ config, pkgs, ... }: {
   imports = [
     ./hardware-configuration.nix
     ./stylix.nix
@@ -52,4 +52,14 @@
 
   # Disable typing the password then using sudo
   security.sudo.wheelNeedsPassword = false;
+
+
+  # services.karakeep = {
+  #   enable = true;
+  #   meilisearch.enable = true;
+  #   browser.enable = true;
+  # };
+  #
+  # # use the latest meilisearch pkgs.
+  # services.meilisearch.package = pkgs.meilisearch;
 }

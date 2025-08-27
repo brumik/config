@@ -31,57 +31,60 @@
     serverIP = "192.168.1.129";
     gateway = "192.168.1.1";
 
-    cache.enable = true;
-    auto-update = {
-      enable = true;
-      hosts = [ "brumstellar" "anteater" "sleeper" "gamingrig" "nixos-live" ];
-    };
-
+    # Self config
     zfs.enable = true;
     email.enable = true;
     power.enable = true;
-
     nvidia.enable = true;
-    tailscale.enable = true;
-    authelia.enable = true;
-    traefik.enable = true;
-
-    homepage.enable = true;
-
-    vaultwarden.enable = true;
-    adguardhome.enable = true;
-    ddclient.enable = true;
-    jellyfin.enable = true;
-    radicale.enable = true;
-    mealie.enable = true;
-    freshrss.enable = true;
-    audiobookshelf.enable = true;
-    calibre.enable = true;
-    immich = {
-      enable = true;
-      baseDir = "/photos/immich";
-    };
-    lldap.enable = true;
     backup = {
       enable = true;
       # Add extra state dirs
       stateDirs = [ "/backup" ];
     };
-    ollama = {
-      enable = true;
-      loadModels = [ "gemma3:12b" "devstral:24b" "mxbai-embed-large" ];
-    };
-    open-webui.enable = true;
-    nextcloud.enable = true;
-    timetagger.enable = true;
 
+    # Infra
+    cache.enable = true;
+    auto-update = {
+      enable = true;
+      hosts = [ "brumstellar" "anteater" "sleeper" "gamingrig" "nixos-live" ];
+    };
+    ddclient.enable = true;
+    lldap.enable = true;
+    tailscale.enable = true;
+    authelia.enable = true;
+    traefik.enable = true;
+    adguardhome.enable = true;
+
+    # Mission critical
+    vaultwarden.enable = true;
+    nextcloud.enable = true;
+    immich = {
+      enable = true;
+      baseDir = "/photos/immich";
+    };
     home-assistant = {
       enable = true;
       image = "/var/lib/haos.qcow2";
       imageBackup = "/backup/haos.qcow2";
     };
 
+    # Media
+    jellyfin.enable = true;
+    audiobookshelf.enable = true;
+    calibre.enable = true;
+    freshrss.enable = true;
+    kiwix.enable = true;
+
+    # Rest
+    homepage.enable = true;
+    radicale.enable = true;
+    mealie.enable = true;
+    ollama = {
+      enable = true;
+      loadModels = [ "gemma3:12b" "devstral:24b" "mxbai-embed-large" ];
+    };
+    open-webui.enable = true;
+    timetagger.enable = true;
     stirling-pdf.enable = true;
-    n8n.enable = true;
   };
 }
