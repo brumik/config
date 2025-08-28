@@ -30,6 +30,7 @@ in {
     systemd.tmpfiles.rules = lib.mkIf (cfg.baseDir != baseDirDefaultVal) [
       "d ${cfg.baseDir} 0755 root root -"
       "L ${baseDirDefaultVal} - - - - ${cfg.baseDir}"
+      "d /var/cache/karakeep-ocr 0750 karakeep karakeep -"
     ];
 
     sops.secrets = { "n100/karakeep/oidc-client-secret" = { }; };
@@ -76,6 +77,9 @@ in {
         INFERENCE_ENABLE_AUTO_TAGGING = "true";
         INFERENCE_ENABLE_AUTO_SUMMARIZATION = "true";
         INFERENCE_JOB_TIMEOUT_SEC = "120";
+
+        # set cache:
+        OCR_CACHE_DIR = "/var/cache/karakeep-ocr";
       };
       meilisearch.enable = true;
       browser.enable = true;
@@ -90,7 +94,7 @@ in {
 
     # The nextauth will try to reach out to his OWN url and cannot have authelia return a non
     # allowed error, otherwise cannot create auth methods and login won't work
-    homelab.authelia.localBypassDomains = [ dname ];
+    homelab.authelia.bypassDomains = [ dname ];
 
     homelab.backup.stateDirs = [ cfg.baseDir ];
 
