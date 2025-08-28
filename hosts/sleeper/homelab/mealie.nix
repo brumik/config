@@ -1,8 +1,10 @@
 { config, lib, ... }:
 let
   cfg = config.homelab.mealie;
+  hcfg = config.homelab;
   dname = "${cfg.domain}.${config.homelab.domain}";
   baseDirDefaultVal = "/var/lib/mealie";
+  ollama = config.services.ollama;
 in {
   options.homelab.mealie = {
     enable = lib.mkEnableOption "mealie";
@@ -41,6 +43,13 @@ in {
       owner = config.homelab.user;
     };
 
+    assertions = [{
+      assertion = hcfg.ollama.enable;
+      message = "Mealie depends on ollama";
+    }];
+
+    homelab.ollama.loadModels = [ "gemma3:27b" ];
+
     services.mealie = {
       enable = true;
       listenAddress = "127.0.0.1";
@@ -73,6 +82,11 @@ in {
         OIDC_AUTO_REDIRECT = "true";
         OIDC_ADMIN_GROUP = "mealie_admin";
         OIDC_USER_GROUP = "mealie_user";
+
+        # AI
+        OPENAI_BASE_URL = "http://${ollama.host}:${toString ollama.port}/v1";
+        OPENAI_API_KEY = "unused";
+        OPENAI_MODEL = "gemma3:27b";
       };
       credentialsFile = config.sops.templates."n100/mealie/.env".path;
     };

@@ -33,6 +33,7 @@ in {
     ./auto-update.nix
     ./stirling-pdf.nix
     ./kiwix.nix
+    ./karakeep.nix
   ];
 
   options.homelab = {

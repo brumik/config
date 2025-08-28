@@ -21,7 +21,12 @@ in {
         oidcIssuerPrivateKeyFile =
           secrets."n100/authelia/oidc-private-key".path;
       };
-      settings = { identity_providers.oidc.clients = cfg.oidc.clients; };
+      settings = {
+        identity_providers.oidc = {
+          claims_policies.karakeep.id_token = [ "email" ];
+          clients = cfg.oidc.clients;
+        };
+      };
     };
   };
 }

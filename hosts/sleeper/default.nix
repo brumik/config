@@ -74,6 +74,7 @@
     calibre.enable = true;
     freshrss.enable = true;
     kiwix.enable = true;
+    karakeep.enable = true;
 
     # Rest
     homepage.enable = true;
@@ -81,7 +82,7 @@
     mealie.enable = true;
     ollama = {
       enable = true;
-      loadModels = [ "gemma3:12b" "devstral:24b" "mxbai-embed-large" ];
+      loadModels = [ "gemma3:27b" "devstral:24b" "mxbai-embed-large" ];
     };
     open-webui.enable = true;
     timetagger.enable = true;

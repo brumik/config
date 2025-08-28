@@ -29,3 +29,7 @@ stow-mac:
 # Build a bootable iso image outputted to ./result
 build-live-iso:
   nix build .#nixosConfigurations.nixos-live.config.system.build.isoImage
+
+# Generate an OICD key pair for setting up a new client
+server-authelia-generate-oicd:
+  docker run --rm authelia/authelia:latest authelia crypto hash generate pbkdf2 --variant sha512 --random --random.length 72 --random.charset rfc3986

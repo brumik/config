@@ -3,6 +3,7 @@ let
   cfg = config.homelab.ollama;
   hcfg = config.homelab;
   dname = "${cfg.domain}.${hcfg.domain}";
+  ollama = config.services.ollama;
 
   pythonEnv = pkgs.python311.withPackages (ps: with ps; [
     fastapi
@@ -75,6 +76,12 @@ in {
       default = "ollama";
       description = "The subdomain where the service will be served";
     };
+
+    contextLength = lib.mkOption {
+      type = lib.types.number;
+      default = 32000;
+      description = "The preset context length of all ollama models";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -98,7 +105,7 @@ in {
         # Gemma 27b does not fit with bigger context to VRAM
         # Slowdown without context is 3x
         # 32k for gemma:27b is 24Gb and devstral:24b is 22Gb, deepseek:32b does not fit
-        OLLAMA_CONTEXT_LENGTH = "32000";
+        OLLAMA_CONTEXT_LENGTH = toString cfg.contextLength;
         # Keep models longer in memory
         OLLAMA_KEEP_ALIVE = "24h";
         # Qvantizing context slows down processing a lot (4x).
@@ -113,7 +120,7 @@ in {
       wantedBy = [ "multi-user.target" ];
 
       environment = {
-        OLLAMA_URL = "http://localhost:11434";
+        OLLAMA_URL = "http://${ollama.host}:${toString ollama.port}";
         HOST = "127.0.0.1";
         PORT = "11116";
       };
