@@ -82,7 +82,7 @@
     mealie.enable = true;
     ollama = {
       enable = true;
-      loadModels = [ "gemma3:27b" "devstral:24b" "mxbai-embed-large" ];
+      loadModels = [ "devstral:24b" ];
     };
     open-webui.enable = true;
     timetagger.enable = true;

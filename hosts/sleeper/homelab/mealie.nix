@@ -48,7 +48,7 @@ in {
       message = "Mealie depends on ollama";
     }];
 
-    homelab.ollama.loadModels = [ "gemma3:27b" ];
+    homelab.ollama.loadModels = [ "gemma3:12b" ];
 
     services.mealie = {
       enable = true;
@@ -86,7 +86,7 @@ in {
         # AI
         OPENAI_BASE_URL = "http://${ollama.host}:${toString ollama.port}/v1";
         OPENAI_API_KEY = "unused";
-        OPENAI_MODEL = "gemma3:27b";
+        OPENAI_MODEL = "gemma3:12b";
       };
       credentialsFile = config.sops.templates."n100/mealie/.env".path;
     };

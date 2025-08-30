@@ -25,7 +25,7 @@ in {
     # Requires ollama running
     homelab.ollama = {
       enable = true;
-      loadModels = [ "gemma3:27b" "mxbai-embed-large" ];
+      loadModels = [ "gemma3:12b" "mxbai-embed-large" ];
     };
 
     sops.secrets = { "n100/open-webui/oidc-client-secret" = { }; };
@@ -55,7 +55,7 @@ in {
         ENABLE_EVALUATION_ARENA_MODELS = "False";
         OLLAMA_BASE_URL =
           "http://127.0.0.1:${builtins.toString config.services.ollama.port}";
-        DEFAULT_MODELS = "gemma3:27b";
+        DEFAULT_MODELS = "gemma3:12b";
 
         ENABLE_WEB_SEARCH = "true";
         WEB_SEARCH_ENGINE = "duckduckgo";
@@ -72,8 +72,8 @@ in {
         CONTENT_EXTRACTION_ENGINE = "tika";
         TIKA_SERVER_URL = "http://127.0.0.1:9998";
         RAG_TOP_K = "10";
-        # DOCLING_OCR_LANG = "eng,deu";
-        # DOCLING_SERVER_URL = "http://127.0.0.1:5001";
+
+        WHISPER_MODEL="medium";
 
         ENABLE_OAUTH_SIGNUP = "true";
         ENABLE_LOGIN_FORM = "false";

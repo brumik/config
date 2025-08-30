@@ -28,11 +28,34 @@ in {
       description = "The subdomain where the service will be served";
     };
   };
-
   config = lib.mkIf cfg.enable {
     # Enable libvirt and virtualization support
     virtualisation.libvirtd.enable = true;
     environment.systemPackages = with pkgs; [ qemu_kvm OVMF ];
+
+  # Requires ollama running
+    homelab.ollama = {
+      enable = true;
+      loadModels = [ "llama3.1:latest" ];
+    };
+
+
+    services.wyoming.faster-whisper.servers.generic = {
+      enable = true;
+      device = "cuda";
+      model = "medium-int8";
+      language = "auto";
+      uri = "tcp://0.0.0.0:10300";
+    };
+
+    services.wyoming.piper.servers.generic = {
+      enable = true;
+      uri = "tcp://0.0.0.0:10200";
+      voice = "en-us-lessac-high";
+    };
+
+    # This is suboptimal, alternative is to have it behind reverse proxy and bypass local
+    networking.firewall.allowedTCPPorts = [ 10300 10200 ];
 
     systemd.services.${serviceName} = {
       description = "Home Assistant VM";
