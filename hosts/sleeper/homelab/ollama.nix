@@ -79,7 +79,10 @@ in {
 
     contextLength = lib.mkOption {
       type = lib.types.number;
-      default = 60000; # just fits into GPU gemma3:12b and llama3.1
+      # Models with context size:
+      # llama3.1:8b + gemma3:12b > 60000 context size works
+      # gemma3:27b > 20000 context size works
+      default = 20000; 
       description = "The preset context length of all ollama models";
     };
   };

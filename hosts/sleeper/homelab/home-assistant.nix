@@ -51,7 +51,7 @@ in {
     services.wyoming.piper.servers.generic = {
       enable = true;
       uri = "tcp://0.0.0.0:10200";
-      voice = "en-us-lessac-high";
+      voice = "en_US-lessac-high";
     };
 
     # This is suboptimal, alternative is to have it behind reverse proxy and bypass local
