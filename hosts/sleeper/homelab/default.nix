@@ -34,6 +34,7 @@ in {
     ./stirling-pdf.nix
     ./kiwix.nix
     ./karakeep.nix
+    ./victorialogs.nix
   ];
 
   options.homelab = {

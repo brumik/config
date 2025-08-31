@@ -41,6 +41,7 @@
       # Add extra state dirs
       stateDirs = [ "/backup" ];
     };
+    victorialogs.enable = true;
 
     # Infra
     cache.enable = true;
