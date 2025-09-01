@@ -97,7 +97,7 @@ in {
       port = 8123;
     }];
 
-    homelab.authelia.localBypassDomains = [ dname ];
+    homelab.authelia.bypassDomains = [ dname ];
 
     homelab.homepage.app = [{
       HomeAssistant = {
