@@ -66,7 +66,7 @@ in {
 
     loadModels = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [];
+      default = [ cfg.defaultInference cfg.defaultEmbed ];
       description =
         "The list of models that will be avaiable after system build";
     };
@@ -77,11 +77,29 @@ in {
       description = "The subdomain where the service will be served";
     };
 
+
+    defaultInference = lib.mkOption {
+      default = "mistral-small:24b-instruct-2501-q4_K_M";
+      type = lib.types.str;
+      description = ''
+        The default model to use in multiple applications
+      '';
+    };
+
+    defaultEmbed = lib.mkOption {
+      default = "mxbai-embed-large";
+      type = lib.types.str;
+      description = ''
+        The default model to use in multiple applications
+      '';
+    };
+
     contextLength = lib.mkOption {
       type = lib.types.number;
       # Models with context size:
       # llama3.1:8b + gemma3:12b > 60000 context size works
       # gemma3:27b > 20000 context size works
+      # mistral-small > 32000 context size works (max supported)
       default = 20000; 
       description = "The preset context length of all ollama models";
     };
@@ -108,7 +126,7 @@ in {
         OLLAMA_FLASH_ATTENTION = "1";
         OLLAMA_CONTEXT_LENGTH = toString cfg.contextLength;
         # Keep models longer in memory
-        OLLAMA_KEEP_ALIVE = "24h";
+        OLLAMA_KEEP_ALIVE = "-1";
       };
       loadModels = cfg.loadModels;
     };

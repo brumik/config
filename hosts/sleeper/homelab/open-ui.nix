@@ -2,6 +2,7 @@
 let
   cfg = config.homelab.open-webui;
   hcfg = config.homelab;
+  ocfg = config.homelab.ollama;
   dname = "${cfg.domain}.${hcfg.domain}";
 in {
   options.homelab.open-webui = {
@@ -22,11 +23,10 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    # Requires ollama running
-    homelab.ollama = {
-      enable = true;
-      loadModels = [ "gemma3:12b" "mxbai-embed-large" ];
-    };
+    assertions = [{
+      assertion = hcfg.ollama.enable;
+      message = "Mealie depends on ollama";
+    }];
 
     sops.secrets = { "n100/open-webui/oidc-client-secret" = { }; };
 
@@ -55,7 +55,7 @@ in {
         ENABLE_EVALUATION_ARENA_MODELS = "False";
         OLLAMA_BASE_URL =
           "http://127.0.0.1:${builtins.toString config.services.ollama.port}";
-        DEFAULT_MODELS = "gemma3:12b";
+        DEFAULT_MODELS = ocfg.defaultInference;
 
         ENABLE_WEB_SEARCH = "true";
         WEB_SEARCH_ENGINE = "duckduckgo";
@@ -68,7 +68,7 @@ in {
         RAG_OLLAMA_BASE_URL =
           "http://127.0.0.1:${builtins.toString config.services.ollama.port}";
         RAG_EMBEDDING_ENGINE = "ollama";
-        RAG_EMBEDDING_MODEL = "mxbai-embed-large";
+        RAG_EMBEDDING_MODEL = ocfg.defaultEmbed;
         CONTENT_EXTRACTION_ENGINE = "tika";
         TIKA_SERVER_URL = "http://127.0.0.1:9998";
         RAG_TOP_K = "10";

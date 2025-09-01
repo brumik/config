@@ -49,7 +49,7 @@ in {
       message = "Karakeep depends on ollama";
     }];
 
-    homelab.ollama.loadModels = [ "gemma3:12b" "mxbai-embed-large" ];
+    homelab.ollama.loadModels = [ "gemma3:27b" ];
 
     services.karakeep = {
       enable = true;
@@ -69,8 +69,8 @@ in {
 
         # AI
         OLLAMA_BASE_URL = "http://${ollama.host}:${toString ollama.port}";
-        INFERENCE_TEXT_MODEL = "gemma3:12b";
-        INFERENCE_IMAGE_MODEL = "gemma3:12b";
+        INFERENCE_TEXT_MODEL = "gemma3:27b";
+        INFERENCE_IMAGE_MODEL = "gemma3:27b";
         EMBEDDING_TEXT_MODEL = "mxbai-embed-large";
         INFERENCE_CONTEXT_LENGTH =
           ollama.environmentVariables.OLLAMA_CONTEXT_LENGTH;
