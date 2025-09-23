@@ -54,6 +54,7 @@
     authelia.enable = true;
     traefik.enable = true;
     adguardhome.enable = true;
+    glances.enable = true;
 
     # Mission critical
     vaultwarden.enable = true;
