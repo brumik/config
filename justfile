@@ -19,7 +19,7 @@ sops-update:
   nix-shell -p sops --run "sops updatekeys secrets.yaml"
 
 deploy ARG="brumstellar":
-  sudo nixos-rebuild switch --flake .#{{ARG}} --target-host root@{{ARG}}.berky.me 
+  sudo nixos-rebuild switch --flake .#{{ARG}} --target-host root@{{ARG}}.berky.me --build-host root@{{ARG}}.berky.me
 
 # Restore symlinks with stow (and simple script)
 stow-mac:

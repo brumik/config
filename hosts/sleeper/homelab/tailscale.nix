@@ -8,6 +8,7 @@ in {
     services.tailscale = {
       enable = true;
       useRoutingFeatures = "server"; # should include advertise-exit-node and others
+      extraUpFlags = [ "--ssh" ];
       authKeyFile = config.sops.secrets."n100/tailscale-key".path;
     };
   };

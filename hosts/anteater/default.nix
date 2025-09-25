@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ ... }: {
   imports = [
     ./hardware-configuration.nix
     ./stylix.nix
@@ -34,4 +34,7 @@
   # Enable appimage support for some apps
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;
+
+  # Enable clipboard manager, needs system service
+  programs.gpaste.enable = true;
 }
