@@ -29,8 +29,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
-      url = "github:nix-community/nixvim/main";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/nixvim";
+      # Allow nixvim to use its own nixpkgs. This is not optimal but currently broken
+      # https://github.com/nix-community/nixvim/issues/3780
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix.url = "github:danth/stylix/master";
     sops-nix = {

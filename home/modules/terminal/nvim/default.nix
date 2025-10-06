@@ -9,7 +9,7 @@
     ./telescope.nix
     ./comment.nix
     ./harpoon.nix
-    ./codecompanion.nix
+    # ./codecompanion.nix
     ./markdown.nix
     # ./flash.nix
   ];
