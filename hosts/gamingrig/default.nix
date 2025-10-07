@@ -17,7 +17,7 @@ in {
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
 
-  services.desktopManager.plasma6.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   jovian = {
     hardware.has.amd.gpu = true;
@@ -26,7 +26,7 @@ in {
       enable = true;
       autoStart = true;
       user = "${uname}";
-      desktopSession = "plasma";
+      desktopSession = "gnome";
     };
     steamos = { useSteamOSConfig = false; };
   };
@@ -38,7 +38,6 @@ in {
     curl
     git
     vim
-    jellyfin-media-player
     brave
     discord
   ];
