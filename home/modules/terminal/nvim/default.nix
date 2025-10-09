@@ -5,13 +5,10 @@
     inputs.nixvim.homeModules.nixvim
     ./lsp.nix
     ./neotree.nix
-    # ./oil.nix
     ./telescope.nix
     ./comment.nix
     ./harpoon.nix
-    # ./codecompanion.nix
     ./markdown.nix
-    # ./flash.nix
   ];
 
   home.sessionVariables = {
