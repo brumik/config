@@ -54,12 +54,10 @@
   security.sudo.wheelNeedsPassword = false;
 
 
-  # services.karakeep = {
-  #   enable = true;
-  #   meilisearch.enable = true;
-  #   browser.enable = true;
-  # };
-  #
-  # # use the latest meilisearch pkgs.
-  # services.meilisearch.package = pkgs.meilisearch;
+  
+  boot.supportedFilesystems = [ "nfs" ];
+  fileSystems."/mnt/brum" = {
+    device = "sleeper.berky.me:/brum";
+    fsType = "nfs"; options = [ "nfsvers=4.2" "x-systemd.automount" "noauto" ];
+  };
 }
