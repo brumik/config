@@ -50,6 +50,8 @@ in {
       environment = {
         PORT = "11111";
         WEBUI_URL = "https://${dname}";
+        # This is generated in docker on first startup
+        # WEBUI_SECRET_KEY
 
         ENABLE_OPENAI_API = "False";
         ENABLE_EVALUATION_ARENA_MODELS = "False";
@@ -87,6 +89,7 @@ in {
         OAUTH_ALLOWED_ROLES = "openwebui,openwebui-admin";
         OAUTH_ADMIN_ROLES = "openwebui-admin";
         OAUTH_ROLES_CLAIM = "groups";
+        ENABLE_OAUTH_PERSISTENT_CONFIG = "false";
 
         # To treat all env variables the same, which means on restart reaply them
         # removing any changes made in the UI
