@@ -95,4 +95,19 @@
     timetagger.enable = true;
     stirling-pdf.enable = true;
   };
+
+  ## Testing NFS
+  systemd.tmpfiles.rules = [ "d /export 0755 nobody nogroup -" ];
+  fileSystems."/export/brum" = {
+    device = "/home/brum";
+    options = [ "bind" ];
+  };
+
+  services.nfs.server.enable = true;
+  services.nfs.server.exports = ''
+    /export         brumstellar.berky.me(rw,fsid=0,no_subtree_check)
+    /export/brum  brumstellar.berky.me(rw,nohide,insecure,no_subtree_check) 
+  '';
+  networking.firewall.allowedTCPPorts = [ 2049 ];
+
 }
