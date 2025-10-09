@@ -35,8 +35,8 @@ in {
 
       middlewares-rate-limit = {
         rateLimit = {
-          average = 200;
-          burst = 100;
+          average = 300;
+          burst = 200; # mealie min 100, open-webui min 200
         };
       };
 
