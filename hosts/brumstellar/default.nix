@@ -53,13 +53,6 @@
   # Disable typing the password then using sudo
   security.sudo.wheelNeedsPassword = false;
 
-
-  # services.karakeep = {
-  #   enable = true;
-  #   meilisearch.enable = true;
-  #   browser.enable = true;
-  # };
-  #
-  # # use the latest meilisearch pkgs.
-  # services.meilisearch.package = pkgs.meilisearch;
+  ## Testing Lidarr
+  systemd.tmpfiles.rules = [ "d /data 0755 - - -" "d /data/media 0755 - - -" ];
 }

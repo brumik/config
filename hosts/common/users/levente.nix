@@ -1,5 +1,5 @@
 { config, pkgs, ... }:
-let uname = "levente";
+let levente = config.globals.users.levente;
 in {
   sops.secrets."brum/hashed-password".neededForUsers = true;
   # It's important to include users.mutableUsers = false to ensure the user can't modify
@@ -8,8 +8,8 @@ in {
   # unless this option is false.
   users.mutableUsers = false;
 
-  users.users."${uname}" = {
-    uid = 1010;
+  users.users."${levente.uname}" = {
+    uid = levente.uid;
     isNormalUser = true;
     description = "Brum";
     extraGroups = [ "networkmanager" "wheel" ];
@@ -17,9 +17,9 @@ in {
     shell = pkgs.zsh;
   };
 
-  home-manager.users."${uname}" =
-    import ../../../home/levente { username = "levente"; };
+  home-manager.users."${levente.uname}" =
+    import ../../../home/levente { username = levente.uname; };
 
-  mySystems.docker.users = [ uname ];
-  mySystems.scanner.users = [ uname ];
+  mySystems.docker.users = [ levente.uname ];
+  mySystems.scanner.users = [ levente.uname ];
 }

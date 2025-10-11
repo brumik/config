@@ -1,5 +1,5 @@
 { config, pkgs, ... }:
-let uname = "work";
+let work = config.globals.users.work;
 in {
   sops.secrets."brum/hashed-password".neededForUsers = true;
   # It's important to include users.mutableUsers = false to ensure the user can't modify
@@ -9,8 +9,8 @@ in {
   users.mutableUsers = false;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users."${uname}" = {
-    uid = 1011;
+  users.users."${work.uname}" = {
+    uid = work.uid;
     isNormalUser = true;
     description = "Work";
     extraGroups = [ "networkmanager" "wheel" ];
@@ -18,7 +18,7 @@ in {
     shell = pkgs.zsh;
   };
 
-  home-manager.users.work = import ../../../home/work { username = "work"; };
+  home-manager.users.work = import ../../../home/work { username = work.uname; };
 
-  mySystems.docker.users = [ uname ];
+  mySystems.docker.users = [ work.uname ];
 }

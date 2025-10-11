@@ -6,5 +6,6 @@
     ./ssh.nix
     ./sops.nix
     ./networking.nix
+    ./globals.nix
   ];
 }

@@ -1,5 +1,5 @@
 { config, pkgs, ... }:
-let uname = "katerina";
+let katerina = config.globals.users.katerina;
 in {
   sops.secrets."anteater/hashed-password".neededForUsers = true;
   # It's important to include users.mutableUsers = false to ensure the user can't modify
@@ -8,10 +8,10 @@ in {
   # unless this option is false.
   users.mutableUsers = false;
 
-  users.users."${uname}" = {
+  users.users."${katerina.uname}" = {
     # TODO: Migrate the PC away from the 1000 uid, most installations create this automaticaly
     # uid = 1020;
-    uid = 1000;
+    uid = katerina.uid;
     isNormalUser = true;
     description = "Katerina";
     extraGroups = [ "networkmanager" "wheel" ];
@@ -19,8 +19,8 @@ in {
     shell = pkgs.zsh;
   };
 
-  home-manager.users.${uname} =
-    import ../../../home/${uname} { username = uname; };
+  home-manager.users.${katerina.uname} =
+    import ../../../home/katerina { username = katerina.uname; };
 
-  mySystems.scanner.users = [ uname ];
+  mySystems.scanner.users = [ katerina.uname ];
 }

@@ -1,5 +1,5 @@
 { config, pkgs, ... }:
-let uname = "gamer";
+let gamer = config.globals.users.gamer;
 in {
   imports = [
     ./hardware-configuration.nix
@@ -25,7 +25,7 @@ in {
       updater.splash = "vendor";
       enable = true;
       autoStart = true;
-      user = "${uname}";
+      user = gamer.uname;
       desktopSession = "gnome";
     };
     steamos = { useSteamOSConfig = false; };
@@ -49,8 +49,8 @@ in {
   # unless this option is false.
   users.mutableUsers = false;
 
-  users.users."${uname}" = {
-    uid = 1000;
+  users.users.${gamer.uname} = {
+    uid = gamer.uid; 
     isNormalUser = true;
     description = "Gamer";
     extraGroups = [ "networkmanager" "wheel" ];
