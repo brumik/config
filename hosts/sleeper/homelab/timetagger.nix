@@ -22,7 +22,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.tmpfiles.rules = [ "d ${cfg.baseDir} 0755 share share -" ];
+    systemd.tmpfiles.rules = [ "d ${cfg.baseDir} 0755 root root -" ];
 
     virtualisation.oci-containers.containers.timetagger = {
       image = "ghcr.io/almarklein/timetagger";

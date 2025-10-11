@@ -2,6 +2,7 @@
 let
   cfg = config.homelab.vaultwarden;
   domain = "${cfg.domain}.${config.homelab.domain}";
+  vaultwarden = config.globals.users.vaultwarden;
 in {
   options.homelab.vaultwarden = {
     enable = lib.mkEnableOption "vaultwarden";
@@ -21,8 +22,8 @@ in {
 
   config = lib.mkIf cfg.enable {
     # Define user ids
-    users.users.vaultwarden.uid = 993;
-    users.groups.vaultwarden.gid = 991;
+    users.users."${vaultwarden.uname}".uid = vaultwarden.uid;
+    users.groups."${vaultwarden.gname}".gid = vaultwarden.gid;
 
     services.vaultwarden = {
       enable = true;

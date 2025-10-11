@@ -5,6 +5,7 @@ let
   dname = "${cfg.domain}.${config.homelab.domain}";
   baseDirDefaultVal = "/var/lib/mealie";
   ollama = config.services.ollama;
+  mealie = config.globals.users.mealie;
 in {
   options.homelab.mealie = {
     enable = lib.mkEnableOption "mealie";
@@ -23,6 +24,15 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    users = {
+      groups.${mealie.gname} = { gid = mealie.gid; };
+      users.${mealie.uname} = {
+        uid = mealie.uid;
+        isSystemUser = true;
+        group = mealie.gname;
+      };
+    };
+
     systemd.tmpfiles.rules = lib.mkIf (cfg.baseDir != baseDirDefaultVal) [
       "d ${cfg.baseDir} 0755 root root -"
       "L ${baseDirDefaultVal} - - - - ${cfg.baseDir}"
@@ -55,8 +65,8 @@ in {
       listenAddress = "127.0.0.1";
       port = 9000;
       settings = {
-        PUID = 63892;
-        PGID = 63892;
+        PUID = mealie.uid;
+        PGID = mealie.gid;
         BASE_URL = "https://${dname}";
         ALLOW_SIGNUP = "false";
         LOG_LEVEL = "ERROR";

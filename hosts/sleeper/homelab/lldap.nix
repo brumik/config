@@ -2,6 +2,7 @@
 let
   cfg = config.homelab.lldap;
   dname = "${cfg.domain}.${config.homelab.domain}";
+  lldap = config.globals.users.lldap;
 in {
   options.homelab.lldap = {
     enable = lib.mkEnableOption "lldap";
@@ -20,15 +21,15 @@ in {
   };
   config = lib.mkIf cfg.enable {
     # create the user that run the service
-    users.users.lldap = {
+    users.users."${lldap.uname}" = {
       isSystemUser = true;
-      group = "lldap";
-      uid = 992;
+      group = lldap.gname;
+      uid = lldap.uid;
     };
-    users.groups.lldap = { gid = 990; };
+    users.groups."${lldap.gname}" = { gid = lldap.gid; };
 
-    sops.secrets."n100/lldap/key-seed" = { owner = "lldap"; };
-    sops.secrets."n100/lldap/smtp-pass" = { owner = "lldap"; };
+    sops.secrets."n100/lldap/key-seed" = { owner = lldap.uname; };
+    sops.secrets."n100/lldap/smtp-pass" = { owner = lldap.uname; };
 
     services.lldap = {
       enable = true;
@@ -66,7 +67,7 @@ in {
     # TODO close this when calibre-web is migrated away from docker
     networking.firewall.allowedTCPPorts = [ 3890 ];
 
-    # Need to add private here since mealie service is already doing a symlink to it and we cannot follow it
+    # Need to add private here since the service is already doing a symlink to it and we cannot follow it
     homelab.backup.stateDirs = [ cfg.baseDir "/var/lib/private/lldap" ];
 
     homelab.homepage.admin = [{

@@ -6,6 +6,7 @@ let
   baseDirDefaultVal = "/var/lib/nextcloud";
   dbname = "nextcloud";
   servicename = "phpfpm-nextcloud";
+  nextcloud = config.globals.users.nextcloud;
 in {
   options.homelab.nextcloud = {
     enable = lib.mkEnableOption "Nextcloud";
@@ -25,12 +26,12 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    users.users.nextcloud = { uid = 985; };
-    users.groups.nextcloud = { gid = 983; };
+    users.users."${nextcloud.uname}" = { uid = nextcloud.uid; };
+    users.groups."${nextcloud.gname}" = { gid = nextcloud.gid; };
 
     sops.secrets = {
       "n100/nextcloud/oidc-client-secret" = { };
-      "n100/nextcloud/admin-password" = { owner = "nextcloud"; };
+      "n100/nextcloud/admin-password" = { owner = nextcloud.uname; };
     };
 
     # https://mynixos.com/nixpkgs/option/services.nextcloud.secretFile

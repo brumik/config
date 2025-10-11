@@ -1,5 +1,7 @@
 { config, lib, ... }:
-let cfg = config.homelab;
+let
+  cfg = config.homelab;
+  share = config.globals.users.share;
 in {
   imports = [
     ./power.nix
@@ -10,7 +12,6 @@ in {
     ./lldap.nix
     ./backup.nix
     ./radicale.nix
-    ./languagetool.nix
     ./mealie.nix
     ./freshrss.nix
     ./traefik
@@ -58,14 +59,15 @@ in {
     };
 
     user = lib.mkOption {
-      default = "share";
+      default = share.uname;
       type = lib.types.str;
       description = ''
         User to run the homelab services as
       '';
     };
+
     group = lib.mkOption {
-      default = "share";
+      default = share.gname;
       type = lib.types.str;
       description = ''
         Group to run the homelab services as
@@ -75,11 +77,11 @@ in {
 
   config = lib.mkIf cfg.enable {
     users = {
-      groups.${cfg.group} = { gid = 993; };
+      groups.${cfg.group} = { gid = share.gid; };
       users.${cfg.user} = {
-        uid = 994;
+        uid = share.uid;
         isSystemUser = true;
-        group = cfg.group;
+        group = share.gname;
       };
     };
 

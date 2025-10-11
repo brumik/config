@@ -5,6 +5,7 @@ let
   dname = "${cfg.domain}.${hcfg.domain}";
   baseDirDefaultVal = "/var/lib/karakeep";
   ollama = config.services.ollama;
+  karakeep = config.globals.users.karakeep;
 in {
   options.homelab.karakeep = {
     enable = lib.mkEnableOption "Karakeep";
@@ -24,13 +25,13 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    users.users.karakeep = { uid = 1100; };
-    users.groups.karakeep = { gid = 1101; };
+    users.users."${karakeep.uname}" = { uid = karakeep.uid; };
+    users.groups."${karakeep.gname}" = { gid = karakeep.gid; };
 
     systemd.tmpfiles.rules = lib.mkIf (cfg.baseDir != baseDirDefaultVal) [
       "d ${cfg.baseDir} 0755 root root -"
       "L ${baseDirDefaultVal} - - - - ${cfg.baseDir}"
-      "d /var/cache/karakeep-ocr 0750 karakeep karakeep -"
+      "d /var/cache/karakeep-ocr 0750 ${karakeep.uname} ${karakeep.gname} -"
     ];
 
     sops.secrets = { "n100/karakeep/oidc-client-secret" = { }; };
@@ -41,7 +42,7 @@ in {
           config.sops.placeholder."n100/karakeep/oidc-client-secret"
         }
       '';
-      owner = "karakeep";
+      owner = karakeep.uname;
     };
 
     assertions = [{

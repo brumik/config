@@ -1,5 +1,7 @@
 { config, lib, ... }:
-let cfg = config.homelab.radicale;
+let
+  cfg = config.homelab.radicale;
+  radicale = config.globals.users.radicale;
 in {
   options.homelab.radicale = {
     enable = lib.mkEnableOption "radicale";
@@ -19,10 +21,10 @@ in {
 
   config = lib.mkIf cfg.enable {
     # Define user ids
-    users.users.radicale.uid = 995;
-    users.groups.radicale.gid = 994;
+    users.users."${radicale.uname}".uid = radicale.uid;
+    users.groups."${radicale.gname}".gid = radicale.gid;
 
-    sops.secrets."n100/radicale-users" = { owner = "radicale"; };
+    sops.secrets."n100/radicale-users" = { owner = radicale.uname; };
 
     services.radicale = {
       enable = true;

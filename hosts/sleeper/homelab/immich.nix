@@ -2,6 +2,7 @@
 let
   cfg = config.homelab.immich;
   dname = "${cfg.domain}.${config.homelab.domain}";
+  immich = config.globals.users.immich;
 in {
   options.homelab.immich = {
     enable = lib.mkEnableOption "Immich";
@@ -21,11 +22,18 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    users = {
+      groups.${immich.gname} = { gid = immich.gid; };
+      users.${immich.uname} = { uid = immich.uid; };
+    };
+
     services.immich = {
       enable = true;
       mediaLocation = cfg.baseDir;
       host = "127.0.0.1";
       port = 2283;
+      user = immich.uname;
+      group = immich.gname;
       environment = { IMMICH_TRUSTED_PROXIES = "127.0.0.1"; };
       accelerationDevices =
         [ "/dev/nvidia0" "/dev/nvidiactl" "/dev/nvidia-uvm" ];
