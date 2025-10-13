@@ -35,10 +35,10 @@ in {
       # "d '${nixarr.mediaDir}/torrents/radarr'      0755 ${globals.transmission.user} ${globals.transmission.group} - -"
       # "d '${nixarr.mediaDir}/torrents/sonarr'      0755 ${globals.transmission.user} ${globals.transmission.group} - -"
       # "d '${nixarr.mediaDir}/torrents/readarr'     0755 ${globals.transmission.user} ${globals.transmission.group} - -"
-      "d ${hcfg.media.torrentDir}/.incomplete 0664 ${hcfg.user} ${hcfg.group} -"
-      "d ${hcfg.media.torrentDir}/.watch 0664 ${hcfg.user} ${hcfg.group} -"
-      "d ${hcfg.media.torrentDir}/manual 0664 ${hcfg.user} ${hcfg.group} -"
-      "d ${hcfg.media.torrentDir}/lidarr 0664 ${hcfg.user} ${hcfg.group} -"
+      "d ${hcfg.media.torrentDir}/.incomplete 0775 ${hcfg.user} ${hcfg.group} -"
+      "d ${hcfg.media.torrentDir}/.watch 0775 ${hcfg.user} ${hcfg.group} -"
+      "d ${hcfg.media.torrentDir}/manual 0775 ${hcfg.user} ${hcfg.group} -"
+      "d ${hcfg.media.torrentDir}/lidarr 0775 ${hcfg.user} ${hcfg.group} -"
     ];
 
     virtualisation.oci-containers.containers = {
@@ -83,7 +83,8 @@ in {
         };
         volumes = [
           "${cfg.baseDir}:/config"
-          "${hcfg.media.torrentDir}:/downloads"
+          # This is so all the other native apps (lidarr etc) see the directory
+          "${hcfg.media.torrentDir}:/${hcfg.media.torrentDir}"
         ];
         # This makes it share gluetun's network namespace:
         extraOptions = [ "--network=container:gluetun" ];

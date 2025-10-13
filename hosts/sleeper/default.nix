@@ -73,6 +73,8 @@
     media = {
       enable = true;
       transmission.enable = true;
+      prowlarr.enable = true;
+      lidarr.enable = true;
       jellyfin.enable = true;
     };
     audiobookshelf.enable = true;
