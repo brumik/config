@@ -12,8 +12,11 @@ let
   vendorProductStrDesc = ty: ''
     The device's ${ty} ID, as a 4-digit hex string.
 
-    ${ty} IDs of USB devices can be listed with <code>nix-shell -p usbutils
-    --run lsusb</code>, where an output line like <code>Bus 002 Device 003: ID
+    ${ty} IDs of USB devices can be listed with
+    <code>
+      nix-shell -p usbutils --run lsusb
+    </code>,
+    where an output line like <code>Bus 002 Device 003: ID
     046d:c52b Logitech, Inc. Unifying Receiver</code> has a vendor ID of
     <code>046d</code> and a product ID of <code>c52b</code>.
 

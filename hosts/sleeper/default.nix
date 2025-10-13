@@ -70,7 +70,11 @@
     };
 
     # Media
-    jellyfin.enable = true;
+    media = {
+      enable = true;
+      transmission.enable = true;
+      jellyfin.enable = true;
+    };
     audiobookshelf.enable = true;
     calibre.enable = true;
     freshrss.enable = true;
@@ -81,10 +85,7 @@
     homepage.enable = true;
     radicale.enable = true;
     mealie.enable = true;
-    ollama = {
-      enable = true;
-      loadModels = [ "devstral:24b" ];
-    };
+    ollama.enable = true;
     open-webui.enable = true;
     timetagger.enable = true;
     stirling-pdf.enable = true;

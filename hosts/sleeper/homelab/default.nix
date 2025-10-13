@@ -8,7 +8,6 @@ in {
     ./vaultwarden.nix
     ./adguard.nix
     ./ddclient.nix
-    ./jellyfin.nix
     ./lldap.nix
     ./backup.nix
     ./radicale.nix
@@ -36,6 +35,7 @@ in {
     ./kiwix.nix
     ./karakeep.nix
     ./glances.nix
+    ./media
   ];
 
   options.homelab = {

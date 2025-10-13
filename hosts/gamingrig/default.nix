@@ -6,6 +6,7 @@ in {
 
     ../common/core
     ../common/optional/gaming.nix
+    ../common/optional/usb-waekup-disable.nix
   ];
 
   networking.hostName = "gamingrig";
@@ -16,6 +17,12 @@ in {
   hardware.xone.enable = true;
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+
+  hardware.usb.wakeupDisabled = [{
+    # logitech bolt reciever (mouse but not the kb)
+    vendor = "046d";
+    product = "c548";
+  }];
 
   services.desktopManager.gnome.enable = true;
 
@@ -30,6 +37,7 @@ in {
     };
     steamos = { useSteamOSConfig = false; };
   };
+
 
   # Trust the network to enable playing LAN games
   networking.firewall.trustedInterfaces = [ "wlp9s0" ];

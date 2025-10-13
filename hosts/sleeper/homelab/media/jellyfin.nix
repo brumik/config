@@ -1,10 +1,10 @@
 { config, lib, ... }:
 let
-  cfg = config.homelab.jellyfin;
+  cfg = config.homelab.media.jellyfin;
   hcfg = config.homelab;
   dname = "${cfg.domain}.${hcfg.domain}";
 in {
-  options.homelab.jellyfin = {
+  options.homelab.media.jellyfin = {
     enable = lib.mkEnableOption "Jellyfin";
 
     domain = lib.mkOption {
@@ -20,11 +20,11 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && hcfg.media.enable && cfg.enable) {
     services.jellyfin = {
       enable = true;
-      user = config.homelab.user;
-      group = config.homelab.group;
+      user = hcfg.user;
+      group = hcfg.group;
       dataDir = cfg.baseDir;
       # port is 8096
     };
@@ -38,7 +38,7 @@ in {
 
     homelab.backup.stateDirs = [ cfg.baseDir ];
 
-    homelab.homepage.app = [{
+    homelab.homepage.media = [{
       Jellyfin = {
         icon = "jellyfin.png";
         href = "https://${dname}";

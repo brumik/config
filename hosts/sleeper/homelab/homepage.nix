@@ -10,6 +10,7 @@ in {
     app = lib.mkOption { default = [ ]; };
     admin = lib.mkOption { default = [ ]; };
     services = lib.mkOption { default = [ ]; };
+    media = lib.mkOption { default = [ ]; };
   };
 
   config = lib.mkIf cfg.enable {
@@ -19,6 +20,7 @@ in {
       # listenPort = 8082;
       services = [
         { App = cfg.app; }
+        { Media = cfg.media; }
         {
           Admin = cfg.admin ++ cfg.services;
         }

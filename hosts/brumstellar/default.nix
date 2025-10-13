@@ -52,7 +52,4 @@
 
   # Disable typing the password then using sudo
   security.sudo.wheelNeedsPassword = false;
-
-  ## Testing Lidarr
-  systemd.tmpfiles.rules = [ "d /data 0755 - - -" "d /data/media 0755 - - -" ];
 }
