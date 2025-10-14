@@ -76,7 +76,7 @@ in {
 
     homelab.backup.stateDirs = [ dir ];
 
-    homelab.homepage.app = [
+    homelab.homepage.media = [
       {
         "Calibre Web" = {
           icon = "calibre-web.png";

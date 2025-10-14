@@ -60,7 +60,7 @@ in {
 
     homelab.backup.stateDirs = [ cfg.baseDir ];
 
-    homelab.homepage.app = [{
+    homelab.homepage.media = [{
       Audiobookshelf = {
         icon = "audiobookshelf.png";
         href = "https://${dname}";

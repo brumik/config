@@ -23,7 +23,7 @@ in {
   };
 
   config = lib.mkIf (hcfg.enable && hcfg.media.enable && cfg.enable) {
-    # Only avaiable after NixOS 25.11
+    # TODO: Only avaiable after NixOS 25.11
     # services.prowlarr = {
     #   enable = true;
     #   dataDir = cfg.baseDir;
@@ -76,7 +76,7 @@ in {
 
     homelab.backup.stateDirs = [ cfg.baseDir ];
 
-    homelab.homepage.media = [{
+    homelab.homepage.arr = [{
       Prowlarr = {
         icon = "prowlarr.png";
         href = "https://${dname}";

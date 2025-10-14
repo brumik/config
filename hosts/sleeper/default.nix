@@ -75,6 +75,8 @@
       transmission.enable = true;
       prowlarr.enable = true;
       lidarr.enable = true;
+      radarr.enable = true;
+      bazarr.enable = true;
       jellyfin.enable = true;
       jellyseerr.enable = true;
     };

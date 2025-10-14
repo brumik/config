@@ -1,16 +1,16 @@
 { config, lib, ... }:
 let
-  cfg = config.homelab.media.lidarr;
+  cfg = config.homelab.media.radarr;
   hcfg = config.homelab;
-  baseDirDefaultVal = "/var/lib/lidarr";
+  baseDirDefaultVal = "/var/lib/radarr";
   dname = "${cfg.domain}.${hcfg.domain}";
 in {
-  options.homelab.media.lidarr = {
-    enable = lib.mkEnableOption "lidarr";
+  options.homelab.media.radarr = {
+    enable = lib.mkEnableOption "radarr";
 
     domain = lib.mkOption {
       type = lib.types.str;
-      default = "lidarr";
+      default = "radarr";
       description = "The subdomain where the service will be served";
     };
 
@@ -24,30 +24,30 @@ in {
 
   config = lib.mkIf (hcfg.enable && hcfg.media.enable && cfg.enable) {
     systemd.tmpfiles.rules = [
-      "d ${hcfg.media.libDir}/music 0775 ${hcfg.user} ${hcfg.group} -"
+      "d ${hcfg.media.libDir}/movies 0775 ${hcfg.user} ${hcfg.group} -"
     ];
 
-    services.lidarr = {
+    services.radarr = {
       enable = true;
       user = hcfg.user;
       group = hcfg.group;
-      settings.server.port = 8686;
+      settings.server.port = 7878;
       dataDir = cfg.baseDir;
     };
 
     homelab.traefik.routes = [{
       host = cfg.domain;
-      port = 8686;
+      port = 7878;
     }];
 
     homelab.backup.stateDirs = [ cfg.baseDir ];
 
     homelab.homepage.arr = [{
-      Lidarr = {
-        icon = "lidarr.png";
+      Radarr = {
+        icon = "radarr.png";
         href = "https://${dname}";
         siteMonitor = "https://${dname}";
-        description = "Music search and fetcher";
+        description = "Movies search and fetcher";
       };
     }];
   };

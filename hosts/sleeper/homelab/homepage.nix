@@ -11,6 +11,7 @@ in {
     admin = lib.mkOption { default = [ ]; };
     services = lib.mkOption { default = [ ]; };
     media = lib.mkOption { default = [ ]; };
+    arr = lib.mkOption { default = [ ]; };
   };
 
   config = lib.mkIf cfg.enable {
@@ -21,6 +22,7 @@ in {
       services = [
         { App = cfg.app; }
         { Media = cfg.media; }
+        { Arr = cfg.arr; }
         {
           Admin = cfg.admin ++ cfg.services;
         }

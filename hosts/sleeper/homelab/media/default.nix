@@ -9,6 +9,8 @@ in {
     ./jellyseerr.nix
     ./prowlarr.nix
     ./lidarr.nix
+    ./radarr.nix
+    ./bazarr.nix
   ];
 
   options.homelab.media = {

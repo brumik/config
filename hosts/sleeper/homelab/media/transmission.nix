@@ -32,13 +32,13 @@ in {
     };
 
     systemd.tmpfiles.rules = [
-      # "d '${nixarr.mediaDir}/torrents/radarr'      0755 ${globals.transmission.user} ${globals.transmission.group} - -"
       # "d '${nixarr.mediaDir}/torrents/sonarr'      0755 ${globals.transmission.user} ${globals.transmission.group} - -"
       # "d '${nixarr.mediaDir}/torrents/readarr'     0755 ${globals.transmission.user} ${globals.transmission.group} - -"
       "d ${hcfg.media.torrentDir}/.incomplete 0775 ${hcfg.user} ${hcfg.group} -"
       "d ${hcfg.media.torrentDir}/.watch 0775 ${hcfg.user} ${hcfg.group} -"
       "d ${hcfg.media.torrentDir}/manual 0775 ${hcfg.user} ${hcfg.group} -"
       "d ${hcfg.media.torrentDir}/lidarr 0775 ${hcfg.user} ${hcfg.group} -"
+      "d ${hcfg.media.torrentDir}/radarr 0775 ${hcfg.user} ${hcfg.group} -"
     ];
 
     virtualisation.oci-containers.containers = {
@@ -98,7 +98,7 @@ in {
 
     homelab.backup.stateDirs = [ cfg.baseDir ];
 
-    homelab.homepage.media = [{
+    homelab.homepage.arr = [{
       Transmission = {
         icon = "transmission.png";
         href = "https://${dname}";
