@@ -1,7 +1,7 @@
 [user]
 	name = Levente Berky
 	email = levente.berky@gmail.com
-	signingkey = ~/.ssh/id_ed25519.pub
+	; signingkey = ~/.ssh/id_ed25519.pub
 [core]
 	editor = vi
 [push]
@@ -19,10 +19,10 @@
 [pull]
 	rebase = true
 
-[gpg]
-  format = ssh
-[commit]
-  gpgsign = true
+; [gpg]
+;   format = ssh
+; [commit]
+;   gpgsign = true
 
 # Remembers last resolution of a conflict and applies it when sees it again
 [rerere]
