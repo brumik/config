@@ -6,6 +6,7 @@ in {
   imports = [
     ./transmission.nix
     ./jellyfin.nix
+    ./jellyseerr.nix
     ./prowlarr.nix
     ./lidarr.nix
   ];

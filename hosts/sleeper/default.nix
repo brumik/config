@@ -76,6 +76,7 @@
       prowlarr.enable = true;
       lidarr.enable = true;
       jellyfin.enable = true;
+      jellyseerr.enable = true;
     };
     audiobookshelf.enable = true;
     calibre.enable = true;

@@ -1,37 +1,41 @@
 { config, lib, ... }:
 let
-  cfg = config.homelab.media.jellyfin;
+  cfg = config.homelab.media.jellyseerr;
   hcfg = config.homelab;
+  baseDirDefaultVal = "/var/lib/jellyseerr";
   dname = "${cfg.domain}.${hcfg.domain}";
 in {
-  options.homelab.media.jellyfin = {
-    enable = lib.mkEnableOption "Jellyfin";
+  options.homelab.media.jellyseerr = {
+    enable = lib.mkEnableOption "Jellyseerr";
 
     domain = lib.mkOption {
       type = lib.types.str;
-      default = "jellyfin";
+      default = "jellyseerr";
       description = "The subdomain where the service will be served";
     };
 
     baseDir = lib.mkOption {
       type = lib.types.path;
-      default = "/var/lib/jellyfin";
+      default = baseDirDefaultVal;
       description = "The absolute path where the service will store the important informations";
     };
   };
 
   config = lib.mkIf (hcfg.enable && hcfg.media.enable && cfg.enable) {
-    services.jellyfin = {
+    services.jellyseerr = {
       enable = true;
-      user = hcfg.user;
-      group = hcfg.group;
-      dataDir = cfg.baseDir;
-      # port is 8096
+      configDir = "${cfg.baseDir}/config";
+      port = 5055;
     };
+
+    systemd.tmpfiles.rules = lib.mkIf (cfg.baseDir != baseDirDefaultVal) [
+      "d ${cfg.baseDir} 0755 root root -"
+      "L ${baseDirDefaultVal} - - - - ${cfg.baseDir}"
+    ];
 
     homelab.traefik.routes = [{
       host = cfg.domain;
-      port = 8096;
+      port = 5055;
     }];
 
     homelab.authelia.localBypassDomains = [ dname ];
@@ -39,11 +43,11 @@ in {
     homelab.backup.stateDirs = [ cfg.baseDir ];
 
     homelab.homepage.media = [{
-      Jellyfin = {
-        icon = "jellyfin.png";
+      Jellyseerr = {
+        icon = "jellyseerr.png";
         href = "https://${dname}";
         siteMonitor = "https://${dname}";
-        description = "Netflix and Spotify at home";
+        description = "Media recommendations, just for you";
       };
     }];
   };
