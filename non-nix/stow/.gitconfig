@@ -34,3 +34,6 @@
 # Make sure that when programs want to pull from git they do with my ssh
 [url "git@github.com:"]
   insteadOf = https://github.com/
+[url "git@mmgithub:modmed"]
+  insteadOf = https://github.com/modmed
+  insteadOf = git@github.com:modmed
