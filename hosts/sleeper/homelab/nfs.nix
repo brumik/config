@@ -27,15 +27,6 @@ in {
       options = [ "bind" ];
     };
 
-    # assertions = [{
-    #   assertion = (constructor options) == "";
-    #   message = ''
-    #     /export        ${constructor "(rw,fsid=0,no_subtree_check)"}
-    #     /export/media  ${constructor options}
-    #     /export/share  ${constructor options}
-    #   '';
-    # }];
-
     services.nfs.server.enable = true;
     services.nfs.server.exports = ''
       /export        ${constructor "rw,fsid=0,no_subtree_check"}
