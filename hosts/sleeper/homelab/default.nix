@@ -16,9 +16,6 @@ in {
     ./traefik
     ./authelia
     ./tailscale.nix
-    ./audiobooks.nix
-    ./webdav.nix
-    ./calibre.nix
     ./homepage.nix
     ./immich.nix
     ./home-assistant.nix

@@ -37,7 +37,7 @@
     power.enable = true;
     nvidia.enable = true;
     backup = {
-      enable = true;
+      enable = true; 
       # Add extra state dirs
       stateDirs = [ "/backup" ];
     };
@@ -71,7 +71,7 @@
 
     # Media
     media = {
-      enable = true;
+      enable = true; 
       transmission.enable = true;
       prowlarr.enable = true;
       lidarr.enable = true;
@@ -79,9 +79,9 @@
       bazarr.enable = true;
       jellyfin.enable = true;
       jellyseerr.enable = true;
+      audiobookshelf.enable = true;
+      calibre.enable = true;
     };
-    audiobookshelf.enable = true;
-    calibre.enable = true;
     freshrss.enable = true;
     kiwix.enable = true;
     karakeep.enable = true;

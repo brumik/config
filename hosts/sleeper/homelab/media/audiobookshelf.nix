@@ -1,10 +1,11 @@
 { config, lib, ... }:
 let
-  cfg = config.homelab.audiobookshelf;
+  cfg = config.homelab.media.audiobookshelf;
+  hcfg = config.homelab;
   dname = "${cfg.domain}.${config.homelab.domain}";
   baseDirDefaultVal = "/var/lib/audiobookshelf";
 in {
-  options.homelab.audiobookshelf = {
+  options.homelab.media.audiobookshelf = {
     enable = lib.mkEnableOption "audiobookshelf";
 
     domain = lib.mkOption {
@@ -20,7 +21,7 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && hcfg.media.enable && cfg.enable) {
     systemd.tmpfiles.rules = lib.mkIf (cfg.baseDir != baseDirDefaultVal) [
       "L ${baseDirDefaultVal} - - - - ${cfg.baseDir}"
     ];

@@ -33,13 +33,13 @@ in {
     virtualisation.libvirtd.enable = true;
     environment.systemPackages = with pkgs; [ qemu_kvm OVMF ];
 
-  # Requires ollama running
-    homelab.ollama = {
-      enable = true;
-      loadModels = [ "llama3.1:latest" ];
-    };
+    # Requires ollama running
+    assertions = [{
+      assertion = hcfg.ollama.enable;
+      message = "Home Assistant Depends on Ollama for Voice Commands";
+    }];
 
-
+    # Other servers for text to speech and vice versa
     services.wyoming.faster-whisper.servers.generic = {
       enable = true;
       device = "cuda";
@@ -78,14 +78,14 @@ in {
           -device usb-host,vendorid=0x1a86,productid=0x55d4 \
           -device usb-host,vendorid=0x1cf1,productid=0x0030 \
           -device usb-host,vendorid=0x0658,productid=0x0200
-         '';
+        '';
         Restart = "always";
       };
     };
 
     homelab.backup = {
-      stateDirs = [ cfg.imageBackup ]; 
-      preBackupScripts = [ ''
+      stateDirs = [ cfg.imageBackup ];
+      preBackupScripts = [''
         systemctl stop ${serviceName}
         cp -f ${cfg.image} ${cfg.imageBackup}
         systemctl start ${serviceName}

@@ -1,9 +1,10 @@
 { config, lib, ... }:
 let
-  cfg = config.homelab.calibre;
+  cfg = config.homelab.media.calibre;
+  hcfg = config.homelab;
   dir = cfg.baseDir;
 in {
-  options.homelab.calibre = {
+  options.homelab.media.calibre = {
     enable = lib.mkEnableOption "calibre";
 
     domain = lib.mkOption {
@@ -19,7 +20,7 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && hcfg.media.enable && cfg.enable) {
     # Create directories
     systemd.tmpfiles.rules = [
       "d ${dir} 0755 share share -"

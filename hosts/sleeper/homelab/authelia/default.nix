@@ -73,9 +73,9 @@ in {
   config = lib.mkIf cfg.enable {
     # Define user ids
     users.users."${config.services.authelia.instances."${instance}".user}".uid =
-      989;
+      config.globals.users.authelia.uid;
     users.groups."${config.services.authelia.instances."${instance}".user}".gid =
-      985;
+      config.globals.users.authelia.gid;
 
     sops.secrets = {
       "n100/authelia/jwt-secret" = { owner = "authelia-main"; };

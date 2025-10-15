@@ -30,9 +30,15 @@ with lib;
     # Default Homelab share
     share = {
       uname = "share";
-      uid = 994;
+      uid = 1111;
       gname = "share";
-      gid = 993;
+      gid = 1111;
+    };
+
+    authelia = {
+      # names for these are coming from the service
+      uid = 989;
+      gid = 985;
     };
 
     immich = {
