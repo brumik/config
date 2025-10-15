@@ -33,6 +33,7 @@ in {
     ./karakeep.nix
     ./glances.nix
     ./media
+    ./nfs.nix
   ];
 
   options.homelab = {

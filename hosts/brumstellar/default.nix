@@ -12,6 +12,7 @@
     ../common/optional/gaming.nix
     ../common/optional/printing.nix
     ../common/optional/usb-waekup-disable.nix
+    ../common/optional/nfs.nix
 
     ../common/users/levente.nix
     ../common/users/work.nix
@@ -68,10 +69,4 @@
   # in ''
   #   SUBSYSTEM=="i2c", ACTION=="add", ATTR{name}=="${ddcciDev}", RUN+="${bash} -c 'sleep 30; printf ddcci\ 0x37 > ${ddcciNode}'"
   # '';
-  
-  boot.supportedFilesystems = [ "nfs" ];
-  fileSystems."/mnt/brum" = {
-    device = "sleeper.berky.me:/brum";
-    fsType = "nfs"; options = [ "nfsvers=4.2" "x-systemd.automount" "noauto" ];
-  };
 }

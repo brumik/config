@@ -24,7 +24,8 @@
   inputs = {
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:nixos/nixpkgs/e9f00bd893984bc8ce46c895c3bf7cac95331127";
+    nixpkgs.url =
+      "github:nixos/nixpkgs/e9f00bd893984bc8ce46c895c3bf7cac95331127";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -54,7 +55,8 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, jovian, disko, nixpkgs-stable, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, stylix, jovian, disko, nixpkgs-stable
+    , ... }@inputs:
     let
       inherit (self) outputs;
       system = "x86_64-linux";
@@ -76,10 +78,7 @@
         sleeper = (nixpkgs-stable.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs outputs; };
-          modules = [
-            disko.nixosModules.disko
-            ./hosts/sleeper
-          ];
+          modules = [ disko.nixosModules.disko ./hosts/sleeper ];
         });
 
         # Personal PC
