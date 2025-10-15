@@ -33,6 +33,6 @@
   '';
 
   home.file.".ssh/config".text = ''
-    IdentityFile ~/.ssh/id_ed25519
+    IdentityFile ${config.sops.secrets."private-keys/id-brum".path}
   '';
 }

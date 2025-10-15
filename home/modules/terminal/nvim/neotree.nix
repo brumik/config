@@ -13,9 +13,11 @@
 
     plugins.neo-tree = {
       enable = true;
-      closeIfLastWindow = true;
-      popupBorderStyle = "rounded";
-      filesystem.filteredItems.visible = true;
+      settings = {
+        closeIfLastWindow = true;
+        popupBorderStyle = "rounded";
+        filesystem.filteredItems.visible = true;
+      };
     };
   };
 }
