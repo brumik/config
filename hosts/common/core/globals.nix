@@ -11,7 +11,7 @@ with lib;
     # Real users
     gamer = {
       uname = "gamer";
-      uid = 1000;
+      uid = 1012;
     };
     levente = {
       uname = "levente";
