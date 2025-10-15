@@ -22,4 +22,5 @@ in {
 
   mySystems.docker.users = [ levente.uname ];
   mySystems.scanner.users = [ levente.uname ];
+  mySystems.nfs.users = [ levente.uname ];
 }

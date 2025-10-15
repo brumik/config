@@ -28,8 +28,11 @@
         IdentitiesOnly yes
   '';
 
-  mySystems.docker = { enable = true; };
-  mySystems.scanner = { enable = true; };
+  mySystems = {
+    docker.enable = true;
+    scanner.enable = true;
+    nfs.enable = true;
+  };
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
