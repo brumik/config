@@ -12,9 +12,6 @@
     bitwarden
     onlyoffice-bin
     vlc
-    transmission_4-qt
-    element-desktop
-    todoist-electron
     yubioath-flutter
     brave
     nextcloud-client
