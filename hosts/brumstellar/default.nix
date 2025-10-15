@@ -12,6 +12,7 @@
     ../common/optional/gaming.nix
     ../common/optional/printing.nix
     ../common/optional/usb-waekup-disable.nix
+    ../common/optional/nfs.nix
 
     ../common/users/levente.nix
     ../common/users/work.nix
@@ -27,8 +28,11 @@
         IdentitiesOnly yes
   '';
 
-  mySystems.docker = { enable = true; };
-  mySystems.scanner = { enable = true; };
+  mySystems = {
+    docker.enable = true;
+    scanner.enable = true;
+    nfs.enable = true;
+  };
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

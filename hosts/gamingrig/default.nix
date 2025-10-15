@@ -7,6 +7,7 @@ in {
     ../common/core
     ../common/optional/gaming.nix
     ../common/optional/usb-waekup-disable.nix
+    ../common/optional/nfs.nix
   ];
 
   networking.hostName = "gamingrig";
@@ -49,6 +50,12 @@ in {
     brave
     discord
   ];
+
+
+  mySystems.nfs = {
+    enable = true;
+    users = [ gamer.uname ];
+  };
 
   sops.secrets."brum/hashed-password".neededForUsers = true;
   # It's important to include users.mutableUsers = false to ensure the user can't modify

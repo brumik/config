@@ -23,4 +23,5 @@ in {
     import ../../../home/katerina { username = katerina.uname; };
 
   mySystems.scanner.users = [ katerina.uname ];
+  mySystems.nfs.users = [ katerina.uname ];
 }
