@@ -72,7 +72,9 @@
     # Media
     media = {
       enable = true; 
+      gluetun.enable = true;
       transmission.enable = true;
+      sabnzbd.enable = true;
       prowlarr.enable = true;
       lidarr.enable = true;
       radarr.enable = true;

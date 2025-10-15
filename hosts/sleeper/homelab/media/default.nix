@@ -4,7 +4,9 @@ let
   hcfg = config.homelab;
 in {
   imports = [
+    ./gluetun.nix
     ./transmission.nix
+    ./snabnzbd.nix
     ./jellyfin.nix
     ./jellyseerr.nix
     ./prowlarr.nix

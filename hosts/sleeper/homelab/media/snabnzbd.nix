@@ -1,21 +1,21 @@
 { config, lib, ... }:
 let
-  cfg = config.homelab.media.transmission;
+  cfg = config.homelab.media.sabnzbd;
   hcfg = config.homelab;
   dname = "${cfg.domain}.${hcfg.domain}";
 in {
-  options.homelab.media.transmission = {
-    enable = lib.mkEnableOption "transmission";
+  options.homelab.media.sabnzbd = {
+    enable = lib.mkEnableOption "sabnzbd";
 
     domain = lib.mkOption {
       type = lib.types.str;
-      default = "transmission";
+      default = "sabnzbd";
       description = "The subdomain where the service will be served";
     };
 
     baseDir = lib.mkOption {
       type = lib.types.path;
-      default = "/var/lib/oci-transmission";
+      default = "/var/lib/oci-sabnzbd";
       description =
         "The absolute path where the service will store the important informations";
     };
@@ -25,11 +25,11 @@ in {
     systemd.tmpfiles.rules = [
       # "d '${nixarr.mediaDir}/torrents/sonarr'      0755 ${globals.transmission.user} ${globals.transmission.group} - -"
       # "d '${nixarr.mediaDir}/torrents/readarr'     0755 ${globals.transmission.user} ${globals.transmission.group} - -"
-      "d ${hcfg.media.torrentDir}/.incomplete 0775 ${hcfg.user} ${hcfg.group} -"
-      "d ${hcfg.media.torrentDir}/.watch 0775 ${hcfg.user} ${hcfg.group} -"
-      "d ${hcfg.media.torrentDir}/manual 0775 ${hcfg.user} ${hcfg.group} -"
-      "d ${hcfg.media.torrentDir}/lidarr 0775 ${hcfg.user} ${hcfg.group} -"
-      "d ${hcfg.media.torrentDir}/radarr 0775 ${hcfg.user} ${hcfg.group} -"
+      "d ${hcfg.media.usenetDir}/.incomplete 0775 ${hcfg.user} ${hcfg.group} -"
+      "d ${hcfg.media.usenetDir}/.watch 0775 ${hcfg.user} ${hcfg.group} -"
+      "d ${hcfg.media.usenetDir}/manual 0775 ${hcfg.user} ${hcfg.group} -"
+      "d ${hcfg.media.usenetDir}/lidarr 0775 ${hcfg.user} ${hcfg.group} -"
+      "d ${hcfg.media.usenetDir}/radarr 0775 ${hcfg.user} ${hcfg.group} -"
     ];
 
     assertions = [{
@@ -40,9 +40,7 @@ in {
     virtualisation.oci-containers.containers = {
       gluetun.ports = [
         # For transmission since the networking is going through this container
-        "9092:9091"
-        "51413:51413"
-        "51413:51413/udp"
+        "9093:8080"
       ];
 
       ####################################################
@@ -51,13 +49,10 @@ in {
       # back that file up, but with different settings
       # or mounting this file might be outdated.
       ####################################################
-      transmission = {
-        image = "lscr.io/linuxserver/transmission:latest";
+      sabnzbd = {
+        image = "lscr.io/linuxserver/sabnzbd:latest";
         pull = "always";
         environment = {
-          # To update the port forwarding port from the gluetun container
-          DOCKER_MODS =
-            "ghcr.io/michsior14/docker-mods:transmission-gluetun-port-update";
           PUID =
             builtins.toString config.users.users."${config.homelab.user}".uid;
           PGID =
@@ -67,7 +62,7 @@ in {
         volumes = [
           "${cfg.baseDir}:/config"
           # This is so all the other native apps (lidarr etc) see the directory
-          "${hcfg.media.torrentDir}:/${hcfg.media.torrentDir}"
+          "${hcfg.media.usenetDir}:/${hcfg.media.usenetDir}"
         ];
         # This makes it share gluetun's network namespace:
         extraOptions = [ "--network=container:gluetun" ];
@@ -76,17 +71,17 @@ in {
 
     homelab.traefik.routes = [{
       host = cfg.domain;
-      port = 9092;
+      port = 9093;
     }];
 
     homelab.backup.stateDirs = [ cfg.baseDir ];
 
     homelab.homepage.arr = [{
-      Transmission = {
-        icon = "transmission.png";
+      Sabnzbd = {
+        icon = "sabnzbd.png";
         href = "https://${dname}";
         siteMonitor = "https://${dname}";
-        description = "Transmission Torrenting Client";
+        description = "Sabnzbd Usenet Client";
       };
     }];
   };
