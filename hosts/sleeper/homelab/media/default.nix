@@ -12,6 +12,8 @@ in {
     ./prowlarr.nix
     ./lidarr.nix
     ./radarr.nix
+    ./sonarr.nix
+    ./recyclarr.nix
     ./bazarr.nix
     ./audiobookshelf.nix
     ./calibre.nix

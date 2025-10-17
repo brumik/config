@@ -74,10 +74,12 @@
       enable = true; 
       gluetun.enable = true;
       transmission.enable = true;
-      sabnzbd.enable = true;
+      sabnzbd.enable = false;
       prowlarr.enable = true;
       lidarr.enable = true;
       radarr.enable = true;
+      sonarr.enable = true;
+      recyclarr.enable = true;
       bazarr.enable = true;
       jellyfin.enable = true;
       jellyseerr.enable = true;

@@ -30,11 +30,12 @@ in {
       "d ${hcfg.media.torrentDir}/manual 0775 ${hcfg.user} ${hcfg.group} -"
       "d ${hcfg.media.torrentDir}/lidarr 0775 ${hcfg.user} ${hcfg.group} -"
       "d ${hcfg.media.torrentDir}/radarr 0775 ${hcfg.user} ${hcfg.group} -"
+      "d ${hcfg.media.torrentDir}/sonarr 0775 ${hcfg.user} ${hcfg.group} -"
     ];
 
     assertions = [{
       assertion = hcfg.media.gluetun.enable;
-      message = "Sabnzbd depends on gluetun";
+      message = "Transmission depends on gluetun";
     }];
 
     virtualisation.oci-containers.containers = {
