@@ -25,6 +25,7 @@ in {
     systemd.tmpfiles.rules = [
       # "d '${nixarr.mediaDir}/torrents/sonarr'      0755 ${globals.transmission.user} ${globals.transmission.group} - -"
       # "d '${nixarr.mediaDir}/torrents/readarr'     0755 ${globals.transmission.user} ${globals.transmission.group} - -"
+      "d ${cfg.baseDir} ${hcfg.user} ${hcfg.group} -"
       "d ${hcfg.media.torrentDir}/.incomplete 0775 ${hcfg.user} ${hcfg.group} -"
       "d ${hcfg.media.torrentDir}/.watch 0775 ${hcfg.user} ${hcfg.group} -"
       "d ${hcfg.media.torrentDir}/manual 0775 ${hcfg.user} ${hcfg.group} -"

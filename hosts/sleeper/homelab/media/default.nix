@@ -6,7 +6,7 @@ in {
   imports = [
     ./gluetun.nix
     ./transmission.nix
-    ./snabnzbd.nix
+    ./slskd.nix
     ./jellyfin.nix
     ./jellyseerr.nix
     ./prowlarr.nix

@@ -1,21 +1,21 @@
 { config, lib, ... }:
 let
-  cfg = config.homelab.media.sabnzbd;
+  cfg = config.homelab.media.soulseek;
   hcfg = config.homelab;
   dname = "${cfg.domain}.${hcfg.domain}";
 in {
-  options.homelab.media.sabnzbd = {
-    enable = lib.mkEnableOption "sabnzbd";
+  options.homelab.media.soulseek = {
+    enable = lib.mkEnableOption "soulseek";
 
     domain = lib.mkOption {
       type = lib.types.str;
-      default = "sabnzbd";
+      default = "soulseek";
       description = "The subdomain where the service will be served";
     };
 
     baseDir = lib.mkOption {
       type = lib.types.path;
-      default = "/var/lib/oci-sabnzbd";
+      default = "/var/lib/oci-soulseek";
       description =
         "The absolute path where the service will store the important informations";
     };
@@ -23,24 +23,19 @@ in {
 
   config = lib.mkIf (hcfg.enable && hcfg.media.enable && cfg.enable) {
     systemd.tmpfiles.rules = [
-      # "d '${nixarr.mediaDir}/torrents/sonarr'      0755 ${globals.transmission.user} ${globals.transmission.group} - -"
-      # "d '${nixarr.mediaDir}/torrents/readarr'     0755 ${globals.transmission.user} ${globals.transmission.group} - -"
-      "d ${hcfg.media.usenetDir}/.incomplete 0775 ${hcfg.user} ${hcfg.group} -"
-      "d ${hcfg.media.usenetDir}/.watch 0775 ${hcfg.user} ${hcfg.group} -"
-      "d ${hcfg.media.usenetDir}/manual 0775 ${hcfg.user} ${hcfg.group} -"
-      "d ${hcfg.media.usenetDir}/lidarr 0775 ${hcfg.user} ${hcfg.group} -"
-      "d ${hcfg.media.usenetDir}/radarr 0775 ${hcfg.user} ${hcfg.group} -"
+      "d ${cfg.baseDir} ${hcfg.user} ${hcfg.group} -"
     ];
 
     assertions = [{
       assertion = hcfg.media.gluetun.enable;
-      message = "Sabnzbd depends on gluetun";
+      message = "Transmission depends on gluetun";
     }];
 
     virtualisation.oci-containers.containers = {
       gluetun.ports = [
-        # For transmission since the networking is going through this container
-        "9093:8080"
+        # For soulseek since the networking is going through this container
+        "5030:5030"
+        "50300:50300"
       ];
 
       ####################################################
@@ -49,20 +44,25 @@ in {
       # back that file up, but with different settings
       # or mounting this file might be outdated.
       ####################################################
-      sabnzbd = {
-        image = "lscr.io/linuxserver/sabnzbd:latest";
+      soulseek = {
+        image = "slskd/slskd:latest";
         pull = "always";
         environment = {
-          PUID =
-            builtins.toString config.users.users."${config.homelab.user}".uid;
-          PGID =
-            builtins.toString config.users.groups."${config.homelab.group}".gid;
-          TZ = "Europe/Berlin";
+          SLSKD_REMOTE_CONFIGURATION = "true";
+
+          # To update the port forwarding port from the gluetun container
+          # DOCKER_MODS =
+          #   "ghcr.io/michsior14/docker-mods:soulseek-gluetun-port-update";
+          # PUID =
+          #   builtins.toString config.users.users."${config.homelab.user}".uid;
+          # PGID =
+          #   builtins.toString config.users.groups."${config.homelab.group}".gid;
+          # TZ = "Europe/Berlin";
         };
         volumes = [
-          "${cfg.baseDir}:/config"
+          "${cfg.baseDir}:/app"
           # This is so all the other native apps (lidarr etc) see the directory
-          "${hcfg.media.usenetDir}:/${hcfg.media.usenetDir}"
+          "${hcfg.media.torrentDir}:/${hcfg.media.torrentDir}"
         ];
         # This makes it share gluetun's network namespace:
         extraOptions = [ "--network=container:gluetun" ];
@@ -71,17 +71,17 @@ in {
 
     homelab.traefik.routes = [{
       host = cfg.domain;
-      port = 9093;
+      port = 5030;
     }];
 
     homelab.backup.stateDirs = [ cfg.baseDir ];
 
     homelab.homepage.arr = [{
-      Sabnzbd = {
-        icon = "sabnzbd.png";
+      Soulseek = {
+        icon = "soulseek.png";
         href = "https://${dname}";
         siteMonitor = "https://${dname}";
-        description = "Sabnzbd Usenet Client";
+        description = "Soulseek Torrenting Client";
       };
     }];
   };
