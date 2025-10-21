@@ -74,7 +74,6 @@
       enable = true; 
       gluetun.enable = true;
       transmission.enable = true;
-      soulseek.enable = true;
       prowlarr.enable = true;
       lidarr.enable = true;
       radarr.enable = true;
