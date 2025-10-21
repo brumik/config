@@ -73,6 +73,7 @@ in {
         ];
         # This makes it share gluetun's network namespace:
         extraOptions = [ "--network=container:gluetun" ];
+        dependsOn = [ "gluetun" ];
       };
     };
 
