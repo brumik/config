@@ -47,6 +47,6 @@ setopt hist_ignore_all_dups
 setopt hist_ignore_dups
 setopt share_history
 
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-#     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# Load all ssh keys
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519 &> /dev/null
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519_mm &> /dev/null
