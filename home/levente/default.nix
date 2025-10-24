@@ -17,6 +17,7 @@
     nextcloud-client
     ncspot
     protonvpn-gui
+    picard
   ];
 
   services.nextcloud-client = {
