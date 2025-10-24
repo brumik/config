@@ -34,18 +34,36 @@ in {
       "d ${hcfg.media.torrentDir}/sonarr 0775 ${hcfg.user} ${hcfg.group} -"
     ];
 
-    assertions = [{
-      assertion = hcfg.media.gluetun.enable;
-      message = "Transmission depends on gluetun";
-    }];
+    sops.secrets."n100/protonvpn-wireguard-private-key" = { };
+    sops.templates."n100/gluetun/.env" = {
+      content = ''
+        WIREGUARD_PRIVATE_KEY=${
+          config.sops.placeholder."n100/protonvpn-wireguard-private-key"
+        }
+      '';
+    };
 
     virtualisation.oci-containers.containers = {
-      gluetun.ports = [
-        # For transmission since the networking is going through this container
-        "9092:9091"
-        "51413:51413"
-        "51413:51413/udp"
-      ];
+      gluetun-transmission = {
+        image = "qmcgaw/gluetun";
+        pull = "always";
+        ports = [
+          # For transmission since the networking is going through this container
+          "9092:9091"
+          "51413:51413"
+          "51413:51413/udp"
+        ];
+        capabilities = { NET_ADMIN = true; };
+        environment = {
+          VPN_SERVICE_PROVIDER = "protonvpn";
+          VPN_TYPE = "wireguard";
+          SERVER_COUNTRIES = "Switzerland";
+          PORT_FORWARD_ONLY = "on";
+          VPN_PORT_FORWARDING = "on";
+        };
+        environmentFiles = [ config.sops.templates."n100/gluetun/.env".path ];
+        devices = [ "/dev/net/tun:/dev/net/tun" ];
+      };
 
       ####################################################
       # Most of the configuration for this service is 
@@ -64,7 +82,7 @@ in {
             builtins.toString config.users.users."${config.homelab.user}".uid;
           PGID =
             builtins.toString config.users.groups."${config.homelab.group}".gid;
-          TZ = "Europe/Berlin";
+          TZ = "${config.time.timeZone}";
         };
         volumes = [
           "${cfg.baseDir}:/config"
@@ -72,8 +90,8 @@ in {
           "${hcfg.media.torrentDir}:/${hcfg.media.torrentDir}"
         ];
         # This makes it share gluetun's network namespace:
-        extraOptions = [ "--network=container:gluetun" ];
-        dependsOn = [ "gluetun" ];
+        extraOptions = [ "--network=container:gluetun-transmission" ];
+        dependsOn = [ "gluetun-transmission" ];
       };
     };
 

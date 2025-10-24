@@ -59,7 +59,7 @@ in {
         LOG_FILE = "none";
         LOG_HTML = "false";
         CAPTCHA_SOLVER = "none";
-        TZ = "Europe/Berlin";
+        TZ = "${config.time.timeZone}";
       };
       ports = [ "8191:8191" ];
     };

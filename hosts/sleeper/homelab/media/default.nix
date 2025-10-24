@@ -6,7 +6,7 @@ in {
   imports = [
     ./gluetun.nix
     ./transmission.nix
-    ./slskd.nix
+    ./soulseek.nix
     ./jellyfin.nix
     ./jellyseerr.nix
     ./prowlarr.nix
@@ -34,12 +34,6 @@ in {
       description =
         "The absolute path where the service will store the important informations";
     };
-    usenetDir = lib.mkOption {
-      type = lib.types.path;
-      default = "/media/usenet";
-      description =
-        "The absolute path where the service will store the important informations";
-    };
     libDir = lib.mkOption {
       type = lib.types.path;
       default = "/media/library";
@@ -55,10 +49,6 @@ in {
         message = "Homelab Media torrentDir needs to be under baseDir.";
       }
       {
-        assertion = lib.hasPrefix cfg.baseDir cfg.usenetDir;
-        message = "Homelab Media usenetDir needs to be under baseDir.";
-      }
-      {
         assertion = lib.hasPrefix cfg.baseDir cfg.libDir;
         message = "Homelab Media libDir needs to be under baseDir.";
       }
@@ -67,7 +57,6 @@ in {
     systemd.tmpfiles.rules = [
       "d ${cfg.baseDir} 0775 ${hcfg.user} ${hcfg.group} -"
       "d ${cfg.torrentDir} 0775 ${hcfg.user} ${hcfg.group} -"
-      "d ${cfg.usenetDir} 0775 ${hcfg.user} ${hcfg.group} -"
       "d ${cfg.libDir} 0775 ${hcfg.user} ${hcfg.group} -"
     ];
   };
