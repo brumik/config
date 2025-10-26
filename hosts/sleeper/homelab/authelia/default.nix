@@ -7,6 +7,8 @@ let
   dname = "${cfg.domain}.${hcfg.domain}";
   instance = "main";
   redisPort = 6380;
+  localSubnets = [ hcfg.subnet ]
+    ++ (lib.optionals hcfg.tailscale.enable [ hcfg.tailscale.subnet ]);
 in {
   imports = [ ./oidc.nix ];
 
@@ -162,11 +164,11 @@ in {
             # Bypass apps that have strong auth
             domain = cfg.localBypassDomains;
             policy = "bypass";
-            networks = [ "192.168.0.0/16" "100.0.0.0/8" ];
+            networks = [ localSubnets ];
           }) ++ [{
             # On LAN we do one_factor (non guest network at least :)
             domain = [ "*.${hcfg.domain}" "${hcfg.domain}" ];
-            networks = [ "192.168.0.0/16" "100.0.0.0/8" ];
+            networks = [ localSubnets ];
             policy = "one_factor";
           }] ++ lib.optional (cfg.exposedDomains != [ ]) {
             # Allow apps from internet behind 2FA only
