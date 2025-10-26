@@ -30,6 +30,7 @@
     domain = "berky.me";
     serverIP = "192.168.1.129";
     gateway = "192.168.1.1";
+    subnet = "192.168.1.0/24";
 
     # Self config
     zfs.enable = true;
@@ -43,6 +44,10 @@
     };
 
     # Infra
+    tailscale = {
+      enable = true;
+      serverIP = "100.93.65.122";
+    };
     cache.enable = true;
     auto-update = {
       enable = true;
@@ -50,7 +55,6 @@
     };
     ddclient.enable = true;
     lldap.enable = true;
-    tailscale.enable = true;
     authelia.enable = true;
     traefik.enable = true;
     adguardhome.enable = true;

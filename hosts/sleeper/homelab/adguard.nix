@@ -3,6 +3,9 @@ let
   cfg = config.homelab.adguardhome;
   hcfg = config.homelab;
   dname = "${cfg.domain}.${hcfg.domain}";
+  # This is retrieved from config itself
+  # https://github.com/NixOS/nixpkgs/blob/d916df777523d75f7c5acca79946652f032f633e/nixos/modules/services/networking/adguardhome.nix#L203
+  baseDir = "/var/lib/AdGuardHome";
 in {
   options.homelab.adguardhome = {
     enable = lib.mkEnableOption "adguard";
@@ -22,6 +25,7 @@ in {
       # TODO: enable this to delete all settings made from the web-interface
       # this needs to have much more options defined as this will be the complete config
       mutableSettings = true;
+      allowDHCP = true;
       settings = {
         dns = {
           upstream_dns = [
@@ -30,23 +34,40 @@ in {
             "https://dns10.quad9.net/dns-query"
           ];
         };
-        filtering = {
-          rewrites = [
-            {
-              domain = "*.${config.homelab.domain}";
-              answer = "${config.homelab.serverIP}";
-            }
-            {
-              domain = "${config.homelab.domain}";
-              answer = "${config.homelab.serverIP}";
-            }
-          ];
+        user_rules = [
+          "||${hcfg.domain}^$dnsrewrite=NOERROR;A;${hcfg.serverIP},client=${hcfg.subnet}"
+        ] ++ (lib.optionals hcfg.tailscale.enable [
+          "||${hcfg.domain}^$dnsrewrite=NOERROR;A;${hcfg.tailscale.serverIP},client=${hcfg.tailscale.subnet}"
+        ]);
+
+        dhcp = {
+          enabled = true;
+          interface_name = config.networking.interfaces.enp5s0.name;
+          local_domain_name = "lan";
+          dhcpv4 = {
+            gateway_ip = hcfg.gateway;
+            subnet_mask = "255.255.255.0";
+            range_start = "192.168.1.2";
+            range_end = "192.168.1.99";
+            lease_duration = 86400;
+            icmp_timeout_msec = 0;
+            options = [ ];
+          };
+          dhcpv6 = {
+            range_start = "";
+            lease_duration = 86400;
+            ra_slaac_only = false;
+            ra_allow_slaac = false;
+          };
         };
       };
     };
 
-    # Open ports for DNS server
-    networking.firewall.allowedUDPPorts = [ 53 ];
+    # Open ports for DNS server and dhcp
+    networking.firewall.allowedUDPPorts = [ 53 67 ];
+
+    # The leases contain also the static addresses
+    homelab.backup.stateDirs = [ "${baseDir}/data/leases.json" ];
 
     homelab.traefik.routes = [{
       host = cfg.domain;

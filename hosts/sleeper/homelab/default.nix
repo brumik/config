@@ -43,17 +43,22 @@ in {
 
     domain = lib.mkOption {
       type = lib.types.str;
-      default = "berky.me";
+      example = "berky.me";
     };
 
     serverIP = lib.mkOption {
       type = lib.types.str;
-      default = "192.168.1.127";
+      example = "192.168.1.127";
     };
 
     gateway = lib.mkOption {
       type = lib.types.str;
       default = "192.168.1.1";
+    };
+
+    subnet = lib.mkOption {
+      type = lib.types.str;
+      default = "192.168.1.0/24";
     };
 
     user = lib.mkOption {
@@ -83,8 +88,10 @@ in {
       };
     };
 
-    # Do not use our own dns server 
-    networking.nameservers = [ "1.1.1.1" "8.8.8.8" ]; 
+    # Do not use only our own dns server 
+    networking.nameservers = [ cfg.serverIP "1.1.1.1" "8.8.8.8" ]; 
+
+    networking.domain = cfg.domain;
 
     # Enable docker and set all container based services to it;
     virtualisation = {
