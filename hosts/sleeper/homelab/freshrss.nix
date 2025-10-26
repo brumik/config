@@ -61,8 +61,6 @@ in {
       port = 10003;
     }];
 
-    homelab.authelia.exposedDomains = [ dname ];
-
     homelab.backup.stateDirs = [ cfg.baseDir ];
 
     homelab.homepage.app = [{

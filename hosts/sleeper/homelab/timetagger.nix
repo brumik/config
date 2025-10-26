@@ -47,8 +47,6 @@ in {
       port = 11115;
     }];
 
-    homelab.authelia.exposedDomains = [ dname ];
-
     homelab.homepage.app = [{
       Timetagger = {
         icon = "timetagger.png";

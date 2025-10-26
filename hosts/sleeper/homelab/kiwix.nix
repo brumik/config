@@ -36,8 +36,6 @@ in {
       port = 10004;
     }];
 
-    homelab.authelia.exposedDomains = [ dname ];
-
     homelab.homepage.app = [{
       Kiwix = {
         icon = "kiwix.png";

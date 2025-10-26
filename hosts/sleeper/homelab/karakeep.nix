@@ -95,7 +95,7 @@ in {
 
     # The nextauth will try to reach out to his OWN url and cannot have authelia return a non
     # allowed error, otherwise cannot create auth methods and login won't work
-    homelab.authelia.bypassDomains = [ dname ];
+    homelab.authelia.localBypassDomains = [ dname ];
 
     homelab.backup.stateDirs = [ cfg.baseDir ];
 

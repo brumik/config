@@ -73,8 +73,6 @@ in {
       }
     ];
 
-    homelab.authelia.exposedDomains = [ "${cfg.domain}.${config.homelab.domain}" ];
-
     homelab.backup.stateDirs = [ dir ];
 
     homelab.homepage.media = [

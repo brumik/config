@@ -62,8 +62,6 @@ in {
       port = 17170;
     }];
 
-    homelab.authelia.exposedDomains = [ dname ];
-
     # TODO close this when calibre-web is migrated away from docker
     networking.firewall.allowedTCPPorts = [ 3890 ];
 

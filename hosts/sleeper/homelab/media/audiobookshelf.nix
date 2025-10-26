@@ -39,8 +39,6 @@ in {
       port = 18000;
     }];
 
-    homelab.authelia.exposedDomains = [ dname ];
-
     homelab.authelia.oidc.clients = [{
       client_id = "audiobookshelf";
       client_name = "Audiobookshelf";

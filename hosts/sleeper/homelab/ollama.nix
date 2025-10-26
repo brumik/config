@@ -151,7 +151,7 @@ in {
     };
 
     # We have Bearer auth here
-    homelab.authelia.bypassDomains = [ dname ];
+    homelab.authelia.localBypassDomains = [ dname ];
 
     homelab.traefik.routes = [{
       host = cfg.domain;

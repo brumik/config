@@ -106,8 +106,6 @@ in {
       port = 11111;
     }];
 
-    homelab.authelia.exposedDomains = [ dname ];
-
     homelab.authelia.oidc.clients = [{
       client_id = "open-webui";
       client_name = "Open WebUI";

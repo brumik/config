@@ -44,7 +44,7 @@ in {
       port = 5232;
     }];
 
-    homelab.authelia.bypassDomains = [ "${cfg.domain}.${config.homelab.domain}" ];
+    homelab.authelia.localBypassDomains = [ "${cfg.domain}.${config.homelab.domain}" ];
 
     homelab.backup.stateDirs = [ cfg.baseDir ];
 

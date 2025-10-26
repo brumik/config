@@ -109,8 +109,6 @@ in {
       port = 9000;
     }];
 
-    homelab.authelia.exposedDomains = [ dname ];
-
     homelab.authelia.oidc.clients = [{
       client_id = "mealie";
       client_name = "Mealie";

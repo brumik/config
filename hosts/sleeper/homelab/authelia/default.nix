@@ -164,11 +164,11 @@ in {
             # Bypass apps that have strong auth
             domain = cfg.localBypassDomains;
             policy = "bypass";
-            networks = [ localSubnets ];
+            networks = localSubnets;
           }) ++ [{
             # On LAN we do one_factor (non guest network at least :)
             domain = [ "*.${hcfg.domain}" "${hcfg.domain}" ];
-            networks = [ localSubnets ];
+            networks = localSubnets;
             policy = "one_factor";
           }] ++ lib.optional (cfg.exposedDomains != [ ]) {
             # Allow apps from internet behind 2FA only
