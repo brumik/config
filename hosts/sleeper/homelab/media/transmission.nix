@@ -57,7 +57,7 @@ in {
         environment = {
           VPN_SERVICE_PROVIDER = "protonvpn";
           VPN_TYPE = "wireguard";
-          SERVER_COUNTRIES = "Switzerland";
+          SERVER_COUNTRIES = "Germany";
           PORT_FORWARD_ONLY = "on";
           VPN_PORT_FORWARDING = "on";
         };
