@@ -17,6 +17,9 @@ in {
     };
   };
 
+  # TODO: Disabled DHCP, when server restarted could not get and IP.
+  # Since no IP for server no way to get DHCP for other devices.
+  # Would neet static routing but it seems not working int TP link yet
   config = lib.mkIf cfg.enable {
     services.adguardhome = {
       enable = true;
@@ -40,34 +43,35 @@ in {
           "||${hcfg.domain}^$dnsrewrite=NOERROR;A;${hcfg.tailscale.serverIP},client=${hcfg.tailscale.subnet}"
         ]);
 
-        dhcp = {
-          enabled = true;
-          interface_name = config.networking.interfaces.enp5s0.name;
-          local_domain_name = "lan";
-          dhcpv4 = {
-            gateway_ip = hcfg.gateway;
-            subnet_mask = "255.255.255.0";
-            range_start = "192.168.1.2";
-            range_end = "192.168.1.99";
-            lease_duration = 86400;
-            icmp_timeout_msec = 0;
-            options = [ ];
-          };
-          dhcpv6 = {
-            range_start = "";
-            lease_duration = 86400;
-            ra_slaac_only = false;
-            ra_allow_slaac = false;
-          };
-        };
+        # dhcp = {
+        #   enabled = true;
+        #   interface_name = config.networking.interfaces.enp5s0.name;
+        #   local_domain_name = "lan";
+        #   dhcpv4 = {
+        #     gateway_ip = hcfg.gateway;
+        #     subnet_mask = "255.255.255.0";
+        #     range_start = "192.168.1.2";
+        #     range_end = "192.168.1.99";
+        #     lease_duration = 86400;
+        #     icmp_timeout_msec = 0;
+        #     options = [ ];
+        #   };
+        #   dhcpv6 = {
+        #     range_start = "";
+        #     lease_duration = 86400;
+        #     ra_slaac_only = false;
+        #     ra_allow_slaac = false;
+        #   };
+        # };
       };
     };
 
     # Open ports for DNS server and dhcp
-    networking.firewall.allowedUDPPorts = [ 53 67 ];
+    # networking.firewall.allowedUDPPorts = [ 53 67 ];
+    networking.firewall.allowedUDPPorts = [ 53 ];
 
     # The leases contain also the static addresses
-    homelab.backup.stateDirs = [ "${baseDir}/data/leases.json" ];
+    # homelab.backup.stateDirs = [ "${baseDir}/data/leases.json" ];
 
     homelab.traefik.routes = [{
       host = cfg.domain;
