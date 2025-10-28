@@ -33,12 +33,6 @@ in {
       options = options;
     };
 
-    fileSystems."/mnt/share" = {
-      device = "sleeper.berky.me:/share";
-      fsType = "nfs";
-      options = options;
-    };
-
     fileSystems."/mnt/backup" = {
       device = "sleeper.berky.me:/backup";
       options = options;

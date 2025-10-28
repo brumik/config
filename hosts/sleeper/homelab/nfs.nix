@@ -14,16 +14,10 @@ in {
   config = lib.mkIf cfg.enable {
     systemd.tmpfiles.rules = [
       "d /export 0755 nobody nogroup -"
-      "d /persist/share 0755 ${share.uname} ${share.gname} -"
     ];
 
     fileSystems."/export/media" = {
       device = "/media";
-      options = [ "bind" ];
-    };
-
-    fileSystems."/export/share" = {
-      device = "/persist/share";
       options = [ "bind" ];
     };
 
@@ -36,7 +30,6 @@ in {
     services.nfs.server.exports = ''
       /export        ${constructor "rw,fsid=0,no_subtree_check"}
       /export/media  ${constructor options}
-      /export/share  ${constructor options}
       /export/backup  ${constructor options}
     '';
     networking.firewall.allowedTCPPorts = [ 2049 ];
