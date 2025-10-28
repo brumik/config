@@ -76,7 +76,7 @@
     # Media
     media = {
       enable = true; 
-      gluetun.enable = true;
+      # Builders
       transmission.enable = true;
       soulseek.enable = true;
       prowlarr.enable = true;
@@ -85,13 +85,14 @@
       sonarr.enable = true;
       recyclarr.enable = true;
       bazarr.enable = true;
+      # Consumers
       jellyfin.enable = true;
       jellyseerr.enable = true;
       audiobookshelf.enable = true;
       calibre.enable = true;
     };
     freshrss.enable = true;
-    kiwix.enable = true;
+    # kiwix.enable = true;
     karakeep.enable = true;
 
     # Rest
@@ -100,7 +101,7 @@
     mealie.enable = true;
     ollama.enable = true;
     open-webui.enable = true;
-    timetagger.enable = true;
+    # timetagger.enable = true;
     stirling-pdf.enable = true;
     nfs.enable = true;
   };
