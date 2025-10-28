@@ -2,6 +2,14 @@
 let
   cfg = config.mySystems.nfs;
   share = config.globals.users.share;
+  options = [
+    "nfsvers=4.2"
+    "x-systemd.automount"
+    "noauto"
+    "x-systemd.idle-timeout=60"
+    "x-systemd.device-timeout=5s"
+    "x-systemd.mount-timeout=5s"
+  ];
 in {
   options.mySystems.nfs = {
     enable = lib.mkEnableOption "nfs";
@@ -22,13 +30,18 @@ in {
     fileSystems."/mnt/media" = {
       device = "sleeper.berky.me:/media";
       fsType = "nfs";
-      options = [ "nfsvers=4.2" "x-systemd.automount" "noauto" ];
+      options = options;
     };
 
     fileSystems."/mnt/share" = {
       device = "sleeper.berky.me:/share";
       fsType = "nfs";
-      options = [ "nfsvers=4.2" "x-systemd.automount" "noauto" ];
+      options = options;
+    };
+
+    fileSystems."/mnt/backup" = {
+      device = "sleeper.berky.me:/backup";
+      options = options;
     };
   };
 }
