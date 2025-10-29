@@ -24,7 +24,7 @@ let
     Check completed at $(date)
     EOF
 
-    ${pkgs.msmtp}/bin/msmtp -t < "$tmpfile"
+    ${lib.getExe pkgs.msmtp} -t < "$tmpfile"
   '';
 
 in {

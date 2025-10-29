@@ -42,7 +42,7 @@ in {
       settings = {
         ZED_DEBUG_LOG = "/tmp/zed.debug.log";
         ZED_EMAIL_ADDR = [ hcfg.email.addr ];
-        ZED_EMAIL_PROG = "${pkgs.msmtp}/bin/msmtp";
+        ZED_EMAIL_PROG = lib.getExe pkgs.msmtp;
         ZED_EMAIL_OPTS = "@ADDRESS@";
 
         ZED_NOTIFY_INTERVAL_SECS = 3600;

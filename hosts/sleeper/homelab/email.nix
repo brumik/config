@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
   cfg = config.homelab.email;
 in {
@@ -28,7 +28,7 @@ in {
       accounts = {
         default = {
           host = "smtp.m1.websupport.sk";
-          passwordeval = "cat ${config.sops.secrets."n100/smtp-pass".path}";
+          passwordeval = "${pkgs.coreutils}/bin/cat ${config.sops.secrets."n100/smtp-pass".path}";
           user = "sleeper@berky.me";
           from = "sleeper@berky.me";
         };

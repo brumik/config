@@ -34,6 +34,7 @@ in {
     ./glances.nix
     ./media
     ./nfs.nix
+    ./smart.nix
   ];
 
   options.homelab = {

@@ -34,6 +34,7 @@
 
     # Self config
     zfs.enable = true;
+    smart.enable = true;
     email.enable = true;
     power.enable = true;
     nvidia.enable = true;
