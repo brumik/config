@@ -24,7 +24,7 @@
       commit.gpgsign = true;
       rerere.enable = true;
       column.ui = "auto";
-      url = { "git@github.com:" = { insteadOf = "https://github.com/"; }; };
+      # url = { "git@github.com:" = { insteadOf = "https://github.com/"; }; };
     };
   };
 
