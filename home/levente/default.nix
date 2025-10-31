@@ -15,9 +15,9 @@
     yubioath-flutter
     brave
     nextcloud-client
-    ncspot
     protonvpn-gui
     picard
+    discord
   ];
 
   services.nextcloud-client = {
