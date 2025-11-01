@@ -18,7 +18,6 @@
     protonvpn-gui
     picard
     discord
-    android-studio
   ];
 
   services.nextcloud-client = {
