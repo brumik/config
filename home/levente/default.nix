@@ -9,7 +9,7 @@
     signal-desktop
     obsidian
     vscode
-    bitwarden
+    bitwarden-desktop
     onlyoffice-bin
     vlc
     yubioath-flutter

@@ -9,7 +9,6 @@
     chromium
     slack
     spotify
-    bitwarden
     obsidian
     vlc
     todoist-electron

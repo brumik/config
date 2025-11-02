@@ -6,7 +6,7 @@
   home.packages = with pkgs; [
     firefox
     signal-desktop
-    bitwarden
+    bitwarden-desktop
     telegram-desktop
     onlyoffice-bin
     anki-bin
