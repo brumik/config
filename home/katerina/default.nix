@@ -8,7 +8,7 @@
     signal-desktop
     bitwarden-desktop
     telegram-desktop
-    onlyoffice-bin
+    onlyoffice-desktopeditors
     anki-bin
     google-chrome
     obsidian

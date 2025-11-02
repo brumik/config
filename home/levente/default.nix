@@ -10,7 +10,7 @@
     obsidian
     vscode
     bitwarden-desktop
-    onlyoffice-bin
+    onlyoffice-desktopeditors
     vlc
     yubioath-flutter
     brave
