@@ -6,14 +6,10 @@
 
   outputs = inputs:
     inputs.flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = (import (inputs.nixpkgs) { inherit system; });
+      let pkgs = (import (inputs.nixpkgs) { inherit system; });
       in {
         devShell = pkgs.mkShell {
-          buildInputs=[
-            pkgs.nodePackages.npm
-          ];
+          buildInputs = with pkgs; [ ffmpeg flac parallel just ];
         };
-      }
-    );
+      });
 }
