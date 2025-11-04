@@ -40,15 +40,28 @@ mkdir -p "$REPORT_PATH"
 bad_count=0
 good_count=0
 
+check_file() {
+    local file="$1"
+    local ext="${file##*.}"
+    ext="${ext,,}"  # lowercase
+
+    if [[ "$ext" == "flac" ]]; then
+        flac -t "$file" &> /dev/null
+    elif [[ "$ext" == "mp3" ]]; then
+        mp3val "$file" -f -nb &> /dev/null
+    else
+        return 0  # skip unknown extensions
+    fi
+}
+
 while IFS= read -r -d '' file; do
-  if ! output=$(ffmpeg -v error -i "$file" -f null - 2>&1 > /dev/null); then
-    # echo "${file/*}" >> "$REPORT_FILE"
-    echo "$file" >> "$REPORT_FILE"
-    printf "f"
-    ((bad_count++))
+  if ! check_file "$file"; then
+      echo "$file" >> "$REPORT_FILE"
+      printf "f"
+      ((bad_count++))
   else
-    printf "."
-    ((good_count++))
+      printf "."
+      ((good_count++))
   fi
 done < <(find "$SEARCH_PATH" -type f \( -iname "*.mp3" -o -iname "*.flac" \) -print0)
 
