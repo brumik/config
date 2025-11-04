@@ -1,4 +1,4 @@
 .direnv
 .env
 generated/*
-./scr/blacklist
+*blacklist
