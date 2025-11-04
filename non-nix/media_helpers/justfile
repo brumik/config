@@ -1,0 +1,30 @@
+
+load_env := "set -a && source ./.env && set +a"
+
+# default command to list other commands
+default:
+  @just --list
+
+# Checks the quality and the corruption of the incoming files.
+# When fails generates an incoming.report with folders containig bad music files
+check_incoming:
+  # Run script to generate incoming_paths_mp3 incoming_paths_flac and incoming_paths_other
+  # Run script on mp3 files and check for 250kbps or more
+  # Run corruption checker script on all files
+  # Exit successfully if all good
+  # Write out some error if fails and the generated filenames
+  # TODO
+
+check_lib_new_files:
+  # Run script to populate files with file paths:
+  # lib_paths_flac, lib_paths_mp3, lib_paths_other
+  {{load_env}}
+  echo "Root directory is $ROOT_DIR"
+
+check_lib_quality:
+  # Run script on paths_mp3 and check for 250kbps or more
+  # output results to lib_paths_mp3_bad
+
+check_lib_corruption:
+  # Run script on paths_mp3 paths_flac and check for corruption
+  # output results to lib_paths_corrupted
