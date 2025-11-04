@@ -9,7 +9,7 @@
       let pkgs = (import (inputs.nixpkgs) { inherit system; });
       in {
         devShell = pkgs.mkShell {
-          buildInputs = with pkgs; [ ffmpeg flac parallel just ];
+          buildInputs = with pkgs; [ ffmpeg ];
         };
       });
 }
