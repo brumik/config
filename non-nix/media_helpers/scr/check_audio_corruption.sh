@@ -54,9 +54,15 @@ check_file() {
     fi
 }
 
+declare -A unique_paths
+
 while IFS= read -r -d '' file; do
   if ! check_file "$file"; then
-      echo "$file" >> "$REPORT_FILE"
+      # echo "$file" >> "$REPORT_FILE"
+      # Extract the path by removing the filename
+      path="${file%/*}"
+      # Add the path to the associative array (unique due to nature of associative arrays)
+      unique_paths["$path"]=1
       printf "f"
       ((bad_count++))
   else
@@ -65,5 +71,10 @@ while IFS= read -r -d '' file; do
   fi
 done < <(find "$SEARCH_PATH" -type f \( -iname "*.mp3" -o -iname "*.flac" \) -print0)
 
+
+for path in "${!unique_paths[@]}"; do
+    echo "$path"
+done | sort > "$REPORT_FILE"
+
 echo 
-echo "Corrupted $bad_count/$((bad_count + good_count)). Results saved to: $REPORT_PATH"
+echo "Corrupted $bad_count/$((bad_count + good_count)). Results saved to: $REPORT_FILE"
