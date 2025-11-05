@@ -10,12 +10,14 @@
       in {
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
+            # system packages
             rsync
             ffmpeg
             flac
             mp3val
             sox
-            (python3.withPackages (ps: [
+            (python3.withPackages (ps: [ # python3
+              # pip packages
               ps.python-dotenv
             ]))
           ];
