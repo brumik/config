@@ -13,6 +13,7 @@
             ffmpeg
             flac
             mp3val
+            sox
             (python3.withPackages (ps: [
               ps.python-dotenv
             ]))

@@ -40,15 +40,15 @@ def main():
 
     # Resolve paths based on mode
     if mode == "incoming":
-        search_path = os.getenv("INCOMING_DIR")
-        report_path = os.getenv("INCOMING_REPORTS_DIR")
-        report_file = os.path.join(report_path, os.getenv("PATHS_CORRUPTED", "corrupted.txt"))
+        search_path = os.getenv("INCOMING_DIR", "")
+        report_path = os.getenv("INCOMING_REPORTS_DIR", "")
+        report_file = os.path.join(report_path, os.getenv("PATHS_CORRUPTED", ""))
     else:
-        search_path = os.getenv("LIB_DIR")
-        report_path = os.getenv("LIB_REPORTS_DIR")
-        report_file = os.path.join(report_path, os.getenv("PATHS_CORRUPTED", "corrupted.txt"))
+        search_path = os.getenv("LIB_DIR", "")
+        report_path = os.getenv("LIB_REPORTS_DIR", "")
+        report_file = os.path.join(report_path, os.getenv("PATHS_CORRUPTED", ""))
 
-    if not search_path or not report_path:
+    if not search_path or not report_path or not report_file:
         print("Missing required environment variables in .env")
         sys.exit(1)
 
@@ -69,7 +69,7 @@ def main():
     unique_paths = set()
 
     # Run in parallel using threads (I/O bound -> best performance)
-    max_workers = os.cpu_count() * 2 if os.cpu_count() else 8
+    max_workers = (os.cpu_count() or 4) * 2
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = {executor.submit(check_file, f): f for f in files}
         for future in as_completed(futures):
