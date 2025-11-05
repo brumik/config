@@ -28,6 +28,7 @@ def main():
         print("4. IMPORTED: Restore incoming dir from incoming-backup")
         print("5. IMPORTED: Delete all files in the incoming and incoming-backup dir")
         print("6. EXISTING: Flac and mp3: check for any corruption")
+        print("7. EXISTING: Flac: convert to 44khz/16bit and check for any corruption")
         print("10. Exit")
 
         choice = input("Select an option: ")
@@ -54,6 +55,11 @@ def main():
             remove_all_folders_in_directory(in_bckp_dir)
             print("\n-------------------------------------------------------\n")
         elif choice == "6":
+            check_audio_corruption(lib_dir, lib_reports_dir, timestamp_name(report_corrupted_name))
+            print("\n-------------------------------------------------------\n")
+        elif choice == "7":
+            downsample_flac(lib_dir)
+            print("\n-------------------------------------------------------\n")
             check_audio_corruption(lib_dir, lib_reports_dir, timestamp_name(report_corrupted_name))
             print("\n-------------------------------------------------------\n")
         elif choice == '10':

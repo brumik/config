@@ -29,6 +29,7 @@ def process_file(file_path):
         temp_file = file_path.with_suffix(".tmp.flac")
         cmd = [
             "sox", str(file_path),
+            "-G",
             "-b", str(TARGET_BD),
             str(temp_file),
             "rate", "-v", str(TARGET_SR),
@@ -47,7 +48,7 @@ def process_file(file_path):
             return False
     else:
         print("s", end="", flush=True)
-        return True
+        return False
         
 def downsample_flac(search_path):
     root_dir = Path(search_path)
