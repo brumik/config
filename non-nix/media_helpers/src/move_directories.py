@@ -14,8 +14,8 @@ def move_directories(src, target):
         '-a',  # Archive mode
         '--progress',  # Show progress during transfer
         '--update',  # Skip files that are newer on the receiver
-        src,
-        target
+        src + "/",
+        target + "/"
     ]
     subprocess.run(command)
 
