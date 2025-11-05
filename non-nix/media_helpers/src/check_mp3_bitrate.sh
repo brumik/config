@@ -33,7 +33,6 @@ esac
 
 OUT_PATH="${REPORT_PATH}/${PATHS_LOW_QUALITY}"
 MP3_LIST_FILE="${REPORT_PATH}/${PATHS_MP3_FILE}"
-OUT_PATH_FILTERED="${REPORT_PATH}/${PATHS_LOW_QUALITY_FILTERED}"
 
 mkdir -p "${REPORT_PATH}"
 
@@ -82,12 +81,3 @@ done < "$MP3_LIST_FILE"
 echo
 echo "Low Quality MP3 folders $bad_count/$((bad_count + good_count)). Results saved to: $OUT_PATH"
 
-echo "Applying blacklist filter"
-
-# Read blacklist file into an array
-mapfile -t blacklist_lines < "$BLACKLIST_FILE_PATH"
-
-# Filter lines from bad_file that are not in blacklist_lines
-grep -Fvf <(printf "%s\n" "${blacklist_lines[@]}") "$OUT_PATH" > "$OUT_PATH_FILTERED"
-
-echo "Done: $OUT_PATH_FILTERED"

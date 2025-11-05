@@ -4,7 +4,6 @@ import sys
 import subprocess
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from dotenv import load_dotenv
 
 def check_file(filepath: str) -> tuple[str, bool]:
     """
@@ -23,42 +22,20 @@ def check_file(filepath: str) -> tuple[str, bool]:
     result = subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     return (filepath, result.returncode == 0)
 
-def main():
-    # Load environment variables
-    if not os.path.exists(".env"):
-        print(".env file not found")
+def check_audio_corruption(search_path, report_path, report_file):
+    root_dir = Path(search_path)
+    if not root_dir.is_dir():
+        print(f"Error: search path is not a directory: {search_path}")
         sys.exit(1)
 
-    load_dotenv(".env")
-
-    # Validate argument
-    if len(sys.argv) != 2 or sys.argv[1] not in ("incoming", "lib"):
-        print(f"Usage: {sys.argv[0]} {{incoming|lib}}")
-        sys.exit(1)
-
-    mode = sys.argv[1]
-
-    # Resolve paths based on mode
-    if mode == "incoming":
-        search_path = os.getenv("INCOMING_DIR", "")
-        report_path = os.getenv("INCOMING_REPORTS_DIR", "")
-        report_file = os.path.join(report_path, os.getenv("PATHS_CORRUPTED", ""))
-    else:
-        search_path = os.getenv("LIB_DIR", "")
-        report_path = os.getenv("LIB_REPORTS_DIR", "")
-        report_file = os.path.join(report_path, os.getenv("PATHS_CORRUPTED", ""))
-
-    if not search_path or not report_path or not report_file:
-        print("Missing required environment variables in .env")
-        sys.exit(1)
-
+    print(report_path)
     Path(report_path).mkdir(parents=True, exist_ok=True)
 
     # Collect files
     print(f"Scanning directory: {search_path}")
     files = [
         os.path.join(root, f)
-        for root, _, fs in os.walk(search_path)
+        for root, _, fs in os.walk(root_dir)
         for f in fs
         if f.lower().endswith((".mp3", ".flac"))
     ]
@@ -83,7 +60,7 @@ def main():
                 unique_paths.add(os.path.dirname(filepath))
 
     # Write results
-    with open(report_file, "w") as rf:
+    with open(os.path.join(report_path, report_file), "w") as rf:
         for path in sorted(unique_paths):
             rf.write(f"{path}\n")
 
@@ -91,6 +68,3 @@ def main():
     total = bad_count + good_count
     print(f"Corrupted {bad_count}/{total} files.")
     print(f"Report saved to: {report_file}")
-
-if __name__ == "__main__":
-    main()

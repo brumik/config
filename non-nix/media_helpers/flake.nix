@@ -10,6 +10,7 @@
       in {
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
+            rsync
             ffmpeg
             flac
             mp3val

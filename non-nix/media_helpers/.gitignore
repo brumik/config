@@ -2,3 +2,4 @@
 .env
 generated/*
 *blacklist
+**__pycache__
