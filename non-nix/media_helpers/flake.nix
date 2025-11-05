@@ -9,7 +9,14 @@
       let pkgs = (import (inputs.nixpkgs) { inherit system; });
       in {
         devShell = pkgs.mkShell {
-          buildInputs = with pkgs; [ ffmpeg flac mp3val python3 ];
+          buildInputs = with pkgs; [
+            ffmpeg
+            flac
+            mp3val
+            (python3.withPackages (ps: [
+              ps.python-dotenv
+            ]))
+          ];
         };
       });
 }
