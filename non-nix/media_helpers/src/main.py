@@ -1,9 +1,12 @@
 import sys
+from pathlib import Path
 from datetime import datetime
 from move_directories import move_directories, remove_all_folders_in_directory
 from convert_flac_downsample_44_16 import downsample_flac
 from shared_utils import load_env
 from check_audio_corruption import check_audio_corruption
+from check_mp3_bitrate import check_mp3_bitrate
+from list_audio_formats import list_audio_formats
 
 def timestamp_name(name):
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M')
@@ -19,6 +22,9 @@ def main():
     in_reports_dir: str = env_vars["INCOMING_REPORTS_DIR"]
     lib_reports_dir: str = env_vars["LIB_REPORTS_DIR"]
     report_corrupted_name: str = env_vars["PATHS_CORRUPTED"]
+    report_low_quality_name: str = env_vars["PATHS_LOW_QUALITY"]
+    report_filetypes_name: str = env_vars["PATHS_FILETYPES"]
+
 
     while True:
         print("\nOptions:")
@@ -29,10 +35,13 @@ def main():
         print("5. IMPORTED: Delete all files in the incoming and incoming-backup dir")
         print("6. EXISTING: Flac and mp3: check for any corruption")
         print("7. EXISTING: Flac: convert to 44khz/16bit and check for any corruption")
+        print("8. EXISTING: MP3: check for low quality (<250kbps) files")
+        print("9. EXISTING: Report on different file extensions used in the library")
         print("10. Exit")
 
         choice = input("Select an option: ")
 
+        print("\n-------------------------------------------------------\n")
         if choice == '1':
             move_directories(src_dir, in_dir)
             move_directories(in_dir, in_bckp_dir)
@@ -61,6 +70,12 @@ def main():
             downsample_flac(lib_dir)
             print("\n-------------------------------------------------------\n")
             check_audio_corruption(lib_dir, lib_reports_dir, timestamp_name(report_corrupted_name))
+            print("\n-------------------------------------------------------\n")
+        elif choice == "8":
+            check_mp3_bitrate(Path(lib_dir), Path(lib_reports_dir), timestamp_name(report_low_quality_name))
+            print("\n-------------------------------------------------------\n")
+        elif choice == "9":
+            list_audio_formats(Path(lib_dir), Path(lib_reports_dir), timestamp_name(report_filetypes_name))
             print("\n-------------------------------------------------------\n")
         elif choice == '10':
             print("Exiting program")

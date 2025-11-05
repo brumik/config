@@ -16,11 +16,8 @@ def load_env(file_path=".env"):
         "INCOMING_REPORTS_DIR",
         "LIB_DIR",
         "LIB_REPORTS_DIR",
-        "PATHS_MP3_FILE",
-        "PATHS_FLAC_FILE",
-        "PATHS_OTHERS_FILE",
+        "PATHS_FILETYPES",
         "PATHS_LOW_QUALITY",
-        "PATHS_LOW_QUALITY_FILTERED",
         "PATHS_CORRUPTED"
     ]
 
