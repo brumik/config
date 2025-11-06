@@ -48,7 +48,7 @@ def main():
             remove_all_folders_in_directory(src_dir)
             print("\n-------------------------------------------------------\n")
         elif choice == '2':
-            check_audio_corruption(in_dir, in_reports_dir, timestamp_name(report_corrupted_name))
+            check_audio_corruption(in_dir, in_reports_dir, timestamp_name(report_corrupted_name), True)
             print("\n-------------------------------------------------------\n")
         elif choice == '3':
             downsample_flac(in_dir)

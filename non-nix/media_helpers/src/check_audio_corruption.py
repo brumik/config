@@ -4,7 +4,7 @@ import subprocess
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-def check_file(filepath: str) -> tuple[str, bool]:
+def check_file(filepath: str) -> tuple[str, bool, str]:
     """
     Runs flac/mp3val to check file integrity.
     Returns (filepath, is_good)
@@ -12,16 +12,18 @@ def check_file(filepath: str) -> tuple[str, bool]:
     ext = Path(filepath).suffix.lower()
 
     if ext == ".flac":
-        cmd = ["flac", "-t", filepath]
+        cmd = ["flac", "-t", "-s", filepath]
     elif ext == ".mp3":
         cmd = ["mp3val", filepath, "-f", "-nb"]
     else:
-        return (filepath, True)  # skip unsupported files
+        return (filepath, True, "")  # skip unsupported files
 
-    result = subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    return (filepath, result.returncode == 0)
+    result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    output = (result.stdout + result.stderr).strip()
 
-def check_audio_corruption(search_path, report_path, report_file):
+    return (filepath, result.returncode == 0, output)
+
+def check_audio_corruption(search_path, report_path, report_file, verbose = False):
     root_dir = Path(search_path)
     if not root_dir.is_dir():
         print(f"Error: search path is not a directory: {search_path}")
@@ -43,13 +45,16 @@ def check_audio_corruption(search_path, report_path, report_file):
     bad_count = 0
     good_count = 0
     unique_paths = set()
+    verbose_logs = []
 
     # Run in parallel using threads (I/O bound -> best performance)
     max_workers = (os.cpu_count() or 4) * 2
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = {executor.submit(check_file, f): f for f in files}
         for future in as_completed(futures):
-            filepath, is_good = future.result()
+            filepath, is_good, out = future.result()
+            if verbose and out:
+                verbose_logs.append(out)
             if is_good:
                 print(".", end="", flush=True)
                 good_count += 1
@@ -65,5 +70,9 @@ def check_audio_corruption(search_path, report_path, report_file):
 
     print()
     total = bad_count + good_count
+    
+    for item in sorted(verbose_logs):
+        print(item)
+
     print(f"Corrupted {bad_count}/{total} files.")
     print(f"Report saved to: {report_file}")
