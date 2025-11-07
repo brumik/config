@@ -117,6 +117,7 @@
           ts_ls.enable = true; # ts
           pyright.enable = true; # python
           ruby_lsp.enable = true; # ruby
+          dartls.enable = true; # dart (flutter)
         };
       };
       none-ls = {

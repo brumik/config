@@ -20,6 +20,9 @@
               # pip packages
               ps.python-dotenv
             ]))
+
+            # For ripping cds
+            abcde
           ];
         };
       });
