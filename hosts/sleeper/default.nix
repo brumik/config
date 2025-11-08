@@ -28,9 +28,9 @@
   homelab = {
     enable = true;
     domain = "berky.me";
-    serverIP = "192.168.1.129";
-    gateway = "192.168.1.1";
-    subnet = "192.168.1.0/24";
+    serverIP = "192.168.2.129";
+    gateway = "192.168.2.1";
+    subnet = "192.168.2.0/24";
 
     # Self config
     zfs.enable = true;

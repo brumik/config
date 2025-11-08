@@ -54,12 +54,12 @@ in {
 
     gateway = lib.mkOption {
       type = lib.types.str;
-      default = "192.168.1.1";
+      example = "192.168.1.1";
     };
 
     subnet = lib.mkOption {
       type = lib.types.str;
-      default = "192.168.1.0/24";
+      example = "192.168.1.0/24";
     };
 
     user = lib.mkOption {

@@ -42,27 +42,6 @@ in {
         ] ++ (lib.optionals hcfg.tailscale.enable [
           "||${hcfg.domain}^$dnsrewrite=NOERROR;A;${hcfg.tailscale.serverIP},client=${hcfg.tailscale.subnet}"
         ]);
-
-        # dhcp = {
-        #   enabled = true;
-        #   interface_name = config.networking.interfaces.enp5s0.name;
-        #   local_domain_name = "lan";
-        #   dhcpv4 = {
-        #     gateway_ip = hcfg.gateway;
-        #     subnet_mask = "255.255.255.0";
-        #     range_start = "192.168.1.2";
-        #     range_end = "192.168.1.99";
-        #     lease_duration = 86400;
-        #     icmp_timeout_msec = 0;
-        #     options = [ ];
-        #   };
-        #   dhcpv6 = {
-        #     range_start = "";
-        #     lease_duration = 86400;
-        #     ra_slaac_only = false;
-        #     ra_allow_slaac = false;
-        #   };
-        # };
       };
     };
 

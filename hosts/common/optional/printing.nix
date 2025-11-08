@@ -13,7 +13,7 @@
     ensurePrinters = [{
       name = "Brother_HL_L2400DWE";
       location = "Home";
-      deviceUri = "ipp://192.168.1.130/ipp";
+      deviceUri = "ipp://192.168.2.130/ipp";
       model = "drv:///brlaser.drv/brl2400d.ppd";
       ppdOptions = { PageSize = "A4"; };
     }];
