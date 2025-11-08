@@ -24,8 +24,10 @@ in {
   config = lib.mkIf cfg.enable {
     boot.supportedFilesystems = [ "nfs" ];
 
-    users.groups.${share.gname} = { gid = share.gid; };
-    users.groups.docker.members = cfg.users;
+    users.groups.${share.gname} = {
+      gid = share.gid;
+      members = cfg.users;
+    };
 
     fileSystems."/mnt/media" = {
       device = "sleeper.berky.me:/media";
@@ -35,6 +37,7 @@ in {
 
     fileSystems."/mnt/backup" = {
       device = "sleeper.berky.me:/backup";
+      fsType = "nfs";
       options = options;
     };
   };
