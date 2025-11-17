@@ -14,3 +14,7 @@ Example command to move back modified or updated files (from mp3 to flac or simi
 # Ommit the `--delete` if you did not deleted files (better safe than sorry)
 rsync -avz  --no-owner --no-group --delete /home/username/Music/music/ /mnt/media/library/music/
 ```
+## How to RIP CDs:
+
+1. Insert CD into CDrom
+2. Run: `abcde -c abcde.conf`
