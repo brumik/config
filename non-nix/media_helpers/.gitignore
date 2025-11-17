@@ -3,3 +3,5 @@
 generated/*
 *blacklist
 **__pycache__
+abcde.*
+!abcde.conf

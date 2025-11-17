@@ -3,6 +3,8 @@
     ./hardware-configuration.nix
     ./stylix.nix
 
+    ./arm.nix
+
     ../common/core
     ../common/optional/base-gnome.nix
     ../common/optional/sound.nix
