@@ -86,6 +86,7 @@
       sonarr.enable = true;
       recyclarr.enable = true;
       bazarr.enable = true;
+      picard.enable = true;
       # Consumers
       jellyfin.enable = true;
       jellyseerr.enable = true;
