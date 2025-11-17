@@ -104,6 +104,7 @@
     open-webui.enable = true;
     # timetagger.enable = true;
     stirling-pdf.enable = true;
+    wishlist.enable = true;
     nfs.enable = true;
   };
 }
