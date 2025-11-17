@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
@@ -39,7 +40,7 @@
     power.enable = true;
     nvidia.enable = true;
     backup = {
-      enable = true; 
+      enable = true;
       # Add extra state dirs
       stateDirs = [ "/backup" ];
     };
@@ -76,7 +77,7 @@
 
     # Media
     media = {
-      enable = true; 
+      enable = true;
       # Builders
       transmission.enable = true;
       soulseek.enable = true;
