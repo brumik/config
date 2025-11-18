@@ -5,9 +5,10 @@ in {
     ./hardware-configuration.nix
 
     ../common/core
+    ../common/optional/base-gnome.nix
     ../common/optional/gaming.nix
     ../common/optional/usb-waekup-disable.nix
-    ../common/optional/nfs.nix
+    ../brumstellar/stylix.nix
   ];
 
   networking.hostName = "gamingrig";
@@ -25,19 +26,17 @@ in {
     product = "c548";
   }];
 
-  services.desktopManager.gnome.enable = true;
-
-  jovian = {
-    hardware.has.amd.gpu = true;
-    steam = {
-      updater.splash = "vendor";
-      enable = true;
-      autoStart = true;
-      user = gamer.uname;
-      desktopSession = "gnome";
-    };
-    steamos = { useSteamOSConfig = false; };
-  };
+  # jovian = {
+  #   hardware.has.amd.gpu = true;
+  #   steam = {
+  #     updater.splash = "vendor";
+  #     enable = true;
+  #     autoStart = true;
+  #     user = gamer.uname;
+  #     desktopSession = "gnome";
+  #   };
+  #   steamos = { useSteamOSConfig = false; };
+  # };
 
 
   # Trust the network to enable playing LAN games
@@ -51,10 +50,11 @@ in {
     discord
   ];
 
-
-  mySystems.nfs = {
+  services.sunshine = {
     enable = true;
-    users = [ gamer.uname ];
+    autoStart = true;
+    capSysAdmin = true;
+    openFirewall = true;
   };
 
   sops.secrets."brum/hashed-password".neededForUsers = true;
@@ -72,4 +72,6 @@ in {
     hashedPasswordFile = config.sops.secrets."brum/hashed-password".path;
   };
 
+  services.displayManager.autoLogin.enable  = true;
+  services.displayManager.autoLogin.user = gamer.uname;
 }

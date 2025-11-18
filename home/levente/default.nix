@@ -18,6 +18,7 @@
     protonvpn-gui
     picard
     discord
+    moonlight-qt
   ];
 
   services.nextcloud-client = {

@@ -97,7 +97,11 @@
         gamingrig = (nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs outputs; };
-          modules = [ jovian.nixosModules.default ./hosts/gamingrig ];
+          modules = [
+            # jovian.nixosModules.default
+            stylix.nixosModules.stylix
+            ./hosts/gamingrig
+          ];
         });
 
         # Anteater PC
