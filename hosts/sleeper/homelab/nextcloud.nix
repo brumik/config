@@ -60,6 +60,7 @@ in {
       configureRedis = true;
       home = cfg.baseDir;
       settings = {
+        default_phone_region = "DE";
         trusted_proxies = [ "127.0.0.1" ];
         "allow_user_to_change_display_name" = false;
         "lost_password_link" = "disabled";
@@ -95,6 +96,7 @@ in {
       };
       secretFile = config.sops.templates."n100/nextcloud/config-secrets".path;
       extraApps = {
+        inherit (config.services.nextcloud.package.packages.apps) mail contacts calendar;
         # the name here should be the same as the name of pacakge otherwise "App not found error"
         oidc_login = pkgs.fetchNextcloudApp {
           sha256 = "sha256-RLYquOE83xquzv+s38bahOixQ+y4UI6OxP9HfO26faI=";
