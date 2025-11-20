@@ -58,5 +58,5 @@
 
   # Enable software monitor brightness controll
   hardware.i2c.enable = true;
-  environment.systemPackages = with pkgs; [ ddcutil ];
+  environment.systemPackages = with pkgs; [ ddcutil scummvm ];
 }

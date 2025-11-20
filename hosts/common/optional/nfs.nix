@@ -9,6 +9,7 @@ let
     "x-systemd.idle-timeout=60"
     "x-systemd.device-timeout=5s"
     "x-systemd.mount-timeout=5s"
+    "x-systemd.force-umount"
   ];
 in {
   options.mySystems.nfs = {
@@ -16,7 +17,7 @@ in {
 
     users = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [];
+      default = [ ];
       description = "The list of users added to the group of share";
     };
   };
