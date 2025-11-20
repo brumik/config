@@ -1,4 +1,7 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+let
+  mkTuple = lib.hm.gvariant.mkTuple;
+in {
   home.packages = [ pkgs.gnomeExtensions.steal-my-focus-window ];
 
   home.file.".face".source =
@@ -8,6 +11,16 @@
 
   dconf.settings = {
     "org/gnome/desktop/interface" = { enable-hot-corners = true; };
+
+    "org/gnome/desktop/input-sources" = {
+      per-window = true;
+      sources = [
+        (mkTuple [ "xkb" "us" ])
+        (mkTuple [ "xkb" "hu+101_qwerty_dot_dead" ])
+        (mkTuple [ "xkb" "cz+qwerty" ])
+      ];
+      xkb-options = [ "grp:win_space_toggle" ]; # Super (Win) + Space
+    };
 
     "org/gnome/desktop/wm/preferences" = {
       num-workspaces = 3;
