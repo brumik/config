@@ -30,6 +30,7 @@
     curl
     git
     vim
+    deploy-rs
   ];
 
   environment.shells = with pkgs; [ zsh ];

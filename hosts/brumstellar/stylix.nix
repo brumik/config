@@ -14,7 +14,7 @@
     enable = true;
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest-dark-hard.yaml";
-    image = ../../assets/wallpapers/everforest-5120x1440.png;
+    image = ../../assets/wallpapers/everforest-nixos-3840x2160.jpg;
 
     fonts = {
       monospace = {

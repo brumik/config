@@ -3,10 +3,12 @@
 
   programs.git = {
     enable = true;
-    userName = "Levente Berky";
-    userEmail = "levente.berky@gmail.com";
-    extraConfig = {
-      user.signingkey = "${config.sops.secrets."private-keys/id-brum".path}";
+    settings = {
+      user = {
+        name = "Levente Berky";
+        email = "levente.berky@gmail.com";
+        signingkey = "${config.sops.secrets."private-keys/id-brum".path}";
+      };
       core.editor = "vi";
       push.default = "simple";
       pager.diff = "${pkgs.diffnav}/bin/diffnav";

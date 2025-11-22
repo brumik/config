@@ -36,6 +36,5 @@ in {
   };
 
   # Style the diffnav set as default pager for git
-  stylix.targets.bat.enable = true;
-  programs.git.extraConfig.delta.syntax-theme = "base16-stylix";
+  programs.git.settings.delta.syntax-theme = "base16-stylix";
 }

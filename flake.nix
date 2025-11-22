@@ -53,10 +53,12 @@
       url = "github:Jovian-Experiments/Jovian-NixOS";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    deploy-rs.url = "github:serokell/deploy-rs";
   };
 
   outputs = { self, nixpkgs, home-manager, stylix, jovian, disko, nixpkgs-stable
-    , ... }@inputs:
+    , deploy-rs, ... }@inputs:
     let
       inherit (self) outputs;
       system = "x86_64-linux";
@@ -67,7 +69,23 @@
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.backupFileExtension = "backup";
+      }; # nixpkgs with deploy-rs overlay but force the nixpkgs package
+
+      # Deploy-rs
+      pkgs = import nixpkgs { inherit system; };
+      deployPkgs = import nixpkgs {
+        inherit system;
+        overlays = [
+          deploy-rs.overlays.default
+          (self: super: {
+            deploy-rs = {
+              inherit (pkgs) deploy-rs;
+              lib = super.deploy-rs.lib;
+            };
+          })
+        ];
       };
+      # End ot deploy-rs
     in {
 
       # Your custom packages and modifications, exported as overlays
@@ -98,7 +116,7 @@
           inherit system;
           specialArgs = { inherit inputs outputs; };
           modules = [
-            # jovian.nixosModules.default
+            jovian.nixosModules.default
             stylix.nixosModules.stylix
             ./hosts/gamingrig
           ];
@@ -127,5 +145,61 @@
         });
       };
 
+      # >>> deploy-rs ADDITIONS >>>
+      #
+      # Each host gets a deploy-rs profile. Build happens on the machine
+      # running `deploy` (your server), and only activation happens remotely.
+      #
+      deploy = {
+        nodes = {
+          sleeper = {
+            hostname = "sleeper.berky.me";
+            sshUser = "root";
+            profiles.system = {
+              sshUser = "root";
+              path =
+                deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.sleeper;
+            };
+          };
+
+          brumstellar = {
+            hostname = "brumstellar.berky.me";
+            sshUser = "root";
+            profiles.system = {
+              sshUser = "root";
+              path = deployPkgs.deploy-rs.lib.activate.nixos
+                self.nixosConfigurations.brumstellar;
+            };
+          };
+
+          gamingrig = {
+            hostname = "gamingrig.berky.me";
+            sshUser = "root";
+            profiles.system = {
+              sshUser = "root";
+              path =
+                deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.gamingrig;
+            };
+          };
+
+          anteater = {
+            hostname = "anteater.berky.me";
+            sshUser = "root";
+            profiles.system = {
+              sshUser = "root";
+              path =
+                deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.anteater;
+            };
+          };
+        };
+
+        # Optional but recommended:
+        # allow deploy-rs to run sudo on remote hosts without TTY prompts.
+        sshUser = "root";
+      };
+
+      checks = builtins.mapAttrs
+        (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+      # <<< deploy-rs ADDITIONS <<<
     };
 }

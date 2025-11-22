@@ -5,10 +5,7 @@ in {
     ./hardware-configuration.nix
 
     ../common/core
-    ../common/optional/base-gnome.nix
-    ../common/optional/gaming.nix
     ../common/optional/usb-waekup-disable.nix
-    ../brumstellar/stylix.nix
   ];
 
   networking.hostName = "gamingrig";
@@ -26,17 +23,18 @@ in {
     product = "c548";
   }];
 
-  # jovian = {
-  #   hardware.has.amd.gpu = true;
-  #   steam = {
-  #     updater.splash = "vendor";
-  #     enable = true;
-  #     autoStart = true;
-  #     user = gamer.uname;
-  #     desktopSession = "gnome";
-  #   };
-  #   steamos = { useSteamOSConfig = false; };
-  # };
+  services.desktopManager.plasma6.enable = true;
+  jovian = {
+    hardware.has.amd.gpu = true;
+    steam = {
+      updater.splash = "vendor";
+      enable = true;
+      autoStart = true;
+      user = gamer.uname;
+      desktopSession = "plasma";
+    };
+    steamos = { useSteamOSConfig = false; };
+  };
 
 
   # Trust the network to enable playing LAN games
@@ -71,7 +69,4 @@ in {
     extraGroups = [ "networkmanager" "wheel" ];
     hashedPasswordFile = config.sops.secrets."brum/hashed-password".path;
   };
-
-  services.displayManager.autoLogin.enable  = true;
-  services.displayManager.autoLogin.user = gamer.uname;
 }

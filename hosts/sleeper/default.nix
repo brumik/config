@@ -82,12 +82,12 @@
       transmission.enable = true;
       soulseek.enable = true;
       prowlarr.enable = true;
-      lidarr.enable = true;
+      # lidarr.enable = true;
       radarr.enable = true;
       sonarr.enable = true;
       recyclarr.enable = true;
       bazarr.enable = true;
-      picard.enable = true;
+      # picard.enable = true;
       # Consumers
       jellyfin.enable = true;
       jellyseerr.enable = true;

@@ -10,7 +10,9 @@ in {
   gtk = { enable = true; };
 
   dconf.settings = {
-    "org/gnome/desktop/interface" = { enable-hot-corners = true; };
+    "org/gnome/desktop/interface" = {
+      enable-hot-corners = true;
+    };
 
     "org/gnome/desktop/input-sources" = {
       per-window = true;
@@ -20,11 +22,6 @@ in {
         (mkTuple [ "xkb" "cz+qwerty" ])
       ];
       xkb-options = [ "grp:win_space_toggle" ]; # Super (Win) + Space
-    };
-
-    "org/gnome/desktop/wm/preferences" = {
-      num-workspaces = 3;
-      workspace-names = [ "Main" "Code" "Other" ];
     };
 
     "org/gnome/desktop/notifications" = { show-in-lock-screen = false; };
@@ -41,7 +38,7 @@ in {
 
     "org/gnome/mutter" = {
       attach-modal-dialogs = false;
-      dynamic-workspaces = false;
+      dynamic-workspaces = true;
       edge-tiling = true;
       workspaces-only-on-primary = false;
       experimental-features = [ "scale-monitor-framebuffer" ];
