@@ -30,6 +30,7 @@ in {
 
     sops.secrets."n100/lldap/key-seed" = { owner = lldap.uname; };
     sops.secrets."n100/lldap/smtp-pass" = { owner = lldap.uname; };
+    sops.secrets."n100/lldap/admin-pass" = { owner = lldap.uname; };
 
     services.lldap = {
       enable = true;
@@ -50,10 +51,15 @@ in {
         http_host = "localhost"; 
         # http_port = 17170 default
         # Password reset links:
-        http_url = "https://${cfg.domain}.${config.homelab.domain}";
+        http_url = "https://${dname}";
         ldap_base_dn = "dc=berky,dc=me";
         # ldap_port = 3890 default
         database_url = "sqlite:///${cfg.baseDir}/users.db?mode=rwc";
+        # Admin account:
+        ldap_user_dn = "lldap_admin";
+        ldap_user_email = "levente?admin@berky.me";
+        ldap_user_pass_file = config.sops.secrets."n100/lldap/admin-pass".path;
+        force_ldap_user_pass_reset = "always";
       };
     };
 
@@ -70,8 +76,8 @@ in {
 
     homelab.homepage.admin = [{
       LLDAP = {
-        href = "https://${cfg.domain}.${config.homelab.domain}";
-        siteMonitor = "https://${cfg.domain}.${config.homelab.domain}";
+        href = "https://${dname}";
+        siteMonitor = "https://${dname}";
         description = "LDAP Server";
       };
     }];

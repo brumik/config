@@ -22,7 +22,7 @@
   };
 
   inputs = {
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    # nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs.url =
     #   "github:nixos/nixpkgs/e9f00bd893984bc8ce46c895c3bf7cac95331127";
@@ -57,8 +57,7 @@
     deploy-rs.url = "github:serokell/deploy-rs";
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, jovian, disko, nixpkgs-stable
-    , deploy-rs, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, stylix, jovian, disko, deploy-rs, ... }@inputs:
     let
       inherit (self) outputs;
       system = "x86_64-linux";
@@ -93,7 +92,7 @@
 
       nixosConfigurations = {
         # Standalone server
-        sleeper = (nixpkgs-stable.lib.nixosSystem {
+        sleeper = (nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs outputs; };
           modules = [ disko.nixosModules.disko ./hosts/sleeper ];
@@ -200,6 +199,9 @@
 
       checks = builtins.mapAttrs
         (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+
+      autoRollback = false;
+      magicRollback = false;
       # <<< deploy-rs ADDITIONS <<<
     };
 }

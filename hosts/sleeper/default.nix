@@ -97,7 +97,7 @@
     };
     freshrss.enable = true;
     # kiwix.enable = true;
-    karakeep.enable = true;
+    # karakeep.enable = true;
 
     # Rest
     homepage.enable = true;
