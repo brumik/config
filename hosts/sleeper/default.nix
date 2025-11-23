@@ -32,7 +32,7 @@
     domain = "berky.me";
     serverIP = "192.168.2.129";
     gateway = "192.168.2.1";
-    subnet = "192.168.2.0/24";
+    subnet = "192.168.0.0/16"; # include all potential subnets
 
     # Self config
     zfs.enable = true;

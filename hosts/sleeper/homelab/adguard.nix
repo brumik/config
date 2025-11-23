@@ -5,7 +5,7 @@ let
   dname = "${cfg.domain}.${hcfg.domain}";
   # This is retrieved from config itself
   # https://github.com/NixOS/nixpkgs/blob/d916df777523d75f7c5acca79946652f032f633e/nixos/modules/services/networking/adguardhome.nix#L203
-  baseDir = "/var/lib/AdGuardHome";
+  # baseDir = "/var/lib/AdGuardHome";
 in {
   options.homelab.adguardhome = {
     enable = lib.mkEnableOption "adguard";
