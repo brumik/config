@@ -57,7 +57,8 @@
     deploy-rs.url = "github:serokell/deploy-rs";
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, jovian, disko, deploy-rs, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, stylix, jovian, disko, deploy-rs, ...
+    }@inputs:
     let
       inherit (self) outputs;
       system = "x86_64-linux";
@@ -154,10 +155,12 @@
           sleeper = {
             hostname = "sleeper.berky.me";
             sshUser = "root";
+            autoRollback = false;
+            magicRollback = false;
             profiles.system = {
               sshUser = "root";
-              path =
-                deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.sleeper;
+              path = deployPkgs.deploy-rs.lib.activate.nixos
+                self.nixosConfigurations.sleeper;
             };
           };
 
@@ -176,8 +179,8 @@
             sshUser = "root";
             profiles.system = {
               sshUser = "root";
-              path =
-                deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.gamingrig;
+              path = deployPkgs.deploy-rs.lib.activate.nixos
+                self.nixosConfigurations.gamingrig;
             };
           };
 
@@ -186,8 +189,8 @@
             sshUser = "root";
             profiles.system = {
               sshUser = "root";
-              path =
-                deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.anteater;
+              path = deployPkgs.deploy-rs.lib.activate.nixos
+                self.nixosConfigurations.anteater;
             };
           };
         };
@@ -199,9 +202,6 @@
 
       checks = builtins.mapAttrs
         (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
-
-      autoRollback = false;
-      magicRollback = false;
       # <<< deploy-rs ADDITIONS <<<
     };
 }

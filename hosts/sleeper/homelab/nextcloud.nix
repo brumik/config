@@ -51,7 +51,7 @@ in {
       enable = true;
       https = false;
       # Only increase one by one for migrations!!!!
-      package = pkgs.nextcloud31;
+      package = pkgs.nextcloud32;
       hostName = dname;
       config.adminpassFile =
         config.sops.secrets."n100/nextcloud/admin-password".path;
@@ -106,7 +106,7 @@ in {
         };
 
       };
-      extraAppsEnable = true;
+      extraAppsEnable = false;
     };
 
     # The nextcloud is PHP and the server is running on nginx service.
