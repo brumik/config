@@ -17,6 +17,7 @@
   # Including setting up ZFS boot
   mySystems.disks = {
     enable = true;
+    # If changes how MANY disks are here, update smartd
     rootDisk1 = "/dev/disk/by-id/nvme-KINGSTON_SKC3000S512G_50026B7686F84D4B";
     rootDisk2 = "/dev/disk/by-id/nvme-KINGSTON_SKC3000S512G_50026B7383A70C89";
     dataDisk1 = "/dev/disk/by-id/wwn-0x5000c500c8af03ce";

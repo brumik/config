@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.homelab.smart;
+  disks = config.mySystems.disks;
 in {
   options.homelab.smart = { enable = lib.mkEnableOption "smart"; };
 
@@ -10,7 +11,15 @@ in {
       # Turns on monitoring of all the things (see man 5 smartd.conf)
       # and SMART Automatic Offline Testing on startup, and schedules short self-tests daily, and long self-tests weekly.
       defaults.monitored = "-a -o on -s (S/../.././02|L/../../7/04)";
-      defaults.autodetected = "-a -o on -s (S/../.././02|L/../../7/04)";
+      devices = [
+        { device = disks.rootDisk1; }
+        { device = disks.rootDisk2; }
+        { device = disks.dataDisk1; }
+        { device = disks.dataDisk2; }
+      ];
+      # Disable autodetect to avoid false negatives
+      autodetect = false;
+      # defaults.autodetected = "-a -o on -s (S/../.././02|L/../../7/04)";
       notifications = {
         mail = {
           enable = true;
