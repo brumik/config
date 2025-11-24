@@ -17,6 +17,7 @@
     brave
     nextcloud-client
     protonvpn-gui
+    finamp
   ];
 
   services.nextcloud-client = {

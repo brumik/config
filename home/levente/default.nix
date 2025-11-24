@@ -18,7 +18,7 @@
     protonvpn-gui
     picard
     discord
-    moonlight-qt
+    finamp
   ];
 
   services.nextcloud-client = {
