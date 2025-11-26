@@ -28,12 +28,18 @@ in {
       message = "Mealie depends on ollama";
     }];
 
-    sops.secrets = { "n100/open-webui/oidc-client-secret" = { }; };
+    sops.secrets = {
+      "n100/open-webui/oidc-client-secret" = { };
+      "n100/open-webui/brave-search-api-key" = { };
+    };
 
     sops.templates."n100/open-webui/.env" = {
       content = ''
         OAUTH_CLIENT_SECRET=${
           config.sops.placeholder."n100/open-webui/oidc-client-secret"
+        }
+        BRAVE_SEARCH_API_KEY=${
+          config.sops.placeholder."n100/open-webui/brave-search-api-key"
         }
       '';
     };
@@ -60,7 +66,9 @@ in {
         DEFAULT_MODELS = ocfg.defaultInference;
 
         ENABLE_WEB_SEARCH = "true";
-        WEB_SEARCH_ENGINE = "duckduckgo";
+        WEB_SEARCH_ENGINE = "brave";
+        WEB_LOADER_ENGINE = "playwright";
+        WEB_SEARCH_RESULT_COUNT = "5";
 
         USER_PERMISSIONS_WORKSPACE_MODELS_ACCESS = "True";
         USER_PERMISSIONS_WORKSPACE_KNOWLEDGE_ACCESS = "True";

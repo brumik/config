@@ -66,7 +66,7 @@ in {
 
     loadModels = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ cfg.defaultInference cfg.defaultEmbed ];
+      default = [ "mistral-small:24b-instruct-2501-q4_K_M" "gemma3:27b" cfg.defaultEmbed ];
       description =
         "The list of models that will be avaiable after system build";
     };
@@ -79,7 +79,15 @@ in {
 
 
     defaultInference = lib.mkOption {
-      default = "mistral-small:24b-instruct-2501-q4_K_M";
+      default = "default-inference";
+      type = lib.types.str;
+      description = ''
+        The default model to use in multiple applications
+      '';
+    };
+
+    defaultVision = lib.mkOption {
+      default = "default-vision";
       type = lib.types.str;
       description = ''
         The default model to use in multiple applications
@@ -87,7 +95,7 @@ in {
     };
 
     defaultEmbed = lib.mkOption {
-      default = "mxbai-embed-large";
+      default = "bge-m3";
       type = lib.types.str;
       description = ''
         The default model to use in multiple applications
@@ -96,11 +104,7 @@ in {
 
     contextLength = lib.mkOption {
       type = lib.types.number;
-      # Models with context size:
-      # llama3.1:8b + gemma3:12b > 60000 context size works
-      # gemma3:27b > 20000 context size works
-      # mistral-small > 32000 context size works (max supported)
-      default = 20000; 
+      default = 8000; 
       description = "The preset context length of all ollama models";
     };
   };
