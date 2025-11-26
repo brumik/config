@@ -49,6 +49,19 @@ in {
     # Enable text extraction engine:
     services.tika.enable = true;
 
+    # This nearly works, just complains about glibcc libs
+    # virtualisation.oci-containers.containers.docling-serve = {
+    #   image = "ghcr.io/docling-project/docling-serve-cu126:main";
+    #   ports = [ "5001:5001" ];
+    #   environment = {
+    #     DOCLING_SERVE_ENABLE_UI = "true";
+    #     NVIDIA_VISIBLE_DEVICES = "all"; # https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/docker-specialized.html
+    #   };
+    #   extraOptions = [
+    #     "--device=nvidia.com/gpu=all"
+    #   ];
+    # };
+
     virtualisation.oci-containers.containers.open-webui = {
       image = "ghcr.io/open-webui/open-webui:main";
       extraOptions = [ "--network=host" ];
