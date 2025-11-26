@@ -122,9 +122,12 @@ in {
         };
         log = {
           keep_stdout = true;
-          level = "error"; # default is debug
+          level = "debug"; # default is debug
         };
-        server.address = "tcp://${cfg.address}:${builtins.toString cfg.port}";
+        server = {
+          address = "tcp://${cfg.address}:${builtins.toString cfg.port}";
+          endpoints.authz.forward-auth.implementation = "ForwardAuth";
+        };
         totp = {
           issuer = hcfg.domain;
           period = 30;
@@ -180,46 +183,18 @@ in {
         authentication_backend = {
           # Password reset through authelia works normally.
           password_reset.disable = false;
-          # How often authelia should check if there is an user update in LDAP
           refresh_interval = "1m";
           ldap = {
-            implementation = "custom";
-            # Pattern is ldap://HOSTNAME-OR-IP:PORT
-            # Normal ldap port is 389, standard in LLDAP is 3890
+            implementation = "lldap";
             address = "ldap://127.0.0.1:3890";
-            # The dial timeout for LDAP.
-            timeout = "5s";
-            # Use StartTLS with the LDAP connection, TLS not supported right now
-            start_tls = "false";
-            # Set base dn, like dc=google,dc.com
-            base_dn = "dc=berky,dc=me";
-            # You need to set this to ou=people, because all users are stored in this ou!
-            additional_users_dn = "ou=people";
-            # To allow sign in both with username and email, one can use a filter like
-            # (&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))
-            users_filter =
-              "(&({username_attribute}={input})(objectClass=person))";
-            # Set this to ou=groups, because all groups are stored in this ou
-            additional_groups_dn = "ou=groups";
-            # The groups are not displayed in the UI, but this filter works.
-            groups_filter = "(member={dn})";
-            # The attribute holding the name of the group.
-            attributes = {
-              display_name = "displayName";
-              username = "uid";
-              group_name = "cn";
-              mail = "mail";
-              # distinguished_name: distinguishedName
-              # member_of: memberOf
-            };
-
+            base_dn = "DC=berky,DC=me";
             # The username and password of the bind user.
             # "bind_user" should be the username you created for authentication
             # with the "lldap_strict_readonly" permission. It is not recommended
             # to use an actual admin account here.
             # If you are configuring Authelia to change user passwords, then the
             # account used here needs the "lldap_password_manager" permission instead.
-            user = "uid=authelia,ou=people,dc=berky,dc=me";
+            user = "UID=authelia,OU=people,DC=berky,DC=me";
             # Password set in environmentVariables
           };
         };

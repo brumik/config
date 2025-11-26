@@ -39,6 +39,8 @@ in {
       port = 18000;
     }];
 
+    homelab.authelia.localBypassDomains = [ dname ];
+
     homelab.authelia.oidc.clients = [{
       client_id = "audiobookshelf";
       client_name = "Audiobookshelf";
@@ -52,9 +54,14 @@ in {
       redirect_uris = [
         "https://${dname}/auth/openid/callback"
         "https://${dname}/auth/openid/mobile-redirect"
+        "audiobookshelf://oauth"
       ];
       scopes = [ "openid" "email" "profile" "groups" ];
+      response_types = [ "code" ];
+      grant_types = [ "authorization_code" ];
+      access_token_signed_response_alg = "none";
       userinfo_signed_response_alg = "none";
+      token_endpoint_auth_method = "client_secret_basic";
     }];
 
     homelab.backup.stateDirs = [ cfg.baseDir ];

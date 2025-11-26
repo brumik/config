@@ -89,6 +89,7 @@ in {
         OAUTH_ALLOWED_ROLES = "openwebui,openwebui-admin";
         OAUTH_ADMIN_ROLES = "openwebui-admin";
         OAUTH_ROLES_CLAIM = "groups";
+        OAUTH_CODE_CHALLENGE_METHOD = "S256";
         ENABLE_OAUTH_PERSISTENT_CONFIG = "false";
 
         # To treat all env variables the same, which means on restart reaply them
@@ -114,8 +115,13 @@ in {
       public = false;
       consent_mode = "implicit";
       authorization_policy = "one_factor";
+      require_pkce = true;
+      pkce_challenge_method = "S256";
       redirect_uris = [ "https://${dname}/oauth/oidc/callback" ];
       scopes = [ "openid" "email" "profile" "groups" ];
+      response_types = [ "code" ];
+      grant_types = [ "authorization_code" ];
+      access_token_signed_response_alg = "none";
       userinfo_signed_response_alg = "none";
       token_endpoint_auth_method = "client_secret_basic";
     }];
