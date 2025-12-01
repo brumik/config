@@ -96,7 +96,12 @@
         sleeper = (nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs outputs; };
-          modules = [ disko.nixosModules.disko ./hosts/sleeper ];
+          modules = [
+            home-manager.nixosModules.home-manager
+            commonHomeManagerConfig
+            disko.nixosModules.disko
+            ./hosts/sleeper
+          ];
         });
 
         # Personal PC

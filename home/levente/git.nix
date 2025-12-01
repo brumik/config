@@ -36,5 +36,8 @@
 
   home.file.".ssh/config".text = ''
     IdentityFile ${config.sops.secrets."private-keys/id-brum".path}
+    Host sleeper.berky.me
+      IdentityFile ${config.sops.secrets."private-keys/id-brum".path}
+      IdentitiesOnly yes
   '';
 }

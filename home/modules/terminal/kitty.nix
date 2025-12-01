@@ -8,10 +8,10 @@
   };
 
   home.sessionVariables = {
-    TERMINAL = "kitty";
+    # TERMINAL = "kitty";
   };
 
-  programs.zsh.shellAliases = {
-    ssh = "kitten ssh";
-  };
+  # programs.zsh.shellAliases = {
+  #   ssh = "kitten ssh";
+  # };
 }

@@ -22,7 +22,7 @@
   sops.secrets = { "private-keys/id-deploy" = { }; };
 
   programs.ssh.extraConfig = ''
-    Host *.berky.me
+    Match user root Host *.berky.me
         IdentityFile ${config.sops.secrets."private-keys/id-deploy".path}
         IdentitiesOnly yes
   '';
