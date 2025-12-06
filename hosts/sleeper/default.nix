@@ -7,6 +7,7 @@ in {
     ./homelab
 
     ../common/core
+    ../common/optional/deployment-ssh.nix
   ];
 
   networking.hostName = "sleeper"; # Define your hostname.
