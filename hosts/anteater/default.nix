@@ -41,4 +41,9 @@
 
   # Enable clipboard manager, needs system service
   programs.gpaste.enable = true;
+
+  programs.localsend = {
+    enable = true;
+    openFirewall = true;
+  };
 }

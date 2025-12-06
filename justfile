@@ -18,7 +18,7 @@ sops-edit:
 sops-update:
   nix-shell -p sops --run "sops updatekeys secrets.yaml"
 
-deploy ARG="brumstellar":
+deploy ARG="":
   sudo deploy .#{{ARG}} 
 
 # Restore symlinks with stow (and simple script)

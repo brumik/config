@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
   imports = [
     ./hardware-configuration.nix
     ./stylix.nix
@@ -45,9 +45,14 @@
   }];
 
   # Disable typing the password then using sudo
-  security.sudo.wheelNeedsPassword = false;
+  # security.sudo.wheelNeedsPassword = false;
 
   # Enable software monitor brightness controll
   hardware.i2c.enable = true;
   environment.systemPackages = with pkgs; [ ddcutil scummvm ];
+
+  programs.localsend = {
+    enable = true;
+    openFirewall = true;
+  };
 }
