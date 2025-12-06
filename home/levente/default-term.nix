@@ -21,6 +21,11 @@ in {
   home.stateVersion = "24.11";
   programs.home-manager.enable = true;
 
+  home.packages = [
+    pkgs.just
+    pkgs.tree
+  ];
+
   imports = [
     ./git.nix
     ../modules/sops.nix
