@@ -1,10 +1,10 @@
-{ config, pkgs, ... }:
-let levente = config.globals.users.levente;
-in {
+{ ... }:
+{
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
     ./homelab
+    ./levente.nix
 
     ../common/core
     ../common/optional/deployment-ssh.nix
@@ -27,8 +27,6 @@ in {
     rootReservation = "70G"; # 10+% of total size
   };
 
-  environment.systemPackages = [ pkgs.tmux ];
-
   homelab = {
     enable = true;
     domain = "berky.me";
@@ -45,7 +43,9 @@ in {
     backup = {
       enable = true;
       # Add extra state dirs
-      stateDirs = [ "/backup" ];
+      stateDirs = [
+        "/backup"
+      ];
     };
 
     # Infra
@@ -112,19 +112,4 @@ in {
     wishlist.enable = true;
     nfs.enable = true;
   };
-
-  sops.secrets."brum/hashed-password".neededForUsers = true;
-  users.mutableUsers = false;
-  users.users."${levente.uname}" = {
-    uid = levente.uid;
-    isNormalUser = true;
-    description = "Brum";
-    extraGroups = [ "networkmanager" "wheel" ];
-    hashedPasswordFile = config.sops.secrets."brum/hashed-password".path;
-    shell = pkgs.zsh;
-    openssh.authorizedKeys.keys =
-      [ "${builtins.readFile ../../keys/id-brum.pub}" ];
-  };
-  home-manager.users."${levente.uname}" =
-    import ../../home/levente/default-term.nix { username = levente.uname; };
 }
