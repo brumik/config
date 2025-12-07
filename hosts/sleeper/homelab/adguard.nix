@@ -17,9 +17,6 @@ in {
     };
   };
 
-  # TODO: Disabled DHCP, when server restarted could not get and IP.
-  # Since no IP for server no way to get DHCP for other devices.
-  # Would neet static routing but it seems not working int TP link yet
   config = lib.mkIf cfg.enable {
     services.adguardhome = {
       enable = true;
@@ -28,7 +25,6 @@ in {
       # TODO: enable this to delete all settings made from the web-interface
       # this needs to have much more options defined as this will be the complete config
       mutableSettings = true;
-      allowDHCP = true;
       settings = {
         dns = {
           upstream_dns = [
@@ -48,9 +44,6 @@ in {
     # Open ports for DNS server and dhcp
     # networking.firewall.allowedUDPPorts = [ 53 67 ];
     networking.firewall.allowedUDPPorts = [ 53 ];
-
-    # The leases contain also the static addresses
-    # homelab.backup.stateDirs = [ "${baseDir}/data/leases.json" ];
 
     homelab.traefik.routes = [{
       host = cfg.domain;

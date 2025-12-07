@@ -15,6 +15,14 @@ in {
       default = "100.0.0.0/8";
       description = "The whole subnet that classifies as tailscale network";
     };
+
+    trustedIPs = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      description = ''
+        The list of IPs that are allowed to access services as if it would be localhost
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {

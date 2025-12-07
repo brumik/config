@@ -52,6 +52,12 @@
     tailscale = {
       enable = true;
       serverIP = "100.93.65.122";
+      trustedIPs = [
+        "100.123.170.119" # angeli-t490
+        "100.86.176.73" # ipad-air-gen-4
+        "100.79.31.69" # nothing-a142
+        "100.123.113.7" # google-pixel-7-1
+      ];
     };
     cache.enable = true;
     auto-update = {

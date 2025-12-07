@@ -8,7 +8,7 @@ let
   instance = "main";
   redisPort = 6380;
   localSubnets = [ hcfg.subnet ]
-    ++ (lib.optionals hcfg.tailscale.enable [ hcfg.tailscale.subnet ]);
+    ++ (lib.optionals hcfg.tailscale.enable hcfg.tailscale.trustedIPs);
 in {
   imports = [ ./oidc.nix ];
 
