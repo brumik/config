@@ -64,7 +64,7 @@
       enable = true;
       hosts = [ "brumstellar" "anteater" "sleeper" "gamingrig" "nixos-live" ];
     };
-    ddclient.enable = true;
+    # ddclient.enable = true;
     lldap.enable = true;
     authelia.enable = true;
     traefik.enable = true;
