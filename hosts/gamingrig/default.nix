@@ -42,18 +42,10 @@ in {
 
   environment.systemPackages = with pkgs; [
     curl
-    git
     vim
     brave
     discord
   ];
-
-  services.sunshine = {
-    enable = true;
-    autoStart = true;
-    capSysAdmin = true;
-    openFirewall = true;
-  };
 
   sops.secrets."brum/hashed-password".neededForUsers = true;
   # It's important to include users.mutableUsers = false to ensure the user can't modify

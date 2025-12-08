@@ -15,7 +15,6 @@
     ../common/optional/nfs.nix
 
     ../common/users/levente.nix
-    ../common/users/work.nix
   ];
 
   mySystems = {
@@ -47,9 +46,7 @@
   # Disable typing the password then using sudo
   # security.sudo.wheelNeedsPassword = false;
 
-  # Enable software monitor brightness controll
-  hardware.i2c.enable = true;
-  environment.systemPackages = with pkgs; [ ddcutil scummvm ];
+  environment.systemPackages = with pkgs; [ scummvm ];
 
   programs.localsend = {
     enable = true;
