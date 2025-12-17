@@ -5,7 +5,7 @@
   services.desktopManager.gnome.enable = true;
 
   # Disable default apps
-  services.gnome.core-apps.enable = false;
+  services.gnome.core-apps.enable = true;
   services.gnome.core-developer-tools.enable = false;
   services.gnome.games.enable = false;
 
