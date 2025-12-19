@@ -8,7 +8,7 @@ in {
     uid = levente.uid;
     isNormalUser = true;
     description = "Brum";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     hashedPasswordFile = config.sops.secrets."brum/hashed-password".path;
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys =
