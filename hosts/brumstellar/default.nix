@@ -14,6 +14,8 @@
     ../common/optional/usb-waekup-disable.nix
     ../common/optional/nfs.nix
 
+    ../common/optional/deployment-ssh.nix
+
     ../common/users/levente.nix
   ];
 

@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
@@ -43,9 +42,7 @@
     backup = {
       enable = true;
       # Add extra state dirs
-      stateDirs = [
-        "/backup"
-      ];
+      stateDirs = [ "/backup" ];
     };
 
     # Infra
