@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let cfg = config.homelab.nvidia;
 in {
   options.homelab.nvidia = { enable = lib.mkEnableOption "Nvidia"; };
@@ -24,6 +24,6 @@ in {
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
 
-    services.ollama = { acceleration = "cuda"; };
+    services.ollama.package = pkgs.ollama-cuda;
   };
 }

@@ -66,7 +66,7 @@
       treesitter = {
         enable = true;
         settings = { indent.enable = true; };
-        folding = true;
+        folding.enable = true;
       };
       tmux-navigator = {
         enable = true;
