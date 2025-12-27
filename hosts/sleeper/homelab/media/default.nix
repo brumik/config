@@ -16,7 +16,6 @@ in {
     ./bazarr.nix
     ./audiobookshelf.nix
     ./calibre.nix
-    ./picard.nix
   ];
 
   options.homelab.media = {

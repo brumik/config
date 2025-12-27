@@ -61,7 +61,7 @@
       enable = true;
       hosts = [ "brumstellar" "anteater" "sleeper" "gamingrig" "nixos-live" ];
     };
-    # ddclient.enable = true;
+    # ddclient.enable = true; # Not needed since the vpn trough VPS
     lldap.enable = true;
     authelia.enable = true;
     traefik.enable = true;
@@ -85,15 +85,18 @@
     media = {
       enable = true;
       # Builders
-      transmission.enable = true;
-      soulseek.enable = true;
-      prowlarr.enable = true;
+      # Temp disabled
+      # transmission.enable = true;
+      # prowlarr.enable = true;
+      # radarr.enable = true;
+      # sonarr.enable = true;
+      # recyclarr.enable = true;
+      # bazarr.enable = true;
+
+      # This i don't like
       # lidarr.enable = true;
-      radarr.enable = true;
-      sonarr.enable = true;
-      recyclarr.enable = true;
-      bazarr.enable = true;
-      # picard.enable = true;
+
+      soulseek.enable = true;
       # Consumers
       jellyfin.enable = true;
       jellyseerr.enable = true;
