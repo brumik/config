@@ -24,7 +24,12 @@ in {
   config = lib.mkIf cfg.enable {
     users = {
       groups.${immich.gname} = { gid = immich.gid; };
-      users.${immich.uname} = { uid = immich.uid; };
+      users.${immich.uname} = { 
+        uid = immich.uid;
+
+        # Needed for gpu accelerated machine learning
+        extraGroups = [ "video" "render" ];
+      };
     };
 
     services.immich = {

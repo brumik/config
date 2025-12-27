@@ -42,6 +42,8 @@ in {
     }];
 
     homelab.backup.stateDirs = [ cfg.baseDir ];
+    
+    homelab.authelia.exposedDomains = [ dname ];
 
     homelab.homepage.app = [{
       StirlingPDF = {

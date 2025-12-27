@@ -9,6 +9,9 @@
 
       # nix community's cache server
       "https://nix-community.cachix.org"
+
+      # CUDA cache
+      "https://cache.nixos-cuda.org"
     ];
 
     # will be appended to the system-level trusted-public-keys
@@ -18,14 +21,14 @@
 
       # nix community's cache server public key
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+
+      # CUDA cache
+      "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
     ];
   };
 
   inputs = {
-    # nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # nixpkgs.url =
-    #   "github:nixos/nixpkgs/e9f00bd893984bc8ce46c895c3bf7cac95331127";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
