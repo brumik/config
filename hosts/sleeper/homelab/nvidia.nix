@@ -9,19 +9,19 @@ in {
     nixpkgs.config.cudaSupport = true;
 
     # Docker nvidia
-    hardware.nvidia-container-toolkit.enable = true;
-    virtualisation.docker.daemon.settings.features.cdi = true;
-    virtualisation.docker.rootless.daemon.settings.features.cdi = true;
+    # Disabling it, does not work in systemd and keeps gpu on 30w instead of 20w
+    # hardware.nvidia-container-toolkit.enable = true;
+    # virtualisation.docker.daemon.settings.features.cdi = true;
+    # virtualisation.docker.rootless.daemon.settings.features.cdi = true;
 
     hardware.graphics = { enable = true; };
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia = {
-      modesetting.enable = true;
-      powerManagement.enable = false;
-      powerManagement.finegrained = false;
+      modesetting.enable = false;
+      nvidiaPersistenced = true;
       open = true;
       nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.production;
     };
 
     services.ollama.package = pkgs.ollama-cuda;
