@@ -22,7 +22,7 @@ in {
     ./ollama.nix
     ./open-ui.nix
     ./nextcloud.nix
-    ./nvidia.nix
+    ./nvidia
     ./timetagger.nix
     ./cache.nix
     ./zfs.nix

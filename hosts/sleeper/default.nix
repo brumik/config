@@ -38,7 +38,14 @@
     smart.enable = true;
     email.enable = true;
     power.enable = true;
-    nvidia.enable = true;
+    nvidia = {
+      enable = true;
+      cachesEnabled = true;
+      power = {
+        enable = true;
+        limit = 280;
+      };
+    };
     backup = {
       enable = true;
       # Add extra state dirs
