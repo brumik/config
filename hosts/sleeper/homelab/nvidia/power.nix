@@ -19,10 +19,9 @@ in {
         nvidia-smi -pl ${toString cfg.limit}
       '';
       wantedBy = [ "multi-user.target" ];
-      # serviceConfig = {
-      #   Type = "oneshot";
-      #   User = "root";
-      # };
+      serviceConfig = {
+        Type = "oneshot";
+      };
     };
   };
 }

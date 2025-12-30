@@ -8,13 +8,6 @@ in {
   options.homelab.nvidia = {
     enable = lib.mkEnableOption "Nvidia";
 
-    powerLimit = lib.mkOption {
-      type = lib.types.nullOr lib.types.int;
-      default = null;
-      description =
-        "Limit the max W of the GPU. If null then no change to default.";
-    };
-
     cachesEnabled = lib.mkOption {
       type = lib.types.bool;
       default = false;
