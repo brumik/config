@@ -76,6 +76,12 @@ in {
                 sans = [ "*.${config.homelab.domain}" ];
               }];
             };
+            # This is needed for example for immich to upload videos or files that takes longer than 30s.
+            # this allows the connection to stay alive 10m
+              readTimeout = "600s";
+              idleTimeout = "600s";
+              writeTimeout = "600s";
+            };
           };
         };
 
