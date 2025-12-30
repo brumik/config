@@ -42,6 +42,7 @@ in {
       environment = { IMMICH_TRUSTED_PROXIES = "127.0.0.1"; };
       accelerationDevices =
         [ "/dev/nvidia0" "/dev/nvidiactl" "/dev/nvidia-uvm" ];
+      database.enableVectors = false; # I migrated to vector chord but my stateVersion is <25.11
     };
 
     homelab.traefik.routes = [{
