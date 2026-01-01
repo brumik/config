@@ -130,7 +130,8 @@ in {
         OLLAMA_FLASH_ATTENTION = "1";
         OLLAMA_CONTEXT_LENGTH = toString cfg.contextLength;
         # Keep models longer in memory
-        OLLAMA_KEEP_ALIVE = "30m";
+        # OLLAMA_KEEP_ALIVE = "30m";
+        OLLAMA_KEEP_ALIVE = "-1";
       };
       loadModels = cfg.loadModels;
     };

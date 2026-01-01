@@ -54,6 +54,7 @@ in {
           SERVER_COUNTRIES = "Germany";
           PORT_FORWARD_ONLY = "on";
           VPN_PORT_FORWARDING = "on";
+          HTTP_CONTROL_SERVER_AUTH_CONFIG_FILEPATH = "/gluetun/auth/config.toml";
         };
         volumes = [
           "${cfg.baseDir}/gluetun-auth-config.toml:/gluetun/auth/config.toml"
