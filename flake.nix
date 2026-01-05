@@ -160,17 +160,18 @@
       #
       deploy = {
         nodes = {
-          sleeper = {
-            hostname = "sleeper.berky.me";
-            sshUser = "root";
-            autoRollback = false;
-            magicRollback = false;
-            profiles.system = {
-              sshUser = "root";
-              path = deployPkgs.deploy-rs.lib.activate.nixos
-                self.nixosConfigurations.sleeper;
-            };
-          };
+          # The builder machine is this, so it makes no sense
+          # sleeper = {
+          #   hostname = "sleeper.berky.me";
+          #   sshUser = "root";
+          #   autoRollback = false;
+          #   magicRollback = false;
+          #   profiles.system = {
+          #     sshUser = "root";
+          #     path = deployPkgs.deploy-rs.lib.activate.nixos
+          #       self.nixosConfigurations.sleeper;
+          #   };
+          # };
 
           brumstellar = {
             hostname = "brumstellar.berky.me";

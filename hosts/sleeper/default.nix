@@ -21,8 +21,9 @@
     # If changes how MANY disks are here, update smartd
     rootDisk1 = "/dev/disk/by-id/nvme-KINGSTON_SKC3000S512G_50026B7686F84D4B";
     rootDisk2 = "/dev/disk/by-id/nvme-KINGSTON_SKC3000S512G_50026B7383A70C89";
-    dataDisk1 = "/dev/disk/by-id/wwn-0x5000c500c8af03ce";
+    dataDisk1 = "/dev/disk/by-id/wwn-0x5000c500e63c5e5b";
     dataDisk2 = "/dev/disk/by-id/wwn-0x5000c500c7482d01";
+    dataSpare = "/dev/disk/by-id/wwn-0x5000c500e63bab3c";
     rootReservation = "70G"; # 10+% of total size
   };
 
@@ -121,7 +122,8 @@
     ollama.enable = true;
     open-webui.enable = true;
     # timetagger.enable = true;
-    stirling-pdf.enable = true;
+    # TEMP disable to allow updates
+    # stirling-pdf.enable = true;
     wishlist.enable = true;
     nfs.enable = true;
   };

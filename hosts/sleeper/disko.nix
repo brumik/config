@@ -31,13 +31,19 @@ in {
 
     dataDisk1 = mkOption {
       type = types.nullOr types.str;
-      description = "First Hdd disk on which to set up SSD.";
+      description = "First HDD to set up as the data pool";
       example = "/dev/hdd1";
     };
 
     dataDisk2 = mkOption {
       type = types.nullOr types.str;
-      description = "First Hdd disk on which to set up SSD.";
+      description = "Second HDD to set up as the data pool";
+      example = "/dev/hdd2";
+    };
+    
+    dataSpare = mkOption {
+      type = types.nullOr types.str;
+      description = "Disk that will act as spare for the data disks.";
       example = "/dev/hdd2";
     };
 
