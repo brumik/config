@@ -127,4 +127,8 @@
     wishlist.enable = true;
     nfs.enable = true;
   };
+
+  services.apcupsd = {
+    enable = true;
+  };
 }
