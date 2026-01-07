@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
@@ -25,6 +25,18 @@
     dataDisk2 = "/dev/disk/by-id/wwn-0x5000c500c7482d01";
     dataSpare = "/dev/disk/by-id/wwn-0x5000c500e63bab3c";
     rootReservation = "70G"; # 10+% of total size
+  };
+
+  # Enables the APC UPS daemon. By default turns off if battery:
+  # is under 50% or min time left is under 5 min
+  services.apcupsd = {
+    enable = true;
+    configText = ''
+      UPSTYPE usb
+      NISIP 127.0.0.1
+      BATTERYLEVEL 50
+      MINUTES 5
+    '';
   };
 
   homelab = {
@@ -126,9 +138,6 @@
     # stirling-pdf.enable = true;
     wishlist.enable = true;
     nfs.enable = true;
-  };
-
-  services.apcupsd = {
-    enable = true;
+    printing.enable = true;
   };
 }

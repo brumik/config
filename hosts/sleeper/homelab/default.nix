@@ -36,6 +36,7 @@ in {
     ./nfs.nix
     ./smart.nix
     ./whislist.nix
+    ./printing.nix
   ];
 
   options.homelab = {

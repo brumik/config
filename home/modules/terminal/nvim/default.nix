@@ -11,16 +11,13 @@
     ./markdown.nix
   ];
 
-  home.sessionVariables = {
-    EDITOR = "nvim";
-  };
+  home.sessionVariables = { EDITOR = "nvim"; };
 
   home.packages = with pkgs; [
     # clipboard provider for wayland
     wl-clipboard
     # clipboard providre for xorg
     xclip
-
 
     ripgrep # for telescope
     fd # for telescope
@@ -43,6 +40,8 @@
       cursorline = true;
       # disables fold on file open (zc enables it again)
       foldenable = false;
+      foldlevel = 99;
+      foldlevelstart = 99;
     };
 
     clipboard.register = "unnamedplus";
@@ -58,7 +57,6 @@
         options.desc = "Clear search highlight in buffer";
       }
     ];
-
 
     plugins = {
       nix.enable = true;
