@@ -1,6 +1,5 @@
 { pkgs, lib, ... }:
-let
-  mkTuple = lib.hm.gvariant.mkTuple;
+let mkTuple = lib.hm.gvariant.mkTuple;
 in {
   home.packages = [ pkgs.gnomeExtensions.steal-my-focus-window ];
 
@@ -10,9 +9,7 @@ in {
   gtk = { enable = true; };
 
   dconf.settings = {
-    "org/gnome/desktop/interface" = {
-      enable-hot-corners = true;
-    };
+    "org/gnome/desktop/interface" = { enable-hot-corners = true; };
 
     "org/gnome/desktop/input-sources" = {
       per-window = true;

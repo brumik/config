@@ -54,4 +54,10 @@
     enable = true;
     openFirewall = true;
   };
+
+  # Quick fix for missing file picker in QT apps like Picard
+  # https://github.com/NixOS/nixpkgs/issues/149812#issuecomment-3647060694
+  environment.extraInit = ''
+    export XDG_DATA_DIRS="$XDG_DATA_DIRS:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
+  '';
 }
