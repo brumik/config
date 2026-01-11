@@ -75,7 +75,7 @@ in {
         ENABLE_OPENAI_API = "False";
         ENABLE_EVALUATION_ARENA_MODELS = "False";
         OLLAMA_BASE_URL =
-          "http://127.0.0.1:${builtins.toString config.services.ollama.port}";
+          "http://127.0.0.1:${toString config.services.ollama.port}";
         DEFAULT_MODELS = ocfg.defaultInference;
 
         ENABLE_WEB_SEARCH = "true";
@@ -89,7 +89,7 @@ in {
         USER_PERMISSIONS_WORKSPACE_TOOLS_ACCESS = "True";
 
         RAG_OLLAMA_BASE_URL =
-          "http://127.0.0.1:${builtins.toString config.services.ollama.port}";
+          "http://127.0.0.1:${toString config.services.ollama.port}";
         RAG_EMBEDDING_ENGINE = "ollama";
         RAG_EMBEDDING_MODEL = ocfg.defaultEmbed;
         CONTENT_EXTRACTION_ENGINE = "tika";
@@ -127,8 +127,6 @@ in {
       host = cfg.domain;
       port = 11111;
     }];
-
-    homelab.authelia.exposedDomains = [ dname ];
 
     homelab.authelia.oidc.clients = [{
       client_id = "open-webui";

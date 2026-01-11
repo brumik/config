@@ -34,8 +34,7 @@ in {
       port = 8096;
     }];
 
-    # homelab.authelia.localBypassDomains = [ dname ];
-    homelab.authelia.bypassDomains = [ dname ];
+    homelab.authelia.localBypassDomains = [ dname ];
 
     homelab.backup.stateDirs = [ cfg.baseDir ];
 
