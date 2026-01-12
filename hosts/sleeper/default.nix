@@ -46,6 +46,9 @@
     gateway = "192.168.2.1";
     subnet = "192.168.0.0/16"; # include all potential subnets
 
+
+    monitoring.enable = true;
+
     # Self config
     zfs.enable = true;
     smart.enable = true;
@@ -53,7 +56,7 @@
     power.enable = true;
     nvidia = {
       enable = true;
-      cachesEnabled = true;
+      cachesEnabled = true; # we have nvidia community cache
       power = {
         enable = true;
         limit = 280;

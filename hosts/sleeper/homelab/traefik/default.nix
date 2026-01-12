@@ -55,7 +55,7 @@ in {
         api.dashboard = true;
 
         # DEBUG, INFO, WARN, ERROR, FATAL, PANIC
-        log.level = "DEBUG";
+        log.level = "INFO";
 
         entrypoints = {
           traefik.address = ":8080";

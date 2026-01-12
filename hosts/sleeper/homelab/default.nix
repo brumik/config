@@ -37,6 +37,7 @@ in {
     ./smart.nix
     ./whislist.nix
     ./printing.nix
+    ./monitoring
   ];
 
   options.homelab = {

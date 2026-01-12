@@ -122,10 +122,10 @@ in {
         };
         log = {
           keep_stdout = true;
-          level = "debug"; # default is debug
+          level = "info"; # default is debug
         };
         server = {
-          address = "tcp://${cfg.address}:${builtins.toString cfg.port}";
+          address = "tcp://${cfg.address}:${toString cfg.port}";
           endpoints.authz.forward-auth.implementation = "ForwardAuth";
         };
         totp = {
