@@ -16,9 +16,9 @@ in {
     # Alternatives: "ondemand", "performance"
     powerManagement.cpuFreqGovernor = "ondemand";
 
-    # Spin down all rotational disks after 30min of inactivity
+    # Rotational disks: do not spin them down and minimal head parking to avoid wear
     services.udev.extraRules = ''
-      ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", RUN+="${pkgs.hdparm}/sbin/hdparm -B 80 -S 241 /dev/%k"
+      ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", RUN+="${pkgs.hdparm}/sbin/hdparm -B 128 -S 0 /dev/%k"
     '';
   };
 }
