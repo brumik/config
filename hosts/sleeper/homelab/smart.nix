@@ -16,6 +16,8 @@ in {
         { device = disks.rootDisk2; }
         { device = disks.dataDisk1; }
         { device = disks.dataDisk2; }
+        { device = disks.dataSpare; }
+        { device = disks.dataCache; }
       ];
       # Disable autodetect to avoid false negatives
       autodetect = false;

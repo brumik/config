@@ -1,8 +1,15 @@
 { config, lib, ... }:
 let
   cfg = config.homelab.monitoring;
-  # hcfg = config.homelab;
   dname = "grafana.${config.homelab.domain}";
+  disks = config.mySystems.disks;
+  basename = diskPath: builtins.elemAt (lib.strings.splitString "/" diskPath) (builtins.length (lib.strings.splitString "/" diskPath) - 1);
+  mkDiskRelabel = device: disk_name: {
+    source_labels = [ "device" ];
+    regex = (basename device);
+    target_label = "human_name";
+    replacement = disk_name;
+  };
 in {
   imports = [ ];
 
@@ -11,9 +18,21 @@ in {
   config = lib.mkIf cfg.enable {
     services.prometheus = {
       enable = true;
+      # extraFlags = [ "--web.enable-admin-api" ];
       port = 9093;
 
       exporters = {
+        smartctl = {
+          enable = true;
+          devices = [
+            disks.rootDisk1
+            disks.rootDisk2
+            disks.dataDisk1
+            disks.dataDisk2
+            disks.dataSpare
+            disks.dataCache
+          ];
+        };
         node = {
           port = 9002;
           enabledCollectors = [ "systemd" ];
@@ -22,16 +41,58 @@ in {
       };
 
       # ingest the published nodes
-      scrapeConfigs = [{
-        job_name = "sleeper";
-        static_configs = [{
-          targets = [
-            "127.0.0.1:${
-              toString config.services.prometheus.exporters.node.port
-            }"
+      scrapeConfigs = [
+        {
+          job_name = "sleeper";
+          static_configs = [{
+            targets = [
+              "127.0.0.1:${
+                toString config.services.prometheus.exporters.node.port
+              }"
+            ];
+          }];
+        }
+        {
+          job_name = "smartctl";
+          static_configs = [{
+            targets = [
+              "127.0.0.1:${
+                toString config.services.prometheus.exporters.smartctl.port
+              }"
+            ];
+          }];
+          metric_relabel_configs = [
+            (mkDiskRelabel disks.rootDisk1 "rootDisk1")
+            (mkDiskRelabel disks.rootDisk2 "rootDisk2")
+            (mkDiskRelabel disks.dataDisk1 "dataDisk1")
+            (mkDiskRelabel disks.dataDisk2 "dataDisk2")
+            (mkDiskRelabel disks.dataSpare "dataSpare")
+            (mkDiskRelabel disks.dataCache "dataCache")
           ];
-        }];
-      }];
+        }
+        {
+          job_name = "immich_api";
+          static_configs = [{
+            targets = [
+              "127.0.0.1:${
+                toString
+                config.services.immich.environment.IMMICH_API_METRICS_PORT
+              }"
+            ];
+          }];
+        }
+        {
+          job_name = "immich_microservices";
+          static_configs = [{
+            targets = [
+              "127.0.0.1:${
+                toString
+                config.services.immich.environment.IMMICH_MICROSERVICES_METRICS_PORT
+              }"
+            ];
+          }];
+        }
+      ];
     };
 
     # loki: port 3030 (8030)
@@ -84,9 +145,7 @@ in {
           reject_old_samples_max_age = "168h";
         };
 
-        compactor = {
-          working_directory = "/var/lib/loki";
-        };
+        compactor = { working_directory = "/var/lib/loki"; };
       };
       # user, group, dataDir, extraFlags, (configFile)
     };

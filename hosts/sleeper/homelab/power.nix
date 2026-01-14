@@ -16,9 +16,9 @@ in {
     # Alternatives: "ondemand", "performance"
     powerManagement.cpuFreqGovernor = "ondemand";
 
-    # Rotational disks: do not spin them down and minimal head parking to avoid wear
+    # Rotational disks: 1hour spindown
     services.udev.extraRules = ''
-      ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", RUN+="${pkgs.hdparm}/sbin/hdparm -B 128 -S 0 /dev/%k"
+      ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", RUN+="${pkgs.hdparm}/sbin/hdparm -B 127 -S 242 /dev/%k"
     '';
   };
 }

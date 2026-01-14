@@ -44,7 +44,13 @@ in {
     dataSpare = mkOption {
       type = types.nullOr types.str;
       description = "Disk that will act as spare for the data disks.";
-      example = "/dev/hdd2";
+      example = "/dev/hdd3";
+    };
+
+    dataCache = mkOption {
+      type = types.nullOr types.str;
+      description = "Disk that will act as L2ARC for the data disks.";
+      example = "/dev/ssd1";
     };
 
     rootReservation = mkOption {

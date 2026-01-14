@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ ... }: {
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
@@ -24,6 +24,7 @@
     dataDisk1 = "/dev/disk/by-id/wwn-0x5000c500e63c5e5b";
     dataDisk2 = "/dev/disk/by-id/wwn-0x5000c500c7482d01";
     dataSpare = "/dev/disk/by-id/wwn-0x5000c500e63bab3c";
+    dataCache = "/dev/disk/by-id/ata-ADATA_SU650_2O432LAAK4HD";
     rootReservation = "70G"; # 10+% of total size
   };
 
