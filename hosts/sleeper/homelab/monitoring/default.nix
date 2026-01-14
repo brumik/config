@@ -22,6 +22,8 @@ in {
       port = 9093;
 
       exporters = {
+        apcupsd.enable = true;
+        zfs.enable = true;
         smartctl = {
           enable = true;
           devices = [
@@ -42,6 +44,26 @@ in {
 
       # ingest the published nodes
       scrapeConfigs = [
+        {
+          job_name = "apcupsd";
+          static_configs = [{
+            targets = [
+              "127.0.0.1:${
+                toString config.services.prometheus.exporters.apcupsd.port
+              }"
+            ];
+          }];
+        }
+        {
+          job_name = "zfs";
+          static_configs = [{
+            targets = [
+              "127.0.0.1:${
+                toString config.services.prometheus.exporters.zfs.port
+              }"
+            ];
+          }];
+        }
         {
           job_name = "sleeper";
           static_configs = [{
@@ -70,28 +92,28 @@ in {
             (mkDiskRelabel disks.dataCache "dataCache")
           ];
         }
-        {
-          job_name = "immich_api";
-          static_configs = [{
-            targets = [
-              "127.0.0.1:${
-                toString
-                config.services.immich.environment.IMMICH_API_METRICS_PORT
-              }"
-            ];
-          }];
-        }
-        {
-          job_name = "immich_microservices";
-          static_configs = [{
-            targets = [
-              "127.0.0.1:${
-                toString
-                config.services.immich.environment.IMMICH_MICROSERVICES_METRICS_PORT
-              }"
-            ];
-          }];
-        }
+        # {
+        #   job_name = "immich_api";
+        #   static_configs = [{
+        #     targets = [
+        #       "127.0.0.1:${
+        #         toString
+        #         config.services.immich.environment.IMMICH_API_METRICS_PORT
+        #       }"
+        #     ];
+        #   }];
+        # }
+        # {
+        #   job_name = "immich_microservices";
+        #   static_configs = [{
+        #     targets = [
+        #       "127.0.0.1:${
+        #         toString
+        #         config.services.immich.environment.IMMICH_MICROSERVICES_METRICS_PORT
+        #       }"
+        #     ];
+        #   }];
+        # }
       ];
     };
 

@@ -41,9 +41,9 @@ in {
       group = immich.gname;
       environment = {
         IMMICH_TRUSTED_PROXIES = "127.0.0.1";
-        IMMICH_TELEMETRY_INCLUDE = "all";
-        IMMICH_API_METRICS_PORT = "8084";
-        IMMICH_MICROSERVICES_METRICS_PORT = "8085";
+        # IMMICH_TELEMETRY_INCLUDE = "all";
+        # IMMICH_API_METRICS_PORT = "8084";
+        # IMMICH_MICROSERVICES_METRICS_PORT = "8085";
       };
       accelerationDevices =
         [ "/dev/nvidia0" "/dev/nvidiactl" "/dev/nvidia-uvm" ];
