@@ -16,6 +16,8 @@ in {
   options.homelab.monitoring = { enable = lib.mkEnableOption "monitoring"; };
 
   config = lib.mkIf cfg.enable {
+    sops.secrets."n100/prometheus/hetzner-token" = {};
+
     services.prometheus = {
       enable = true;
       # extraFlags = [ "--web.enable-admin-api" ];
@@ -24,6 +26,10 @@ in {
       exporters = {
         apcupsd.enable = true;
         zfs.enable = true;
+        storagebox = {
+          enable = true;
+          tokenFile = config.sops.secrets."n100/prometheus/hetzner-token".path;
+        };
         smartctl = {
           enable = true;
           devices = [
@@ -60,6 +66,16 @@ in {
             targets = [
               "127.0.0.1:${
                 toString config.services.prometheus.exporters.zfs.port
+              }"
+            ];
+          }];
+        }
+        {
+          job_name = "storagebox";
+          static_configs = [{
+            targets = [
+              "127.0.0.1:${
+                toString config.services.prometheus.exporters.storagebox.port
               }"
             ];
           }];
