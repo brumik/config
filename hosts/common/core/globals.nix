@@ -48,6 +48,13 @@ with lib;
       gid = 984;
     };
 
+    grafana = {
+      uname = "grafana";
+      uid = 196;
+      gname = "grafana";
+      gid = 971;
+    };
+
     karakeep = {
       uname = "karakeep";
       uid = 1100;

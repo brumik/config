@@ -208,8 +208,6 @@ in {
             "com.sun:auto-snapshot" = "false";
           };
           datasets = {
-            # following: https://grahamc.com/blog/erase-your-darlings/
-            # tldr: deletes all on each reboot exept /persist. Link all important data to it.
             "reserved" = {
               options = {
                 canmount = "off";
