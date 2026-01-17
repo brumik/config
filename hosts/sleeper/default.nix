@@ -129,7 +129,6 @@
     };
     freshrss.enable = true;
     # kiwix.enable = true;
-    # karakeep.enable = true;
 
     # Rest
     homepage.enable = true;
@@ -137,7 +136,6 @@
     mealie.enable = true;
     ollama.enable = true;
     open-webui.enable = true;
-    # timetagger.enable = true;
     # TEMP disable to allow updates
     # stirling-pdf.enable = true;
     wishlist.enable = true;

@@ -23,7 +23,6 @@ in {
     ./open-ui.nix
     ./nextcloud.nix
     ./nvidia
-    ./timetagger.nix
     ./cache.nix
     ./zfs.nix
     ./email.nix
