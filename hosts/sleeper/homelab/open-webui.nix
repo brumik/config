@@ -123,8 +123,6 @@ in {
       volumes = [ "${cfg.baseDir}:/app/backend/data" ];
     };
 
-    homelab.backup.stateDirs = [ cfg.baseDir ];
-
     homelab.traefik.routes = [{
       host = cfg.domain;
       port = 11111;
