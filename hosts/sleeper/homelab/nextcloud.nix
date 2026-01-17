@@ -157,7 +157,11 @@ in {
 
     homelab.backup = {
       stateDirs = [ cfg.baseDir "/var/lib/pgdump" ];
-      preBackupScripts = [ "systemctl start pgDumpNextcloud" ];
+      preBackupScripts = [
+        "systemctl stop ${servicename}"
+        "systemctl start pgDumpNextcloud"
+      ];
+      postBackupScripts = [ "systemctl start ${servicename}" ];
     };
 
     homelab.homepage.app = [{
