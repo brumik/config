@@ -55,13 +55,6 @@ with lib;
       gid = 971;
     };
 
-    karakeep = {
-      uname = "karakeep";
-      uid = 1100;
-      gname = "karakeep";
-      gid = 1101;
-    };
-
     lldap = {
       uname = "lldap";
       uid = 992;

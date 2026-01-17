@@ -30,7 +30,6 @@ in {
     ./auto-update.nix
     ./stirling-pdf.nix
     ./kiwix.nix
-    ./karakeep.nix
     ./glances.nix
     ./media
     ./nfs.nix
