@@ -107,7 +107,7 @@
     };
     home-assistant = {
       enable = true;
-      image = "/var/lib/haos.qcow2";
+      image = "/persist/haos.qcow2";
       imageBackup = "/backup/haos.qcow2";
     };
 
