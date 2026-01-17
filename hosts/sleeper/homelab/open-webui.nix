@@ -80,8 +80,9 @@ in {
 
         ENABLE_WEB_SEARCH = "true";
         WEB_SEARCH_ENGINE = "brave";
+        WEB_SEARCH_CONCURRENT_REQUESTS = "0";
         WEB_LOADER_ENGINE = "playwright";
-        WEB_SEARCH_RESULT_COUNT = "5";
+        WEB_SEARCH_RESULT_COUNT = "3";
 
         USER_PERMISSIONS_WORKSPACE_MODELS_ACCESS = "True";
         USER_PERMISSIONS_WORKSPACE_KNOWLEDGE_ACCESS = "True";
@@ -92,6 +93,7 @@ in {
           "http://127.0.0.1:${toString config.services.ollama.port}";
         RAG_EMBEDDING_ENGINE = "ollama";
         RAG_EMBEDDING_MODEL = ocfg.defaultEmbed;
+        RAG_EMBEDDING_BATCH_SIZE = "50";
         CONTENT_EXTRACTION_ENGINE = "tika";
         TIKA_SERVER_URL = "http://127.0.0.1:9998";
         RAG_TOP_K = "10";
