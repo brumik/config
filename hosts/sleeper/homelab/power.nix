@@ -4,12 +4,12 @@ in {
   options.homelab.power = { enable = lib.mkEnableOption "power"; };
 
   config = lib.mkIf cfg.enable {
-    # environment.systemPackages = with pkgs; [
-      # powertop
-      # pciutils
-      # hdparm
-      # cpufrequtils
-    # ];
+    environment.systemPackages = with pkgs; [
+      powertop
+      pciutils
+      hdparm
+      cpufrequtils
+    ];
 
     powerManagement.powertop.enable = true;
     powerManagement.enable = true;
