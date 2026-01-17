@@ -128,6 +128,8 @@ in {
       port = 11111;
     }];
 
+    homelab.backup.stateDirs = [ cfg.baseDir ];
+
     homelab.authelia.oidc.clients = [{
       client_id = "open-webui";
       client_name = "Open WebUI";

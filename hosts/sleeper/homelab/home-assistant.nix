@@ -33,30 +33,6 @@ in {
     virtualisation.libvirtd.enable = true;
     environment.systemPackages = with pkgs; [ qemu_kvm OVMF ];
 
-    # Requires ollama running
-    assertions = [{
-      assertion = hcfg.ollama.enable;
-      message = "Home Assistant Depends on Ollama for Voice Commands";
-    }];
-
-    # # Other servers for text to speech and vice versa
-    # services.wyoming.faster-whisper.servers.generic = {
-    #   enable = true;
-    #   device = "cuda";
-    #   model = "medium-int8";
-    #   language = "auto";
-    #   uri = "tcp://0.0.0.0:10300";
-    # };
-    #
-    # services.wyoming.piper.servers.generic = {
-    #   enable = true;
-    #   uri = "tcp://0.0.0.0:10200";
-    #   voice = "en_US-lessac-high";
-    # };
-
-    # This is suboptimal, alternative is to have it behind reverse proxy and bypass local
-    networking.firewall.allowedTCPPorts = [ 10300 10200 ];
-
     systemd.services.${serviceName} = {
       description = "Home Assistant VM";
       after = [ "libvirtd.service" ];

@@ -44,6 +44,8 @@ in {
 
     homelab.authelia.bypassDomains = [ domain ];
 
+    homelab.backup.stateDirs = [ cfg.backupDir ];
+
     homelab.homepage.app = [{
       Bitwarden = {
         icon = "bitwarden.png";

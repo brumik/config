@@ -68,7 +68,6 @@
       # Add extra state dirs
       stateDirs = [
         "/backup"
-        "/persist"
       ];
     };
 
