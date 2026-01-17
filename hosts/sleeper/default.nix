@@ -66,7 +66,10 @@
     backup = {
       enable = true;
       # Add extra state dirs
-      stateDirs = [ "/backup" ];
+      stateDirs = [
+        "/backup"
+        "/persist"
+      ];
     };
 
     # Infra
