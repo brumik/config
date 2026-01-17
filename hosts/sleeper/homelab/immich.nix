@@ -72,7 +72,7 @@ in {
       serviceConfig = {
         Type = "oneshot";
         User = "postgres";
-        ExecStart =
+        ExecStart = 
           "${pkgs.postgresql}/bin/pg_dump -f /var/lib/pgdump/immich_dump.sql immich";
       };
     };
@@ -93,7 +93,11 @@ in {
 
     homelab.backup = {
       stateDirs = [ cfg.baseDir "/var/lib/pgdump" ];
-      preBackupScripts = [ "systemctl start pgDumpImmich" ];
+      preBackupScripts = [
+        "systemctl stop immich-server"
+        "systemctl start pgDumpImmich"
+      ];
+      postBackupScripts = [ "systemctl start immich-server" ];
     };
 
     homelab.homepage.app = [{
