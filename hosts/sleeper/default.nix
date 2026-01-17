@@ -142,8 +142,7 @@
     mealie.enable = true;
     ollama.enable = true;
     open-webui.enable = true;
-    # TEMP disable to allow updates
-    # stirling-pdf.enable = true;
+    stirling-pdf.enable = true;
     wishlist.enable = true;
     nfs.enable = true;
     printing.enable = true;
