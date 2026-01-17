@@ -96,7 +96,10 @@
     glances.enable = true;
 
     # Mission critical
-    vaultwarden.enable = true;
+    vaultwarden = {
+      enable = true;
+      backupDir = "/persist/vaultwarden-backup";
+    };
     nextcloud.enable = true;
     immich = {
       enable = true;
