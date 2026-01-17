@@ -20,7 +20,7 @@ in {
     ./immich.nix
     ./home-assistant.nix
     ./ollama.nix
-    ./open-ui.nix
+    ./open-webui.nix
     ./nextcloud.nix
     ./nvidia
     ./cache.nix

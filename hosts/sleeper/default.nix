@@ -141,7 +141,10 @@
     radicale.enable = true;
     mealie.enable = true;
     ollama.enable = true;
-    open-webui.enable = true;
+    open-webui = {
+      enable = true;
+      baseDir = "/persist/oci-open-webui";
+    };
     stirling-pdf.enable = true;
     wishlist.enable = true;
     nfs.enable = true;

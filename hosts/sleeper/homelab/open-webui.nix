@@ -16,13 +16,13 @@ in {
 
     baseDir = lib.mkOption {
       type = lib.types.path;
-      default = "/var/lib/open-webui-oci";
+      default = "/var/lib/oci-open-webui";
       description =
         "The absolute path where the service will store the important informations";
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && cfg.enable) {
     assertions = [{
       assertion = hcfg.ollama.enable;
       message = "Mealie depends on ollama";
