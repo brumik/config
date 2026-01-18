@@ -49,7 +49,7 @@ in {
         # This impacts which IP address is logged (X-Forwarded-For or REMOTE_ADDR).
         # This also impacts external authentication methods;
         # see https://freshrss.github.io/FreshRSS/en/admins/09_AccessControl.html
-        TRUSTED_PROXY = "172.0.0.0/8";
+        TRUSTED_PROXY = "10.0.0.0/8"; # 172.xxxx for docker
         # Optional parameter, set to 1 to enable OpenID Connect (only available in our Debian image)
         # Requires more environment variables. See https://freshrss.github.io/FreshRSS/en/admins/16_OpenID-Connect.html
         OIDC_ENABLED = "0";

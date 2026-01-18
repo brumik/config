@@ -91,17 +91,22 @@ in {
     };
 
     # Do not use only our own dns server 
-    networking.nameservers = [ cfg.serverIP "1.1.1.1" "8.8.8.8" ]; 
+    # This is not needed anymore, we use the Router's adguard
+    # networking.nameservers = [ cfg.serverIP "1.1.1.1" "8.8.8.8" ];
 
     networking.domain = cfg.domain;
 
     # Enable docker and set all container based services to it;
     virtualisation = {
-      docker = {
+      podman = {
         enable = true;
         autoPrune.enable = true;
+        dockerCompat = true;
+
+        # Required for containers under podman-compose to be able to talk to each other.
+        defaultNetwork.settings.dns_enabled = true;
       };
-      oci-containers.backend = "docker";
+      oci-containers.backend = "podman";
     };
 
     # Enable binding on the 80 and 443 port 

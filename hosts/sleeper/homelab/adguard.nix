@@ -17,16 +17,17 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && cfg.enable) {
     services.adguardhome = {
       enable = true;
-      host = "0.0.0.0";
+      host = "127.0.0.1";
       port = 10000;
       # TODO: enable this to delete all settings made from the web-interface
       # this needs to have much more options defined as this will be the complete config
       mutableSettings = true;
       settings = {
         dns = {
+          bind_hosts = [ hcfg.tailscale.serverIP ];
           upstream_dns = [
             "quic://dns-unfiltered.adguard.com:784"
             "https://dns.cloudflare.com/dns-query"

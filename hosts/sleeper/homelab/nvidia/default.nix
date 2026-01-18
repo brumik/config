@@ -43,8 +43,8 @@ in {
     services.ollama.package = pkgs.ollama-cuda;
 
     # Docker nvidia
-    # If enabled GPU idling at 30W instead of 20W;
-    # hardware.nvidia-container-toolkit.enable = true;
+    hardware.nvidia-container-toolkit.enable = true;
+    # If enabled GPU idling at 30W instead of 20W; We are using podman now
     # virtualisation.docker.daemon.settings.features.cdi = true;
     # virtualisation.docker.rootless.daemon.settings.features.cdi = true;
   };
