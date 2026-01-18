@@ -148,5 +148,8 @@
     wishlist.enable = true;
     nfs.enable = true;
     printing.enable = true;
+
+    # TEMP
+    # minecraft.enable = true;
   };
 }

@@ -36,6 +36,7 @@ in {
     ./whislist.nix
     ./printing.nix
     ./monitoring
+    ./minecraft.nix
   ];
 
   options.homelab = {
