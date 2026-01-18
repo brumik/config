@@ -48,6 +48,10 @@
   # Disable typing the password then using sudo
   # security.sudo.wheelNeedsPassword = false;
 
+  # Enable appimage support for some apps
+  programs.appimage.enable = true;
+  programs.appimage.binfmt = true;
+
   environment.systemPackages = with pkgs; [ scummvm ];
 
   programs.localsend = {
