@@ -13,6 +13,7 @@
     ../common/optional/printing.nix
     ../common/optional/usb-waekup-disable.nix
     ../common/optional/nfs.nix
+    ../common/optional/appstores.nix
 
     ../common/users/katerina.nix
   ];
@@ -34,13 +35,6 @@
     vendor = "046d";
     product = "c548";
   }];
-
-  # Enable appimage support for some apps
-  programs.appimage.enable = true;
-  programs.appimage.binfmt = true;
-
-  # Enable clipboard manager, needs system service
-  programs.gpaste.enable = true;
 
   programs.localsend = {
     enable = true;

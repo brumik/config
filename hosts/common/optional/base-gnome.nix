@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 {
   # Enable the GNOME Desktop Environment.
   services.displayManager.gdm.enable = true;
@@ -15,6 +15,6 @@
     variant = "";
   };
 
-  # Hint electron apps to use wayland: (should not be needed?)
-  # environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  # Enable clipboard manager, needs system service
+  programs.gpaste.enable = true;
 }
