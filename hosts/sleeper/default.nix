@@ -47,7 +47,6 @@
     gateway = "192.168.2.1";
     subnet = "192.168.0.0/16"; # include all potential subnets
 
-
     monitoring.enable = true;
 
     # Self config
@@ -85,7 +84,7 @@
     cache.enable = true;
     auto-update = {
       enable = true;
-      hosts = [ "brumstellar" "anteater" "sleeper" "gamingrig" "nixos-live" ];
+      hosts = [ "brumstellar" "anteater" "sleeper" "nixos-live" ];
     };
     # ddclient.enable = true; # Not needed since the vpn trough VPS
     lldap.enable = true;

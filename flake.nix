@@ -51,16 +51,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Gaming Rig SteamOS
-    jovian = {
-      url = "github:Jovian-Experiments/Jovian-NixOS";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     deploy-rs.url = "github:serokell/deploy-rs";
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, jovian, disko, deploy-rs, ...
+  outputs = { self, nixpkgs, home-manager, stylix, disko, deploy-rs, ...
     }@inputs:
     let
       inherit (self) outputs;
@@ -72,8 +66,9 @@
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.backupFileExtension = "backup";
-      }; # nixpkgs with deploy-rs overlay but force the nixpkgs package
+      };
 
+      # nixpkgs with deploy-rs overlay but force the nixpkgs package
       # Deploy-rs
       pkgs = import nixpkgs { inherit system; };
       deployPkgs = import nixpkgs {
@@ -116,17 +111,6 @@
             home-manager.nixosModules.home-manager
             commonHomeManagerConfig
             ./hosts/brumstellar
-          ];
-        });
-
-        # Steam TV gaming
-        gamingrig = (nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit inputs outputs; };
-          modules = [
-            jovian.nixosModules.default
-            stylix.nixosModules.stylix
-            ./hosts/gamingrig
           ];
         });
 
@@ -180,16 +164,6 @@
               sshUser = "root";
               path = deployPkgs.deploy-rs.lib.activate.nixos
                 self.nixosConfigurations.brumstellar;
-            };
-          };
-
-          gamingrig = {
-            hostname = "gamingrig.berky.me";
-            sshUser = "root";
-            profiles.system = {
-              sshUser = "root";
-              path = deployPkgs.deploy-rs.lib.activate.nixos
-                self.nixosConfigurations.gamingrig;
             };
           };
 

@@ -15,10 +15,6 @@
         publicKey = builtins.readFile ../../../keys/id-brumstellar.pub;
         hostNames = [ "brumstellar.berky.me" ];
       };
-      "gamingrig.berky.me/ed25519" = {
-        publicKey = builtins.readFile ../../../keys/id-gamingrig.pub;
-        hostNames = [ "gamingrig.berky.me" ];
-      };
       "github.com" = {
         publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
         hostNames = [ "github.com" ];

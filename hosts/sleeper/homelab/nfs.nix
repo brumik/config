@@ -5,7 +5,7 @@ let
   options = "rw,nohide,insecure,no_subtree_check,all_squash,anonuid=${
       toString share.uid
     },anongid=${toString share.gid}";
-  hosts = [ "brumstellar" "anteater" "gamingrig" ];
+  hosts = [ "brumstellar" "anteater" ];
   constructor = str:
     lib.strings.concatStrings (map (host: "${host}.berky.me(${str}) ") hosts);
 in {
