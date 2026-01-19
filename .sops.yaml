@@ -2,7 +2,6 @@ keys:
   - &brum age18p2gethkwx0ngntgg8y3jrhfe8qjdqw07hrslchqmyutuw2m8ysqthcyr5
   - &anteater age1revjgg0dv9gs6tdudztfx7e4hxhyrpf0qtqqw8p47ymwf6ymu52s4n27lk
   - &brumstellar age1yf972c6v37du9q67e38nk77ucs89kxg9hxzhv398h2eheq9k0fqqw2cuf9
-  - &n100 age1wh6s7yvvpn0rtpalju9jkr0uxmr2xxg3ktvdu4wq3a6ujd8d6fhsnd8w2l
   - &sleeper age188luxpnxz8nyrp4fzh9uye5w6x30xkyy92fls7gn2e8f6ekyn4fsnfh65f
 creation_rules:
   # relative path to the secrets form this file
@@ -11,6 +10,5 @@ creation_rules:
     - age:
       - *brum
       - *brumstellar
-      - *n100
       - *anteater
       - *sleeper
