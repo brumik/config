@@ -33,7 +33,6 @@ in {
     # Disable masqurade on eth0
     enableIPv6 = false;
 
-
     # Forward ports 80 and 443 to your home server
     forwardPorts = [
       {
@@ -62,5 +61,24 @@ in {
       iptables -A FORWARD -i tailscale0 -o eth0 -m state --state ESTABLISHED,RELATED -j ACCEPT
       iptables -t nat -A POSTROUTING -o tailscale0 -j MASQUERADE
     '';
+  };
+
+  services.minecraft-server = {
+    enable = true;
+    openFirewall = true;
+    declarative = true;
+    eula = true;
+    serverProperties = {
+      server-port = 43000;
+      max-players = 5;
+      motd = "NixOS Minecraft server!";
+      white-list = true;
+      enable-rcon = false; # monitoring tool
+      # "rcon.password" = "hunter2";
+    };
+    whitelist = {
+      username1 = "332f4e53-0ceb-4655-89c8-fe6195d4afb9";
+      # username2 = "yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy";
+    };
   };
 }
