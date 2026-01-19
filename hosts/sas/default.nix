@@ -1,6 +1,5 @@
 { config, ... }:
-let 
-  sleeperTailscaleIp = "100.93.65.122";
+let sleeperTailscaleIp = "100.93.65.122";
 in {
   imports = [
     ./hardware-configuration.nix
@@ -14,8 +13,8 @@ in {
   sops.secrets."n100/tailscale-key" = { };
   services.tailscale = {
     enable = true;
-    useRoutingFeatures =
-      "server"; # should include advertise-exit-node and others
+    extraUpFlags = [ "--advertise-exit-node" ];
+    useRoutingFeatures = "server";
     authKeyFile = config.sops.secrets."n100/tailscale-key".path;
   };
 
@@ -30,6 +29,10 @@ in {
 
     # Internal interface (Tailscale)
     internalInterfaces = [ "tailscale0" ];
+
+    # Disable masqurade on eth0
+    enableIPv6 = false;
+
 
     # Forward ports 80 and 443 to your home server
     forwardPorts = [
@@ -57,6 +60,7 @@ in {
     extraCommands = ''
       iptables -A FORWARD -i eth0 -o tailscale0 -p tcp -m multiport --dports 80,443 -j ACCEPT
       iptables -A FORWARD -i tailscale0 -o eth0 -m state --state ESTABLISHED,RELATED -j ACCEPT
+      iptables -t nat -A POSTROUTING -o tailscale0 -j MASQUERADE
     '';
   };
 }
