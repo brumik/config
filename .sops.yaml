@@ -3,6 +3,7 @@ keys:
   - &anteater age1revjgg0dv9gs6tdudztfx7e4hxhyrpf0qtqqw8p47ymwf6ymu52s4n27lk
   - &brumstellar age1yf972c6v37du9q67e38nk77ucs89kxg9hxzhv398h2eheq9k0fqqw2cuf9
   - &sleeper age188luxpnxz8nyrp4fzh9uye5w6x30xkyy92fls7gn2e8f6ekyn4fsnfh65f
+  - &sas age1yzzzlsqdnwsm7ujt09vyjlnh3urqd5nuwz3etjagqpdk267j8eksdnnuth
 creation_rules:
   # relative path to the secrets form this file
   - path_regex: secrets.yaml$
@@ -12,3 +13,4 @@ creation_rules:
       - *brumstellar
       - *anteater
       - *sleeper
+      - *sas

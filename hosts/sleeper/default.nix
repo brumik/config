@@ -84,7 +84,7 @@
     cache.enable = true;
     auto-update = {
       enable = true;
-      hosts = [ "brumstellar" "anteater" "sleeper" "nixos-live" ];
+      hosts = [ "brumstellar" "anteater" "sleeper" "nixos-live" "sas" ];
     };
     # ddclient.enable = true; # Not needed since the vpn trough VPS
     lldap.enable = true;

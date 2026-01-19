@@ -102,6 +102,14 @@
           ];
         });
 
+        sas = (nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs outputs; };
+          modules = [
+            ./hosts/sas
+          ];
+        });
+
         # Personal PC
         brumstellar = (nixpkgs.lib.nixosSystem {
           inherit system;
@@ -156,6 +164,16 @@
           #       self.nixosConfigurations.sleeper;
           #   };
           # };
+
+          sas = {
+            hostname = "sas.berky.me";
+            sshUser = "root";
+            profiles.system = {
+              sshUser = "root";
+              path = deployPkgs.deploy-rs.lib.activate.nixos
+                self.nixosConfigurations.sas;
+            };
+          };
 
           brumstellar = {
             hostname = "brumstellar.berky.me";
