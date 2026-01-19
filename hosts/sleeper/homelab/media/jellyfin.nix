@@ -16,7 +16,8 @@ in {
     baseDir = lib.mkOption {
       type = lib.types.path;
       default = "/var/lib/jellyfin";
-      description = "The absolute path where the service will store the important informations";
+      description =
+        "The absolute path where the service will store the important informations";
     };
   };
 
@@ -29,10 +30,24 @@ in {
       # port is 8096
     };
 
-    homelab.traefik.routes = [{
-      host = cfg.domain;
-      port = 8096;
-    }];
+    # Complains about CORS, needs to run in browser without :)
+    # virtualisation.oci-containers.containers.jellyfin-rewind = {
+    #   autoStart = true;
+    #   image = "ghcr.io/chaphasilor/jellyfin-rewind:latest";
+    #   ports = [ "10007:80" ];
+    #
+    # };
+
+    homelab.traefik.routes = [
+      # {
+      #   host = "jellyfin-rewind";
+      #   port = 10007;
+      # }
+      {
+        host = cfg.domain;
+        port = 8096;
+      }
+    ];
 
     homelab.authelia.localBypassDomains = [ dname ];
 
