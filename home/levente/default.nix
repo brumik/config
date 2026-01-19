@@ -5,20 +5,17 @@
   home.stateVersion = "24.11";
   programs.home-manager.enable = true;
   home.packages = with pkgs; [
-    spotify
     signal-desktop
     obsidian
     vscode
-    bitwarden-desktop
     onlyoffice-desktopeditors
     vlc
     yubioath-flutter
     brave
     nextcloud-client
-    protonvpn-gui
     picard
     discord
-    finamp
+    moonlight-qt
   ];
 
   services.nextcloud-client = {
