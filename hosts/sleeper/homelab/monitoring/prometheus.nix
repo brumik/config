@@ -21,13 +21,13 @@ in {
       port = 9093;
 
       exporters = {
-        apcupsd.enable = true;
-        zfs.enable = true;
-        storagebox = {
+        apcupsd.enable = true; # port 9162
+        zfs.enable = true; # port 9134
+        storagebox = { # port 9509
           enable = true;
           tokenFile = config.sops.secrets."n100/prometheus/hetzner-token".path;
         };
-        smartctl = {
+        smartctl = { # port 9633
           enable = true;
           devices = [
             disks.rootDisk1
@@ -43,6 +43,7 @@ in {
           enabledCollectors = [ "systemd" ];
           enable = true;
         };
+        nvidia-gpu.enable = true; # port 9835
       };
 
       # ingest the published nodes
@@ -104,6 +105,16 @@ in {
             (mkDiskRelabel disks.dataSpare "dataSpare")
             (mkDiskRelabel disks.dataCache "dataCache")
           ];
+        }
+        {
+          job_name = "nvidiagpu";
+          static_configs = [{
+            targets = [
+              "127.0.0.1:${
+                toString config.services.prometheus.exporters.nvidia-gpu.port
+              }"
+            ];
+          }];
         }
         # {
         #   job_name = "immich_api";
