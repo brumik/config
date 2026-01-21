@@ -1,6 +1,5 @@
 { config, lib, ... }:
-let
-  cfg = config.homelab.minecraft;
+let cfg = config.homelab.minecraft;
 in {
   options.homelab.minecraft = {
     enable = lib.mkEnableOption "Immich";
@@ -28,8 +27,9 @@ in {
         # "rcon.password" = "hunter2";
       };
       whitelist = {
-        username1 = "332f4e53-0ceb-4655-89c8-fe6195d4afb9";
-        # username2 = "yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy";
+        BrumBarnum = "332f4e53-0ceb-4655-89c8-fe6195d4afb9";
+        Mordiath = "7958ffc4-c45c-4836-9c41-39454146bcf9";
+        Emeariel = "9e800f97-0688-4173-99a0-1409c3e52a32";
       };
     };
   };

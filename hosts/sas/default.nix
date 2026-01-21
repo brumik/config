@@ -45,6 +45,17 @@ in {
         proto = "tcp";
         destination = "${sleeperTailscaleIp}:443";
       }
+      # Minecraft server
+      {
+        sourcePort = 43000;
+        proto = "tcp";
+        destination = "${sleeperTailscaleIp}:43000";
+      }
+      {
+        sourcePort = 43000;
+        proto = "udp";
+        destination = "${sleeperTailscaleIp}:43000";
+      }
     ];
   };
 
@@ -53,32 +64,16 @@ in {
     enable = true;
 
     # Allow incoming HTTP/HTTPS on eth0
-    allowedTCPPorts = [ 80 443 ];
+    # 43000 is for minecraft server foward
+    allowedTCPPorts = [ 80 443 43000 ];
+    allowedUDPPorts = [ 43000 ];
 
     # Explicit forwarding rules
     extraCommands = ''
-      iptables -A FORWARD -i eth0 -o tailscale0 -p tcp -m multiport --dports 80,443 -j ACCEPT
+      iptables -A FORWARD -i eth0 -o tailscale0 -p tcp -m multiport --dports 80,443,43000 -j ACCEPT
+      iptables -A FORWARD -i eth0 -o tailscale0 -p udp --dport 43000 -j ACCEPT
       iptables -A FORWARD -i tailscale0 -o eth0 -m state --state ESTABLISHED,RELATED -j ACCEPT
       iptables -t nat -A POSTROUTING -o tailscale0 -j MASQUERADE
     '';
-  };
-
-  services.minecraft-server = {
-    enable = true;
-    openFirewall = true;
-    declarative = true;
-    eula = true;
-    serverProperties = {
-      server-port = 43000;
-      max-players = 5;
-      motd = "NixOS Minecraft server!";
-      white-list = true;
-      enable-rcon = false; # monitoring tool
-      # "rcon.password" = "hunter2";
-    };
-    whitelist = {
-      BrumBarnum = "332f4e53-0ceb-4655-89c8-fe6195d4afb9";
-      Mordiath = "7958ffc4-c45c-4836-9c41-39454146bcf9";
-    };
   };
 }

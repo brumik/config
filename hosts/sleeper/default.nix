@@ -149,6 +149,6 @@
     printing.enable = true;
 
     # TEMP
-    # minecraft.enable = true;
+    minecraft.enable = true;
   };
 }
