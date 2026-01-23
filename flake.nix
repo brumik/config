@@ -52,10 +52,11 @@
     };
 
     deploy-rs.url = "github:serokell/deploy-rs";
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, disko, deploy-rs, ...
-    }@inputs:
+  outputs =
+    { self, nixpkgs, home-manager, stylix, disko, deploy-rs, ... }@inputs:
     let
       inherit (self) outputs;
       system = "x86_64-linux";
@@ -105,9 +106,7 @@
         sas = (nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs outputs; };
-          modules = [
-            ./hosts/sas
-          ];
+          modules = [ ./hosts/sas ];
         });
 
         # Personal PC
