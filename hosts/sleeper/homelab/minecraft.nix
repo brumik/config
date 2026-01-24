@@ -1,5 +1,7 @@
 { inputs, pkgs, config, lib, ... }:
-let cfg = config.homelab.minecraft;
+let
+  cfg = config.homelab.minecraft;
+  minecraft = config.globals.users.minecraft;
 in {
   imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
 
@@ -17,14 +19,21 @@ in {
   config = lib.mkIf cfg.enable {
     nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
 
+    users = {
+      groups.${minecraft.gname} = { gid = minecraft.gid; };
+      users.${minecraft.uname} = { uid = minecraft.uid; };
+    };
+
     services.minecraft-servers = {
       enable = true;
       openFirewall = true;
       eula = true;
 
+      dataDir = "/persist/minecraft";
+
       servers.vanilla1 = {
         enable = true;
-        package = pkgs.paperServers.paper-1_21_11;
+        package = pkgs.vanillaServers.vanilla-1_21_11;
         jvmOpts = "-Xms2048M -Xmx6144M";
 
         serverProperties = {
@@ -43,27 +52,5 @@ in {
         };
       };
     };
-
-    # Old non flake setup
-    # services.minecraft-server = {
-    #   enable = true;
-    #   openFirewall = true;
-    #   declarative = true;
-    #   eula = true;
-    #   jvmOpts = "-Xmx2048M -Xmx6144M";
-    #   serverProperties = {
-    #     server-port = 43000;
-    #     max-players = 10;
-    #     motd = "Sleeper server (friends only UwU)";
-    #     white-list = true;
-    #     enable-rcon = false; # monitoring tool
-    #     # "rcon.password" = "hunter2";
-    #   };
-    #   whitelist = {
-    #     BrumBarnum = "332f4e53-0ceb-4655-89c8-fe6195d4afb9";
-    #     Mordiath = "7958ffc4-c45c-4836-9c41-39454146bcf9";
-    #     Emeariel = "9e800f97-0688-4173-99a0-1409c3e52a32";
-    #   };
-    # };
   };
 }

@@ -89,6 +89,13 @@ with lib;
       gname = "vaultwarden";
       gid = 991;
     };
+
+    minecraft = {
+      uname = "minecraft";
+      uid = 972;
+      gname = "minecraft";
+      gid = 966;
+    };
   };
 }
 

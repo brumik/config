@@ -8,8 +8,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.sanoid = {
       enable = true;
-      # every six hours
-      interval = "*-*-* 00,06,12,18:00:00";
+      interval = "hourly";
       templates.backup = {
         hourly = 12;
         daily = 30;
