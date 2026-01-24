@@ -24,6 +24,7 @@ in {
       datasets."dpool/photos" = { useTemplate = [ "backup" ]; };
       datasets."rpool/safe" = { useTemplate = [ "backup" ]; };
       datasets."rpool/persist" = { useTemplate = [ "backup" ]; };
+      datasets."rpool/local/root" = { useTemplate = [ "backup" ]; };
     };
 
     services.zfs = {
