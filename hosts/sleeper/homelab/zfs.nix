@@ -10,10 +10,10 @@ in {
       enable = true;
       interval = "hourly";
       templates.backup = {
-        hourly = 12;
+        hourly = 72;
         daily = 30;
-        monthly = 4;
-        yearly = 12;
+        monthly = 12;
+        yearly = 1;
         autoprune = true;
         autosnap = true;
       };
