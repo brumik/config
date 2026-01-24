@@ -18,11 +18,18 @@ in {
         autosnap = true;
       };
 
+      # We need to list all pools OR add recursive option to a dataset
       datasets."dpool/backup" = { useTemplate = [ "backup" ]; };
       datasets."dpool/media" = { useTemplate = [ "backup" ]; };
       datasets."dpool/photos" = { useTemplate = [ "backup" ]; };
-      datasets."rpool/safe" = { useTemplate = [ "backup" ]; };
-      datasets."rpool/persist" = { useTemplate = [ "backup" ]; };
+
+      datasets."rpool/safe/home" = {
+        useTemplate = [ "backup" ];
+        recursive = true;
+      };
+      # datasets."rpool/safe/persist" = { useTemplate = [ "backup" ]; };
+
+      # We do not want /nix
       datasets."rpool/local/root" = { useTemplate = [ "backup" ]; };
     };
 
