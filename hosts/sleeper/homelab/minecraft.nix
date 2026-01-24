@@ -39,6 +39,7 @@ in {
           Mordiath = "7958ffc4-c45c-4836-9c41-39454146bcf9";
           Emeariel = "9e800f97-0688-4173-99a0-1409c3e52a32";
           innessa_art = "8f2594a7-a4fd-441c-96cb-957230f157d7";
+          BNDR = "d73092cf-a57a-44da-a58f-739b047f7b1c";
         };
       };
     };
