@@ -114,12 +114,12 @@
       enable = true;
       # Builders
       # Temp disabled
-      # transmission.enable = true;
-      # prowlarr.enable = true;
-      # radarr.enable = true;
-      # sonarr.enable = true;
-      # recyclarr.enable = true;
-      # bazarr.enable = true;
+      transmission.enable = true;
+      prowlarr.enable = true;
+      radarr.enable = true;
+      sonarr.enable = true;
+      recyclarr.enable = true;
+      bazarr.enable = true;
 
       # This i don't like
       # lidarr.enable = true;
@@ -127,7 +127,7 @@
       # soulseek.enable = true;
       # Consumers
       jellyfin.enable = true;
-      # jellyseerr.enable = true;
+      jellyseerr.enable = true;
       audiobookshelf.enable = true;
       calibre.enable = true;
     };
