@@ -198,8 +198,10 @@ in {
           type = "zpool";
           mode = "mirror";
           options = {
-            # good for ssds
-            ashift = "12";
+            # This is the default and it is for most devices.
+            # IF using enterprise disks we might get better with 13
+            # but that needs a new pool creation, this is not changeable after.
+            # ashift = 12
             autotrim = "on";
           };
           rootFsOptions = {
@@ -246,8 +248,6 @@ in {
           type = "zpool";
           mode = "mirror";
           options = {
-            # good for ssds
-            # ashift = "12";
             autotrim = "on";
           };
           rootFsOptions = {

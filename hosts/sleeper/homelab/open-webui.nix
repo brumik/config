@@ -128,7 +128,8 @@ in {
       port = 11111;
     }];
 
-    homelab.backup.stateDirs = [ cfg.baseDir ];
+    # This is 25G and it is basically cache and uploads only, rest is in config above
+    # homelab.backup.stateDirs = [ cfg.baseDir ];
 
     homelab.authelia.oidc.clients = [{
       client_id = "open-webui";
