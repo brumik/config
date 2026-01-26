@@ -23,11 +23,11 @@ in {
       datasets."dpool/media" = { useTemplate = [ "backup" ]; };
       datasets."dpool/photos" = { useTemplate = [ "backup" ]; };
 
-      datasets."rpool/safe/home" = {
+      datasets."rpool/safe" = {
         useTemplate = [ "backup" ];
+        # Entails safe/home and safe/persist
         recursive = true;
       };
-      # datasets."rpool/safe/persist" = { useTemplate = [ "backup" ]; };
 
       # We do not want /nix
       datasets."rpool/local/root" = { useTemplate = [ "backup" ]; };
