@@ -124,7 +124,7 @@
       # This i don't like
       # lidarr.enable = true;
 
-      # soulseek.enable = true;
+      soulseek.enable = true;
       # Consumers
       jellyfin.enable = true;
       jellyseerr.enable = true;
