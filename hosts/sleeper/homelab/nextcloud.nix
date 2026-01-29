@@ -90,6 +90,9 @@ in {
         maintenance_window_start = 1;
         maintenance_window_duration = 2; # default 2
 
+        # delete trash if space needed (filling quota) or max 90 days
+        trashbin_retention_obligation = "auto,90";
+
         # OICD_login Plugin
         oidc_login_provider_url =
           "https://${hcfg.authelia.domain}.${hcfg.domain}";
