@@ -136,7 +136,7 @@
 
     # Rest
     homepage.enable = true;
-    radicale.enable = true;
+    # radicale.enable = true;
     mealie.enable = true;
     ollama = {
       enable = true;
