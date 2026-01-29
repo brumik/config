@@ -138,7 +138,11 @@
     homepage.enable = true;
     radicale.enable = true;
     mealie.enable = true;
-    ollama.enable = true;
+    ollama = {
+      enable = true;
+      defaultInference = "ctx-gpt-oss:20b";
+      defaultVision = "ctx-gemma3:27b";
+    };
     open-webui = {
       enable = true;
       baseDir = "/persist/oci-open-webui";

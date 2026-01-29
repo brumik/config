@@ -45,20 +45,13 @@ in {
 
     sops.templates."n100/mealie/.env" = {
       content = ''
-        OIDC_CLIENT_SECRET=${
-          config.sops.placeholder."n100/mealie/oidc-client-secret"
-        }
+        OIDC_CLIENT_SECRET=${config.sops.placeholder."n100/mealie/oidc-client-secret"}
         SMTP_PASSWORD=${config.sops.placeholder."n100/mealie/smtp-pass"}
       '';
       owner = config.homelab.user;
     };
 
-    assertions = [{
-      assertion = hcfg.ollama.enable;
-      message = "Mealie depends on ollama";
-    }];
-
-    homelab.ollama.loadModels = [ "gemma3:27b" ];
+    warnings = if !hcfg.ollama.enable then [ "Mealie can use ollama" ] else [ ];
 
     services.mealie = {
       enable = true;
@@ -86,17 +79,18 @@ in {
         # SSO Configuration;
         OIDC_AUTH_ENABLED = "true";
         OIDC_SIGNUP_ENABLED = "true";
-        OIDC_CONFIGURATION_URL =
-          "https://${config.homelab.authelia.domain}.${config.homelab.domain}/.well-known/openid-configuration";
+        OIDC_CONFIGURATION_URL = "https://${config.homelab.authelia.domain}.${config.homelab.domain}/.well-known/openid-configuration";
         OIDC_CLIENT_ID = "mealie";
         OIDC_AUTO_REDIRECT = "true";
         OIDC_ADMIN_GROUP = "mealie_admin";
         OIDC_USER_GROUP = "mealie_user";
 
+      }
+      // lib.mkIf hcfg.ollama.enable {
         # AI
         OPENAI_BASE_URL = "http://${ollama.host}:${toString ollama.port}/v1";
         OPENAI_API_KEY = "unused";
-        OPENAI_MODEL = "gemma3:27b";
+        OPENAI_MODEL = hcfg.ollama.defaultVision;
       };
       credentialsFile = config.sops.templates."n100/mealie/.env".path;
     };
@@ -112,8 +106,7 @@ in {
     homelab.authelia.oidc.clients = [{
       client_id = "mealie";
       client_name = "Mealie";
-      client_secret =
-        "$pbkdf2-sha512$310000$VZKQTEyh9Dksw6uio6HMFA$HCMHsoYcSOx.2bwt7DM6IXk1MNi0ng2WU.I83KcVCzE16.voP4HPoh58AO.ltLLiLvdzroZ0oxD23XAkvs925A";
+      client_secret = "$pbkdf2-sha512$310000$VZKQTEyh9Dksw6uio6HMFA$HCMHsoYcSOx.2bwt7DM6IXk1MNi0ng2WU.I83KcVCzE16.voP4HPoh58AO.ltLLiLvdzroZ0oxD23XAkvs925A";
       public = false;
       consent_mode = "implicit";
       authorization_policy = "one_factor";
