@@ -65,7 +65,7 @@ in {
           #   "camera=(), microphone=(), geolocation=(), payment=(), usb=(), vr=()";
           customResponseHeaders = {
             # disable search engines from indexing home server
-            X-Robots-Tag = "none,noarchive,nosnippet,notranslate,noimageindex,";
+            X-Robots-Tag = "none,noarchive,nosnippet,notranslate,noimageindex,noindex,nofollow";
             # hide server info from visitors
             server = "";
           };

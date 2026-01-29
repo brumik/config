@@ -47,6 +47,22 @@ in {
       owner = "nextcloud";
     };
 
+    systemd.tmpfiles.rules = [
+      # For bulk storage
+      "d /photos/nextcloud-data 0750 nextcloud nextcloud"
+
+      # For database dump location on backup
+      "d /var/lib/pgdump 0755 postgres postgres -"
+    ];
+
+    # 2. Bind‑mount the source onto the Nextcloud data directory
+    fileSystems."${config.services.nextcloud.home}/data" = {
+      device = "/photos/nextcloud-data";
+      fsType = "none";           # “none” tells systemd this is a bind mount
+      options = [ "bind" "rw" ]; # bind‑mount, read‑write
+    };
+
+
     services.nextcloud = {
       enable = true;
       https = false;
@@ -59,40 +75,51 @@ in {
       database.createLocally = true;
       configureRedis = true;
       home = cfg.baseDir;
+      phpOptions = {
+        # The default is 8 but it complains that it is nearly full.
+        "opcache.interned_strings_buffer" = "16";
+      };
       settings = {
         default_phone_region = "DE";
         trusted_proxies = [ "127.0.0.1" ];
-        "allow_user_to_change_display_name" = false;
-        "lost_password_link" = "disabled";
-        "oidc_login_provider_url" =
+        allow_user_to_change_display_name = false;
+        lost_password_link = "disabled";
+
+        # Warning needs to set maintenance window:
+        # Hour (0‑23) when the window opens.  Example: 1 AM.
+        maintenance_window_start = 1;
+        maintenance_window_duration = 2; # default 2
+
+        # OICD_login Plugin
+        oidc_login_provider_url =
           "https://${hcfg.authelia.domain}.${hcfg.domain}";
-        "oidc_login_client_id" = "nextcloud";
-        "oidc_login_auto_redirect" = false;
-        "oidc_login_end_session_redirect" = false;
-        "oidc_login_button_text" = "Log in with Authelia";
-        "oidc_login_hide_password_form" = false;
-        "oidc_login_use_id_token" = false;
-        "oidc_login_attributes" = {
-          "id" = "preferred_username";
-          "name" = "name";
-          "mail" = "email";
-          "groups" = "groups";
+        odc_login_client_id = "nextcloud";
+        oidc_login_auto_redirect = false;
+        oidc_login_end_session_redirect = false;
+        oidc_login_button_text = "Log in with Authelia";
+        oidc_login_hide_password_form = false;
+        oidc_login_use_id_token = false;
+        oidc_login_attributes = {
+          id = "preferred_username";
+          name = "name";
+          mail = "email";
+          groups = "groups";
         };
-        "oidc_login_default_group" = "oidc";
-        "oidc_login_use_external_storage" = false;
-        "oidc_login_scope" = "openid profile email groups";
-        "oidc_login_proxy_ldap" = false;
-        "oidc_login_disable_registration" = false;
-        "oidc_login_redir_fallback" = false;
-        "oidc_login_tls_verify" = true;
-        "oidc_create_groups" = false;
-        "oidc_login_webdav_enabled" = false;
-        "oidc_login_password_authentication" = false;
-        "oidc_login_public_key_caching_time" = 86400;
-        "oidc_login_min_time_between_jwks_requests" = 10;
-        "oidc_login_well_known_caching_time" = 86400;
-        "oidc_login_update_avatar" = false;
-        "oidc_login_code_challenge_method" = "S256";
+        oidc_login_default_group = "oidc";
+        oidc_login_use_external_storage = false;
+        oidc_login_scope = "openid profile email groups";
+        oidc_login_proxy_ldap = false;
+        oidc_login_disable_registration = false;
+        oidc_login_redir_fallback = false;
+        oidc_login_tls_verify = true;
+        oidc_create_groups = false;
+        oidc_login_webdav_enabled = false;
+        oidc_login_password_authentication = false;
+        oidc_login_public_key_caching_time = 86400;
+        oidc_login_min_time_between_jwks_requests = 10;
+        oidc_login_well_known_caching_time = 86400;
+        oidc_login_update_avatar = false;
+        oidc_login_code_challenge_method = "S256";
       };
       secretFile = config.sops.templates."n100/nextcloud/config-secrets".path;
       extraApps = {
@@ -126,7 +153,7 @@ in {
     # Set up the dumping of the database #
     # Duplicated in Nextcloud            #
     ######################################
-    systemd.tmpfiles.rules = [ "d /var/lib/pgdump 0755 postgres postgres -" ];
+    # moved out to top tmpfiles
 
     # Create a service to backup the PG database
     systemd.services.pgDumpNextcloud = {
