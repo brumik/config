@@ -26,7 +26,7 @@ in {
       "d ${dir} 0755 share share -"
       "d ${dir}/calibre 0755 share share -"
       "d ${dir}/calibre/Calibre\\ Library 0755 share share -"
-      "d ${dir}/calibre-web 0755 share share -"
+      # "d ${dir}/calibre-web 0755 share share -"
     ];
 
     virtualisation.oci-containers.containers."calibre" = {
@@ -36,54 +36,54 @@ in {
       environment = {
         TZ = "${config.time.timeZone}";
         PUID =
-          builtins.toString config.users.users."${config.homelab.user}".uid;
+          toString config.users.users."${config.homelab.user}".uid;
         PGID =
-          builtins.toString config.users.groups."${config.homelab.group}".gid;
+          toString config.users.groups."${config.homelab.group}".gid;
       };
       volumes = [ "${dir}/calibre:/config" ];
     };
 
     # TODO: this will fail on empty calibre library
     # solution: wait until calibre starts up and creates an empty library on a new server
-    virtualisation.oci-containers.containers."calibre-web" = {
-      image = "lscr.io/linuxserver/calibre-web:latest";
-      pull = "always";
-      ports = [ "11083:8083" ];
-      environment = {
-        TZ = "${config.time.timeZone}";
-        PUID =
-          builtins.toString config.users.users."${config.homelab.user}".uid;
-        PGID =
-          builtins.toString config.users.groups."${config.homelab.group}".gid;
-      };
-      volumes = [
-        "${dir}/calibre-web:/config"
-        "${dir}/calibre/Calibre Library:/books"
-      ];
-    };
+    # virtualisation.oci-containers.containers."calibre-web" = {
+    #   image = "lscr.io/linuxserver/calibre-web:latest";
+    #   pull = "always";
+    #   ports = [ "11083:8083" ];
+    #   environment = {
+    #     TZ = "${config.time.timeZone}";
+    #     PUID =
+    #       toString config.users.users."${config.homelab.user}".uid;
+    #     PGID =
+    #       toString config.users.groups."${config.homelab.group}".gid;
+    #   };
+    #   volumes = [
+    #     "${dir}/calibre-web:/config"
+    #     "${dir}/calibre/Calibre Library:/books"
+    #   ];
+    # };
 
     homelab.traefik.routes = [
       {
         host = "calibre";
         port = 11080;
       }
-      {
-        host = cfg.domain;
-        port = 11083;
-      }
+      # {
+      #   host = cfg.domain;
+      #   port = 11083;
+      # }
     ];
 
     homelab.backup.stateDirs = [ dir ];
 
     homelab.homepage.media = [
-      {
-        "Calibre Web" = {
-          icon = "calibre-web.png";
-          href = "https://${cfg.domain}.${config.homelab.domain}";
-          siteMonitor = "https://${cfg.domain}.${config.homelab.domain}";
-          description = "Ebook reading services";
-        };
-      }
+      # {
+      #   "Calibre Web" = {
+      #     icon = "calibre-web.png";
+      #     href = "https://${cfg.domain}.${config.homelab.domain}";
+      #     siteMonitor = "https://${cfg.domain}.${config.homelab.domain}";
+      #     description = "Ebook reading services";
+      #   };
+      # }
       {
         "Calibre" = {
           icon = "calibre.png";
