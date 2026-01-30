@@ -66,7 +66,7 @@ in {
 
     loadModels = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ "mistral-small:24b-instruct-2501-q4_K_M" "gemma3:27b" cfg.defaultEmbed ];
+      default = [ cfg.defaultEmbed ];
       description =
         "The list of models that will be avaiable after system build";
     };
