@@ -48,7 +48,7 @@ in {
         OIDC_CLIENT_SECRET=${config.sops.placeholder."n100/mealie/oidc-client-secret"}
         SMTP_PASSWORD=${config.sops.placeholder."n100/mealie/smtp-pass"}
       '';
-      owner = config.homelab.user;
+      owner = mealie.uname;
     };
 
     warnings = if !hcfg.ollama.enable then [ "Mealie can use ollama" ] else [ ];
@@ -57,41 +57,43 @@ in {
       enable = true;
       listenAddress = "127.0.0.1";
       port = 9000;
-      settings = {
-        PUID = mealie.uid;
-        PGID = mealie.gid;
-        BASE_URL = "https://${dname}";
-        ALLOW_SIGNUP = "false";
-        LOG_LEVEL = "ERROR";
-        # LOG_LEVEL = "DEBUG";
+      settings = lib.mkMerge [
+        {
+          PUID = mealie.uid;
+          PGID = mealie.gid;
+          BASE_URL = "https://${dname}";
+          ALLOW_SIGNUP = "false";
+          LOG_LEVEL = "ERROR";
+          # LOG_LEVEL = "DEBUG";
 
-        # =====================================;
-        # Email Configuration;
-        SMTP_HOST = "smtp.m1.websupport.sk";
-        SMTP_PORT = "465";
-        SMTP_FROM_NAME = "Mealie";
-        SMTP_AUTH_STRATEGY = "SSL";
-        SMTP_FROM_EMAIL = "mealie-noreply@berky.me";
-        SMTP_USER = "mealie-noreply@berky.me";
+          # =====================================;
+          # Email Configuration;
+          SMTP_HOST = "smtp.m1.websupport.sk";
+          SMTP_PORT = "465";
+          SMTP_FROM_NAME = "Mealie";
+          SMTP_AUTH_STRATEGY = "SSL";
+          SMTP_FROM_EMAIL = "mealie-noreply@berky.me";
+          SMTP_USER = "mealie-noreply@berky.me";
 
-        DB_ENGINE = "sqlite";
-        # =====================================;
-        # SSO Configuration;
-        OIDC_AUTH_ENABLED = "true";
-        OIDC_SIGNUP_ENABLED = "true";
-        OIDC_CONFIGURATION_URL = "https://${config.homelab.authelia.domain}.${config.homelab.domain}/.well-known/openid-configuration";
-        OIDC_CLIENT_ID = "mealie";
-        OIDC_AUTO_REDIRECT = "true";
-        OIDC_ADMIN_GROUP = "mealie_admin";
-        OIDC_USER_GROUP = "mealie_user";
+          DB_ENGINE = "sqlite";
+          # =====================================;
+          # SSO Configuration;
+          OIDC_AUTH_ENABLED = "true";
+          OIDC_SIGNUP_ENABLED = "true";
+          OIDC_CONFIGURATION_URL = "https://${config.homelab.authelia.domain}.${config.homelab.domain}/.well-known/openid-configuration";
+          OIDC_CLIENT_ID = "mealie";
+          OIDC_AUTO_REDIRECT = "true";
+          OIDC_ADMIN_GROUP = "mealie_admin";
+          OIDC_USER_GROUP = "mealie_user";
 
-      }
-      // lib.mkIf hcfg.ollama.enable {
-        # AI
-        OPENAI_BASE_URL = "http://${ollama.host}:${toString ollama.port}/v1";
-        OPENAI_API_KEY = "unused";
-        OPENAI_MODEL = hcfg.ollama.defaultVision;
-      };
+        }
+        (lib.mkIf hcfg.ollama.enable {
+          # AI
+          OPENAI_BASE_URL = "http://${ollama.host}:${toString ollama.port}/v1";
+          OPENAI_API_KEY = "unused";
+          OPENAI_MODEL = hcfg.ollama.defaultVision;
+        })
+      ];
       credentialsFile = config.sops.templates."n100/mealie/.env".path;
     };
 
