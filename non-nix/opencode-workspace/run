@@ -1,4 +1,4 @@
-#!/usr/env sh
+#!/usr/bin/env sh
 
 # Run opencode in docker
 
@@ -6,4 +6,4 @@
 docker compose -f /home/levente/config/non-nix/opencode-workspace/docker-compose.yml up -d
 
 # Execute opencode in the container
-docker compose -f /home/levente/config/non-nix/opencode-workspace/docker-compose.yml exec opencode opencode
+docker compose -f /home/levente/config/non-nix/opencode-workspace/docker-compose.yml exec opencode /bin/bash

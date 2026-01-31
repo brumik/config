@@ -3,12 +3,16 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        UID: 1010
+        GID: 100
     container_name: opencode
     volumes:
-      - ./opencode.json:/workspace/opencode.json:ro
-      - /home/levente/config:/workspace/config
+      - ./opencode.json:/home/levente/.config/opencode/opencode.json:ro
+      - /home/levente/config:/home/levente/config
+      - /home/levente/Documents:/home/levente/Documents
     environment:
-      - OPENCODE_CONFIG=/workspace/opencode.json
+      - OPENCODE_CONFIG=/home/levente/.config/opencode/opencode.json
     ports:
       - "4096:4096"
     stdin_open: true 
