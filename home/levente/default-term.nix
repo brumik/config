@@ -24,6 +24,7 @@ in {
   home.packages = [
     pkgs.just
     pkgs.tree
+    pkgs.opencode
   ];
 
   imports = [
