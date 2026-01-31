@@ -1,0 +1,25 @@
+services:
+  opencode:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: opencode
+    volumes:
+      - ./opencode.json:/workspace/opencode.json:ro
+      - /home/levente/config:/workspace/config
+    environment:
+      - OPENCODE_CONFIG=/workspace/opencode.json
+    ports:
+      - "4096:4096"
+    stdin_open: true 
+    tty: true   
+    networks:
+      - vibe_sandbox
+
+
+networks:
+  vibe_sandbox:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_icc: "false" # Isolates container from your local network
+      
