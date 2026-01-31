@@ -1,5 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "model": "ollama/ctx-glm-4.7-flash:latest",
   "provider": {
     "ollama": {
       "npm": "@ai-sdk/openai-compatible",
