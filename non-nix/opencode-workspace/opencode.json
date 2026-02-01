@@ -8,7 +8,7 @@
       "name": "Ollama",
       "options": {
         "baseURL": "https://ollama.berky.me/v1",
-        "apiKey": "3fT4aeclBhPTUNfKSCcHU5eHeA1k2v9PWLi5LlYY"
+        "apiKey": "{env:OLLAMA_API_KEY}"
       },
       "models": {
         "ctx-glm-4.7-flash:latest": {
