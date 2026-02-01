@@ -1,7 +1,8 @@
 { config, lib, ... }:
 let
   cfg = config.homelab.kiwix;
-  dname = "${cfg.domain}.${config.homelab.domain}";
+  hcfg = config.homelab;
+  dname = "${cfg.domain}.${hcfg.domain}";
 in {
   options.homelab.kiwix = {
     enable = lib.mkEnableOption "kiwix";
@@ -19,7 +20,7 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && cfg.enable) {
 
     virtualisation.oci-containers.containers.kiwix = {
       image = "ghcr.io/kiwix/kiwix-serve:latest";

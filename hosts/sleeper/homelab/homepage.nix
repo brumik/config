@@ -1,8 +1,9 @@
 { config, pkgs, lib, ... }:
 let
   cfg = config.homelab.homepage;
+  hcfg = config.homelab;
   envFile = pkgs.writeText "my-service-env" ''
-    HOMEPAGE_ALLOWED_HOSTS=${config.homelab.domain}
+    HOMEPAGE_ALLOWED_HOSTS=${hcfg.domain}
   '';
 in {
   options.homelab.homepage = {
@@ -14,7 +15,7 @@ in {
     arr = lib.mkOption { default = [ ]; };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && cfg.enable) {
     services.homepage-dashboard = {
       enable = true;
       environmentFile = "${envFile}";
@@ -49,7 +50,7 @@ in {
       routers = {
         "homepage-rtr" = {
           entryPoints = "websecure";
-          rule = "Host(`${config.homelab.domain}`)";
+          rule = "Host(`${hcfg.domain}`)";
           service = "homepage-srv";
         };
       };

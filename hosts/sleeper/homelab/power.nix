@@ -1,9 +1,11 @@
 { config, lib, pkgs, ... }:
-let cfg = config.homelab.power;
+let
+  cfg = config.homelab.power;
+  hcfg = config.homelab;
 in {
   options.homelab.power = { enable = lib.mkEnableOption "power"; };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && cfg.enable) {
     environment.systemPackages = with pkgs; [
       powertop
       pciutils

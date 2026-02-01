@@ -1,6 +1,7 @@
 { config, lib, ... }:
 let
   cfg = config.homelab.radicale;
+  hcfg = config.homelab;
   radicale = config.globals.users.radicale;
 in {
   options.homelab.radicale = {
@@ -19,7 +20,7 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && cfg.enable) {
     # Define user ids
     users.users."${radicale.uname}".uid = radicale.uid;
     users.groups."${radicale.gname}".gid = radicale.gid;

@@ -23,7 +23,7 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && cfg.enable) {
     users = {
       groups.${mealie.gname} = { gid = mealie.gid; };
       users.${mealie.uname} = {

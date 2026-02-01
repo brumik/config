@@ -22,7 +22,7 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && cfg.enable) {
     systemd.tmpfiles.rules = lib.mkIf (cfg.baseDir != baseDirDefaultVal) [
       "d ${cfg.baseDir} 0755 root root -"
       "L ${baseDirDefaultVal} - - - - ${cfg.baseDir}"

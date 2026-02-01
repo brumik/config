@@ -1,5 +1,7 @@
 { config, lib, ... }:
-let cfg = config.homelab.tailscale;
+let
+  cfg = config.homelab.tailscale;
+  hcfg = config.homelab;
 in {
   options.homelab.tailscale = {
     enable = lib.mkEnableOption "tailscale";
@@ -25,7 +27,7 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && cfg.enable) {
     sops.secrets."n100/tailscale-key" = {};
     services.tailscale = {
       enable = true;

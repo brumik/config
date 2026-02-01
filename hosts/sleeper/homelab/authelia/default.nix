@@ -72,7 +72,7 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && cfg.enable) {
     # Define user ids
     users.users."${config.services.authelia.instances."${instance}".user}".uid =
       config.globals.users.authelia.uid;

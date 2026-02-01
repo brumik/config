@@ -1,7 +1,8 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.homelab.immich;
-  dname = "${cfg.domain}.${config.homelab.domain}";
+  hcfg = config.homelab;
+  dname = "${cfg.domain}.${hcfg.domain}";
   immich = config.globals.users.immich;
 in {
   options.homelab.immich = {
@@ -10,18 +11,18 @@ in {
     domain = lib.mkOption {
       type = lib.types.str;
       default = "photos";
-      description = "The subdomain where the service will be served";
+      description = "The subdomain where service will be served";
     };
 
     baseDir = lib.mkOption {
       type = lib.types.path;
       default = "/var/lib/immich";
       description =
-        "The absolute path where the service will store the important information";
+        "The absolute path where service will store the important information";
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && cfg.enable) {
     users = {
       groups.${immich.gname} = { gid = immich.gid; };
       users.${immich.uname} = { 

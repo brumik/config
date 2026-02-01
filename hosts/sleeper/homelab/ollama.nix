@@ -109,7 +109,7 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && cfg.enable) {
 
     sops.secrets = { "n100/ollama/bearer" = { }; };
     sops.templates."n100/ollama/.env" = {

@@ -1,7 +1,8 @@
 { config, lib, ... }:
 let
   cfg = config.homelab.wishlist;
-  dname = "${cfg.domain}.${config.homelab.domain}";
+  hcfg = config.homelab;
+  dname = "${cfg.domain}.${hcfg.domain}";
 in {
   options.homelab.wishlist = {
     enable = lib.mkEnableOption "wishlist";
@@ -16,7 +17,7 @@ in {
       description = "The absolute path where the service will store important information";
     };
   };
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && cfg.enable) {
     systemd.tmpfiles.rules = [
       "d ${cfg.baseDir} 0755 - - -"
       "d ${cfg.baseDir}/uploads 0755 - - -"

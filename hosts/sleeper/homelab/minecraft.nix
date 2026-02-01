@@ -1,12 +1,13 @@
 { inputs, pkgs, config, lib, ... }:
 let
   cfg = config.homelab.minecraft;
+  hcfg = config.homelab;
   minecraft = config.globals.users.minecraft;
 in {
   imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
 
   options.homelab.minecraft = {
-    enable = lib.mkEnableOption "Immich";
+    enable = lib.mkEnableOption "Minecraft";
 
     baseDir = lib.mkOption {
       type = lib.types.path;
@@ -16,7 +17,7 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && cfg.enable) {
     nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
 
     users = {

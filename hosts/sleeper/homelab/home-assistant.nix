@@ -28,7 +28,7 @@ in {
       description = "The subdomain where the service will be served";
     };
   };
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && cfg.enable) {
     # Enable libvirt and virtualization support
     virtualisation.libvirtd.enable = true;
     environment.systemPackages = with pkgs; [ qemu_kvm OVMF ];

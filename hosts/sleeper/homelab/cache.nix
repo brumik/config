@@ -14,7 +14,7 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && cfg.enable) {
     sops.secrets = { "private-keys/cache-private-key-pem" = { }; };
 
     services.nix-serve = {

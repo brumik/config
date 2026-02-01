@@ -1,11 +1,12 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.homelab.smart;
+  hcfg = config.homelab;
   disks = config.mySystems.disks;
 in {
   options.homelab.smart = { enable = lib.mkEnableOption "smart"; };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && cfg.enable) {
     services.smartd = {
       enable = true;
       # Turns on monitoring of all the things (see man 5 smartd.conf)

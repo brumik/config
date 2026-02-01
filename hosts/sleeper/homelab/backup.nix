@@ -53,7 +53,7 @@ in {
   };
 
   config = lib.mkMerge [
-    (lib.mkIf cfg.enable {
+    (lib.mkIf (hcfg.enable && cfg.enable) {
       users.users.restic = { isNormalUser = true; };
       sops.secrets."n100/restic/password" = { owner = "restic"; };
       sops.secrets."n100/restic/id_hetzner_pub" = { owner = "restic"; };
@@ -87,7 +87,7 @@ in {
         };
       };
     })
-    (lib.mkIf hcfg.email.enable {
+    (lib.mkIf (hcfg.enable && cfg.enable && hcfg.email.enable) {
       systemd.services.restic-remotebackup-email = {
         description = "Restic Check and Email Results";
         serviceConfig = {

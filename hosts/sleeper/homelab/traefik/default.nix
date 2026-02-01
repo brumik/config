@@ -2,6 +2,7 @@
 let
   types = lib.types;
   cfg = config.homelab.traefik;
+  hcfg = config.homelab;
 in {
   imports = [ ./middlewares.nix ./externalRoutes.nix ];
 
@@ -36,7 +37,7 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && cfg.enable) {
     sops.secrets = { "n100/traefik/websupport-secret" = { }; };
     sops.templates."n100/traefik/.env" = {
       content = ''

@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 let
   cfg = config.homelab.email;
+  hcfg = config.homelab;
 in {
   options.homelab.email = {
     enable = lib.mkEnableOption "email";
@@ -12,7 +13,7 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && cfg.enable) {
     sops.secrets = { "n100/smtp-pass" = { }; };
 
     programs.msmtp = {

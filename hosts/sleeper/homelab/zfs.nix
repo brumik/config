@@ -5,7 +5,7 @@ let
 in {
   options.homelab.zfs = { enable = lib.mkEnableOption "zfs"; };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && cfg.enable) {
     services.sanoid = {
       enable = true;
       interval = "hourly";

@@ -1,7 +1,8 @@
 { config, lib, ... }:
 let
   cfg = config.homelab.freshrss;
-  dname = "${cfg.domain}.${config.homelab.domain}";
+  hcfg = config.homelab;
+  dname = "${cfg.domain}.${hcfg.domain}";
 in {
   options.homelab.freshrss = {
     enable = lib.mkEnableOption "freshrss";
@@ -9,17 +10,17 @@ in {
     domain = lib.mkOption {
       type = lib.types.str;
       default = "rss";
-      description = "The subdomain where the service will be served";
+      description = "The subdomain where service will be served";
     };
 
     baseDir = lib.mkOption {
       type = lib.types.path;
       default = "/var/lib/oci-freshrss";
-      description = "The absolute path where the service will store the important information";
+      description = "The absolute path where service will store the important information";
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && cfg.enable) {
     systemd.tmpfiles.rules = [
       "d ${cfg.baseDir} 0755 - - -"
       "d ${cfg.baseDir}/extensions 0755 - - -"

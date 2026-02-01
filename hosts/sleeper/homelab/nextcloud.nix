@@ -25,7 +25,7 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && cfg.enable) {
     users.users."${nextcloud.uname}" = { uid = nextcloud.uid; };
     users.groups."${nextcloud.gname}" = { gid = nextcloud.gid; };
 

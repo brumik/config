@@ -1,7 +1,8 @@
 { config, lib, ... }:
 let
   cfg = config.homelab.lldap;
-  dname = "${cfg.domain}.${config.homelab.domain}";
+  hcfg = config.homelab;
+  dname = "${cfg.domain}.${hcfg.domain}";
   lldap = config.globals.users.lldap;
 in {
   options.homelab.lldap = {
@@ -19,7 +20,7 @@ in {
       description = "The absolute path where the service will store the important information";
     };
   };
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (hcfg.enable && cfg.enable) {
     # create the user that run the service
     users.users."${lldap.uname}" = {
       isSystemUser = true;
