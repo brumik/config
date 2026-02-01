@@ -25,19 +25,19 @@ in {
       type = lib.types.path;
       default = "/media";
       description =
-        "The absolute path where the service will store the important informations";
+        "The absolute path where the service will store the important information";
     };
     torrentDir = lib.mkOption {
       type = lib.types.path;
       default = "/media/torrents";
       description =
-        "The absolute path where the service will store the important informations";
+        "The absolute path where the service will store the important information";
     };
     libDir = lib.mkOption {
       type = lib.types.path;
       default = "/media/library";
       description =
-        "The absolute path where the service will store the important informations";
+        "The absolute path where the service will store the important information";
     };
   };
 

@@ -42,17 +42,17 @@ sops.templates."n100/traefik/.env" = {
 
 ## File Naming & Typos
 
-### [FILE] Incorrect filename
-**Location:** `whislist.nix`
+### [FILE] ~~Incorrect filename~~ ✅ FIXED
+**Location:** `whislist.nix` → `wishlist.nix`
 **Issue:** Filename has typo (should be "wishlist")
 **Impact:** Inconsistent naming, confusion
-**Fix:** Rename to `wishlist.nix` and update imports in `default.nix:36`
+**Fix:** Renamed to `wishlist.nix` and updated imports in `default.nix:36`
 
-### [TYPO] Typo in ollama.nix
+### [TYPO] ~~Typo in ollama.nix~~ ✅ FIXED
 **Location:** `ollama.nix:171`
 **Issue:** `escription` instead of `description`
 **Impact:** Homepage dashboard may not display properly
-**Fix:** Change to `description = "LLM at home";`
+**Fix:** Changed to `description = "LLM at home";`
 
 ---
 
@@ -118,11 +118,11 @@ baseDir = lib.mkOption {
 };
 ```
 
-### [INCONSISTENT] Grammatical errors
+### [INCONSISTENT] ~~Grammatical errors~~ ✅ FIXED
 **Locations:** Multiple files throughout homelab/
 **Issue:** "informations" used instead of "information" (mass noun)
 **Impact:** Unprofessional, inconsistent with English grammar
-**Fix:** Replace all occurrences of "informations" with "information"
+**Fix:** Replaced all occurrences (26) of "informations" with "information"
 
 ### [INCONSISTENT] tmpfiles syntax quoting
 **Locations:**
@@ -146,7 +146,7 @@ baseDir = lib.mkOption {
 
 ### [ORGANIZATION] Container-based services scattered
 **Issue:** Services using oci-containers are mixed with native services:
-- `whislist.nix`
+- `wishlist.nix` (renamed from whislist.nix)
 - `transmission.nix`
 - `prowlarr.nix` (includes flaresolverr container)
 - Others scattered
@@ -237,15 +237,15 @@ homelab/
 ### High Priority (Do first)
 1. [SECURITY] Move all hardcoded secrets to sops
 2. [SECURITY] Fix CORS configuration in ollama
-3. [FILE] Rename whislist.nix → wishlist.nix
+3. ~~[FILE] Rename whislist.nix → wishlist.nix~~ ✅ DONE
 4. [DUPLICATE] Extract database dump pattern to shared module
-5. [TYPO] Fix ollama.nix description typo
+5. ~~[TYPO] Fix ollama.nix description typo~~ ✅ DONE
 
 ### Medium Priority
 6. [INCONSISTENT] Standardize tmpfiles quoting
 7. [INCONSISTENT] Use service-config ports everywhere
 8. [CLEANUP] Remove commented code or organize better
-9. [INCONSISTENT] Fix "informations" → "information"
+9. ~~[INCONSISTENT] Fix "informations" → "information"~~ ✅ DONE
 10. [REFACTOR] Create shared utility module
 
 ### Low Priority (Nice to have)

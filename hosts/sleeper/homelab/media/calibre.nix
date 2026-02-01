@@ -16,7 +16,7 @@ in {
     baseDir = lib.mkOption {
       type = lib.types.path;
       default = "/var/lib/oci-calibre";
-      description = "The absolute path where the service will store the important informations";
+      description = "The absolute path where the service will store the important information";
     };
   };
 

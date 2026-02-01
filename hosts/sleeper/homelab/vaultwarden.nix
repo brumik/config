@@ -17,7 +17,7 @@ in {
     backupDir = lib.mkOption {
       type = lib.types.path;
       default = "/var/lib/backup-valutwarden";
-      description = "The absolute path where the service will store the important informations";
+      description = "The absolute path where the service will store the important information";
     };
   };
 

@@ -25,7 +25,7 @@ in {
       type = lib.types.path;
       default = "/var/lib/authelia-main";
       description =
-        "The absolute path where authelia will store the important informations";
+        "The absolute path where authelia will store the important information";
     };
 
     bypassDomains = lib.mkOption {

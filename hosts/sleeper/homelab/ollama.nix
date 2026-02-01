@@ -168,7 +168,7 @@ in {
         icon = "ollama.png";
         href = "https://${dname}";
         siteMonitor = "https://${dname}";
-        escription = "LLM at home";
+        description = "LLM at home";
       };
     }];
   };

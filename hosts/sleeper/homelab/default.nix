@@ -33,7 +33,7 @@ in {
     ./media
     ./nfs.nix
     ./smart.nix
-    ./whislist.nix
+    ./wishlist.nix
     ./printing.nix
     ./monitoring
     ./minecraft.nix
