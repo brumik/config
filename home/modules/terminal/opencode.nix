@@ -1,5 +1,7 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
+  home.packages = with pkgs; [ nodejs ];
+
   sops.secrets = { "n100/ollama/bearer" = { }; };
   programs.opencode = {
     enable = true;
@@ -19,6 +21,21 @@
             };
           };
         };
+      };
+      mcp = {
+        obsidian = {
+          type = "local";
+          command = [
+            "npx"
+            "-y"
+            "@mauricio.wolff/mcp-obsidian@latest"
+            "/home/levente/Documents/MyVault"
+          ];
+          enabled = true;
+        };
+      };
+      tools = {
+        "obsidian_*" = true;
       };
     };
   };
