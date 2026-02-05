@@ -17,20 +17,20 @@ let
     import httpx
     import os
 
-    app = FastAPI()
-
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=["*"],
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
-
     OLLAMA_URL = os.getenv("OLLAMA_URL", "http://localhost:11434")
     BEARER_TOKEN = os.getenv("TOKEN")
     HOST = os.getenv("HOST")
     PORT = int(os.getenv("PORT"))
+
+    app = FastAPI()
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=[HOST],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
     @app.api_route("/{full_path:path}", methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"])
     async def proxy(full_path: str, request: Request):

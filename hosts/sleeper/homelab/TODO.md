@@ -32,12 +32,6 @@ sops.templates."n100/traefik/.env" = {
 **Impact:** Secret exposed in Nix store
 **Fix:** Move to sops secrets and reference via placeholder
 
-### [SECURITY] Overly permissive CORS in Ollama
-**Location:** `ollama.nix:24`
-**Issue:** `allow_origins=["*"]` allows requests from any origin
-**Impact:** Potential security vulnerability
-**Fix:** Restrict to known origins or implement proper authentication
-
 ---
 
 ## File Naming & Typos
