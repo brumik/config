@@ -11,6 +11,6 @@
     ./tmux
     ./kitty.nix
     ./pet.nix
-    ./opencode.nix
+    ./opencode
   ];
 }

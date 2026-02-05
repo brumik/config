@@ -2,9 +2,17 @@
 {
   home.packages = with pkgs; [ nodejs ];
 
-  sops.secrets = { "n100/ollama/bearer" = { }; };
+  sops.secrets = {
+    "n100/ollama/bearer" = { };
+  };
   programs.opencode = {
     enable = true;
+
+    agents = {
+      obsidian = ./agent-obsidian.md;
+      nixos-developer = ./agent-nixos-developer.md;
+    };
+
     settings = {
       model = "ollama/ctx-glm-4.7-flash:latest";
       provider = {
@@ -22,6 +30,7 @@
           };
         };
       };
+
       mcp = {
         obsidian = {
           type = "local";
@@ -33,9 +42,20 @@
           ];
           enabled = true;
         };
+        nixos = {
+          type = "local";
+          command = [
+            "nix"
+            "run"
+            "github:utensils/mcp-nixos"
+            "--"
+          ];
+        };
       };
+
       tools = {
-        "obsidian_*" = true;
+        "obsidian_*" = false;
+        "nixos_*" = false;
       };
     };
   };
