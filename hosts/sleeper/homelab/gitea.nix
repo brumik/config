@@ -38,17 +38,17 @@ in
     services.gitea = {
       enable = true;
       user = gitea.uname;
-      group = gitea.group;
+      group = gitea.gname;
       stateDir = cfg.baseDir;
 
       settings = {
         server = {
           HTTP_ADDR = "127.0.0.1";
           HTTP_PORT = 10012;
-          ROOT_URL = dname;
+          ROOT_URL = "https://${dname}";
         };
         service = {
-          DISABLE_REGISTRATION = false; # disable after initial admin user creation
+          DISABLE_REGISTRATION = true; # disable after initial admin user creation
           ENABLE_REVERSE_PROXY_AUTHENTICATION = true;
           ENABLE_REVERSE_PROXY_AUTO_REGISTRATION = true;
           REVERSE_PROXY_AUTHENTICATION_USER = "Remote-User";
@@ -56,16 +56,15 @@ in
           ENABLE_REVERSE_PROXY_FULL_NAME = true;
           REVERSE_PROXY_AUTHENTICATION_FULL_NAME = "Remote-Name";
         };
+        mailer = {
+          ENABLED = true;
+          PROTOCOL = "sendmail";
+          FROM = "Gitea <gitea@berky.me>";
+        };
       };
 
       database = {
         type = "sqlite3";
-      };
-
-      mailbox = {
-        ENABLED = true;
-        PROTOCOL = "sendmail";
-        FROM = "Gitea <gitea@berky.me>";
       };
     };
 
@@ -86,7 +85,7 @@ in
         Gitea = {
           href = "https://${dname}";
           siteMonitor = "https://${dname}/api/v1/version";
-          description = "Self-hosted Git service with OIDC authentication";
+          description = "Self-hosted Git service";
         };
       }
     ];
