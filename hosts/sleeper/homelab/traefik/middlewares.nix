@@ -25,7 +25,7 @@ in {
       middlewares-authelia = {
         forwardAuth = {
           address = "http://${authelia.address}:${
-              builtins.toString authelia.port
+              toString authelia.port
             }/api/authz/forward-auth";
           trustForwardHeader = true;
           authResponseHeaders =
