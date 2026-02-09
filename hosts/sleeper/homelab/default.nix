@@ -28,6 +28,7 @@ in {
     ./email.nix
     ./auto-update.nix
     ./stirling-pdf.nix
+    ./gitea.nix
     ./kiwix.nix
     ./glances.nix
     ./media

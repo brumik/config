@@ -96,6 +96,14 @@ with lib;
       gname = "minecraft";
       gid = 966;
     };
+
+    # Service users (UID/GID >= 1000 to avoid conflicts)
+    gitea = {
+      uname = "gitea";
+      uid = 2020;
+      gname = "gitea";
+      gid = 2020;
+    };
   };
 }
 
